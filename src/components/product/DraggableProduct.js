@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import Draggable from 'react-draggable'
 
-// import {DraggableCore} from "react-draggable";
-
 class DraggableProduct extends Component {
     state = {
         id: 0,
@@ -11,6 +9,7 @@ class DraggableProduct extends Component {
     };
 
     handleDrag = (e, ui) => {
+        // console.log(e);
         // console.log(ui);
         this.setState({
             id: this.props.id,
@@ -21,44 +20,27 @@ class DraggableProduct extends Component {
 
 
     handleStop = (e, ui) => {
-        console.log(e.pageX);
-        console.log(e.pageY);
-        console.log(e);
+        console.log(e.target);
+        console.log(ui);
         console.log("Stopped");
     };
-
-    eventLogger = (e: MouseEvent, data: Object) => {
-        console.log('Event: ', e);
-        console.log('Data: ', data);
-    };
+    // eventLogger = (e: MouseEvent, data: Object) => {
+    // console.log('Event: ', e);
+    // console.log('Data: ', data);
+    // };
 
     render() {
-        // const dragHandlers = {onStart: this.onStart, onStop: this.onStop};
-
         return (
             <React.Fragment>
-                {/*{this.props.id}*/}
-                {/*{this.props.name}*/}
-                {/*{this.props.description}*/}
-                {/*{this.props.price}*/}
-                {/*{this.props.availableQuantity}*/}
                 <Draggable
                     bounds="parent"
-                    onDrag={this.eventLogger}
+                    onDrag={this.handleDrag}
                     onStop={this.handleStop}
                 >
-                    {/*<div>*/}
-                    {/*<div className="box">*/}
                     <img src={serverURL + this.props.url}
                          draggable="false"
                          className="draggable-product-images"
                     />
-                    {/*<div>*/}
-                    {/*    <p>{this.state.id}</p>*/}
-                    {/*    <p>{this.state.x}</p>*/}
-                    {/*    <p>{this.state.y}</p>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
                 </Draggable>
             </React.Fragment>
         );

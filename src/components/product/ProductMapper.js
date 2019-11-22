@@ -12,7 +12,6 @@ class ProductMapper extends Component {
         boxHeight: 700,
     };
 
-
     componentDidMount() {
         getProducts()
             .then(products => this.setState(
@@ -33,7 +32,6 @@ class ProductMapper extends Component {
         this.setState({
             productsToSpawnIn: [...this.state.productsToSpawnIn, product]
         });
-        console.log(product);
     };
 
     widthOnChangeHandler = (e) => {
@@ -52,20 +50,20 @@ class ProductMapper extends Component {
 
 //TODO maybe delete 'type' from mapping
     render() {
-        console.log("RENDERED, H: " + this.state.boxHeight + "W:" + this.state.boxWidth);
         return (
             <React.Fragment>
+                <p>Width:</p>
+                <input type="number"
+                       onChange={this.widthOnChangeHandler}
+                       value={this.state.boxWidth}
+                />
+
                 <p>Height:</p>
                 <input type="number"
                        onChange={this.heightOnChangeHandler}
                        value={this.state.boxHeight}
                 />
 
-                <p>Width:</p>
-                <input type="number"
-                       onChange={this.widthOnChangeHandler}
-                       value={this.state.boxWidth}
-                />
 
                 <div className="custom-butterfly-builder">
                     <div className="enable-scroll">
@@ -99,7 +97,6 @@ class ProductMapper extends Component {
                         {
                             this.isProductArrayEmpty() ?
                                 null :
-
                                 this.state.productsToSpawnIn.map((product, index) =>
                                     <DraggableProduct
                                         id={product.id}
@@ -109,7 +106,6 @@ class ProductMapper extends Component {
                                         availableQuantity={product.availableQuantity}
                                         type={product.type}
                                         url={product.url}
-
 
                                         key={index}
                                     />

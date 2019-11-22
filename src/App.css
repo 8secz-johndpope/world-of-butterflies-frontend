@@ -81,6 +81,7 @@ body {
 
 .draggable-product-images {
     position: relative;
+    /*border: 2px solid black;*/
     /*width: 80%;*/
     /*height: 80%;*/
     /*z-index: 1;*/
