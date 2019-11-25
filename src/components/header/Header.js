@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import '../../css/Header.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars, faTimes} from "@fortawesome/free-solid-svg-icons";
+import {ReactComponent as GabannaLogo} from "../../components/images/logo/gabanna-logo.svg";
 
 class Header extends Component {
 
@@ -30,10 +31,11 @@ class Header extends Component {
                 <header className="header">
                     {/*192.168.0.94*/}
                     {/*localhost*/}
-                    <img src={'http://192.168.0.94:8080/images/logos/logoka.jpg'}
-                         alt="LOGO"
-                         className="logo-header"
-                    />
+                    {/*    <GabannaLogo className="logo-header"/>*/}
+                    {/*<img src={'http://192.168.0.94:8080/images/logos/logoka.jpg'}*/}
+                    {/*     alt="LOGO"*/}
+                    {/*     className="logo-header"*/}
+                    {/*/>*/}
                     <nav role="navigation" className="nav-header">
                         <input type="checkbox" id="chk"/>
                         <label htmlFor="chk" className="show-menu-btn">
@@ -119,7 +121,7 @@ class Header extends Component {
                                 </li>
 
 
-                                <li><Link id="fossil-main" to="/fossil" >FOSSIL</Link>
+                                <li><Link id="fossil-main" to="/fossil">FOSSIL</Link>
                                     <label title="Toggle Drop-down" className="drop-icon" htmlFor="sm3">▾</label>
                                     <input type="checkbox" id="sm3"/>
                                     <ul className="sub-menu">

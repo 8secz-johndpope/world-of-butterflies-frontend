@@ -5,7 +5,10 @@
 }
 
 .logo-header {
-    display: inline-block;
+    margin-top: -160px;
+    margin-bottom: -150px;
+    width: 25%;
+    height: auto;
 }
 
 .nav-header {
