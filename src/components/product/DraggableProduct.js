@@ -16,13 +16,16 @@ class DraggableProduct extends Component {
             x: ui.x,
             y: ui.y
         });
+        // console.log(ui.x);
+        // console.log(ui.y);
+        console.log(e.target.width);
     };
 
 
     handleStop = (e, ui) => {
-        console.log(e.target);
-        console.log(ui);
-        console.log("Stopped");
+        // console.log(e.target);
+        // console.log(ui);
+        // console.log("Stopped");
     };
     // eventLogger = (e: MouseEvent, data: Object) => {
     // console.log('Event: ', e);
@@ -42,6 +45,8 @@ class DraggableProduct extends Component {
                          className="draggable-product-images"
                     />
                 </Draggable>
+                {/*<p>x: {this.state.x}</p>*/}
+                {/*<p>y: {this.state.y}</p>*/}
             </React.Fragment>
         );
     }

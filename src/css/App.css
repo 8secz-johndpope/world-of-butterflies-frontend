@@ -99,3 +99,66 @@ body {
     position: relative;
 }
 
+.main-page-featured-product-container {
+    padding: 3%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /*justify-content: flex-start;*/
+    /*align-content: flex-start;*/
+    /*align-items: flex-start;*/
+}
+
+.main-page-featured-product {
+    /*width: 27%;*/
+    /*height: auto;*/
+    margin: 5px 2%;
+    order: 0;
+    flex: 1 1 auto;
+    align-self: auto;
+}
+
+.small-frame-icons {
+    height: 30px;
+    margin: 0 5px;
+}
+
+.small-frame-icons span {
+    margin: 0 5px;
+    height: 30px;
+    width: 1cm;
+    background-color: black;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/*.helper {*/
+/*    display: inline-block;*/
+/*    height: 100%;*/
+/*    vertical-align: middle;*/
+/*}*/
+
+.frame-around-butterfly {
+    /*position: relative;*/
+    float: left;
+    /*border: 1.6cm solid black;*/
+    overflow: hidden;
+    margin-top: 3%;
+    /*border-image-width: 1.6cm;*/
+    /*border-image-slice: 50;*/
+    /*border-image-repeat: stretch;*/
+    position: relative;
+    /*width: 80%;*/
+}
+
+
+.frame-around-butterfly img {
+    /*vertical-align: middle;*/
+    /*position: relative;*/
+    /*left: 0cm;*/
+    /*top: 0cm;*/
+}
+/*.main-page-informational-text{*/
+/*    display: block;*/
+/*}*/
+

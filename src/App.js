@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import './css/App.css';
 import Header from "./components/header/Header";
-import ProductMapper from "./components/product/ProductMapper";
-
 import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
-// import Test from "./Test";
+import MainPage from "./components/layout/MainPage";
+import ProductMapper from "./components/product/ProductMapper";
 
 class App extends Component {
 
@@ -13,23 +12,10 @@ class App extends Component {
             <Router>
                 <div className="App">
                     <Header/>
-                    {/*<div className="faszom" style={{paddingTop: '20px'}}>*/}
-                    {/*    <img src={'http://192.168.0.94:8080/images/butterflies/1.png'}*/}
-                    {/*         alt="LOGO"*/}
-                    {/*         className="logo-header"*/}
-                    {/*    />*/}
-                    {/*    <img src={'http://192.168.0.94:8080/images/butterflies/2.png'}*/}
-                    {/*         alt="LOGO"*/}
-                    {/*         className="logo-header"*/}
-                    {/*    />*/}
-                    {/*    <img src={'http://192.168.0.94:8080/images/butterflies/3.png'}*/}
-                    {/*         alt="LOGO"*/}
-                    {/*         className="logo-header"*/}
-                    {/*    />*/}
-                    {/*</div>*/}
-                    {/*<Switch>*/}
-                    {/*    <Route exact path="/butterfly" component={Test}/>*/}
-                    {/*</Switch>*/}
+                    <Switch>
+                        <Route exact path="/" component={MainPage}/>
+                        <Route exact path="/about" component={ProductMapper}/>
+                    </Switch>
                 </div>
             </Router>
         );
