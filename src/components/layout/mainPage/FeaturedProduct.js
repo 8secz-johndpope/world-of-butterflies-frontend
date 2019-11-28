@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class ProductWithLessDetails extends Component {
+class FeaturedProduct extends Component {
     state = {
         frameNumber: "2",
 
@@ -127,4 +127,4 @@ class ProductWithLessDetails extends Component {
 
 const serverURL = "http://localhost:8080";
 
-export default ProductWithLessDetails;
+export default FeaturedProduct;
