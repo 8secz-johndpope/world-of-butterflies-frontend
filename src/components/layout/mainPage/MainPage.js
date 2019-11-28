@@ -11,6 +11,12 @@ class MainPage extends Component {
             <React.Fragment>
                 <SlideShow/>
                 <CategoryMapper/>
+                <img src="http://localhost:8080/images/logos/hands.png"
+                    style={{
+                        width:'100%',
+                        height:'8%',
+                    }}
+                />
                 <FeaturedProductMapper/>
             </React.Fragment>
         );
