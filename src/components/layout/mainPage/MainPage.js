@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import {getProducts} from "../../service/fetchService/fetchService";
-import ProductOnMainPage from "../componentsForMapping/ProductWithLessDetails";
+import {getProducts} from "../../../service/fetchService/fetchService";
+import ProductOnMainPage from "../../componentsForMapping/ProductWithLessDetails";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import SlideShow from "./SlideShow";
 
 class MainPage extends Component {
     state = {
@@ -20,6 +22,7 @@ class MainPage extends Component {
     render() {
         return (
             <React.Fragment>
+                <SlideShow/>
                 <div className="main-page-featured-product-container">
                     {
                         this.state.products.map((product, index) =>
@@ -40,5 +43,6 @@ class MainPage extends Component {
         );
     }
 }
+
 
 export default MainPage;
