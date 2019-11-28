@@ -3,6 +3,7 @@ import {getProducts} from "../../../service/fetchService/fetchService";
 import ProductOnMainPage from "../../componentsForMapping/ProductWithLessDetails";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import SlideShow from "./SlideShow";
+import CategoryMapper from "./CategoryMapper";
 
 class MainPage extends Component {
     state = {
@@ -23,6 +24,7 @@ class MainPage extends Component {
         return (
             <React.Fragment>
                 <SlideShow/>
+                <CategoryMapper/>
                 <div className="main-page-featured-product-container">
                     {
                         this.state.products.map((product, index) =>

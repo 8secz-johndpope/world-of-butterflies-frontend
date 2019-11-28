@@ -16,4 +16,8 @@ export function getInsects() {
     return fetch('http://localhost:8080/products/insects')
         .then(response => response.json())
 }
+export function getCategories() {
+    return fetch('http://localhost:8080/categories')
+        .then(response => response.json())
+}
 
