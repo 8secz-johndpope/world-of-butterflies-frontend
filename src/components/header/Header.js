@@ -4,6 +4,7 @@ import '../../css/Header.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars, faTimes} from "@fortawesome/free-solid-svg-icons";
 import {ReactComponent as GabannaLogo} from "../../components/images/logo/gabanna-logo2.svg";
+import {ReactComponent as LogoSmall} from "../../components/images/logo/logo-small.svg";
 
 class Header extends Component {
 
@@ -31,7 +32,8 @@ class Header extends Component {
                 <header className="header">
                     {/*192.168.0.95*/}
                     {/*localhost*/}
-                    {/*<GabannaLogo className="logo-header"/>*/}
+                    <LogoSmall className="logo-small"/>
+                    <GabannaLogo className="logo-header"/>
                     {/*<img src={'http://192.168.0.95:8080/images/logos/logoka.jpg'}*/}
                     {/*     alt="LOGO"*/}
                     {/*     className="logo-header"*/}

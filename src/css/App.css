@@ -24,7 +24,7 @@ body {
     color: #222;
     font-family: "Helvetica Neue", sans-serif;
     font-weight: 200;
-    /*margin: 0 50px;*/
+    margin: 0 8%;
 }
 
 
@@ -81,10 +81,6 @@ body {
 
 .draggable-product-images {
     position: relative;
-    /*border: 2px solid black;*/
-    /*width: 80%;*/
-    /*height: 80%;*/
-    /*z-index: 1;*/
 
 }
 
@@ -100,7 +96,6 @@ body {
 }
 
 .main-page-featured-product-container {
-    padding: 5% 3%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -110,10 +105,9 @@ body {
 }
 
 .main-page-featured-product {
-    margin: 2%;
+    margin: 1%;
     flex: 0 1 auto;
-    /*flex: 1 0 29%;*/
-    align-self: auto;
+    align-self: center;
 }
 
 @media screen and (max-width: 945px) {
@@ -137,45 +131,27 @@ body {
     margin: 0 5px;
     height: 30px;
     width: 1cm;
-    /*background-color: black;*/
     display: inline-block;
     cursor: pointer;
 }
 
 .frame-around-butterfly {
-    /*position: relative;*/
     float: left;
-    /*border: 1.6cm solid black;*/
     overflow: hidden;
     margin-top: 3%;
-    /*border-image-width: 1.6cm;*/
-    /*border-image-slice: 50;*/
-    /*border-image-repeat: stretch;*/
     position: relative;
-    /*width: 80%;*/
 }
 
-
-.frame-around-butterfly img {
-    /*vertical-align: middle;*/
-    /*position: relative;*/
-    /*left: 0cm;*/
-    /*top: 0cm;*/
-}
-
-.main-page-informational-text {
-    /*position: relative;*/
-    /*bottom: 0px;*/
-    /*display: inline-block;*/
-}
 
 .slide-show {
+    position: relative;
     z-index: -1;
 }
 
 .slide-show img {
     width: 100%;
     height: auto;
+    z-index: -1;
 }
 
 .main-page-buy-now-btn {
@@ -198,24 +174,8 @@ body {
     transition: background-color 300ms;
 }
 
-/*.main-page-featured-product-container {
-    padding: 5% 3%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-}
-
-.main-page-featured-product {
-    margin: 2%;
-    flex: 0 1 auto;
-    align-self: auto;
-}*/
-
 .main-page-category-container {
-    padding: 5% 10%;
+    padding: 5% 0;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -225,8 +185,8 @@ body {
 }
 
 .main-page-category {
-    padding: 1%;
-    flex: 1 2 33%;
+    padding: 1% 0;
+    flex: 1 2 22%;
     align-self: center;
 }
 
@@ -236,3 +196,4 @@ body {
     cursor: pointer;
     border: black 1px solid;
 }
+

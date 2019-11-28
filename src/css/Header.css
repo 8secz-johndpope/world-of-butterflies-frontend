@@ -2,7 +2,6 @@
     position: relative;
     width: 100%;
     text-align: center;
-    z-index: 1;
 }
 
 .logo-header {
@@ -11,8 +10,19 @@
     height: auto;
 }
 
+.logo-small {
+    position: absolute;
+    z-index: -3;
+    left: -10%;
+    top: 0;
+    width: 40%;
+    height: auto;
+}
+
 .nav-header {
     display: flex;
+    position: relative;
+    z-index: 1;
 }
 
 .main-link {
