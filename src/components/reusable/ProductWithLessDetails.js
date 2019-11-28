@@ -3,12 +3,17 @@ import React, {Component} from 'react';
 class ProductWithLessDetails extends Component {
     state = {
         frameNumber: "2",
+
         smallPercentage: 0.3,
-        mediumPercentage: 0.5,
-        largePercentage: 0.75,
-        largeRes: 1450,
-        mediumRes: 1450,
-        smallRes: 640,
+        mediumPercentage: 0.3,
+        inBetweenPercentage: 0.4,
+        largePercentage: 0.5,
+
+        smallRes: 945,
+        mediumRes: 1156,
+        inBetweenRes: 1550,
+        largeRes: 1800,
+
         width: 0,
         height: 0,
         borderThickness: 0,
@@ -56,11 +61,14 @@ class ProductWithLessDetails extends Component {
             newHeight = height * this.state.mediumPercentage;
             newBorderThickness = borderThickness * this.state.mediumPercentage
 
+        } else if (windowWidth <= this.state.inBetweenRes) {
+            newWidth = width * this.state.inBetweenPercentage;
+            newHeight = height * this.state.inBetweenPercentage;
+            newBorderThickness = borderThickness * this.state.inBetweenPercentage
         } else {
             newWidth = width * this.state.largePercentage;
             newHeight = height * this.state.largePercentage;
             newBorderThickness = borderThickness * this.state.largePercentage
-
         }
         this.setState({
             width: newWidth,
@@ -94,7 +102,6 @@ class ProductWithLessDetails extends Component {
                               }}
                         />
                     </div>
-                    {/*<span className="helper"></span>*/}
                     <div className="frame-around-butterfly"
                          style={{
                              border: `${this.state.borderThickness}cm solid black`,
