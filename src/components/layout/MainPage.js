@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {getProducts} from "../../service/fetchService/fetchService";
-import ProductOnMainPage from "../reusable/ProductWithLessDetails";
+import ProductOnMainPage from "../componentsForMapping/ProductWithLessDetails";
 
 class MainPage extends Component {
     state = {
