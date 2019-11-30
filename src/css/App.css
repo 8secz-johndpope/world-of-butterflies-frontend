@@ -197,3 +197,12 @@ body {
     border: black 1px solid;
 }
 
+.one-line-text{
+    width: 100%;
+    font-weight: bold;
+    font-size: 40px;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    background-color: #E8E8E8;
+}
+
