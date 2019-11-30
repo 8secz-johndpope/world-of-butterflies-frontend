@@ -323,6 +323,23 @@ ul li .dropdown-link {
     color: #ffffff;
 }
 
+.search-bar-container {
+    position: relative;
+}
 
+.search-bar {
+    background-color: red;
+    font-size: 15px;
+}
+
+.search-icon {
+    margin-left: 3px;
+    font-size: 20px;
+}
+
+.shopping-cart-icon {
+    position: relative;
+    font-size: 35px;
+}
 
 

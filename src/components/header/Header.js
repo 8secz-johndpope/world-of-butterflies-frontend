@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import '../../css/Header.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBars, faTimes} from "@fortawesome/free-solid-svg-icons";
+import {faBars, faTimes, faSearch, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
 import {ReactComponent as GabannaLogo} from "../../components/images/logo/gabanna-logo2.svg";
 import {ReactComponent as LogoSmall} from "../../components/images/logo/logo-small.svg";
 
@@ -30,14 +30,18 @@ class Header extends Component {
         return (
             <React.Fragment>
                 <header className="header">
-                    {/*192.168.0.95*/}
-                    {/*localhost*/}
+
                     <LogoSmall className="logo-small"/>
                     <GabannaLogo className="logo-header"/>
-                    {/*<img src={'http://192.168.0.95:8080/images/logos/logoka.jpg'}*/}
-                    {/*     alt="LOGO"*/}
-                    {/*     className="logo-header"*/}
-                    {/*/>*/}
+
+                    <div className="search-bar-container">
+                        <input type="text"
+                               className="search-bar"/>
+                        <FontAwesomeIcon icon={faSearch} className="search-icon"/>
+                        <FontAwesomeIcon icon={faShoppingCart} className="shopping-cart-icon"/>
+
+                    </div>
+
                     <nav role="navigation" className="nav-header">
                         <input type="checkbox" id="chk"/>
                         <label htmlFor="chk" className="show-menu-btn">
