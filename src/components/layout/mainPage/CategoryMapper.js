@@ -20,6 +20,7 @@ class CategoryMapper extends Component {
             <div className="main-page-category-container">
                 {this.state.categories.map((category, index) =>
                     <Category
+                        id={category.id}
                         name={category.name}
                         url={category.url}
                         index={index}
