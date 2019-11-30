@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from "react-router-dom";
 
 class FeaturedProduct extends Component {
     state = {
@@ -102,6 +103,7 @@ class FeaturedProduct extends Component {
                               }}
                         />
                     </div>
+                    <Link to={`/products/${this.props.id}`}>
                     <div className="frame-around-butterfly"
                          style={{
                              border: `${this.state.borderThickness}cm solid black`,
@@ -114,6 +116,7 @@ class FeaturedProduct extends Component {
                                  height: `${this.state.height}cm`,
                              }}/>
                     </div>
+                    </Link>
                     <span className="main-page-informational-text">
                         <p>{this.props.name}</p>
                         <p>{this.props.price}</p>

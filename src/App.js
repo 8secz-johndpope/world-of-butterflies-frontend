@@ -4,6 +4,7 @@ import Header from "./components/header/Header";
 import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
 import MainPage from "./components/layout/mainPage/MainPage";
 import ProductMapper from "./components/product/ProductMapper";
+import SingleProduct from "./components/layout/singleProduct/SingleProduct"
 
 class App extends Component {
 
@@ -14,7 +15,8 @@ class App extends Component {
                     <Header/>
                     <Switch>
                         <Route exact path="/" component={MainPage}/>
-                        <Route exact path="/about" component={ProductMapper}/>
+                        <Route path="/about" component={ProductMapper}/>
+                        <Route path="/products/:id" component={SingleProduct}/>
                     </Switch>
                 </div>
             </Router>

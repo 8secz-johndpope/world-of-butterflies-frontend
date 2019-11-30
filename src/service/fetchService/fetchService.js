@@ -1,4 +1,4 @@
-export function getProduct(id) {
+export function getProductById(id) {
     return fetch('http://localhost:8080/products/' + id)
         .then(response => response.json())
 }
