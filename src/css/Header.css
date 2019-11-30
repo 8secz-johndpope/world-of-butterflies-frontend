@@ -22,7 +22,7 @@
 .nav-header {
     display: flex;
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 
 .main-link {
@@ -164,7 +164,7 @@ ul li .dropdown-link {
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 1;
+    z-index: 6;
     top: 0;
     left: 0;
     background-color: #808080;
@@ -213,6 +213,8 @@ ul li .dropdown-link {
 
 #open-btn-line {
     transition: margin-left .5s;
+    position: relative;
+    z-index: 44;
 }
 
 @media screen and (max-width: 945px) {

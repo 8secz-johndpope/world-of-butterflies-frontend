@@ -145,7 +145,7 @@ body {
 
 .slide-show {
     position: relative;
-    z-index: -1;
+    z-index: 1;
 }
 
 .slide-show img {
