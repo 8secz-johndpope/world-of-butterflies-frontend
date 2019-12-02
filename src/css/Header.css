@@ -197,7 +197,6 @@ ul li .dropdown-link {
 
 .open-btn {
     display: none;
-    float: left;
     text-align: left;
     width: 100%;
     font-size: 20px;
@@ -323,23 +322,44 @@ ul li .dropdown-link {
     color: #ffffff;
 }
 
-.search-bar-container {
-    position: relative;
-}
-
-.search-bar {
-    background-color: red;
-    font-size: 15px;
-}
-
-.search-icon {
-    margin-left: 3px;
-    font-size: 20px;
+.search-bar-cart-container {
+    display: flex;
+    flex-direction: column;
 }
 
 .shopping-cart-icon {
     position: relative;
     font-size: 35px;
+    flex: 1 1 auto;
+    align-self: flex-end;
+    cursor: pointer;
 }
 
+.shopping-cart-icon:hover,
+.search-icon:hover {
+    color: #606060;
+}
 
+.search-bar-icon-container {
+    flex: 1 1 auto;
+    align-self: flex-end;
+}
+
+.search-bar {
+    font-size: 15px;
+    border: 2px solid #282828;
+    background-color: #BEBEBE;
+    outline: none;
+    margin: 3px 0;
+}
+
+.search-bar:focus{
+    margin: 2px 0;
+    border: 3px solid black;
+}
+
+.search-icon {
+    margin-left: 3px;
+    font-size: 20px;
+    cursor: pointer;
+}

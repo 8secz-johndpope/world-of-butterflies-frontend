@@ -21,7 +21,7 @@ class CategoryMapper extends Component {
                 {this.state.categories.map((category, index) =>
                     <Category
                         id={category.id}
-                        name={category.name}
+                        name={category.subProductType}
                         url={category.url}
                         index={index}
 

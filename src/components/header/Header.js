@@ -34,12 +34,12 @@ class Header extends Component {
                     <LogoSmall className="logo-small"/>
                     <GabannaLogo className="logo-header"/>
 
-                    <div className="search-bar-container">
-                        <input type="text"
-                               className="search-bar"/>
-                        <FontAwesomeIcon icon={faSearch} className="search-icon"/>
+                    <div className="search-bar-cart-container">
                         <FontAwesomeIcon icon={faShoppingCart} className="shopping-cart-icon"/>
-
+                        <div className="search-bar-icon-container">
+                            <input type="text" className="search-bar"/>
+                            <FontAwesomeIcon icon={faSearch} className="search-icon"/>
+                        </div>
                     </div>
 
                     <nav role="navigation" className="nav-header">

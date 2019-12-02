@@ -17,7 +17,7 @@ export function getInsects() {
         .then(response => response.json())
 }
 export function getCategories() {
-    return fetch('http://localhost:8080/categories')
+    return fetch('http://localhost:8080/product-types')
         .then(response => response.json())
 }
 

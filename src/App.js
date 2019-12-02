@@ -13,10 +13,12 @@ class App extends Component {
             <Router>
                 <div className="App">
                     <Header/>
+                    <br/>
                     <Switch>
                         <Route exact path="/" component={MainPage}/>
                         <Route path="/about" component={ProductMapper}/>
                         <Route path="/products/:id" component={SingleProduct}/>
+                        {/*<Route path="/products/:type" component={}/>*/}
                     </Switch>
                 </div>
             </Router>
