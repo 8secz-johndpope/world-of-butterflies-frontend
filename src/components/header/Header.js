@@ -5,6 +5,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars, faTimes, faSearch, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
 import {ReactComponent as GabannaLogo} from "../../components/images/logo/gabanna-logo2.svg";
 import {ReactComponent as LogoSmall} from "../../components/images/logo/logo-small.svg";
+import LoginModal from "./LoginModal";
+import RegisterModal from "./RegisterModal";
 
 class Header extends Component {
 
@@ -26,10 +28,15 @@ class Header extends Component {
         this.refs.openBtnLine.style.marginLeft = "0";
     };
 
+
     render() {
         return (
             <React.Fragment>
                 <header className="header">
+                    <div className="register-login-container">
+                        <RegisterModal/>
+                        <LoginModal/>
+                    </div>
 
                     <LogoSmall className="logo-small"/>
                     <GabannaLogo className="logo-header"/>
