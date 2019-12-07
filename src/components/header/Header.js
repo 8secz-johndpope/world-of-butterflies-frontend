@@ -7,6 +7,7 @@ import {ReactComponent as GabannaLogo} from "../../components/images/logo/gabann
 import {ReactComponent as LogoSmall} from "../../components/images/logo/logo-small.svg";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
+import SearchBar from "./SearchBar";
 
 class Header extends Component {
 
@@ -41,13 +42,7 @@ class Header extends Component {
                     <LogoSmall className="logo-small"/>
                     <GabannaLogo className="logo-header"/>
 
-                    <div className="search-bar-cart-container">
-                        <FontAwesomeIcon icon={faShoppingCart} className="shopping-cart-icon"/>
-                        <div className="search-bar-icon-container">
-                            <input type="text" className="search-bar"/>
-                            <FontAwesomeIcon icon={faSearch} className="search-icon"/>
-                        </div>
-                    </div>
+                    <SearchBar/>
 
                     <nav role="navigation" className="nav-header">
                         <input type="checkbox" id="chk"/>
