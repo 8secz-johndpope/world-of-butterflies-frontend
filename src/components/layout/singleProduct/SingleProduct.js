@@ -11,9 +11,13 @@ class SingleProduct extends Component {
         mainImageUrl: '',
         isInFrame: false,
         frameNumber: 2,
+        frameThickness: 1
     };
 
     componentDidMount() {
+        window.addEventListener("resize", this.handleResizeEvent);
+        this.calculateImageSize();
+
         getProductById(this.props.match.params.id).then(
             response =>
                 this.setState({
@@ -28,6 +32,22 @@ class SingleProduct extends Component {
             paneContainer: this.refs.zoomedImgPortal
         })
     }
+
+    handleResizeEvent = () => {
+        this.calculateImageSize();
+    };
+    calculateImageSize = () => {
+        let windowWidth = window.innerWidth;
+        if (windowWidth < 450) {
+            this.setState({
+                frameThickness: 0.5,
+            })
+        } else if (windowWidth > 450) {
+            this.setState({
+                frameThickness: 1,
+            })
+        }
+    };
 
     changeMainImage = (url, isInFrame) => {
         this.setState(
@@ -52,8 +72,8 @@ class SingleProduct extends Component {
                         <div className="main-image">
                             <div className="frame-around-butterfly"
                                  style={{
-                                     border: `${this.state.isInFrame ? '1cm solid black' : 'none'}`,
-                                     borderImage: `${this.state.isInFrame ? `url(${serverURL}/images/frames/frame${this.state.frameNumber}.png) 50 / 1cm stretch` : 'none'}`
+                                     border: `${this.state.isInFrame ? `${this.state.frameThickness}cm solid black` : 'none'}`,
+                                     borderImage: `${this.state.isInFrame ? `url(${serverURL}/images/frames/frame${this.state.frameNumber}.png) 50 / ${this.state.frameThickness}cm stretch` : 'none'}`
                                  }}>
                                 <img src={serverURL + this.state.mainImageUrl}
                                      data-zoom={serverURL + this.state.mainImageUrl}
@@ -103,8 +123,8 @@ class SingleProduct extends Component {
                             <div className="dirty-little-details">
                                 <p>In stock: {this.state.product.availableQuantity}</p>
                                 <p>Delivery: 3-5 working days!</p>
-                                <div className="small-frame-icons">
 
+                                <div className="small-frame-icons">
                                     <span onMouseEnter={() => this.mouseEnterCapture(1)}
                                           style={{
                                               backgroundImage: `url(${serverURL}/images/frames/color-options/1.png)`
@@ -120,8 +140,8 @@ class SingleProduct extends Component {
                                               backgroundImage: `url(${serverURL}/images/frames/color-options/3.png)`
                                           }}
                                     />
-
                                 </div>
+
                                 <p id='price'>{this.state.product.price} € <span id="dph">with DPH</span></p>
                             </div>
                             <div className="qty-and-buy-btn-container">
