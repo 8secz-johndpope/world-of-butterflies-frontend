@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {getProducts} from "../../../service/fetchService/fetchService";
-import ProductOnMainPage from "./FeaturedProduct";
+import FeaturedProduct from "./FeaturedProduct";
 
 class FeaturedProductMapper extends Component {
     state = {
@@ -21,13 +21,14 @@ class FeaturedProductMapper extends Component {
             <div className="main-page-featured-product-container">
                 {
                     this.state.products.map((product, index) =>
-                        <ProductOnMainPage
+                        <FeaturedProduct
                             id={product.id}
                             url={product.url}
                             name={product.name}
                             price={product.price}
                             width={product.width}
                             height={product.height}
+                            isInFrame={product.isInFrame}
 
                             key={index}
                         />

@@ -6,10 +6,10 @@ import Drift from 'drift-zoom';
 class SingleProduct extends Component {
     state = {
         wrappedProducts: [],
-        product: '',
+        product: {},
         productImages: [],
         mainImageUrl: '',
-        isInFrame: false,
+        // isInFrame: false,
         frameNumber: 2,
         frameThickness: 1
     };
@@ -24,7 +24,6 @@ class SingleProduct extends Component {
                     product: response.product,
                     productImages: response.productImages,
                     mainImageUrl: response.product.url,
-                    isInFrame: true,
                 })
         );
 
@@ -70,10 +69,13 @@ class SingleProduct extends Component {
                 <div className="image-gallery-and-main-details-container">
                     <div className="image-gallery">
                         <div className="main-image">
+                            {/*{*/}
+                            {/*    this.state.product.isInFrame*/}
+                            {/*}*/}
                             <div className="frame-around-butterfly"
                                  style={{
-                                     border: `${this.state.isInFrame ? `${this.state.frameThickness}cm solid black` : 'none'}`,
-                                     borderImage: `${this.state.isInFrame ? `url(${serverURL}/images/frames/frame${this.state.frameNumber}.png) 50 / ${this.state.frameThickness}cm stretch` : 'none'}`
+                                     border: `${this.state.product.isInFrame ? 'none' : `${this.state.frameThickness}cm solid black`}`,
+                                     borderImage: `${this.state.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/frame${this.state.frameNumber}.png) 50 / ${this.state.frameThickness}cm stretch`}`
                                  }}>
                                 <img src={serverURL + this.state.mainImageUrl}
                                      data-zoom={serverURL + this.state.mainImageUrl}
@@ -92,8 +94,8 @@ class SingleProduct extends Component {
                         <div className="small-images">
                             <div className="frame-around-butterfly"
                                  style={{
-                                     border: `0.1cm solid black`,
-                                     borderImage: `url(${serverURL}/images/frames/frame${this.state.frameNumber}.png) 50 / 0.1cm stretch`
+                                     border: `${this.state.product.isInFrame ? 'none' : '0.1cm solid black'}`,
+                                     borderImage: `${this.state.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/frame${this.state.frameNumber}.png) 50 / 0.1cm stretch`}`
                                  }}>
                                 <img src={serverURL + this.state.product.url}
                                      alt=""
@@ -123,25 +125,27 @@ class SingleProduct extends Component {
                             <div className="dirty-little-details">
                                 <p>In stock: {this.state.product.availableQuantity}</p>
                                 <p>Delivery: 3-5 working days!</p>
-
-                                <div className="small-frame-icons">
+                                {this.state.product.isInFrame ?
+                                    null
+                                    :
+                                    <div className="small-frame-icons">
                                     <span onMouseEnter={() => this.mouseEnterCapture(1)}
                                           style={{
                                               backgroundImage: `url(${serverURL}/images/frames/color-options/1.png)`
                                           }}
                                     />
-                                    <span onMouseEnter={() => this.mouseEnterCapture(2)}
-                                          style={{
-                                              backgroundImage: `url(${serverURL}/images/frames/color-options/2.png)`
-                                          }}
-                                    />
-                                    <span onMouseEnter={() => this.mouseEnterCapture(3)}
-                                          style={{
-                                              backgroundImage: `url(${serverURL}/images/frames/color-options/3.png)`
-                                          }}
-                                    />
-                                </div>
-
+                                        <span onMouseEnter={() => this.mouseEnterCapture(2)}
+                                              style={{
+                                                  backgroundImage: `url(${serverURL}/images/frames/color-options/2.png)`
+                                              }}
+                                        />
+                                        <span onMouseEnter={() => this.mouseEnterCapture(3)}
+                                              style={{
+                                                  backgroundImage: `url(${serverURL}/images/frames/color-options/3.png)`
+                                              }}
+                                        />
+                                    </div>
+                                }
                                 <p id='price'>{this.state.product.price} € <span id="dph">with DPH</span></p>
                             </div>
                             <div className="qty-and-buy-btn-container">

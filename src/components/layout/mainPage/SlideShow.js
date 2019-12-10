@@ -31,12 +31,6 @@ class SlideShow extends Component {
                             Shop Now
                         </p>
                     </div>
-                    <div>
-                        <img src={serverURL + '/images/slideshow/4.png'}/>
-                        <p className="main-page-buy-now-btn">
-                            Shop Now
-                        </p>
-                    </div>
                 </Carousel>
             </div>
         );

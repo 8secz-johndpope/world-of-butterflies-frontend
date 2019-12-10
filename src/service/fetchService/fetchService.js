@@ -28,3 +28,8 @@ export function getProductsByQueryParam(queryString) {
         .then(response => response.json())
 }
 
+export function getNRandomProducts(amount) {
+    return fetch('http://localhost:8080/products/random-' + amount)
+        .then(response => response.json())
+}
+

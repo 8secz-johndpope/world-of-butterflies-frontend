@@ -83,39 +83,52 @@ class FeaturedProduct extends Component {
         return (
             <React.Fragment>
                 <div className="main-page-featured-product">
-                    <div className="small-frame-icons">
+                    {
+                        this.props.isInFrame ?
+                            null
+                            :
+                            <div className="small-frame-icons">
                         <span onMouseEnter={() => this.mouseEnterCapture(1)}
                               onMouseLeave={this.mouseLeaveCapture}
                               style={{
                                   backgroundImage: `url(${serverURL}/images/frames/color-options/1.png)`
                               }}
                         />
-                        <span onMouseEnter={() => this.mouseEnterCapture(2)}
-                              onMouseLeave={this.mouseLeaveCapture}
-                              style={{
-                                  backgroundImage: `url(${serverURL}/images/frames/color-options/2.png)`
-                              }}
-                        />
-                        <span onMouseEnter={() => this.mouseEnterCapture(3)}
-                              onMouseLeave={this.mouseLeaveCapture}
-                              style={{
-                                  backgroundImage: `url(${serverURL}/images/frames/color-options/3.png)`
-                              }}
-                        />
-                    </div>
+                                <span onMouseEnter={() => this.mouseEnterCapture(2)}
+                                      onMouseLeave={this.mouseLeaveCapture}
+                                      style={{
+                                          backgroundImage: `url(${serverURL}/images/frames/color-options/2.png)`
+                                      }}
+                                />
+                                <span onMouseEnter={() => this.mouseEnterCapture(3)}
+                                      onMouseLeave={this.mouseLeaveCapture}
+                                      style={{
+                                          backgroundImage: `url(${serverURL}/images/frames/color-options/3.png)`
+                                      }}
+                                />
+                            </div>
+                    }
                     <Link to={`/products/${this.props.id}`}>
-                    <div className="frame-around-butterfly"
-                         style={{
-                             border: `${this.state.borderThickness}cm solid black`,
-                             borderImage: `url(${serverURL}/images/frames/frame${this.state.frameNumber}.png) 50 / ${this.state.borderThickness}cm stretch `
-                             // borderImageSource: `url(http://192.168.0.95:8080/images/frames/frame${this.state.frameNumber}.png)`,
-                         }}>
-                        <img src={serverURL + this.props.url}
-                             style={{
-                                 width: `${this.state.width}cm`,
-                                 height: `${this.state.height}cm`,
-                             }}/>
-                    </div>
+                        {
+                            this.props.isInFrame ?
+                                <img src={serverURL + this.props.url}
+                                     style={{
+                                         width: `7cm`,
+                                         height: 'auto',
+                                     }}/>
+                                :
+                                <div className="frame-around-butterfly"
+                                     style={{
+                                         border: `${this.state.borderThickness}cm solid black`,
+                                         borderImage: `url(${serverURL}/images/frames/frame${this.state.frameNumber}.png) 50 / ${this.state.borderThickness}cm stretch `
+                                     }}>
+                                    <img src={serverURL + this.props.url}
+                                         style={{
+                                             width: `${this.state.width}cm`,
+                                             height: `${this.state.height}cm`,
+                                         }}/>
+                                </div>
+                        }
                     </Link>
                     <span className="main-page-informational-text">
                         <p>{this.props.name}</p>
