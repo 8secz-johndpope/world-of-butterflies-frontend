@@ -33,3 +33,39 @@ export function getNRandomProducts(amount) {
         .then(response => response.json())
 }
 
+export function doRegister(email, password) {
+    return fetch('http://localhost:8080/auth/register', {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+            {
+                email: email,
+                password: password
+            }),
+    })
+        .then(response => response.json())
+}
+
+export function doLogin(email, password) {
+    return fetch('http://localhost:8080/auth/login', {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+            {
+                email: email,
+                password: password
+            }),
+
+    })
+        .then(response => response.json())
+}
+
+

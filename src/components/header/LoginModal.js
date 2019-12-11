@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
 import Rodal from 'rodal'
 import 'rodal/lib/rodal.css';
+import {doLogin} from "../../service/fetchService/fetchService";
 
 class LoginModal extends Component {
 
     state = {
         loginModalVisible: false,
+        email: '',
+        password: '',
     };
 
     showLoginModal = () => {
@@ -26,10 +29,20 @@ class LoginModal extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        //fetch post
-        this.setState({
-            loginModalVisible: false,
-        })
+        doLogin(this.state.email, this.state.password)
+            .then(res=>res.json)
+            .then(res=>console.log(res));
+
+                // {
+                //     if (res === true) {
+                //         this.setState({
+                //             loginModalVisible: false,
+                //         })
+                //     }
+                // }
+            // )
+
+
     };
 
     captureFocusIn = (e) => {
@@ -39,6 +52,14 @@ class LoginModal extends Component {
     captureFocusOut = (e) => {
         e.target.parentNode.firstChild.classList.remove('header-label-active');
     };
+
+    onChangeHandler = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value,
+            errorMessage: false,
+        })
+    };
+
 
     render() {
         return (
@@ -64,11 +85,13 @@ class LoginModal extends Component {
                             <h2 align="center">Welcome back, Login!</h2>
 
                             <label className='header-modal-label'>
-                                <p className="header-label-txt">ENTER YOUR USERNAME</p>
+                                <p className="header-label-txt">ENTER YOUR EMAIL ADDRESS</p>
                                 <input required type="text"
+                                       name="email"
                                        className="header-modal-input"
                                        onFocus={this.captureFocusIn}
                                        onBlur={this.captureFocusOut}
+                                       onChange={this.onChangeHandler}
                                 />
                                 <div className="line-box">
                                     <div className="line"></div>
@@ -78,9 +101,11 @@ class LoginModal extends Component {
                             <label className='header-modal-label'>
                                 <p className="header-label-txt">ENTER YOUR PASSWORD</p>
                                 <input required type="password"
+                                       name="password"
                                        className="header-modal-input"
                                        onFocus={this.captureFocusIn}
                                        onBlur={this.captureFocusOut}
+                                       onChange={this.onChangeHandler}
                                 />
                                 <div className="line-box">
                                     <div className="line"></div>

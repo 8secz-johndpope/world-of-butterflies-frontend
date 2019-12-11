@@ -480,7 +480,8 @@ ul li .dropdown-link {
     background: black;
     color: #ffffff;
 }
-.search-bar-link{
+
+.search-bar-link {
     text-decoration: none;
 }
 
@@ -516,5 +517,10 @@ ul li .dropdown-link {
 .search-bar-result span {
     flex: 0 1 80%;
     align-self: auto;
+}
+
+.header-error-message {
+    padding-bottom: 5px;
+    font-weight: bold;
 }
 
