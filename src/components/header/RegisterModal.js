@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import Rodal from 'rodal'
 import 'rodal/lib/rodal.css';
-import {doRegister, doLogin} from "../../service/fetchService/fetchService";
+import {doRegister, doLogin, getUserEmail} from "../../service/fetchService/fetchService";
+import {connect} from 'react-redux';
 
 class RegisterModal extends Component {
 
@@ -45,6 +46,7 @@ class RegisterModal extends Component {
     };
 
     handleSubmit = (e) => {
+
         e.preventDefault();
         if (this.state.password === this.state.confPass) {
             doRegister(this.state.email, this.state.password)
@@ -54,6 +56,16 @@ class RegisterModal extends Component {
                             registerModalVisible: false,
                         });
                         doLogin(this.state.email, this.state.password)
+                            .then(res => {
+                                if (res === true) {
+                                    console.log("resp was true");
+                                    getUserEmail()
+                                        .then(
+                                            resp => this.props.setUserEmail(resp.email),
+                                            this.props.setLoggedIn(true),
+                                        )
+                                }
+                            })
                     } else {
                         this.setState({
                             errorMessage: true
@@ -61,13 +73,7 @@ class RegisterModal extends Component {
                     }
                 })
         }
-
-
-        // this.setState({
-        //     registerModalVisible: false,
-        // })
     };
-
 
     render() {
         return (
@@ -91,7 +97,6 @@ class RegisterModal extends Component {
                             onSubmit={this.handleSubmit}
                         >
                             <h2 align="center">Hi Stranger, Register!</h2>
-
                             <label className='header-modal-label'>
                                 <p className="header-label-txt">ENTER YOUR USERNAME</p>
                                 <input required type="email"
@@ -156,4 +161,17 @@ class RegisterModal extends Component {
     }
 }
 
-export default RegisterModal;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setUserEmail: function (email) {
+            const action = {type: "setUserEmail", email};
+            dispatch(action);
+        },
+        setLoggedIn: function (boolean) {
+            const action = {type: "setLoggedIn", boolean};
+            dispatch(action);
+        }
+    }
+};
+
+export default connect(null, mapDispatchToProps)(RegisterModal);

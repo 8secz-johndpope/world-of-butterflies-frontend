@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import Rodal from 'rodal'
 import 'rodal/lib/rodal.css';
-import {doLogin} from "../../service/fetchService/fetchService";
+import {doLogin, getUserEmail} from "../../service/fetchService/fetchService";
+import {connect} from 'react-redux';
 
 class LoginModal extends Component {
 
@@ -30,18 +31,18 @@ class LoginModal extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         doLogin(this.state.email, this.state.password)
-            .then(res=>res.json)
-            .then(res=>console.log(res));
-
-                // {
-                //     if (res === true) {
-                //         this.setState({
-                //             loginModalVisible: false,
-                //         })
-                //     }
-                // }
-            // )
-
+            .then(res => {
+                if (res === true) {
+                    this.setState({
+                        loginModalVisible: false,
+                    });
+                    getUserEmail()
+                        .then(
+                            resp => this.props.setUserEmail(resp.email),
+                            this.props.setLoggedIn(true),
+                        )
+                }
+            })
 
     };
 
@@ -125,4 +126,17 @@ class LoginModal extends Component {
     }
 }
 
-export default LoginModal;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setUserEmail: function (email) {
+            const action = {type: "setUserEmail", email};
+            dispatch(action);
+        },
+        setLoggedIn: function (boolean) {
+            const action = {type: "setLoggedIn", boolean};
+            dispatch(action);
+        }
+    }
+};
+
+export default connect(null, mapDispatchToProps)(LoginModal);

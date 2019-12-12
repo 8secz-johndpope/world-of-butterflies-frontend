@@ -8,6 +8,9 @@ import {ReactComponent as LogoSmall} from "../../components/images/logo/logo-sma
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import SearchBar from "./SearchBar";
+import LogoutBtn from "./LogoutBtn";
+import Email from "./Email";
+import {connect} from 'react-redux';
 
 class Header extends Component {
 
@@ -34,11 +37,19 @@ class Header extends Component {
         return (
             <React.Fragment>
                 <header className="header">
-                    <div className="register-login-container">
-                        <RegisterModal/>
-                        <LoginModal/>
-                    </div>
+                    {
+                        this.props.isLoggedIn.boolean ?
+                            <div className="email-logout-container">
+                                <Email/>
+                                <LogoutBtn/>
+                            </div>
 
+                            :
+                            <div className="register-login-container">
+                                <RegisterModal/>
+                                <LoginModal/>
+                            </div>
+                    }
                     <LogoSmall className="logo-small"/>
                     <GabannaLogo className="logo-header"/>
 
@@ -176,4 +187,11 @@ class Header extends Component {
     }
 }
 
-export default Header;
+
+function mapStateToProps(state) {
+    return {
+        isLoggedIn: state.isLoggedIn,
+    }
+}
+
+export default connect(mapStateToProps, null)(Header);

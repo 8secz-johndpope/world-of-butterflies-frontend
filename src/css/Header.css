@@ -364,7 +364,8 @@ ul li .dropdown-link {
     cursor: pointer;
 }
 
-.register-login-container {
+.register-login-container,
+.email-logout-container {
     position: absolute;
     right: 0;
     top: 0;
@@ -397,6 +398,10 @@ ul li .dropdown-link {
     color: #000000;
     background-color: #ffffff;
     border: 1px solid #000000;
+}
+
+.header-email-address {
+ display: inline;
 }
 
 .header-modal-form {

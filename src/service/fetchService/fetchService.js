@@ -68,4 +68,11 @@ export function doLogin(email, password) {
         .then(response => response.json())
 }
 
+export function getUserEmail() {
+    return fetch('http://localhost:8080/users/email',{
+        credentials:'include'
+    })
+        .then(response => response.json())
+}
+
 
