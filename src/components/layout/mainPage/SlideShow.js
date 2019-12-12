@@ -37,6 +37,5 @@ class SlideShow extends Component {
     }
 }
 
-const serverURL = "http://localhost:8080";
-
+const serverURL = process.env.REACT_APP_API_URL;
 export default SlideShow;

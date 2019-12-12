@@ -1,40 +1,40 @@
 export function getProductById(id) {
-    return fetch('http://localhost:8080/products/' + id)
+    return fetch(process.env.REACT_APP_API_URL+'/products/' + id)
         .then(response => response.json())
 }
 
 export function getProducts() {
-    return fetch('http://localhost:8080/products/')
+    return fetch(process.env.REACT_APP_API_URL+'/products/')
         .then(response => response.json())
 }
 
 export function getButterflies() {
-    return fetch('http://localhost:8080/products/butterflies')
+    return fetch(process.env.REACT_APP_API_URL+'/products/butterflies')
         .then(response => response.json())
 }
 
 export function getInsects() {
-    return fetch('http://localhost:8080/products/insects')
+    return fetch(process.env.REACT_APP_API_URL+'/products/insects')
         .then(response => response.json())
 }
 
 export function getCategories() {
-    return fetch('http://localhost:8080/product-types')
+    return fetch(process.env.REACT_APP_API_URL+'/product-types')
         .then(response => response.json())
 }
 
 export function getProductsByQueryParam(queryString) {
-    return fetch('http://localhost:8080/products/query/' + queryString)
+    return fetch(process.env.REACT_APP_API_URL+'/products/query/' + queryString)
         .then(response => response.json())
 }
 
 export function getNRandomProducts(amount) {
-    return fetch('http://localhost:8080/products/random-' + amount)
+    return fetch(process.env.REACT_APP_API_URL+'/products/random-' + amount)
         .then(response => response.json())
 }
 
 export function doRegister(email, password) {
-    return fetch('http://localhost:8080/auth/register', {
+    return fetch(process.env.REACT_APP_API_URL+'/auth/register', {
         credentials: 'include',
         method: 'POST',
         headers: {
@@ -51,7 +51,7 @@ export function doRegister(email, password) {
 }
 
 export function doLogin(email, password) {
-    return fetch('http://localhost:8080/auth/login', {
+    return fetch(process.env.REACT_APP_API_URL+'/auth/login', {
         credentials: 'include',
         method: 'POST',
         headers: {
@@ -69,7 +69,7 @@ export function doLogin(email, password) {
 }
 
 export function getUserEmail() {
-    return fetch('http://localhost:8080/users/email',{
+    return fetch(process.env.REACT_APP_API_URL+'/users/email',{
         credentials:'include'
     })
         .then(response => response.json())

@@ -88,7 +88,7 @@ class ProductMapper extends Component {
                          style={{
                              height: `${this.state.boxHeight}px`,
                              width: `${this.state.boxWidth}px`,
-                             borderImageSource: 'url("http://localhost:8080/images/frames/frame2.png")'
+                             borderImageSource: `url(${serverURL}/images/frames/frame2.png)`
                          }}>
                         {/*    border-image: url("http://localhost:8080/images/frames/frame2.png");
 */}
@@ -120,4 +120,5 @@ class ProductMapper extends Component {
     }
 }
 
+const serverURL = process.env.REACT_APP_API_URL;
 export default ProductMapper;
