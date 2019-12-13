@@ -8,6 +8,7 @@ import {ReactComponent as LogoSmall} from "../../components/images/logo/logo-sma
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import SearchBar from "./SearchBar";
+import ShoppingCart from "./ShoppingCartIcon";
 import LogoutBtn from "./LogoutBtn";
 import Email from "./Email";
 import {connect} from 'react-redux';
@@ -38,7 +39,7 @@ class Header extends Component {
             <React.Fragment>
                 <header className="header">
                     {
-                        this.props.isLoggedIn.boolean ?
+                        this.props.isLoggedIn ?
                             <div className="email-logout-container">
                                 <Email/>
                                 <LogoutBtn/>
@@ -53,7 +54,10 @@ class Header extends Component {
                     <LogoSmall className="logo-small"/>
                     <GabannaLogo className="logo-header"/>
 
-                    <SearchBar/>
+                    <div className="search-bar-cart-container">
+                        <ShoppingCart/>
+                        <SearchBar/>
+                    </div>
 
                     <nav role="navigation" className="nav-header">
                         <input type="checkbox" id="chk"/>

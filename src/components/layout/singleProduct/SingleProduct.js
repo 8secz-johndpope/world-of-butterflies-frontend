@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {getProductById} from "../../../service/fetchService/fetchService";
 import AdditionalImage from "./AdditionalImage";
 import Drift from 'drift-zoom';
+import {connect} from 'react-redux';
 
 class SingleProduct extends Component {
     state = {
@@ -61,6 +62,15 @@ class SingleProduct extends Component {
         this.setState({
             frameNumber: number
         })
+    };
+
+    addToCart = () => {
+        let wrappedProduct = {
+            uniqueId: Date.now(),
+            product: this.state.product,
+            frameOption: this.state.frameNumber,
+        };
+        this.props.addToShoppingCart(wrappedProduct)
     };
 
     render() {
@@ -149,8 +159,7 @@ class SingleProduct extends Component {
                                 <p id='price'>{this.state.product.price} € <span id="dph">with DPH</span></p>
                             </div>
                             <div className="qty-and-buy-btn-container">
-                                <input type="number"/>
-                                <button>Add to Cart</button>
+                                <button onClick={this.addToCart}>Add to Cart</button>
                             </div>
                         </div>
                     </div>
@@ -160,5 +169,14 @@ class SingleProduct extends Component {
     }
 }
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addToShoppingCart: function (wrappedProduct) {
+            const action = {type: "addProdToShoppingC", wrappedProduct};
+            dispatch(action);
+        },
+    }
+};
+
 const serverURL = process.env.REACT_APP_API_URL;
-export default SingleProduct;
+export default connect(null, mapDispatchToProps)(SingleProduct);

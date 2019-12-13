@@ -4,12 +4,13 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {createStore} from "redux";
-import {persistStore, persistReducer} from 'redux-persist';
 import Provider from "react-redux/es/components/Provider";
 
 const initialState = {
     email: '',
     isLoggedIn: false,
+    productsInShoppingCart: [],
+    subtotal:0,
 };
 
 function reducer(state = initialState, action) {
@@ -17,12 +18,27 @@ function reducer(state = initialState, action) {
         case 'setUserEmail':
             return {
                 ...state,
-                email: action,
+                email: action.email,
             };
         case 'setLoggedIn':
             return {
                 ...state,
-                isLoggedIn: action,
+                isLoggedIn: action.boolean,
+            };
+        case 'addProdToShoppingC':
+            return {
+                ...state,
+                productsInShoppingCart: [...state.productsInShoppingCart, action.wrappedProduct]
+            };
+        case 'removeProdFromShoppingC':
+            return {
+                ...state,
+                productsInShoppingCart: state.productsInShoppingCart.filter((wrappedProduct) => wrappedProduct.uniqueId !== action.uniqueId)
+            };
+        case 'setSubtotal':
+            return {
+                ...state,
+                subtotal: action.subtotal
             };
         default:
             return state;

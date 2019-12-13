@@ -14,7 +14,7 @@ class Email extends Component {
 
 function mapStateToProps(state) {
     return {
-        email: state.email.email,
+        email: state.email,
     }
 }
 

@@ -38,8 +38,7 @@ class SearchBar extends Component {
 
     render() {
         return (
-            <div className="search-bar-cart-container">
-                <FontAwesomeIcon icon={faShoppingCart} className="shopping-cart-icon"/>
+
                 <div className="search-bar-icon-container">
                     <input type="text" className="search-bar"
                            onChange={this.handleChange}
@@ -70,7 +69,6 @@ class SearchBar extends Component {
 
                     }
                 </div>
-            </div>
         );
     }
 }
