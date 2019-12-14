@@ -10,7 +10,9 @@ const initialState = {
     email: '',
     isLoggedIn: false,
     productsInShoppingCart: [],
-    subtotal:0,
+    subtotal: 0,
+    billingAddressList: [],
+
 };
 
 function reducer(state = initialState, action) {
@@ -39,6 +41,11 @@ function reducer(state = initialState, action) {
             return {
                 ...state,
                 subtotal: action.subtotal
+            };
+        case 'setBillingAddressList':
+            return {
+                ...state,
+                billingAddressList: action.billingAddressList
             };
         default:
             return state;

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {faPlusCircle, faMinusCircle} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {Link} from "react-router-dom";
 
 
 class ShoppingCart extends Component {
@@ -46,8 +47,6 @@ class ShoppingCart extends Component {
 
     calculatePricePerCategory = (price, qty) => {
         let total = (price * qty);
-        // let subTotal = this.props.subtotal;
-        // this.props.setSubtotal(total + subTotal);
         return total.toFixed(2);
     };
 
@@ -57,6 +56,7 @@ class ShoppingCart extends Component {
                 total += wrappedProduct.product.price
         ));
         this.subtotal = total;
+        this.props.setSubtotal(this.subtotal);
         console.log(total);
 
     };
@@ -124,6 +124,13 @@ class ShoppingCart extends Component {
                             <p>Shipping bla bla</p>
                             <p>Total:</p>
                             <h1>{this.subtotal.toFixed(2)}</h1>
+                            <Link to="/checkout"
+                                  className="action-btn-lg"
+                                  style={{
+                                      textDecoration: 'none',
+                                  }}
+                            >Proceed To Checkout
+                            </Link>
                         </div>
 
                     </div>

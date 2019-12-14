@@ -14,6 +14,7 @@ class ShoppingCartIcon extends Component {
                 }}
                       to='/cart'>
                     <FontAwesomeIcon icon={faShoppingCart} className="shopping-cart-icon"/>
+                    <p className="shopping-cart-qty-counter">{this.props.productsInShoppingCart.length}</p>
                 </Link>
             </div>
         );

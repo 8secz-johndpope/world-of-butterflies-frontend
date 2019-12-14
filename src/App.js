@@ -6,6 +6,7 @@ import MainPage from "./components/layout/mainPage/MainPage";
 import ProductMapper from "./components/product/ProductMapper";
 import SingleProduct from "./components/layout/singleProduct/SingleProduct"
 import ShoppingCart from "./components/header/ShoppingCart";
+import Checkout from "./components/layout/checkout/Checkout";
 
 class App extends Component {
 
@@ -20,6 +21,7 @@ class App extends Component {
                         <Route path="/about" component={ProductMapper}/>
                         <Route path="/products/:id" component={SingleProduct}/>
                         <Route path="/cart" component={ShoppingCart}/>
+                        <Route path="/checkout" component={Checkout}/>
                         {/*<Route path="/products/:type" component={}/>*/}
                     </Switch>
                 </div>

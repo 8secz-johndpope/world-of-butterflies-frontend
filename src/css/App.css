@@ -1,3 +1,7 @@
+Link {
+    text-decoration: none;
+}
+
 .App {
     text-align: center;
 }
@@ -325,32 +329,160 @@ body {
     float: right;
 }
 
-.shopping-cart-icon-div {
-    align-self: flex-end;
-}
-
-.shopping-cart-elements-subtotal-container {
+.shopping-cart-elements-subtotal-container,
+.billing-information-and-subtotal-container {
     display: flex;
     flex-direction: row;
 }
 
-.shopping-cart-elements-container {
+.shopping-cart-elements-container,
+.billing-information-container {
     flex: 0 1 65%;
     align-self: auto;
-    /*background-color: grey;*/
 }
 
 .subtotal-container {
     flex: 0 1 35%;
     align-self: auto;
-    /*background-color: greenyellow;*/
+    border-left: 1px solid black;
 }
 
 .shopping-cart-table {
     width: 98%;
 }
 
-.shopping-cart-fa-icons{
+.shopping-cart-fa-icons {
     margin: 0 20px;
     cursor: pointer;
+    color: #505050;
+}
+
+.shopping-cart-fa-icons:hover {
+    color: black;
+}
+
+.action-btn-lg {
+    background-color: #303030;
+    font-size: 32px;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 0 5px;
+    cursor: pointer;
+    transition: .1s;
+}
+
+.action-btn-lg:hover {
+    background-color: #111111;
+    transition: .1s;
+}
+
+.action-btn-lg:active {
+
+}
+
+.tab-options h1 {
+    display: inline;
+    margin: 0 10%;
+    transition: all .3s ease-in-out;
+    cursor: pointer;
+}
+
+.active-checkout-tab-option {
+    border-bottom: 4px solid black;
+}
+
+.non-active-checkout-tab-option {
+    border-bottom: 4px solid transparent;
+}
+
+.active-checkout-tab-content {
+    display: block;
+    transition: all .3s ease-in-out;
+}
+
+.non-active-checkout-tab-content {
+    display: none;
+    transition: all .3s ease-in-out;
+}
+
+#tab1,
+#tab2 {
+    padding-top: 35px;
+}
+
+.billing-info-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /*background-color: yellow;*/
+}
+
+.billing-address-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    /*background-color: green;*/
+    flex: 0 1 20%;
+    align-self: flex-start;
+}
+
+.billing-form-container {
+    flex: 1 1 70%;
+    align-self: flex-start;
+    margin:0 5% 3%;
+
+}
+
+.billing-form {
+    display: flex;
+    flex-direction: column;
+    /*background-color: lightblue;*/
+
+}
+
+.billing-form label {
+    /*align-self: flex-start;*/
+    display: flex;
+    flex-direction: column;
+}
+
+.billing-form label p {
+    font-weight: bold;
+    align-self: flex-start;
+}
+
+.billing-form label input {
+    font-size: 15px;
+    /*width: 50%;*/
+}
+
+#billing-form-submit{
+    font-size: 30px;
+    width: 50%;
+    background-color: #111111;
+    color: #ffffff;
+    font-weight: bold;
+    align-self: center;
+}
+
+.billing-address {
+    flex: 1 1 auto;
+    /*align-self: flex-start;*/
+    border: 1px solid black;
+    margin: 20px 0;
+    padding: 0 10px 5px;
+    /*text-align: left;*/
+    /*background-color: blue;*/
+}
+
+.billing-address h3 {
+    margin: 0;
+    border-bottom: 1px solid #606060;
+    cursor: pointer;
+}
+
+.delete-btn{
+    display: inline;
+    float: left;
+    margin: 3px 0;
 }

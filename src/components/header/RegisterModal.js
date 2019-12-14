@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Rodal from 'rodal'
 import 'rodal/lib/rodal.css';
-import {doRegister, doLogin, getUserEmail} from "../../service/fetchService/fetchService";
+import {doRegister, doLogin} from "../../service/fetchService/fetchService";
 import {connect} from 'react-redux';
 
 class RegisterModal extends Component {
@@ -58,12 +58,8 @@ class RegisterModal extends Component {
                         doLogin(this.state.email, this.state.password)
                             .then(res => {
                                 if (res === true) {
-                                    console.log("resp was true");
-                                    getUserEmail()
-                                        .then(
-                                            resp => this.props.setUserEmail(resp.email),
-                                            this.props.setLoggedIn(true),
-                                        )
+                                    this.props.setUserEmail(this.state.email);
+                                    this.props.setLoggedIn(true);
                                 }
                             })
                     } else {
@@ -80,6 +76,9 @@ class RegisterModal extends Component {
             <React.Fragment>
                 <button onClick={this.showRegisterModal}
                         className="header-modal-btn"
+                        style={{
+                            fontSize: `${this.props.fontSize}`
+                        }}
                 >
                     Register
                 </button>
@@ -170,7 +169,7 @@ const mapDispatchToProps = (dispatch) => {
         setLoggedIn: function (boolean) {
             const action = {type: "setLoggedIn", boolean};
             dispatch(action);
-        }
+        },
     }
 };
 

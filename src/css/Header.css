@@ -1,3 +1,7 @@
+Link {
+    text-decoration: none;
+}
+
 .header {
     position: relative;
     width: 100%;
@@ -327,16 +331,30 @@ ul li .dropdown-link {
     flex-direction: column;
 }
 
+.shopping-cart-icon-div {
+    align-self: flex-end;
+    display: inline;
+    font-size: 35px;
+
+}
+
+
 .shopping-cart-icon {
     position: relative;
-    font-size: 35px;
     flex: 1 1 auto;
     align-self: flex-end;
     cursor: pointer;
+    margin: 0 20px;
+}
+
+.shopping-cart-qty-counter {
+    display: inline;
+    font-weight: bolder;
 }
 
 .shopping-cart-icon:hover,
-.search-icon:hover {
+.search-icon:hover,
+.shopping-cart-qty-counter:hover{
     color: #606060;
 }
 
@@ -499,7 +517,6 @@ ul li .dropdown-link {
 
 .search-bar-result {
     display: flex;
-    /*justify-content: flex-end;*/
     background-color: white;
     color: black;
     margin-bottom: 2px;
@@ -528,4 +545,5 @@ ul li .dropdown-link {
     padding-bottom: 5px;
     font-weight: bold;
 }
+
 

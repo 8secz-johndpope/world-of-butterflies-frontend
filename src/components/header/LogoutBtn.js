@@ -6,6 +6,7 @@ class LogoutBtn extends Component {
     doLogout = () => {
         this.props.setUserEmail("");
         this.props.setLoggedIn(false);
+        this.props.setBillingAddressList("");
 
     };
 
@@ -31,7 +32,11 @@ const mapDispatchToProps = (dispatch) => {
         setLoggedIn: function (boolean) {
             const action = {type: "setLoggedIn", boolean};
             dispatch(action);
-        }
+        },
+        setBillingAddressList: function (billingAddressList) {
+            const action = {type: "setBillingAddressList", billingAddressList};
+            dispatch(action);
+        },
     }
 };
 

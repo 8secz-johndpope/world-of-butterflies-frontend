@@ -10,7 +10,6 @@ class SingleProduct extends Component {
         product: {},
         productImages: [],
         mainImageUrl: '',
-        // isInFrame: false,
         frameNumber: 2,
         frameThickness: 1
     };
@@ -159,7 +158,10 @@ class SingleProduct extends Component {
                                 <p id='price'>{this.state.product.price} € <span id="dph">with DPH</span></p>
                             </div>
                             <div className="qty-and-buy-btn-container">
-                                <button onClick={this.addToCart}>Add to Cart</button>
+                                <button
+                                    onClick={this.addToCart}
+                                    className="action-btn-lg"
+                                >Add to Cart</button>
                             </div>
                         </div>
                     </div>
