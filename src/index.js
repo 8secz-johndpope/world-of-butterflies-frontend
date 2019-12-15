@@ -37,6 +37,11 @@ function reducer(state = initialState, action) {
                 ...state,
                 productsInShoppingCart: state.productsInShoppingCart.filter((wrappedProduct) => wrappedProduct.uniqueId !== action.uniqueId)
             };
+        case 'clearShoppingCart':
+            return {
+                ...state,
+                productsInShoppingCart: []
+            };
         case 'setSubtotal':
             return {
                 ...state,

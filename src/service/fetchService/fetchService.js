@@ -68,8 +68,8 @@ export function doLogin(email, password) {
         .then(response => response.json())
 }
 
-export function getUserEmail() {
-    return fetch(process.env.REACT_APP_API_URL + '/users/email', {
+export function isUserLoggedIn() {
+    return fetch(process.env.REACT_APP_API_URL + '/users/is-logged-in', {
         credentials: 'include'
     })
         .then(response => response.json())

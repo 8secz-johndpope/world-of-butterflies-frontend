@@ -7,8 +7,24 @@ import ProductMapper from "./components/product/ProductMapper";
 import SingleProduct from "./components/layout/singleProduct/SingleProduct"
 import ShoppingCart from "./components/header/ShoppingCart";
 import Checkout from "./components/layout/checkout/Checkout";
+import {isUserLoggedIn} from "./service/fetchService/fetchService";
+import {connect} from "react-redux";
 
 class App extends Component {
+
+    componentWillMount() {
+        isUserLoggedIn()
+            .then(resp => {
+                console.log(resp.email);
+                if (resp.email === '') {
+                    this.props.setUserEmail('');
+                    this.props.setLoggedIn(false);
+                    this.props.setBillingAddressList('');
+                    this.props.clearShoppingCart();
+                    this.props.setSubtotal(0);
+                }
+            })
+    }
 
     render() {
         return (
@@ -30,4 +46,29 @@ class App extends Component {
     }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setUserEmail: function (email) {
+            const action = {type: "setUserEmail", email};
+            dispatch(action);
+        },
+        setLoggedIn: function (boolean) {
+            const action = {type: "setLoggedIn", boolean};
+            dispatch(action);
+        },
+        setBillingAddressList: function (billingAddressList) {
+            const action = {type: "setBillingAddressList", billingAddressList};
+            dispatch(action);
+        },
+        clearShoppingCart: function () {
+            const action = {type: "clearShoppingCart"};
+            dispatch(action);
+        },
+        setSubtotal: function (subtotal) {
+            const action = {type: "setSubtotal", subtotal};
+            dispatch(action);
+        },
+    }
+};
+
+export default connect(null, mapDispatchToProps)(App);
