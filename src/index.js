@@ -12,6 +12,8 @@ const initialState = {
     productsInShoppingCart: [],
     subtotal: 0,
     billingAddressList: [],
+    chosenShippingAddress: '',
+    chosenBillingAddress: '',
 
 };
 
@@ -51,6 +53,16 @@ function reducer(state = initialState, action) {
             return {
                 ...state,
                 billingAddressList: action.billingAddressList
+            };
+        case 'setChosenShippingAddress':
+            return {
+                ...state,
+                chosenShippingAddress: action.chosenShippingAddress
+            };
+        case 'setChosenBillingAddress':
+            return {
+                ...state,
+                chosenBillingAddress: action.chosenBillingAddress
             };
         default:
             return state;

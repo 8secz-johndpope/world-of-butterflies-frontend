@@ -23,7 +23,6 @@ class ShoppingCart extends Component {
     }
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
-        console.log(this.props.productsInShoppingCart);
         this.calculateSubtotal();
     }
 
@@ -57,7 +56,6 @@ class ShoppingCart extends Component {
         ));
         this.subtotal = total;
         this.props.setSubtotal(this.subtotal);
-        console.log(total);
 
     };
 

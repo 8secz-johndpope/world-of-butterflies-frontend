@@ -426,10 +426,11 @@ body {
     align-self: flex-start;
 }
 
-.billing-form-container {
+.billing-form-container,
+.additional-shipping-address {
     flex: 1 1 70%;
     align-self: flex-start;
-    margin:0 5% 3%;
+    margin: 0 5% 3%;
 
 }
 
@@ -456,7 +457,7 @@ body {
     /*width: 50%;*/
 }
 
-#billing-form-submit{
+#billing-form-submit {
     font-size: 30px;
     width: 50%;
     background-color: #111111;
@@ -481,8 +482,32 @@ body {
     cursor: pointer;
 }
 
-.delete-btn{
+.delete-btn {
     display: inline;
     float: left;
     margin: 3px 0;
+}
+
+.different-address-checkbox {
+    font-weight: bold;
+    /*font-size: 20px;*/
+}
+
+.different-address-checkbox p {
+    display: inline-block;
+    font-size: 15px;
+
+}
+.different-address-checkbox {
+    zoom: 2;
+    transform: scale(2);
+    -ms-transform: scale(2);
+    -webkit-transform: scale(2);
+    -o-transform: scale(2);
+    -moz-transform: scale(2);
+    transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
 }

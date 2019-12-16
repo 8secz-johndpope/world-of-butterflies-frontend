@@ -3,19 +3,25 @@ import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 import LoginModal from "../../header/LoginModal";
 import RegisterModal from "../../header/RegisterModal";
-import BillingDetails from "./BillingDetails";
+import UserBillingDetails from "./UserBillingDetails";
+import GuestBillingDetails from "./GuestBillingDetails";
 
 class Checkout extends Component {
     state = {
-        user: true,
+        isUser: true,
     };
 
     setOption = (boolean) => {
         this.setState({
-            user: boolean,
+            isUser: boolean,
         })
     };
 
+    payClickHandler = () => {
+        // this.props.chosenShippingAddress
+        // this.props.chosenBillingAddress
+
+    };
 
     render() {
         return (
@@ -23,7 +29,7 @@ class Checkout extends Component {
                 <div className="billing-information-container">
                     <div className="tab-options">
                         <h1
-                            className={this.state.user ? 'active-checkout-tab-option' : 'non-active-checkout-tab-option'}
+                            className={this.state.isUser ? 'active-checkout-tab-option' : 'non-active-checkout-tab-option'}
                             onClick={() => this.setOption(true)}
                         >
                             User
@@ -33,23 +39,21 @@ class Checkout extends Component {
                                 null
                                 :
                                 <h1
-                                    className={this.state.user ? 'non-active-checkout-tab-option' : 'active-checkout-tab-option'}
+                                    className={this.state.isUser ? 'non-active-checkout-tab-option' : 'active-checkout-tab-option'}
                                     onClick={() => this.setOption(false)}
                                 >
                                     Guest
                                 </h1>
                         }
                     </div>
-
                     <div
                         id='tab1'
-                        className={this.state.user ? 'active-checkout-tab-content' : 'non-active-checkout-tab-content'}>
+                        className={this.state.isUser ? 'active-checkout-tab-content' : 'non-active-checkout-tab-content'}>
                         {
                             this.props.isLoggedIn ?
                                 <div className="billing-info-container">
-                                    <BillingDetails/>
+                                    <UserBillingDetails/>
                                 </div>
-
                                 :
                                 <div>
                                     <RegisterModal
@@ -59,11 +63,10 @@ class Checkout extends Component {
                                 </div>
                         }
                     </div>
-
-
                     <div
                         id='tab2'
-                        className={this.state.user ? 'non-active-checkout-tab-content' : 'active-checkout-tab-content'}>
+                        className={this.state.isUser ? 'non-active-checkout-tab-content' : 'active-checkout-tab-content'}>
+                        <GuestBillingDetails/>
                     </div>
 
 
@@ -77,6 +80,7 @@ class Checkout extends Component {
                     <h1>{this.props.subtotal.toFixed(2)}</h1>
                     <Link to="/pay"
                           className="action-btn-lg"
+                          onClick={this.payClickHandler}
                           style={{
                               textDecoration: 'none',
                           }}
@@ -93,6 +97,8 @@ function mapStateToProps(state) {
         subtotal: state.subtotal,
         isLoggedIn: state.isLoggedIn,
         email: state.email,
+        chosenShippingAddress: state.chosenShippingAddress,
+        chosenBillingAddress: state.chosenBillingAddress,
     }
 }
 

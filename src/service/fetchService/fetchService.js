@@ -68,6 +68,19 @@ export function doLogin(email, password) {
         .then(response => response.json())
 }
 
+export function doLogout() {
+    return fetch(process.env.REACT_APP_API_URL + '/auth/logout', {
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }
+    )
+        .then(response => response.json())
+}
+
 export function isUserLoggedIn() {
     return fetch(process.env.REACT_APP_API_URL + '/users/is-logged-in', {
         credentials: 'include'

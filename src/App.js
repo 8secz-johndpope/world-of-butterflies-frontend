@@ -15,7 +15,6 @@ class App extends Component {
     componentWillMount() {
         isUserLoggedIn()
             .then(resp => {
-                console.log(resp.email);
                 if (resp.email === '') {
                     this.props.setUserEmail('');
                     this.props.setLoggedIn(false);
