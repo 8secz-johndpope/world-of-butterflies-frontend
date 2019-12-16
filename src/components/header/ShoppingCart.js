@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {faPlusCircle, faMinusCircle} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Link} from "react-router-dom";
+import {FormattedMessage} from "react-intl";
 
 
 class ShoppingCart extends Component {
@@ -69,10 +70,18 @@ class ShoppingCart extends Component {
                             <table className="shopping-cart-table">
                                 <thead>
                                 <tr>
-                                    <th colSpan="2">Product</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
+                                    <th colSpan="2">
+                                        <FormattedMessage id="app.shopping.cart.product"/>
+                                    </th>
+                                    <th>
+                                        <FormattedMessage id="app.shopping.cart.price"/>
+                                    </th>
+                                    <th>
+                                        <FormattedMessage id="app.shopping.cart.qty"/>
+                                    </th>
+                                    <th>
+                                        <FormattedMessage id="app.shopping.cart.total"/>
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -119,21 +128,29 @@ class ShoppingCart extends Component {
 
                         <div className="subtotal-container">
                             <h1>Cart Totals</h1>
-                            <p>Shipping bla bla</p>
-                            <p>Total:</p>
+                            <p>
+                                <FormattedMessage id="app.shopping.cart.shipping"/>
+                                bla bla
+                            </p>
+                            <p>
+                                <FormattedMessage id="app.shopping.cart.sub-total"/>
+                            </p>
                             <h1>{this.subtotal.toFixed(2)}</h1>
                             <Link to="/checkout"
                                   className="action-btn-lg"
                                   style={{
                                       textDecoration: 'none',
                                   }}
-                            >Proceed To Checkout
+                            >
+                                <FormattedMessage id="app.shopping.cart.to-checkout"/>
                             </Link>
                         </div>
 
                     </div>
                     :
-                    <h1>Your Cart is empty, go back to shopping!</h1>
+                    <h1>
+                        <FormattedMessage id="app.shopping.cart.empty"/>
+                    </h1>
                 }
             </React.Fragment>
         );

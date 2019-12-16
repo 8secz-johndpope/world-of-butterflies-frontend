@@ -12,6 +12,8 @@ import ShoppingCart from "./ShoppingCartIcon";
 import LogoutBtn from "./LogoutBtn";
 import Email from "./Email";
 import {connect} from 'react-redux';
+import LanguageChanger from "./LanguageChanger";
+import {FormattedMessage} from "react-intl";
 
 class Header extends Component {
 
@@ -43,12 +45,14 @@ class Header extends Component {
                             <div className="email-logout-container">
                                 <Email/>
                                 <LogoutBtn/>
+                                <LanguageChanger/>
                             </div>
 
                             :
                             <div className="register-login-container">
                                 <RegisterModal/>
                                 <LoginModal/>
+                                <LanguageChanger/>
                             </div>
                     }
                     <LogoSmall className="logo-small"/>
@@ -67,48 +71,74 @@ class Header extends Component {
                         <ul className="nav-options">
 
                             <li>
-                                <Link to="/" className="main-link">HOME</Link>
+                                <Link to="/" className="main-link">
+                                    <FormattedMessage id="app.header.home"/>
+                                </Link>
                             </li>
                             <li>
-                                <Link to="/about" className="main-link">ABOUT</Link>
+                                <Link to="/about" className="main-link">
+                                    <FormattedMessage id="app.header.about"/>
+                                </Link>
                             </li>
                             <li>
-                                <Link to="/butterfly" className="main-link">BUTTERFLY</Link>
+                                <Link to="/butterfly" className="main-link">
+                                    <FormattedMessage id="app.header.main.butterfly"/>
+                                </Link>
                                 <ul className="dropdown">
-                                    <li><Link to="/" className="dropdown-link">MOTHS</Link></li>
-                                    <li><Link to="/" className="dropdown-link">BOTANICAL PRINTS</Link></li>
-                                    <li><Link to="/" className="dropdown-link">CREATE YOUR FRAME</Link></li>
+                                    <li><Link to="/" className="dropdown-link">
+                                        <FormattedMessage id="app.header.sub.moths"/>
+                                    </Link></li>
+                                    <li><Link to="/" className="dropdown-link">
+                                        <FormattedMessage id="app.header.sub.botanical.prints"/>
+                                    </Link></li>
+                                    <li><Link to="/" className="dropdown-link">
+                                        <FormattedMessage id="app.header.sub.create.your.frame"/>
+                                    </Link></li>
                                 </ul>
                             </li>
                             <li>
-                                <Link to="/insect" className="main-link">INSECT</Link>
+                                <Link to="/insect" className="main-link">
+                                    <FormattedMessage id="app.header.main.insect"/>
+                                </Link>
                                 <ul className="dropdown">
-                                    <li><Link to="/" className="dropdown-link">BOTANICAL PRINT</Link></li>
-                                    <li><Link to="/" className="dropdown-link">CREATE YOUR FRAME</Link></li>
+                                    <li><Link to="/" className="dropdown-link">
+                                        <FormattedMessage id="app.header.sub.botanical.prints"/>
+                                    </Link></li>
+                                    <li><Link to="/" className="dropdown-link">
+                                        <FormattedMessage id="app.header.sub.create.your.frame"/>
+                                    </Link></li>
                                 </ul>
                             </li>
                             <li>
-                                <Link to="/fossil" className="main-link">FOSSIL</Link>
+                                <Link to="/fossil" className="main-link">
+                                    <FormattedMessage id="app.header.main.fossil"/>
+                                </Link>
                                 <ul className="dropdown">
                                     <li><Link to="/" className="dropdown-link">FOSSIL</Link></li>
                                 </ul>
                             </li>
                             <li>
-                                <Link to="/minerals" className="main-link">MINERALS</Link>
+                                <Link to="/minerals" className="main-link">
+                                    <FormattedMessage id="app.header.main.minerals"/>
+                                </Link>
                                 <ul className="dropdown">
                                     <li><Link to="/" className="dropdown-link">MINERAL 1</Link></li>
                                     <li><Link to="/" className="dropdown-link">MINERAL 2</Link></li>
                                 </ul>
                             </li>
                             <li>
-                                <Link to="/jewelry" className="main-link">JEWELRY</Link>
+                                <Link to="/jewelry" className="main-link">
+                                    <FormattedMessage id="app.header.main.jewelry"/>
+                                </Link>
                                 <ul className="dropdown">
                                     <li><Link to="/" className="dropdown-link">BUTTERFLY</Link></li>
                                     <li><Link to="/" className="dropdown-link">BEATL ASSECUALL</Link></li>
 
                                 </ul>
                             </li>
-                            <li><Link to="/contact" className="main-link">CONTACT</Link></li>
+                            <li><Link to="/contact" className="main-link">
+                                <FormattedMessage id="app.header.contact"/>
+                            </Link></li>
                             <label htmlFor="chk" className="hide-menu-btn">
                                 <FontAwesomeIcon icon={faTimes}/>
                             </label>
@@ -118,33 +148,53 @@ class Header extends Component {
                         <a className="close-btn" onClick={this.closeNav}>×</a>
                         <div id="sidebar-content">
                             <ul className="main-menu">
-                                <li><Link to="/">HOME</Link></li>
-                                <li><Link to="/about">ABOUT</Link></li>
+                                <li><Link to="/">
+                                    <FormattedMessage id="app.header.home"/>
+                                </Link></li>
+                                <li><Link to="/about">
+                                    <FormattedMessage id="app.header.about"/>
+                                </Link></li>
 
 
                                 <li><Link id="butterfly-main" className="sidebar-main-link"
-                                          to="/butterfly">BUTTERFLY</Link>
+                                          to="/butterfly">
+                                    <FormattedMessage id="app.header.main.butterfly"/>
+                                </Link>
                                     <label title="Toggle Drop-down" className="drop-icon" htmlFor="sm1">▾</label>
                                     <input type="checkbox" id="sm1"/>
                                     <ul className="sub-menu">
-                                        <li><Link to="/">MOTHS</Link></li>
-                                        <li><Link to="/">BOTANICAL PRINTS</Link></li>
-                                        <li><Link to="/">CREATE YOUR FRAME</Link></li>
+                                        <li><Link to="/">
+                                            <FormattedMessage id="app.header.sub.moths"/>
+                                        </Link></li>
+                                        <li><Link to="/">
+                                            <FormattedMessage id="app.header.sub.botanical.prints"/>
+                                        </Link></li>
+                                        <li><Link to="/">
+                                            <FormattedMessage id="app.header.sub.create.your.frame"/>
+                                        </Link></li>
                                     </ul>
                                 </li>
 
 
-                                <li><Link id="insect-main" className="sidebar-main-link" to="/insect">INSECT</Link>
+                                <li><Link id="insect-main" className="sidebar-main-link" to="/insect">
+                                    <FormattedMessage id="app.header.main.insect"/>
+                                </Link>
                                     <label title="Toggle Drop-down" className="drop-icon" htmlFor="sm2">▾</label>
                                     <input type="checkbox" id="sm2"/>
                                     <ul className="sub-menu">
-                                        <li><Link to="/">BOTANICAL PRINT</Link></li>
-                                        <li><Link to="/">CREATE YOUR FRAME</Link></li>
+                                        <li><Link to="/">
+                                            <FormattedMessage id="app.header.sub.botanical.prints"/>
+                                        </Link></li>
+                                        <li><Link to="/">
+                                            <FormattedMessage id="app.header.sub.create.your.frame"/>
+                                        </Link></li>
                                     </ul>
                                 </li>
 
 
-                                <li><Link id="fossil-main" to="/fossil">FOSSIL</Link>
+                                <li><Link id="fossil-main" to="/fossil">
+                                    <FormattedMessage id="app.header.main.fossil"/>
+                                </Link>
                                     <label title="Toggle Drop-down" className="drop-icon" htmlFor="sm3">▾</label>
                                     <input type="checkbox" id="sm3"/>
                                     <ul className="sub-menu">
@@ -153,7 +203,9 @@ class Header extends Component {
                                 </li>
 
 
-                                <li><Link id="mineral-main" to="/mineral">MINERAL</Link>
+                                <li><Link id="mineral-main" to="/mineral">
+                                    <FormattedMessage id="app.header.main.minerals"/>
+                                </Link>
                                     <label title="Toggle Drop-down" className="drop-icon" htmlFor="sm4">▾</label>
                                     <input type="checkbox" id="sm4"/>
                                     <ul className="sub-menu">
@@ -163,7 +215,9 @@ class Header extends Component {
                                 </li>
 
 
-                                <li><Link id="jewelry-main" to="/jewelry">JEWELRY</Link>
+                                <li><Link id="jewelry-main" to="/jewelry">
+                                    <FormattedMessage id="app.header.main.jewelry"/>
+                                </Link>
                                     <label title="Toggle Drop-down" className="drop-icon" htmlFor="sm5">▾</label>
                                     <input type="checkbox" id="sm5"/>
                                     <ul className="sub-menu">
@@ -173,7 +227,9 @@ class Header extends Component {
                                 </li>
 
 
-                                <li><Link to="/contact">CONTACT</Link></li>
+                                <li><Link to="/contact">
+                                    <FormattedMessage id="app.header.contact"/>
+                                </Link></li>
                             </ul>
                         </div>
                         {/*<a href="#">About</a>*/}

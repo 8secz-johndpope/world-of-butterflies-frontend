@@ -3,6 +3,7 @@ import {getProductById} from "../../../service/fetchService/fetchService";
 import AdditionalImage from "./AdditionalImage";
 import Drift from 'drift-zoom';
 import {connect} from 'react-redux';
+import {FormattedMessage} from "react-intl";
 
 class SingleProduct extends Component {
     state = {
@@ -132,8 +133,14 @@ class SingleProduct extends Component {
                         >
                             <h1>{this.state.product.name}</h1>
                             <div className="dirty-little-details">
-                                <p>In stock: {this.state.product.availableQuantity}</p>
-                                <p>Delivery: 3-5 working days!</p>
+                                <p>
+                                    <FormattedMessage id="app.single.page.stock"/>
+                                    {this.state.product.availableQuantity}</p>
+                                <p>
+                                    <FormattedMessage id="app.single.page.delivery.time"/>
+                                    3-5
+                                    <FormattedMessage id="app.single.page.delivery.days"/>
+                                </p>
                                 {this.state.product.isInFrame ?
                                     null
                                     :
@@ -155,13 +162,17 @@ class SingleProduct extends Component {
                                         />
                                     </div>
                                 }
-                                <p id='price'>{this.state.product.price} € <span id="dph">with DPH</span></p>
+                                <p id='price'>{this.state.product.price} € <span id="dph">
+                                    <FormattedMessage id="app.single.page.dph"/>
+                                </span></p>
                             </div>
                             <div className="qty-and-buy-btn-container">
                                 <button
                                     onClick={this.addToCart}
                                     className="action-btn-lg"
-                                >Add to Cart</button>
+                                >
+                                    <FormattedMessage id="app.single.page.buy"/>
+                                </button>
                             </div>
                         </div>
                     </div>

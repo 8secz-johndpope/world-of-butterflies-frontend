@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Carousel} from "react-responsive-carousel";
+import {FormattedMessage} from "react-intl";
 
 class SlideShow extends Component {
     render() {
@@ -16,19 +17,19 @@ class SlideShow extends Component {
                             height: 'auto',
                         }} src={serverURL + '/images/slideshow/1.png'}/>
                         <p className="main-page-buy-now-btn">
-                            Shop Now
+                            <FormattedMessage id="app.slide-show.shop-now"/>
                         </p>
                     </div>
                     <div>
                         <img src={serverURL + '/images/slideshow/2.png'}/>
                         <p className="main-page-buy-now-btn">
-                            Shop Now
+                            <FormattedMessage id="app.slide-show.shop-now"/>
                         </p>
                     </div>
                     <div>
                         <img src={serverURL + '/images/slideshow/3.png'}/>
                         <p className="main-page-buy-now-btn">
-                            Shop Now
+                            <FormattedMessage id="app.slide-show.shop-now"/>
                         </p>
                     </div>
                 </Carousel>

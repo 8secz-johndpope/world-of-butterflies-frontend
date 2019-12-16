@@ -3,6 +3,7 @@ import Rodal from 'rodal'
 import 'rodal/lib/rodal.css';
 import {doLogin, getShippingAddresses} from "../../service/fetchService/fetchService";
 import {connect} from 'react-redux';
+import {FormattedMessage} from "react-intl";
 
 class LoginModal extends Component {
 
@@ -71,7 +72,8 @@ class LoginModal extends Component {
                         style={{
                             fontSize: `${this.props.fontSize}`
                         }}
-                >Login
+                >
+                    <FormattedMessage id="app.header.login.login-btn"/>
                 </button>
 
                 <Rodal visible={this.state.loginModalVisible}
@@ -87,10 +89,14 @@ class LoginModal extends Component {
                             onSubmit={this.handleSubmit}
                         >
 
-                            <h2 align="center">Welcome back, Login!</h2>
+                            <h2 align="center">
+                                <FormattedMessage id="app.header.login.title"/>
+                            </h2>
 
                             <label className='header-modal-label'>
-                                <p className="header-label-txt">ENTER YOUR EMAIL ADDRESS</p>
+                                <p className="header-label-txt">
+                                    <FormattedMessage id="app.header.login.email"/>
+                                </p>
                                 <input required type="text"
                                        name="email"
                                        className="header-modal-input"
@@ -104,7 +110,9 @@ class LoginModal extends Component {
                             </label>
 
                             <label className='header-modal-label'>
-                                <p className="header-label-txt">ENTER YOUR PASSWORD</p>
+                                <p className="header-label-txt">
+                                    <FormattedMessage id="app.header.login.password"/>
+                                </p>
                                 <input required type="password"
                                        name="password"
                                        className="header-modal-input"
@@ -120,7 +128,8 @@ class LoginModal extends Component {
                             <button
                                 type="submit"
                                 className="header-modal-submit-btn"
-                            >Login!
+                            >
+                                <FormattedMessage id="app.header.login.login-btn"/>
                             </button>
                         </form>
                     </div>

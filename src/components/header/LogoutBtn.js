@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {doLogout} from "../../service/fetchService/fetchService";
+import {FormattedMessage} from "react-intl";
 
 class LogoutBtn extends Component {
 
@@ -22,7 +23,8 @@ class LogoutBtn extends Component {
                 <button
                     onClick={this.doLogoutAndClearLocalStorage}
                     className="header-modal-btn"
-                >Logout
+                >
+                    <FormattedMessage id="app.header.logout"/>
                 </button>
 
             </React.Fragment>

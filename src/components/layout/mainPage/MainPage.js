@@ -4,6 +4,7 @@ import SlideShow from "./SlideShow";
 import CategoryMapper from "./CategoryMapper";
 import FeaturedProductMapper from "./FeaturedProductMapper";
 import OneLineText from "./OneLineText";
+import {FormattedMessage} from "react-intl";
 
 class MainPage extends Component {
 
@@ -13,13 +14,13 @@ class MainPage extends Component {
                 <SlideShow/>
                 <CategoryMapper/>
                 <OneLineText
-                    text='BESTSELLERS'
+                    text={<FormattedMessage id="app.main-page.bestsellers"/>}
                     paddingTop='0'
                     paddingBottom='40px'
                 />
                 <FeaturedProductMapper/>
                 <OneLineText
-                    text='NOVINKY'
+                    text={<FormattedMessage id="app.main-page.news"/>}
                     paddingTop='40px'
                     paddingBottom='60px'
                 />

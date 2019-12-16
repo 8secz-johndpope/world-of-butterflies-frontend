@@ -3,6 +3,7 @@ import Rodal from 'rodal'
 import 'rodal/lib/rodal.css';
 import {doRegister, doLogin} from "../../service/fetchService/fetchService";
 import {connect} from 'react-redux';
+import {FormattedMessage} from "react-intl";
 
 class RegisterModal extends Component {
 
@@ -80,7 +81,7 @@ class RegisterModal extends Component {
                             fontSize: `${this.props.fontSize}`
                         }}
                 >
-                    Register
+                    <FormattedMessage id="app.header.register.register-btn"/>
                 </button>
 
                 <Rodal visible={this.state.registerModalVisible}
@@ -95,9 +96,13 @@ class RegisterModal extends Component {
                             className="header-modal-form"
                             onSubmit={this.handleSubmit}
                         >
-                            <h2 align="center">Hi Stranger, Register!</h2>
+                            <h2 align="center">
+                                <FormattedMessage id="app.header.register.registration-title"/>
+                            </h2>
                             <label className='header-modal-label'>
-                                <p className="header-label-txt">ENTER YOUR USERNAME</p>
+                                <p className="header-label-txt">
+                                    <FormattedMessage id="app.header.register.email"/>
+                                </p>
                                 <input required type="email"
                                        name='email'
                                        className="header-modal-input"
@@ -111,7 +116,9 @@ class RegisterModal extends Component {
                             </label>
 
                             <label className='header-modal-label'>
-                                <p className="header-label-txt">ENTER YOUR PASSWORD</p>
+                                <p className="header-label-txt">
+                                    <FormattedMessage id="app.header.register.password"/>
+                                </p>
                                 <input required type="password"
                                        name='password'
                                        className="header-modal-input"
@@ -125,7 +132,9 @@ class RegisterModal extends Component {
                             </label>
 
                             <label className='header-modal-label'>
-                                <p className="header-label-txt">CONFIRM YOUR PASSWORD</p>
+                                <p className="header-label-txt">
+                                    <FormattedMessage id="app.header.register.confirm"/>
+                                </p>
                                 <input required type="password"
                                        name='confPass'
                                        className="header-modal-input"
@@ -140,8 +149,9 @@ class RegisterModal extends Component {
 
                             {
                                 this.state.errorMessage ?
-                                    <div className="header-error-message">Your email address is already
-                                        registered!</div>
+                                    <div className="header-error-message">
+                                        <FormattedMessage id="app.header.register.error-message"/>
+                                    </div>
                                     :
                                     null
 
@@ -150,7 +160,8 @@ class RegisterModal extends Component {
                             <button
                                 type="submit"
                                 className="header-modal-submit-btn"
-                            >Register!
+                            >
+                                <FormattedMessage id="app.header.register.register-btn"/>
                             </button>
                         </form>
                     </div>

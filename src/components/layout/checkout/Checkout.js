@@ -5,6 +5,7 @@ import LoginModal from "../../header/LoginModal";
 import RegisterModal from "../../header/RegisterModal";
 import UserBillingDetails from "./UserBillingDetails";
 import GuestBillingDetails from "./GuestBillingDetails";
+import {FormattedMessage} from "react-intl";
 
 class Checkout extends Component {
     state = {
@@ -32,7 +33,7 @@ class Checkout extends Component {
                             className={this.state.isUser ? 'active-checkout-tab-option' : 'non-active-checkout-tab-option'}
                             onClick={() => this.setOption(true)}
                         >
-                            User
+                            <FormattedMessage id="app.checkout.user"/>
                         </h1>
                         {
                             this.props.isLoggedIn ?
@@ -42,7 +43,7 @@ class Checkout extends Component {
                                     className={this.state.isUser ? 'non-active-checkout-tab-option' : 'active-checkout-tab-option'}
                                     onClick={() => this.setOption(false)}
                                 >
-                                    Guest
+                                    <FormattedMessage id="app.checkout.guest"/>
                                 </h1>
                         }
                     </div>
@@ -75,8 +76,12 @@ class Checkout extends Component {
 
                 <div className="subtotal-container">
                     <h1>Cart Totals</h1>
-                    <p>Shipping bla bla</p>
-                    <p>Total:</p>
+                    <p>
+                        <FormattedMessage id="app.shopping.cart.shipping"/>
+                        bla bla</p>
+                    <p>
+                        <FormattedMessage id="app.shopping.cart.sub-total"/>
+                    </p>
                     <h1>{this.props.subtotal.toFixed(2)}</h1>
                     <Link to="/pay"
                           className="action-btn-lg"
@@ -84,7 +89,8 @@ class Checkout extends Component {
                           style={{
                               textDecoration: 'none',
                           }}
-                    >Pay
+                    >
+                        <FormattedMessage id="app.shopping.cart.to-pay"/>
                     </Link>
                 </div>
             </div>
