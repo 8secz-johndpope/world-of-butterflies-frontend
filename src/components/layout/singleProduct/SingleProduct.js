@@ -73,6 +73,20 @@ class SingleProduct extends Component {
         this.props.addToShoppingCart(wrappedProduct)
     };
 
+    getDescription = () => {
+        if (this.props.preferredLanguage === "hu") {
+            return this.state.product.descriptionHU;
+        } else if (this.props.preferredLanguage === "en") {
+            return this.state.product.descriptionEN;
+        } else if (this.props.preferredLanguage === "sk") {
+            return this.state.product.descriptionSK;
+        } else if (this.props.preferredLanguage === "de") {
+            return this.state.product.descriptionDE;
+        } else {
+            return;
+        }
+    };
+
     render() {
         return (
             <React.Fragment>
@@ -162,9 +176,15 @@ class SingleProduct extends Component {
                                         />
                                     </div>
                                 }
-                                <p id='price'>{this.state.product.price} € <span id="dph">
+                                <p id='price'>{this.state.product.price}
+                                    €
+                                    <span id="dph">
                                     <FormattedMessage id="app.single.page.dph"/>
-                                </span></p>
+                                </span>
+                                </p>
+
+                                <p>{this.getDescription()}</p>
+
                             </div>
                             <div className="qty-and-buy-btn-container">
                                 <button
@@ -182,6 +202,12 @@ class SingleProduct extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        preferredLanguage: state.preferredLanguage,
+    }
+}
+
 const mapDispatchToProps = (dispatch) => {
     return {
         addToShoppingCart: function (wrappedProduct) {
@@ -192,4 +218,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const serverURL = process.env.REACT_APP_API_URL;
-export default connect(null, mapDispatchToProps)(SingleProduct);
+export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);
