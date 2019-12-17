@@ -355,7 +355,7 @@ ul li .dropdown-link {
 
 .shopping-cart-icon:hover,
 .search-icon:hover,
-.shopping-cart-qty-counter:hover{
+.shopping-cart-qty-counter:hover {
     color: #606060;
 }
 
@@ -547,4 +547,34 @@ ul li .dropdown-link {
     font-weight: bold;
 }
 
+.languages-dropdown {
+    font-size: 15px;
+    cursor: pointer;
+    display: inline;
+    list-style:none;
+    font-weight: bold;
+    float: right;
+    padding: 7px;
+
+}
+.languages-drop-btn{
+    border: 1px solid grey;
+    padding: 2px;
+}
+
+.languages-dropdown-content {
+    display: none;
+    margin: 0;
+    padding: 0;
+    list-style:none;
+}
+
+.languages-dropdown:hover .languages-dropdown-content {
+    display: block;
+}
+
+.languages-dropdown-content li{
+    margin: 12px 0;
+    border: 1px solid grey;
+}
 

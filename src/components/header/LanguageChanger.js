@@ -4,20 +4,23 @@ import {connect} from "react-redux";
 class LanguageChanger extends Component {
     render() {
         return (
-            <div>
-                <button
-                    onClick={() => this.props.setPreferredLanguage('en')}
-                >ENG
-                </button>
-                <button
-                    onClick={() => this.props.setPreferredLanguage('hu')}
-                >HU
-                </button>
-                <button
-                    onClick={() => this.props.setPreferredLanguage('sk')}
-                >SK
-                </button>
-            </div>
+            <li className="languages-dropdown">
+                <span className="languages-drop-btn">{this.props.preferredLanguage.toUpperCase()}</span>
+                <ul className="languages-dropdown-content">
+                    <li
+                        onClick={() => this.props.setPreferredLanguage('en')}
+                    >EN
+                    </li>
+                    <li
+                        onClick={() => this.props.setPreferredLanguage('hu')}
+                    >HU
+                    </li>
+                    <li
+                        onClick={() => this.props.setPreferredLanguage('sk')}
+                    >SK
+                    </li>
+                </ul>
+            </li>
         );
     }
 }
