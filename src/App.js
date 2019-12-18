@@ -14,6 +14,7 @@ import {IntlProvider} from "react-intl";
 import languageHU from './translations/hu.json'
 import languageEN from './translations/en.json'
 import languageSK from './translations/sk.json'
+import Footer from "./components/footer/Footer";
 
 const messages = {
     'hu': languageHU,
@@ -43,7 +44,6 @@ class App extends Component {
                 <Router>
                     <div className="App">
                         <Header/>
-                        <br/>
                         <Switch>
                             <Route exact path="/" component={MainPage}/>
                             {/*<Route path="/about" component={ProductMapper}/>*/}
@@ -52,6 +52,7 @@ class App extends Component {
                             <Route path="/checkout" component={Checkout}/>
                             {/*<Route path="/products/:type" component={}/>*/}
                         </Switch>
+                        <Footer/>
                     </div>
                 </Router>
             </IntlProvider>

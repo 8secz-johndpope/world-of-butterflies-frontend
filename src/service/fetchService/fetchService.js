@@ -33,6 +33,16 @@ export function getNRandomProducts(amount) {
         .then(response => response.json())
 }
 
+export function getNRandomFramedProducts(amount) {
+    return fetch(process.env.REACT_APP_API_URL + '/products/random-framed-' + amount)
+        .then(response => response.json())
+}
+
+export function getNRandomNonFramedProducts(amount) {
+    return fetch(process.env.REACT_APP_API_URL + '/products/random-non-framed-' + amount)
+        .then(response => response.json())
+}
+
 export function doRegister(email, password) {
     return fetch(process.env.REACT_APP_API_URL + '/auth/register', {
         credentials: 'include',

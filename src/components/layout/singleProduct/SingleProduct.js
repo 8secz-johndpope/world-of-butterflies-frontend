@@ -4,6 +4,8 @@ import AdditionalImage from "./AdditionalImage";
 import Drift from 'drift-zoom';
 import {connect} from 'react-redux';
 import {FormattedMessage} from "react-intl";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faTruckMoving, faChevronUp, faChevronDown} from "@fortawesome/free-solid-svg-icons";
 
 class SingleProduct extends Component {
     state = {
@@ -90,12 +92,9 @@ class SingleProduct extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="image-gallery-and-main-details-container">
+                <div className="image-gallery-and-main-details-container dotted-spaced-bottom">
                     <div className="image-gallery">
                         <div className="main-image">
-                            {/*{*/}
-                            {/*    this.state.product.isInFrame*/}
-                            {/*}*/}
                             <div className="frame-around-butterfly"
                                  style={{
                                      border: `${this.state.product.isInFrame ? 'none' : `${this.state.frameThickness}cm solid black`}`,
@@ -141,24 +140,29 @@ class SingleProduct extends Component {
                     </div>
 
                     <div className="main-details">
+                        <h1>{this.state.product.name}</h1>
                         <div id="zoomed-img-portal"
                              ref="zoomedImgPortal"
                              className="detail"
                         >
-                            <h1>{this.state.product.name}</h1>
-                            <div className="dirty-little-details">
-                                <p>
-                                    <FormattedMessage id="app.single.page.stock"/>
-                                    {this.state.product.availableQuantity}</p>
-                                <p>
-                                    <FormattedMessage id="app.single.page.delivery.time"/>
-                                    3-5
-                                    <FormattedMessage id="app.single.page.delivery.days"/>
-                                </p>
+
+                            <div className="dirty-little-details dotted-spaced-bottom">
+                                <span className="stock-and-time">
+                                    <p>
+                                        <FormattedMessage id="app.single.page.stock"/>
+                                        {this.state.product.availableQuantity}</p>
+                                    <p>
+                                        <FormattedMessage id="app.single.page.delivery.time"/>
+                                        3-5
+                                        <FormattedMessage id="app.single.page.delivery.days"/>
+                                    </p>
+                                </span>
+                                <p className="frame-colors">Frame colors: </p>
                                 {this.state.product.isInFrame ?
                                     null
                                     :
                                     <div className="small-frame-icons">
+
                                     <span onMouseEnter={() => this.mouseEnterCapture(1)}
                                           style={{
                                               backgroundImage: `url(${serverURL}/images/frames/color-options/1.png)`
@@ -176,26 +180,81 @@ class SingleProduct extends Component {
                                         />
                                     </div>
                                 }
-                                <p id='price'>{this.state.product.price}
+                                <p></p>
+                            </div>
+                            <div className="qty-and-buy-btn-container dotted-spaced-bottom">
+
+                                <div className="number-input-container">
+                                    <FontAwesomeIcon icon={faChevronDown} className="fa-chevron"/>
+                                    <input
+                                        className="qty-input"
+                                        type="number"
+                                        placeholder='1'
+                                    />
+                                    <FontAwesomeIcon icon={faChevronUp} className="fa-chevron"/>
+                                </div>
+                                <button
+                                    onClick={this.addToCart}
+                                    className="custom-add-to-cart"
+                                >
+
+                                    <FormattedMessage id="app.single.page.buy"/>
+                                </button>
+                                <p className='price'>{this.state.product.price}
                                     €
                                     <span id="dph">
                                     <FormattedMessage id="app.single.page.dph"/>
                                 </span>
                                 </p>
-
-                                <p>{this.getDescription()}</p>
-
                             </div>
-                            <div className="qty-and-buy-btn-container">
-                                <button
-                                    onClick={this.addToCart}
-                                    className="action-btn-lg"
-                                >
-                                    <FormattedMessage id="app.single.page.buy"/>
-                                </button>
-                            </div>
+                            <p className="truck-and-shipping">
+                                <FontAwesomeIcon icon={faTruckMoving}/>
+                                <span>
+                                    Postovne
+                                </span>
+                            </p>
                         </div>
                     </div>
+                </div>
+                <div className="under-main-information">
+                    <h3 className="description-single-p">
+                        <FormattedMessage id="app.single.page.description"/>
+                    </h3>
+                    <p>
+                        <span>
+                            <FormattedMessage id="app.single.page.latin-name"/>
+                        </span>
+                        {this.state.product.name}
+                    </p>
+                    <p>
+                        <span>
+                            <FormattedMessage id="app.single.page.origin"/>
+                        </span>
+                        Peru
+                    </p>
+                    <p>
+                        <span>
+                            <FormattedMessage id="app.single.page.frame-size"/>
+                        </span>
+                        {this.state.product.width}cm x {this.state.product.height}cm
+                    </p>
+                    <p>
+                        <span>
+                            <FormattedMessage id="app.single.page.butterfly-size"/>
+                        </span>
+                        16cm x 14cm
+                    </p>
+                    <p>
+                        <span>
+                            <FormattedMessage id="app.single.page.illustrated"/>
+                        </span>
+                    </p>
+                    <p>
+                        <span>
+                            <FormattedMessage id="app.single.page.be-aware"/>
+                        </span>
+                    </p>
+
                 </div>
             </React.Fragment>
         );

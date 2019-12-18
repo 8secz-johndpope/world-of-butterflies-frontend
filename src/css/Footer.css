@@ -1,0 +1,31 @@
+.footer-container {
+    margin-top: 200px;
+    width: 100%;
+    background-color: #111111;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: flex-start;
+}
+
+.footer-container p{
+    /*font-weight: bolder;*/
+}
+
+.my-account {
+    flex: 1 1 auto;
+    align-self: auto;
+}
+
+.information {
+    flex: 1 1 auto;
+    align-self: auto;
+}
+
+.find-us-on {
+    flex: 1 1 auto;
+    align-self: auto;
+}

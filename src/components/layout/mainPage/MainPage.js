@@ -5,8 +5,29 @@ import CategoryMapper from "./CategoryMapper";
 import FeaturedProductMapper from "./FeaturedProductMapper";
 import OneLineText from "./OneLineText";
 import {FormattedMessage} from "react-intl";
+import {
+    getNRandomFramedProducts,
+    getNRandomNonFramedProducts
+} from "../../../service/fetchService/fetchService";
 
 class MainPage extends Component {
+    state = {
+        framedProducts: [],
+        nonFramedProducts: [],
+    };
+
+    componentDidMount() {
+        getNRandomFramedProducts(8).then(resp =>
+            this.setState({
+                framedProducts: resp.content
+            })
+        );
+        getNRandomNonFramedProducts(6).then(resp =>
+            this.setState({
+                nonFramedProducts: resp.content
+            })
+        )
+    }
 
     render() {
         return (
@@ -18,7 +39,12 @@ class MainPage extends Component {
                     paddingTop='0'
                     paddingBottom='40px'
                 />
-                <FeaturedProductMapper/>
+                <FeaturedProductMapper
+                    products={this.state.framedProducts}
+                />
+                <FeaturedProductMapper
+                    products={this.state.nonFramedProducts}
+                />
                 <OneLineText
                     text={<FormattedMessage id="app.main-page.news"/>}
                     paddingTop='40px'

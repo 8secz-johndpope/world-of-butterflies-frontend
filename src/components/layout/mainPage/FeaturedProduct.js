@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 class FeaturedProduct extends Component {
     state = {
-        frameNumber: "2",
+        frameNumber: "1",
 
         smallPercentage: 0.3,
         mediumPercentage: 0.3,
@@ -38,9 +38,9 @@ class FeaturedProduct extends Component {
     };
 
     mouseLeaveCapture = () => {
-        // this.setState({
-        //     frameNumber: "1"
-        // })
+        this.setState({
+            frameNumber: "1"
+        })
     };
 
     calculateImageSize = () => {
@@ -83,31 +83,6 @@ class FeaturedProduct extends Component {
         return (
             <React.Fragment>
                 <div className="main-page-featured-product">
-                    {
-                        this.props.isInFrame ?
-                            null
-                            :
-                            <div className="small-frame-icons">
-                        <span onMouseEnter={() => this.mouseEnterCapture(1)}
-                              onMouseLeave={this.mouseLeaveCapture}
-                              style={{
-                                  backgroundImage: `url(${serverURL}/images/frames/color-options/1.png)`
-                              }}
-                        />
-                                <span onMouseEnter={() => this.mouseEnterCapture(2)}
-                                      onMouseLeave={this.mouseLeaveCapture}
-                                      style={{
-                                          backgroundImage: `url(${serverURL}/images/frames/color-options/2.png)`
-                                      }}
-                                />
-                                <span onMouseEnter={() => this.mouseEnterCapture(3)}
-                                      onMouseLeave={this.mouseLeaveCapture}
-                                      style={{
-                                          backgroundImage: `url(${serverURL}/images/frames/color-options/3.png)`
-                                      }}
-                                />
-                            </div>
-                    }
                     <Link to={`/products/${this.props.id}`}>
                         {
                             this.props.isInFrame ?

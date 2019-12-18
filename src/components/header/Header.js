@@ -56,13 +56,14 @@ class Header extends Component {
                             </div>
                     }
                     <LogoSmall className="logo-small"/>
-                    <GabannaLogo className="logo-header"/>
+                    <div className="logo-and-other-icons">
+                        <GabannaLogo className="logo-header"/>
 
-                    <div className="search-bar-cart-container">
-                        <ShoppingCart/>
-                        <SearchBar/>
+                        <div className="search-bar-cart-container">
+                            <ShoppingCart/>
+                            <SearchBar/>
+                        </div>
                     </div>
-
                     <nav role="navigation" className="nav-header">
                         <input type="checkbox" id="chk"/>
                         <label htmlFor="chk" className="show-menu-btn">
@@ -73,11 +74,6 @@ class Header extends Component {
                             <li>
                                 <Link to="/" className="main-link">
                                     <FormattedMessage id="app.header.home"/>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/about" className="main-link">
-                                    <FormattedMessage id="app.header.about"/>
                                 </Link>
                             </li>
                             <li>
@@ -95,6 +91,11 @@ class Header extends Component {
                                         <FormattedMessage id="app.header.sub.create.your.frame"/>
                                     </Link></li>
                                 </ul>
+                            </li>
+                            <li>
+                                <Link to="/about" className="main-link">
+                                    <FormattedMessage id="app.header.main.beetles"/>
+                                </Link>
                             </li>
                             <li>
                                 <Link to="/insect" className="main-link">

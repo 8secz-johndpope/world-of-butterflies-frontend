@@ -29,22 +29,22 @@ class Checkout extends Component {
             <div className="billing-information-and-subtotal-container">
                 <div className="billing-information-container">
                     <div className="tab-options">
-                        <h1
+                        <h3
                             className={this.state.isUser ? 'active-checkout-tab-option' : 'non-active-checkout-tab-option'}
                             onClick={() => this.setOption(true)}
                         >
                             <FormattedMessage id="app.checkout.user"/>
-                        </h1>
+                        </h3>
                         {
                             this.props.isLoggedIn ?
                                 null
                                 :
-                                <h1
+                                <h3
                                     className={this.state.isUser ? 'non-active-checkout-tab-option' : 'active-checkout-tab-option'}
                                     onClick={() => this.setOption(false)}
                                 >
                                     <FormattedMessage id="app.checkout.guest"/>
-                                </h1>
+                                </h3>
                         }
                     </div>
                     <div
@@ -56,11 +56,15 @@ class Checkout extends Component {
                                     <UserBillingDetails/>
                                 </div>
                                 :
-                                <div>
-                                    <RegisterModal
-                                        fontSize={'30px'}/>
-                                    <LoginModal
-                                        fontSize={'30px'}/>
+                                <div className="user-register-login-container">
+                                    <div>
+                                        <RegisterModal
+                                            fontSize={'20px'}/>
+                                    </div>
+                                    <div>
+                                        <LoginModal
+                                            fontSize={'20px'}/>
+                                    </div>
                                 </div>
                         }
                     </div>
