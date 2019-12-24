@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faShoppingCart} from "@fortawesome/free-solid-svg-icons";
 import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 
@@ -13,8 +11,7 @@ class ShoppingCartIcon extends Component {
                     color: 'black'
                 }}
                       to='/cart'>
-                    <FontAwesomeIcon icon={faShoppingCart} className="shopping-cart-icon"/>
-                    <p className="shopping-cart-qty-counter">{this.props.productsInShoppingCart.length}</p>
+                    <span className="shopping-cart-icon">{this.props.productsInShoppingCart.length}</span>
                 </Link>
             </div>
         );
@@ -41,4 +38,5 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
+const serverURL = process.env.REACT_APP_API_URL;
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCartIcon);

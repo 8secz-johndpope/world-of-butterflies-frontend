@@ -83,7 +83,12 @@ class FeaturedProduct extends Component {
         return (
             <React.Fragment>
                 <div className="main-page-featured-product">
-                    <Link to={`/products/${this.props.id}`}>
+                    <Link to={`/products/${this.props.id}`}
+                          style={{
+                              textDecoration: 'none',
+                              color: 'black',
+                          }}
+                    >
                         {
                             this.props.isInFrame ?
                                 <img src={serverURL + this.props.url}
@@ -104,11 +109,12 @@ class FeaturedProduct extends Component {
                                          }}/>
                                 </div>
                         }
-                    </Link>
-                    <span className="main-page-informational-text">
-                        <p>{this.props.name}</p>
-                        <p>{this.props.price}</p>
+
+                        <span className="main-page-informational-text">
+                        <p className="featured-product-name">{this.props.name}</p>
+                        <p className="featured-product-price">{this.props.price}€</p>
                     </span>
+                    </Link>
                 </div>
             </React.Fragment>
         );

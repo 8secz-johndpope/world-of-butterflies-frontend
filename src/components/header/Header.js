@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import '../../css/Header.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBars, faTimes, faSearch, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
+import {faBars, faTimes} from "@fortawesome/free-solid-svg-icons";
 import {ReactComponent as GabannaLogo} from "../../components/images/logo/gabanna-logo2.svg";
 import {ReactComponent as LogoSmall} from "../../components/images/logo/logo-small.svg";
 import LoginModal from "./LoginModal";
@@ -16,6 +16,11 @@ import LanguageChanger from "./LanguageChanger";
 import {FormattedMessage} from "react-intl";
 
 class Header extends Component {
+    constructor(props) {
+        super(props);
+        this.headerLogo = React.createRef();
+        this.searchBarContainer = React.createRef();
+    }
 
 
     alterNav = () => {
@@ -47,7 +52,6 @@ class Header extends Component {
                                 <LogoutBtn/>
                                 <LanguageChanger/>
                             </div>
-
                             :
                             <div className="register-login-container">
                                 <RegisterModal/>
@@ -56,15 +60,36 @@ class Header extends Component {
                             </div>
                     }
                     <LogoSmall className="logo-small"/>
-                    <div className="logo-and-other-icons">
-                        <GabannaLogo className="logo-header"/>
 
-                        <div className="search-bar-cart-container">
-                            <ShoppingCart/>
-                            <SearchBar/>
+                    <div className="header-logo-icon-area">
+                        <div className="logo-holder">
+                            <GabannaLogo
+                                className="logo-header"
+                                ref={this.headerLogo}
+                            />
+                        </div>
+
+                        <div className="other-icons">
+                            <div
+                                className="search-bar-cart-container"
+                                ref={this.searchBarContainer}
+                            >
+                                {/*{console.log(this.headerLogo.current)}*/}
+                                <ShoppingCart/>
+                                <SearchBar/>
+                            </div>
                         </div>
                     </div>
-                    <nav role="navigation" className="nav-header">
+
+                    <nav
+                        role="navigation"
+                        className="nav-header"
+                        style={{
+                            position: 'relative',
+                            // top: this.headerLogo.style.width+1000
+                            //this.refs.mySidebar.style.width
+                        }}
+                    >
                         <input type="checkbox" id="chk"/>
                         <label htmlFor="chk" className="show-menu-btn">
                             <FontAwesomeIcon className="icon-bars" icon={faBars}/>
@@ -81,10 +106,10 @@ class Header extends Component {
                                     <FormattedMessage id="app.header.main.butterfly"/>
                                 </Link>
                                 <ul className="dropdown">
-                                    <li><Link to="/" className="dropdown-link">
+                                    <li><Link to="/" className="dropdown-link dotted-spaced-bottom">
                                         <FormattedMessage id="app.header.sub.moths"/>
                                     </Link></li>
-                                    <li><Link to="/" className="dropdown-link">
+                                    <li><Link to="/" className="dropdown-link dotted-spaced-bottom">
                                         <FormattedMessage id="app.header.sub.botanical.prints"/>
                                     </Link></li>
                                     <li><Link to="/" className="dropdown-link">
@@ -102,7 +127,7 @@ class Header extends Component {
                                     <FormattedMessage id="app.header.main.insect"/>
                                 </Link>
                                 <ul className="dropdown">
-                                    <li><Link to="/" className="dropdown-link">
+                                    <li><Link to="/" className="dropdown-link dotted-spaced-bottom">
                                         <FormattedMessage id="app.header.sub.botanical.prints"/>
                                     </Link></li>
                                     <li><Link to="/" className="dropdown-link">
@@ -123,7 +148,8 @@ class Header extends Component {
                                     <FormattedMessage id="app.header.main.minerals"/>
                                 </Link>
                                 <ul className="dropdown">
-                                    <li><Link to="/" className="dropdown-link">MINERAL 1</Link></li>
+                                    <li><Link to="/" className="dropdown-link dotted-spaced-bottom">MINERAL 1</Link>
+                                    </li>
                                     <li><Link to="/" className="dropdown-link">MINERAL 2</Link></li>
                                 </ul>
                             </li>
@@ -132,7 +158,8 @@ class Header extends Component {
                                     <FormattedMessage id="app.header.main.jewelry"/>
                                 </Link>
                                 <ul className="dropdown">
-                                    <li><Link to="/" className="dropdown-link">BUTTERFLY</Link></li>
+                                    <li><Link to="/" className="dropdown-link dotted-spaced-bottom">BUTTERFLY</Link>
+                                    </li>
                                     <li><Link to="/" className="dropdown-link">BEATL ASSECUALL</Link></li>
 
                                 </ul>
