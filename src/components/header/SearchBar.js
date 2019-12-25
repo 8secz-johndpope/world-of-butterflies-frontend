@@ -11,8 +11,17 @@ class SearchBar extends Component {
     }
 
     state = {
-        products: []
+        products: [],
+        twoBtnWidth: 0,
     };
+
+    componentWillMount() {
+        this.getTwoButtonWidth();
+    }
+
+    componentDidMount() {
+        window.addEventListener("resize", this.getTwoButtonWidth);
+    }
 
     handleChange = (e) => {
         if (e.target.value.length >= 3) {
@@ -28,47 +37,66 @@ class SearchBar extends Component {
         }
     };
 
-    clearSearchBar=()=>{
-        this.inputField.current.value='';
+    clearSearchBar = () => {
+        this.inputField.current.value = '';
         this.setState({
-            products:[],
+            products: [],
         });
     };
 
+    getTwoButtonWidth = () => {
+        let windowWidth = window.innerWidth;
+        let twoBtnWidth = ((windowWidth * 0.84 - 16) / 4) - 27;
+        this.setState({
+            twoBtnWidth: twoBtnWidth,
+        })
+    };
 
     render() {
         return (
 
-                <div className="search-bar-icon-container">
-                    <input type="text" className="search-bar"
-                           onChange={this.handleChange}
-                           ref={this.inputField}
-                    />
-                    <FontAwesomeIcon icon={faSearch} className="search-icon"/>
-                    {this.state.products.length ?
-                        <div className="search-bar-result-container">
-                            {
-                                this.state.products.map((product, index) =>
-                                    <SearchBarFoundProduct
-                                        id={product.id}
-                                        name={product.name}
-                                        description={product.description}
-                                        price={product.price}
-                                        availableQuantity={product.availableQuantity}
-                                        type={product.type}
-                                        url={product.url}
-                                        clearSearchBar={this.clearSearchBar}
+            <div className="search-bar-icon-container">
+                <input type="text"
+                       className="search-bar"
+                       onChange={this.handleChange}
+                       ref={this.inputField}
+                       style={{
+                           width: `${this.state.twoBtnWidth}px`,
+                       }}
 
-                                        key={index}
-                                    />)
-                            }
-                        </div>
-                        :
-                        null
+                />
+                <FontAwesomeIcon
+                    icon={faSearch}
+                    className="search-icon"
+                    style={{
+                        width: '27px',
+                        height: '27px',
+                    }}
+                />
+                {this.state.products.length ?
+                    <div className="search-bar-result-container">
+                        {
+                            this.state.products.map((product, index) =>
+                                <SearchBarFoundProduct
+                                    id={product.id}
+                                    name={product.name}
+                                    description={product.description}
+                                    price={product.price}
+                                    availableQuantity={product.availableQuantity}
+                                    type={product.type}
+                                    url={product.url}
+                                    clearSearchBar={this.clearSearchBar}
+
+                                    key={index}
+                                />)
+                        }
+                    </div>
+                    :
+                    null
 
 
-                    }
-                </div>
+                }
+            </div>
         );
     }
 }

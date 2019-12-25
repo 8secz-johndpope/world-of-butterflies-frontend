@@ -18,8 +18,7 @@ import {FormattedMessage} from "react-intl";
 class Header extends Component {
     constructor(props) {
         super(props);
-        this.headerLogo = React.createRef();
-        this.searchBarContainer = React.createRef();
+        this.headerBtn = React.createRef();
     }
 
 
@@ -65,18 +64,17 @@ class Header extends Component {
                         <div className="logo-holder">
                             <GabannaLogo
                                 className="logo-header"
-                                ref={this.headerLogo}
                             />
                         </div>
-
                         <div className="other-icons">
                             <div
                                 className="search-bar-cart-container"
-                                ref={this.searchBarContainer}
                             >
                                 {/*{console.log(this.headerLogo.current)}*/}
                                 <ShoppingCart/>
-                                <SearchBar/>
+                                <SearchBar
+                                    headerBtnWidth={'20px'}
+                                />
                             </div>
                         </div>
                     </div>
