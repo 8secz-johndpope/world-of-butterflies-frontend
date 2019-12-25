@@ -12,13 +12,13 @@ import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
 import {IntlProvider} from "react-intl";
 import languageHU from './translations/hu.json'
-import languageEN from './translations/en.json'
+import languageUS from './translations/us.json'
 import languageSK from './translations/sk.json'
 import Footer from "./components/footer/Footer";
 
 const messages = {
     'hu': languageHU,
-    'en': languageEN,
+    'us': languageUS,
     'sk': languageSK,
 };
 

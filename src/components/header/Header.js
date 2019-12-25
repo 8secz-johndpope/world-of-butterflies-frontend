@@ -16,11 +16,6 @@ import LanguageChanger from "./LanguageChanger";
 import {FormattedMessage} from "react-intl";
 
 class Header extends Component {
-    constructor(props) {
-        super(props);
-        this.headerBtn = React.createRef();
-    }
-
 
     alterNav = () => {
         const width = window.getComputedStyle(this.refs.mySidebar).getPropertyValue("width");
@@ -31,7 +26,6 @@ class Header extends Component {
             this.refs.mySidebar.style.width = "0px";
             this.refs.openBtnLine.style.marginLeft = "0px";
         }
-
     };
 
     closeNav = () => {
@@ -39,10 +33,17 @@ class Header extends Component {
         this.refs.openBtnLine.style.marginLeft = "0";
     };
 
+    logMe=()=>{
+        console.log(window.innerWidth)
+    }
+
 
     render() {
         return (
             <React.Fragment>
+                <button onClick={this.logMe}>
+                    katt ide
+                </button>
                 <header className="header">
                     {
                         this.props.isLoggedIn ?
@@ -70,7 +71,6 @@ class Header extends Component {
                             <div
                                 className="search-bar-cart-container"
                             >
-                                {/*{console.log(this.headerLogo.current)}*/}
                                 <ShoppingCart/>
                                 <SearchBar
                                     headerBtnWidth={'20px'}
@@ -84,8 +84,6 @@ class Header extends Component {
                         className="nav-header"
                         style={{
                             position: 'relative',
-                            // top: this.headerLogo.style.width+1000
-                            //this.refs.mySidebar.style.width
                         }}
                     >
                         <input type="checkbox" id="chk"/>

@@ -15,6 +15,8 @@ const initialState = {
     chosenShippingAddress: '',
     chosenBillingAddress: '',
     preferredLanguage: 'hu',
+    isLoginModalVisible: false,
+    isRegisterModalVisible: false,
 };
 
 function reducer(state = initialState, action) {
@@ -68,6 +70,16 @@ function reducer(state = initialState, action) {
             return {
                 ...state,
                 preferredLanguage: action.preferredLanguage
+            };
+        case 'alterLoginModal':
+            return {
+                ...state,
+                isLoginModalVisible: action.boolean
+            };
+        case 'alterRegisterModal':
+            return {
+                ...state,
+                isRegisterModalVisible: action.boolean
             };
         default:
             return state;

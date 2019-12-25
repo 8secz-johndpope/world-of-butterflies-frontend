@@ -8,7 +8,6 @@ import {FormattedMessage} from "react-intl";
 class RegisterModal extends Component {
 
     state = {
-        registerModalVisible: false,
         email: '',
         password: '',
         confPass: '',
@@ -16,19 +15,16 @@ class RegisterModal extends Component {
     };
 
     showRegisterModal = () => {
-        this.setState(
-            {
-                registerModalVisible: true
-            }
-        );
+        this.props.alterRegisterModal(true);
     };
 
     hideRegisterModal = () => {
-        this.setState(
-            {
-                registerModalVisible: false
-            }
-        );
+        this.props.alterRegisterModal(false);
+    };
+
+    switchModals = () => {
+        this.props.alterLoginModal(true);
+        this.props.alterRegisterModal(false);
     };
 
     captureFocusIn = (e) => {
@@ -53,9 +49,7 @@ class RegisterModal extends Component {
             doRegister(this.state.email, this.state.password)
                 .then(res => {
                     if (res.success === true) {
-                        this.setState({
-                            registerModalVisible: false,
-                        });
+                        this.props.alterRegisterModal(false);
                         doLogin(this.state.email, this.state.password)
                             .then(res => {
                                 if (res === true) {
@@ -75,16 +69,16 @@ class RegisterModal extends Component {
     render() {
         return (
             <React.Fragment>
-                <button onClick={this.showRegisterModal}
-                        className="header-modal-btn"
-                        style={{
-                            fontSize: `${this.props.fontSize}`
-                        }}
-                >
-                    <FormattedMessage id="app.header.register.register-btn"/>
-                </button>
+                {/*<button onClick={this.showRegisterModal}*/}
+                {/*        className="header-modal-btn"*/}
+                {/*        style={{*/}
+                {/*            fontSize: `${this.props.fontSize}`*/}
+                {/*        }}*/}
+                {/*>*/}
+                {/*    <FormattedMessage id="app.header.register.register-btn"/>*/}
+                {/*</button>*/}
 
-                <Rodal visible={this.state.registerModalVisible}
+                <Rodal visible={this.props.isRegisterModalVisible}
                        onClose={this.hideRegisterModal}
                        animation='fade'
                        width='50'
@@ -147,6 +141,13 @@ class RegisterModal extends Component {
                                 </div>
                             </label>
 
+                            <p>
+                                Már be vagy regisztrálva?
+                                <button
+                                    onClick={this.switchModals}
+                                >Jelentkezz be!</button>
+                            </p>
+
                             {
                                 this.state.errorMessage ?
                                     <div className="header-error-message">
@@ -171,6 +172,13 @@ class RegisterModal extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        isLoginModalVisible: state.isLoginModalVisible,
+        isRegisterModalVisible: state.isRegisterModalVisible,
+    }
+}
+
 const mapDispatchToProps = (dispatch) => {
     return {
         setUserEmail: function (email) {
@@ -181,7 +189,15 @@ const mapDispatchToProps = (dispatch) => {
             const action = {type: "setLoggedIn", boolean};
             dispatch(action);
         },
+        alterLoginModal: function (boolean) {
+            const action = {type: "alterLoginModal", boolean};
+            dispatch(action);
+        },
+        alterRegisterModal: function (boolean) {
+            const action = {type: "alterRegisterModal", boolean};
+            dispatch(action);
+        },
     }
 };
 
-export default connect(null, mapDispatchToProps)(RegisterModal);
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterModal);

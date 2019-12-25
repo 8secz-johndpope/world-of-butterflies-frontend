@@ -4,29 +4,22 @@ import 'rodal/lib/rodal.css';
 import {doLogin, getShippingAddresses} from "../../service/fetchService/fetchService";
 import {connect} from 'react-redux';
 import {FormattedMessage} from "react-intl";
+import {faUser} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 class LoginModal extends Component {
 
     state = {
-        loginModalVisible: false,
         email: '',
         password: '',
     };
 
     showLoginModal = () => {
-        this.setState(
-            {
-                loginModalVisible: true
-            }
-        );
+        this.props.alterLoginModal(true);
     };
 
     hideLoginModal = () => {
-        this.setState(
-            {
-                loginModalVisible: false
-            }
-        );
+        this.props.alterLoginModal(false);
     };
 
     handleSubmit = (e) => {
@@ -34,9 +27,7 @@ class LoginModal extends Component {
         doLogin(this.state.email, this.state.password)
             .then(res => {
                 if (res === true) {
-                    this.setState({
-                        loginModalVisible: false,
-                    });
+                    this.props.alterLoginModal(false);
                     this.props.setUserEmail(this.state.email);
                     this.props.setLoggedIn(true);
                     getShippingAddresses(this.state.email)
@@ -63,6 +54,11 @@ class LoginModal extends Component {
         })
     };
 
+    switchModals = () => {
+        this.props.alterLoginModal(false);
+        this.props.alterRegisterModal(true);
+    };
+
 
     render() {
         return (
@@ -74,14 +70,20 @@ class LoginModal extends Component {
                         }}
                 >
                     <FormattedMessage id="app.header.login.login-btn"/>
+                    <FontAwesomeIcon icon={faUser}
+                                     style={{
+                                         marginLeft: '4px'
+                                     }}
+                    />
                 </button>
 
-                <Rodal visible={this.state.loginModalVisible}
-                       onClose={this.hideLoginModal}
-                       animation='fade'
-                       width='50'
-                       height='50'
-                       measure="%"
+                <Rodal
+                    visible={this.props.isLoginModalVisible}
+                    onClose={this.hideLoginModal}
+                    animation='fade'
+                    width='50'
+                    height='50'
+                    measure="%"
                 >
                     <div>
                         <form
@@ -125,6 +127,13 @@ class LoginModal extends Component {
                                 </div>
                             </label>
 
+                            <p>
+                                Új vagy?
+                                <button
+                                    onClick={this.switchModals}
+                                >Regisztrálj!</button>
+                            </p>
+
                             <button
                                 type="submit"
                                 className="header-modal-submit-btn"
@@ -136,6 +145,13 @@ class LoginModal extends Component {
                 </Rodal>
             </React.Fragment>
         );
+    }
+}
+
+function mapStateToProps(state) {
+    return {
+        isLoginModalVisible: state.isLoginModalVisible,
+        isRegisterModalVisible: state.isRegisterModalVisible,
     }
 }
 
@@ -153,7 +169,15 @@ const mapDispatchToProps = (dispatch) => {
             const action = {type: "setBillingAddressList", billingAddressList};
             dispatch(action);
         },
+        alterLoginModal: function (boolean) {
+            const action = {type: "alterLoginModal", boolean};
+            dispatch(action);
+        },
+        alterRegisterModal: function (boolean) {
+            const action = {type: "alterRegisterModal", boolean};
+            dispatch(action);
+        },
     }
 };
 
-export default connect(null, mapDispatchToProps)(LoginModal);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginModal);

@@ -31,7 +31,7 @@ Link {
 }
 
 .logo-header {
-    width: 57%;
+    width: 55%;
     height: auto;
     align-self: center;
     position: relative;
@@ -443,7 +443,7 @@ ul li .dropdown-link {
 
 .header-modal-btn {
     color: #000000;
-    background-color: #D3D3D3;
+    background-color: #ffffff;
     border: 1px solid transparent;
     padding: 5px;
     margin: 2px;
@@ -452,22 +452,14 @@ ul li .dropdown-link {
     /*font-family: "Times New Roman", Times, serif;*/
     font-size: 15px;
     transition: 0.5s;
+    cursor: pointer;
 
 }
 
 .header-modal-btn:hover {
-    color: #000000;
-    background-color: #A9A9A9;
-    border: 1px solid #000;
+    border: 1px solid #D3D3D3;
     transition: 0.5s;
 
-}
-
-
-.header-modal-btn:active {
-    color: #000000;
-    background-color: #ffffff;
-    border: 1px solid #000000;
 }
 
 .header-email-address {
@@ -592,19 +584,41 @@ ul li .dropdown-link {
     font-weight: bold;
 }
 
+.main-language-and-arrow-icon {
+    display: flex;
+    flex-direction: row;
+}
+
+.main-language-and-arrow-icon .main-flag {
+    flex: 0 1 auto;
+    align-self: auto;
+    width: 30px;
+}
+
+.main-language-and-arrow-icon .arrow-down {
+    flex: 0 1 auto;
+    align-self: auto;
+    width: 15px;
+}
+
+.main-language-and-arrow-icon .arrow-down * {
+    position: relative;
+    bottom: -9px;
+    /*right: 16px;*/
+}
+
 .languages-dropdown {
-    font-size: 15px;
+    /*font-size: 20px;*/
+    /*width: 30px;*/
     cursor: pointer;
-    display: inline;
+    /*display: inline;*/
     list-style: none;
     font-weight: bold;
     float: right;
-    padding: 7px;
-
 }
 
 .languages-drop-btn {
-    border: 1px solid grey;
+    /*border: 1px solid grey;*/
     padding: 2px;
 }
 
@@ -620,7 +634,8 @@ ul li .dropdown-link {
 }
 
 .languages-dropdown-content li {
-    margin: 12px 0;
-    border: 1px solid grey;
+    width: 30px;
+    /*margin: 1px 0;*/
+    /*border: 1px solid grey;*/
 }
 
