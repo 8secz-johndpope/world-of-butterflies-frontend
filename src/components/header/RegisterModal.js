@@ -141,13 +141,6 @@ class RegisterModal extends Component {
                                 </div>
                             </label>
 
-                            <p>
-                                Már be vagy regisztrálva?
-                                <button
-                                    onClick={this.switchModals}
-                                >Jelentkezz be!</button>
-                            </p>
-
                             {
                                 this.state.errorMessage ?
                                     <div className="header-error-message">

@@ -114,24 +114,32 @@ body {
     align-self: center;
 }
 
-.featured-product-name {
+.featured-product-name-framed {
     margin-top: 15px;
     margin-bottom: 3px;
 }
 
-.featured-product-price {
+.featured-product-price-framed {
     font-size: 18px;
     margin: 1px 0;
-}
-
-.featured-product-price {
     font-weight: bold;
 }
 
+.featured-product-name-non-framed {
+    margin-top: 15px;
+    margin-bottom: 3px;
+}
+
+.featured-product-price-non-framed {
+    font-size: 18px;
+    margin: 1px 0;
+    font-weight: bold;
+}
 
 .small-frame-icons {
     height: 30px;
-    margin: 0;
+    display: flex;
+    margin-bottom: 12px;
 }
 
 .small-frame-icons span {
@@ -152,10 +160,18 @@ body {
     position: relative;
 }
 
+.additional-margin {
+    margin-bottom: 15px;
+}
+
 
 .slide-show {
     position: relative;
-    z-index: 1;
+    z-index: 0;
+}
+
+.slide-show div img {
+    max-height: 450px;
 }
 
 .slide-show img {
@@ -185,27 +201,36 @@ body {
 }
 
 .main-page-category-container {
-    padding: 5% 0;
+    padding: 1% 0;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
+    justify-content: flex-end;
+    width: 100%;
 }
 
 .main-page-category {
-    padding: 1% 0;
-    flex: 1 2 25%;
-    align-self: center;
+    padding: 1%;
+    flex: 1 1 25%;
+    flex-grow: 1;
+    width: 100%;
 }
 
 .main-page-category-link {
-    text-decoration: none
+    text-decoration: none;
+    display: block;
+    width: 110%;
+
 }
 
 .category-name-img-container {
     border: 1px solid #C8C8C8;
     width: 90%;
+    display: block;
+}
+
+.category-name-img-container img {
+    display: block;
 }
 
 .main-page-category img {
@@ -276,7 +301,7 @@ body {
 .small-images {
     flex: 0 1 18%;
     padding: 0 0.5%;
-    align-self: center;
+    align-self: flex-start;
 }
 
 .all-small-images {
@@ -286,7 +311,7 @@ body {
 .main-details {
     flex: 0 1 50%;
     position: relative;
-    z-index: 1;
+    z-index: 0;
     /*background-color: blue;*/
     display: flex;
     flex-direction: column;
@@ -300,6 +325,10 @@ body {
     /*align-content: flex-end;*/
     justify-content: flex-end;
     margin: 0;
+}
+
+.zoomed-portal-active {
+    border: 1px solid #D3D3D3;
 }
 
 .main-details h1 {
@@ -333,8 +362,7 @@ body {
     margin: 0;
 }
 
-.dirty-little-details p,
-.small-frame-icons {
+.dirty-little-details p {
     align-self: flex-start;
     justify-content: flex-end;
 }
@@ -384,19 +412,15 @@ body {
     align-self: auto;
 }
 
-.dotted-spaced-bottom {
-    background-image: linear-gradient(to right, #333 10%, rgba(255, 255, 255, 0) 0%);
-    background-position: bottom;
-    background-size: 6px 2px;
-    background-repeat: repeat-x;
-}
 
 .truck-and-shipping {
     display: flex;
+    margin: 5px 1px 0;
 }
 
 .truck-and-shipping span {
     margin-left: 8px;
+
 }
 
 .demo-trigger {
@@ -468,17 +492,25 @@ body {
 
 .qty-input {
     padding: 10px 5px;
-    margin-right: 10px;
-    width: 40px;
+    margin-left: 5px;
+    width: 30px;
     border: none;
     font-size: 12px;
 }
 
+.qty-input {
+    padding: 10px 5px;
+    margin-left: 5px;
+    width: 30px;
+    border: none;
+    font-size: 12px;
+    outline: none;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
     -webkit-appearance: none;
-    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    margin: 0;
 }
 
 input[type=number] {
@@ -516,12 +548,6 @@ input[type=number] {
     align-self: auto;
 }
 
-/*.tab-options h3 {*/
-/*    display: inline;*/
-/*    margin: 0 10%;*/
-/*    transition: all .3s ease-in-out;*/
-/*    cursor: pointer;*/
-/*}*/
 
 .active-checkout-tab-option {
     /*border-bottom: 4px solid black;*/
@@ -697,62 +723,22 @@ input[type=number] {
     font-weight: bolder;
 }
 
-
 .number-input-container {
     border: 2px solid #ddd;
-    display: inline-flex;
-}
-
-.number-input-container,
-.number-input-container * {
-    box-sizing: border-box;
 }
 
 .number-input-container .fa-chevron {
-    outline: none;
-    -webkit-appearance: none;
-    background-color: transparent;
-    border: none;
-    align-items: center;
-    justify-content: center;
-    width: 0.5rem;
-    height: 0.5rem;
-    cursor: pointer;
-    margin: 0;
     position: relative;
+    left: -4px;
+    color: #bdbdbd;
+    height: 8px;
+    cursor: pointer;
 }
 
-.number-input-container .fa-chevron:before,
-.number-input-container .fa-chevron:after {
-    display: inline-block;
-    position: absolute;
-    content: '';
-    /*width: 1rem;*/
-    /*height: 2px;*/
-    /*background-color: #212121;*/
-    /*transform: translate(-50%, -50%);*/
+.number-input-container .fa-chevron:hover {
+    color: #3d3d3d;
+
 }
-
-.number-input-container .fa-chevron.plus:after {
-    /*transform: translate(-50%, -50%) rotate(90deg);*/
-}
-
-/*.number-input-container .fa-chevron[type=number] {*/
-/*    font-family: sans-serif;*/
-/*    max-width: 5rem;*/
-/*    padding: .5rem;*/
-/*    border: solid #ddd;*/
-/*    border-width: 0 2px;*/
-/*    !*font-size: 2rem;*!*/
-/*    !*height: 3rem;*!*/
-/*    font-weight: bold;*/
-/*    text-align: center;*/
-/*}*/
-
-/*.fa-chevron{*/
-/*    height: 2px;*/
-/*}*/
-
 
 
 

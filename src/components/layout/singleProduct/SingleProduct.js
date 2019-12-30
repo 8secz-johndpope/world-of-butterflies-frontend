@@ -8,19 +8,23 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTruckMoving, faChevronUp, faChevronDown} from "@fortawesome/free-solid-svg-icons";
 
 class SingleProduct extends Component {
+    constructor(props) {
+        super(props);
+        this.zoomPortal = React.createRef();
+        this.mainImage = React.createRef();
+    }
+
+
     state = {
-        wrappedProducts: [],
+        id: 0,
         product: {},
         productImages: [],
         mainImageUrl: '',
-        frameNumber: 2,
+        frameNumber: 1,
         frameThickness: 1
     };
 
-    componentDidMount() {
-        window.addEventListener("resize", this.handleResizeEvent);
-        this.calculateImageSize();
-
+    getTheProduct = () => {
         getProductById(this.props.match.params.id).then(
             response =>
                 this.setState({
@@ -29,10 +33,25 @@ class SingleProduct extends Component {
                     mainImageUrl: response.product.url,
                 })
         );
+    };
 
-        new Drift(this.refs.imgMainImage, {
-            paneContainer: this.refs.zoomedImgPortal
-        })
+    componentDidMount() {
+        window.addEventListener("resize", this.handleResizeEvent);
+        this.calculateImageSize();
+        this.getTheProduct();
+        new Drift(this.mainImage.current, {
+            paneContainer: this.zoomPortal.current
+        });
+        console.log(this.mainImage.current)
+    }
+
+    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
+        if (this.props.match.params.id !== this.state.id) {
+            this.setState({
+                id: this.props.match.params.id,
+            });
+            this.getTheProduct();
+        }
     }
 
     handleResizeEvent = () => {
@@ -89,6 +108,14 @@ class SingleProduct extends Component {
         }
     };
 
+    handleMouseEnter = () => {
+        this.zoomPortal.current.classList.add("zoomed-portal-active");
+    };
+
+    handleMouseLeave = () => {
+        this.zoomPortal.current.classList.remove("zoomed-portal-active")
+    };
+
     render() {
         return (
             <React.Fragment>
@@ -109,7 +136,7 @@ class SingleProduct extends Component {
                                      }}
                                      onMouseEnter={this.handleMouseEnter}
                                      onMouseLeave={this.handleMouseLeave}
-                                     ref="imgMainImage"
+                                     ref={this.mainImage}
                                 />
                             </div>
                         </div>
@@ -142,7 +169,7 @@ class SingleProduct extends Component {
                     <div className="main-details">
                         <h1>{this.state.product.name}</h1>
                         <div id="zoomed-img-portal"
-                             ref="zoomedImgPortal"
+                             ref={this.zoomPortal}
                              className="detail"
                         >
 
@@ -157,17 +184,18 @@ class SingleProduct extends Component {
                                         <FormattedMessage id="app.single.page.delivery.days"/>
                                     </p>
                                 </span>
-                                <p className="frame-colors">Frame colors: </p>
+                                {/*<p className="frame-colors">Frame colors: </p>*/}
                                 {this.state.product.isInFrame ?
                                     null
                                     :
+
                                     <div className="small-frame-icons">
 
-                                    <span onMouseEnter={() => this.mouseEnterCapture(1)}
-                                          style={{
-                                              backgroundImage: `url(${serverURL}/images/frames/color-options/1.png)`
-                                          }}
-                                    />
+                                        <span onMouseEnter={() => this.mouseEnterCapture(1)}
+                                              style={{
+                                                  backgroundImage: `url(${serverURL}/images/frames/color-options/1.png)`
+                                              }}
+                                        />
                                         <span onMouseEnter={() => this.mouseEnterCapture(2)}
                                               style={{
                                                   backgroundImage: `url(${serverURL}/images/frames/color-options/2.png)`
@@ -180,7 +208,6 @@ class SingleProduct extends Component {
                                         />
                                     </div>
                                 }
-                                <p></p>
                             </div>
                             <div className="qty-and-buy-btn-container dotted-spaced-bottom">
 
@@ -189,7 +216,7 @@ class SingleProduct extends Component {
                                     <input
                                         className="qty-input"
                                         type="number"
-                                        placeholder='1'
+                                        value={1}
                                     />
                                     <FontAwesomeIcon icon={faChevronUp} className="fa-chevron"/>
                                 </div>
@@ -254,7 +281,6 @@ class SingleProduct extends Component {
                             <FormattedMessage id="app.single.page.be-aware"/>
                         </span>
                     </p>
-
                 </div>
             </React.Fragment>
         );

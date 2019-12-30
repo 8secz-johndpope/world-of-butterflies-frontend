@@ -12,22 +12,25 @@ Link {
 
 
 .header-logo-icon-area {
-    display: table;
+    display: flex;
     width: 100%;
+    flex-direction: row;
 }
 
 .logo-holder {
     position: relative;
     width: 50%;
-    display: table-cell;
-
+    /*background-color: lightcoral;*/
 }
 
 .other-icons {
+    display: flex;
     position: relative;
-    display: table-cell;
+    flex-direction: column;
+    justify-content: flex-end;
     width: 50%;
     z-index: 1;
+    /*background-color: lightgreen;*/
 }
 
 .logo-header {
@@ -37,8 +40,8 @@ Link {
     position: relative;
     right: -50%;
     z-index: 2;
+    /*background-color: red;*/
 }
-
 
 .search-bar-cart-container {
     display: flex;
@@ -46,12 +49,13 @@ Link {
     align-self: flex-end;
     position: relative;
     right: 0;
+    /*background-color: blue;*/
 }
 
 .logo-small {
     position: absolute;
     z-index: -3;
-    left: -13.5%;
+    left: -14%;
     top: -50px;
     width: 50%;
     height: auto;
@@ -60,7 +64,7 @@ Link {
 .nav-header {
     display: flex;
     position: relative;
-    z-index: 2;
+    z-index: 1;
 }
 
 .main-link {
@@ -149,6 +153,13 @@ ul li .dropdown-link {
 
 .dropdown-link:hover {
     color: #111111;
+}
+
+.dotted-spaced-bottom {
+    background-image: linear-gradient(to right, #333 10%, rgba(255, 255, 255, 0) 0%);
+    background-position: bottom;
+    background-size: 6px 2px;
+    background-repeat: repeat-x;
 }
 
 
@@ -360,14 +371,16 @@ ul li .dropdown-link {
 .shopping-cart-icon {
     display: block;
     background: #ffffff;
-    width: 27px;
-    height: 27px;
+    width: 24px;
+    height: 24px;
     text-align: center;
     line-height: 28px;
     margin-top: 7px;
     position: relative;
     font-family: Helvetica;
     border: 1px solid #111111;
+    bottom: -3px;
+    left: -1px;
 }
 
 .shopping-cart-icon:after {
@@ -392,6 +405,11 @@ ul li .dropdown-link {
 .shopping-cart-icon:hover:after {
     top: -8px;
     transition: ease 0.1s;
+}
+
+.shopping-cart-number {
+    position: relative;
+    bottom: 2px;
 }
 
 
@@ -430,7 +448,7 @@ ul li .dropdown-link {
     cursor: pointer;
     color: white;
     background-color: black;
-    padding: 3px;
+    padding: 6px;
 }
 
 .register-login-container,
@@ -450,7 +468,7 @@ ul li .dropdown-link {
     font-weight: bold;
     font-family: "Helvetica Neue", sans-serif;
     /*font-family: "Times New Roman", Times, serif;*/
-    font-size: 15px;
+    font-size: 12px;
     transition: 0.5s;
     cursor: pointer;
 
@@ -548,9 +566,9 @@ ul li .dropdown-link {
 
 .search-bar-result-container {
     position: absolute;
-    z-index: 7;
     display: flex;
     flex-direction: column;
+    top: 67px;
 }
 
 .search-bar-result {
@@ -558,7 +576,7 @@ ul li .dropdown-link {
     background-color: white;
     color: black;
     margin-bottom: 2px;
-    border: 1px solid transparent;
+    border: 1px solid #9d9d9d;
 }
 
 .search-bar-result:hover {
@@ -592,13 +610,17 @@ ul li .dropdown-link {
 .main-language-and-arrow-icon .main-flag {
     flex: 0 1 auto;
     align-self: auto;
-    width: 30px;
+    width: 20px;
+    position: relative;
+    bottom: -5px;
 }
 
 .main-language-and-arrow-icon .arrow-down {
     flex: 0 1 auto;
     align-self: auto;
     width: 15px;
+    position: relative;
+    bottom: 5px;
 }
 
 .main-language-and-arrow-icon .arrow-down * {
@@ -614,7 +636,7 @@ ul li .dropdown-link {
     /*display: inline;*/
     list-style: none;
     font-weight: bold;
-    float: right;
+    float: left;
 }
 
 .languages-drop-btn {
@@ -624,9 +646,10 @@ ul li .dropdown-link {
 
 .languages-dropdown-content {
     display: none;
-    margin: 0;
+    /*margin: 0;*/
     padding: 0;
     list-style: none;
+    margin-bottom: 20px;
 }
 
 .languages-dropdown:hover .languages-dropdown-content {
@@ -634,8 +657,9 @@ ul li .dropdown-link {
 }
 
 .languages-dropdown-content li {
-    width: 30px;
-    /*margin: 1px 0;*/
-    /*border: 1px solid grey;*/
+    margin-top: 0px;
+    /*margin-bottom: 0;*/
+    /*padding-bottom: 0px;*/
+    width: 20px;
 }
 

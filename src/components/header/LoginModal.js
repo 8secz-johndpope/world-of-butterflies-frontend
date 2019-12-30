@@ -128,10 +128,11 @@ class LoginModal extends Component {
                             </label>
 
                             <p>
-                                Új vagy?
-                                <button
-                                    onClick={this.switchModals}
-                                >Regisztrálj!</button>
+                                <div>
+                                    <p onClick={this.switchModals}>
+                                        Regisztrálj!
+                                    </p>
+                                </div>
                             </p>
 
                             <button

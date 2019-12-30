@@ -33,7 +33,7 @@ class Header extends Component {
         this.refs.openBtnLine.style.marginLeft = "0";
     };
 
-    logMe=()=>{
+    logMe = () => {
         console.log(window.innerWidth)
     }
 
@@ -41,22 +41,19 @@ class Header extends Component {
     render() {
         return (
             <React.Fragment>
-                <button onClick={this.logMe}>
-                    katt ide
-                </button>
                 <header className="header">
                     {
                         this.props.isLoggedIn ?
                             <div className="email-logout-container">
+                                <LanguageChanger/>
                                 <Email/>
                                 <LogoutBtn/>
-                                <LanguageChanger/>
                             </div>
                             :
                             <div className="register-login-container">
+                                <LanguageChanger/>
                                 <RegisterModal/>
                                 <LoginModal/>
-                                <LanguageChanger/>
                             </div>
                     }
                     <LogoSmall className="logo-small"/>
@@ -102,10 +99,10 @@ class Header extends Component {
                                     <FormattedMessage id="app.header.main.butterfly"/>
                                 </Link>
                                 <ul className="dropdown">
-                                    <li><Link to="/" className="dropdown-link dotted-spaced-bottom">
+                                    <li className="dotted-spaced-bottom"><Link to="/" className="dropdown-link ">
                                         <FormattedMessage id="app.header.sub.moths"/>
                                     </Link></li>
-                                    <li><Link to="/" className="dropdown-link dotted-spaced-bottom">
+                                    <li className="dotted-spaced-bottom"><Link to="/" className="dropdown-link ">
                                         <FormattedMessage id="app.header.sub.botanical.prints"/>
                                     </Link></li>
                                     <li><Link to="/" className="dropdown-link">
@@ -123,7 +120,7 @@ class Header extends Component {
                                     <FormattedMessage id="app.header.main.insect"/>
                                 </Link>
                                 <ul className="dropdown">
-                                    <li><Link to="/" className="dropdown-link dotted-spaced-bottom">
+                                    <li className="dotted-spaced-bottom"><Link to="/" className="dropdown-link">
                                         <FormattedMessage id="app.header.sub.botanical.prints"/>
                                     </Link></li>
                                     <li><Link to="/" className="dropdown-link">
@@ -144,7 +141,7 @@ class Header extends Component {
                                     <FormattedMessage id="app.header.main.minerals"/>
                                 </Link>
                                 <ul className="dropdown">
-                                    <li><Link to="/" className="dropdown-link dotted-spaced-bottom">MINERAL 1</Link>
+                                    <li className="dotted-spaced-bottom"><Link to="/" className="dropdown-link">MINERAL 1</Link>
                                     </li>
                                     <li><Link to="/" className="dropdown-link">MINERAL 2</Link></li>
                                 </ul>
@@ -154,7 +151,7 @@ class Header extends Component {
                                     <FormattedMessage id="app.header.main.jewelry"/>
                                 </Link>
                                 <ul className="dropdown">
-                                    <li><Link to="/" className="dropdown-link dotted-spaced-bottom">BUTTERFLY</Link>
+                                    <li className="dotted-spaced-bottom"><Link to="/" className="dropdown-link">BUTTERFLY</Link>
                                     </li>
                                     <li><Link to="/" className="dropdown-link">BEATL ASSECUALL</Link></li>
 

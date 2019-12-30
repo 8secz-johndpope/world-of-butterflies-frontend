@@ -11,7 +11,11 @@ class ShoppingCartIcon extends Component {
                     color: 'black'
                 }}
                       to='/cart'>
-                    <span className="shopping-cart-icon">{this.props.productsInShoppingCart.length}</span>
+                    <span className="shopping-cart-icon">
+                        <span className="shopping-cart-number">
+                        {this.props.productsInShoppingCart.length}
+                        </span>
+                    </span>
                 </Link>
             </div>
         );

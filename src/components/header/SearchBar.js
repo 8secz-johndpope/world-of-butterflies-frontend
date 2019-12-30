@@ -13,6 +13,7 @@ class SearchBar extends Component {
     state = {
         products: [],
         twoBtnWidth: 0,
+        isActive: false,
     };
 
     componentWillMount() {
@@ -37,6 +38,20 @@ class SearchBar extends Component {
         }
     };
 
+    captureFocusIn = () => {
+        this.setState({
+            isActive: true,
+        })
+    };
+
+    captureFocusOut = () => {
+        setTimeout(() => {
+            this.setState({
+                isActive: false,
+            });
+        }, 100)
+    };
+
     clearSearchBar = () => {
         this.inputField.current.value = '';
         this.setState({
@@ -58,6 +73,8 @@ class SearchBar extends Component {
             <div className="search-bar-icon-container">
                 <input type="text"
                        className="search-bar"
+                       onFocus={this.captureFocusIn}
+                       onBlur={this.captureFocusOut}
                        onChange={this.handleChange}
                        ref={this.inputField}
                        style={{
@@ -73,7 +90,8 @@ class SearchBar extends Component {
                         height: '27px',
                     }}
                 />
-                {this.state.products.length ?
+                {this.state.products.length &&
+                this.state.isActive ?
                     <div className="search-bar-result-container">
                         {
                             this.state.products.map((product, index) =>

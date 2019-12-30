@@ -95,9 +95,10 @@ class FeaturedProduct extends Component {
                                      style={{
                                          width: `7cm`,
                                          height: 'auto',
+                                         border: '1px solid #D3D3D3'
                                      }}/>
                                 :
-                                <div className="frame-around-butterfly"
+                                <div className="frame-around-butterfly additional-margin"
                                      style={{
                                          border: `${this.state.borderThickness}cm solid black`,
                                          borderImage: `url(${serverURL}/images/frames/frame${this.state.frameNumber}.png) 50 / ${this.state.borderThickness}cm stretch `
@@ -110,10 +111,19 @@ class FeaturedProduct extends Component {
                                 </div>
                         }
 
-                        <span className="main-page-informational-text">
-                        <p className="featured-product-name">{this.props.name}</p>
-                        <p className="featured-product-price">{this.props.price}€</p>
-                    </span>
+                        {
+                            this.props.isInFrame ?
+
+                                <span className="main-page-informational-text">
+                                    <p className="featured-product-name-framed">{this.props.name}</p>
+                                    <p className="featured-product-price-framed">{this.props.price}€</p>
+                                </span>
+                                :
+                                <span className="main-page-informational-text-non-framed">
+                                    <p className="featured-product-name-non-framed">{this.props.name}</p>
+                                    <p className="featured-product-price-non-framed">{this.props.price}€</p>
+                                </span>
+                        }
                     </Link>
                 </div>
             </React.Fragment>
