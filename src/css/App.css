@@ -367,22 +367,6 @@ body {
     justify-content: flex-end;
 }
 
-
-@media screen and (max-width: 945px) {
-    .main-page-category {
-        flex: 1 2 33%;
-        align-self: center;
-    }
-
-    .category-name {
-        font-size: 15px;
-    }
-
-    .image-gallery-and-main-details-container {
-        flex-direction: column;
-    }
-}
-
 .price {
     font-weight: bold;
     font-size: 35px;
@@ -437,6 +421,29 @@ body {
     float: right;
 }
 
+.vertical-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+}
+
+.status-bar{
+    font-size: 20px;
+    margin: 35px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.status-bar .fa-right-arrow{
+    margin: 0 20px;
+    display: block;
+}
+
+.status-bar .fa-down-arrow{
+    display: none;
+}
+
 .shopping-cart-elements-subtotal-container,
 .billing-information-and-subtotal-container {
     display: flex;
@@ -452,7 +459,7 @@ body {
 .subtotal-container {
     flex: 0 1 35%;
     align-self: auto;
-    border-left: 1px solid black;
+    border-left: 1px solid #D3D3D3;
 }
 
 .shopping-cart-table {
@@ -468,7 +475,7 @@ body {
     table-layout: fixed;
 }
 
-.shopping-cart-table tbody tr td{
+.shopping-cart-table tbody tr td {
     width: 100%;
 }
 
@@ -757,5 +764,45 @@ input[type=number] {
 
 }
 
+@media screen and (max-width: 945px) {
+    .main-page-category {
+        flex: 1 2 33%;
+        align-self: center;
+    }
 
+    .category-name {
+        font-size: 15px;
+    }
+
+    .image-gallery-and-main-details-container {
+        flex-direction: column;
+    }
+
+    .shopping-cart-elements-subtotal-container,
+    .billing-information-and-subtotal-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .subtotal-container{
+        border-left: none;
+        border-top: 1px solid #D3D3D3;
+    }
+
+    .status-bar{
+        display: flex;
+        flex-direction: column;
+        font-size: 12px;
+        margin: 10px 0;
+    }
+
+    .status-bar .fa-right-arrow{
+        display: none;
+    }
+
+    .status-bar .fa-down-arrow{
+        display: block;
+    }
+
+}
 

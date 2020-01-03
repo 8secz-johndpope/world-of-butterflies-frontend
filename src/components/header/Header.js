@@ -60,9 +60,12 @@ class Header extends Component {
 
                     <div className="header-logo-icon-area">
                         <div className="logo-holder">
-                            <GabannaLogo
-                                className="logo-header"
-                            />
+                            <Link to="/">
+                                <GabannaLogo
+                                    className="logo-header"
+                                />
+                            </Link>
+
                         </div>
                         <div className="other-icons">
                             <div
@@ -99,7 +102,8 @@ class Header extends Component {
                                     <FormattedMessage id="app.header.main.butterfly"/>
                                 </Link>
                                 <ul className="dropdown">
-                                    <li className="dotted-spaced-bottom"><Link to="/sub-categories/moth" className="dropdown-link ">
+                                    <li className="dotted-spaced-bottom"><Link to="/sub-categories/moth"
+                                                                               className="dropdown-link ">
                                         <FormattedMessage id="app.header.sub.moths"/>
                                     </Link></li>
                                     <li className="dotted-spaced-bottom"><Link to="/" className="dropdown-link ">
@@ -141,7 +145,8 @@ class Header extends Component {
                                     <FormattedMessage id="app.header.main.minerals"/>
                                 </Link>
                                 <ul className="dropdown">
-                                    <li className="dotted-spaced-bottom"><Link to="/" className="dropdown-link">MINERAL 1</Link>
+                                    <li className="dotted-spaced-bottom"><Link to="/" className="dropdown-link">MINERAL
+                                        1</Link>
                                     </li>
                                     <li><Link to="/" className="dropdown-link">MINERAL 2</Link></li>
                                 </ul>
@@ -151,7 +156,8 @@ class Header extends Component {
                                     <FormattedMessage id="app.header.main.jewelry"/>
                                 </Link>
                                 <ul className="dropdown">
-                                    <li className="dotted-spaced-bottom"><Link to="/" className="dropdown-link">BUTTERFLY</Link>
+                                    <li className="dotted-spaced-bottom"><Link to="/"
+                                                                               className="dropdown-link">BUTTERFLY</Link>
                                     </li>
                                     <li><Link to="/" className="dropdown-link">BEATL ASSECUALL</Link></li>
 
