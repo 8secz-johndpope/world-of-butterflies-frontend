@@ -10,11 +10,17 @@ class ShoppingCart extends Component {
     subtotal = 0;
 
 
-    countQtyById = (id, frameOption) => {
+    countQtyByIdAndFrameOption = (id, frameOption) => {
         const countTypes = this.props.productsInShoppingCart.filter(
             wrappedProduct => wrappedProduct.product.id === id &&
                 wrappedProduct.frameOption === frameOption
         );
+        return countTypes.length;
+    };
+
+    countAddedProducts = (id) => {
+        const countTypes = this.props.productsInShoppingCart.filter(
+            wrappedProduct => wrappedProduct.product.id === id);
         return countTypes.length;
     };
 
@@ -29,14 +35,16 @@ class ShoppingCart extends Component {
 
 
     addOneProductToShoppingCart = (product, frame) => {
-        this.subtotal += product.price;
-        let newWrappedProduct = {
-            uniqueId: Date.now(),
-            product: product,
-            frameOption: frame,
-        };
-        this.props.addToShoppingCart(newWrappedProduct)
+        if (this.countAddedProducts(product.id) < product.availableQuantity) {
 
+            this.subtotal += product.price;
+            let newWrappedProduct = {
+                uniqueId: Date.now(),
+                product: product,
+                frameOption: frame,
+            };
+            this.props.addToShoppingCart(newWrappedProduct);
+        }
     };
 
     removeOneProductFromShoppingCart = (wrappedProduct) => {
@@ -90,18 +98,23 @@ class ShoppingCart extends Component {
                                     elem => elem.product.id === wrappedProduct.product.id &&
                                         elem.frameOption === wrappedProduct.frameOption
                                     ))
-                                    .map((wrappedProduct, index) =>
+                                    .map((wrappedProduct) =>
 
                                         <tr>
                                             <td>
                                                 <div className="frame-around-butterfly"
                                                      style={{
-                                                         border: `0.3cm solid black`,
-                                                         borderImage: `url(${serverURL}/images/frames/frame${wrappedProduct.frameOption}.png) 50 / 0.3cm stretch `
+                                                         border: `${wrappedProduct.product.isInFrame ? '1px solid #D3D3D3' : '0.3cm solid black'}`,
+                                                         borderImage: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/frame${wrappedProduct.frameOption}.png) 50 / 0.3cm stretch`}`,
                                                      }}>
-                                                    {<img src={serverURL + wrappedProduct.product.url}/>}
+                                                    {
+                                                        <img src={serverURL + wrappedProduct.product.url}
+                                                             style={{
+                                                                 width: '100%',
+                                                             }}
+                                                        />
+                                                    }
                                                 </div>
-
                                             </td>
                                             <td>{wrappedProduct.product.name}</td>
                                             <td>{wrappedProduct.product.price}</td>
@@ -111,14 +124,14 @@ class ShoppingCart extends Component {
                                                     icon={faMinusCircle}
                                                     onClick={() => this.removeOneProductFromShoppingCart(wrappedProduct)}
                                                 />
-                                                {this.countQtyById(wrappedProduct.product.id, wrappedProduct.frameOption)}
+                                                {this.countQtyByIdAndFrameOption(wrappedProduct.product.id, wrappedProduct.frameOption)}
                                                 <FontAwesomeIcon
                                                     className="shopping-cart-fa-icons"
                                                     icon={faPlusCircle}
                                                     onClick={() => this.addOneProductToShoppingCart(wrappedProduct.product, wrappedProduct.frameOption)}
                                                 />
                                             </td>
-                                            <td>{this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyById(wrappedProduct.product.id, wrappedProduct.frameOption))}</td>
+                                            <td>{this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameOption(wrappedProduct.product.id, wrappedProduct.frameOption))}</td>
                                         </tr>
                                     )}
                                 </tbody>
