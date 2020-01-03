@@ -278,12 +278,26 @@ body {
     padding: 5px 0;
 }
 
+.vertical-single-product-container{
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.navigation-bar-above-product{
+    margin: 12px 4px 10px;
+}
+
+.navigation-bar-above-product .slash-span{
+    margin: 0 10px;
+}
+
 .image-gallery-and-main-details-container {
     display: flex;
     flex-direction: row;
     padding-bottom: 100px;
-    /*border-bottom: 1px solid #D3D3D3;*/
-    padding-top: 25px;
     background-color: #ffffff;
 }
 

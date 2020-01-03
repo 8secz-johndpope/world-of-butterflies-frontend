@@ -5,7 +5,8 @@ import Drift from 'drift-zoom';
 import {connect} from 'react-redux';
 import {FormattedMessage} from "react-intl";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faTruckMoving, faChevronUp, faChevronDown} from "@fortawesome/free-solid-svg-icons";
+import {faTruckMoving, faChevronUp, faChevronDown, faHome} from "@fortawesome/free-solid-svg-icons";
+import {Link} from "react-router-dom";
 
 class SingleProduct extends Component {
 
@@ -162,61 +163,102 @@ class SingleProduct extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="image-gallery-and-main-details-container dotted-spaced-bottom">
-                    <div className="image-gallery">
-                        <div className="main-image">
-                            <div className="frame-around-butterfly"
-                                 style={{
-                                     border: `${this.state.product.isInFrame ? 'none' : `${this.state.frameThickness}cm solid black`}`,
-                                     borderImage: `${this.state.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/frame${this.state.frameNumber}.png) 50 / ${this.state.frameThickness}cm stretch`}`
-                                 }}>
-                                <img src={serverURL + this.state.mainImageUrl}
-                                     data-zoom={serverURL + this.state.mainImageUrl}
-                                     alt=""
+                <div className="vertical-single-product-container">
+                    <p className="navigation-bar-above-product">
+                        <Link to='/'
+                              style={{
+                                  textDecoration: 'none',
+                                  color: 'black',
+                              }}>
+                            <span>
+                                <FontAwesomeIcon icon={faHome}/>
+                            </span>
+                        </Link>
+
+                        <span className="slash-span">
+                            /
+                        </span>
+
+                        <Link to={'/main-categories/' + this.state.product.mainType}
+                              style={{
+                                  textDecoration: 'none',
+                                  color: 'black',
+                              }}>
+                            <span>
+                                {this.state.product.mainType}
+                            </span>
+                        </Link>
+
+                        <span className="slash-span">
+                            /
+                        </span>
+
+                        <Link to={'/sub-categories/' + this.state.product.subType}
+                              style={{
+                                  textDecoration: 'none',
+                                  color: 'black',
+                              }}>
+                            <span>
+                                {this.state.product.subType}
+                            </span>
+                        </Link>
+                    </p>
+                    <div className="image-gallery-and-main-details-container dotted-spaced-bottom">
+                        <div className="image-gallery">
+                            <div className="main-image">
+                                <div className="frame-around-butterfly"
                                      style={{
-                                         width: '100%',
-                                         height: 'auto'
-                                     }}
-                                     onMouseEnter={this.handleMouseEnter}
-                                     onMouseLeave={this.handleMouseLeave}
-                                     ref={this.mainImage}
-                                />
+                                         border: `${this.state.product.isInFrame ? 'none' : `${this.state.frameThickness}cm solid black`}`,
+                                         borderImage: `${this.state.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/frame${this.state.frameNumber}.png) 50 / ${this.state.frameThickness}cm stretch`}`
+                                     }}>
+                                    <img src={serverURL + this.state.mainImageUrl}
+                                         data-zoom={serverURL + this.state.mainImageUrl}
+                                         alt=""
+                                         style={{
+                                             width: '100%',
+                                             height: 'auto',
+                                             border: '1px solid #D3D3D3',
+                                         }}
+                                         onMouseEnter={this.handleMouseEnter}
+                                         onMouseLeave={this.handleMouseLeave}
+                                         ref={this.mainImage}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="small-images">
+                                <div className="frame-around-butterfly"
+                                     style={{
+                                         border: `${this.state.product.isInFrame ? 'none' : '0.1cm solid black'}`,
+                                         borderImage: `${this.state.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/frame${this.state.frameNumber}.png) 50 / 0.1cm stretch`}`
+                                     }}>
+                                    <img src={serverURL + this.state.product.url}
+                                         alt=""
+                                         onClick={() => this.changeMainImage(this.state.product.url, true)}
+                                         className="all-small-images"
+                                         style={{
+                                             width: '100%',
+                                             height: 'auto'
+                                         }}
+                                    />
+                                </div>
+                                {this.state.productImages.map((image, index) =>
+                                    <AdditionalImage
+                                        url={image.url}
+                                        onClickHandler={this.changeMainImage}
+                                        key={index}
+                                    />)}
                             </div>
                         </div>
 
-                        <div className="small-images">
-                            <div className="frame-around-butterfly"
-                                 style={{
-                                     border: `${this.state.product.isInFrame ? 'none' : '0.1cm solid black'}`,
-                                     borderImage: `${this.state.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/frame${this.state.frameNumber}.png) 50 / 0.1cm stretch`}`
-                                 }}>
-                                <img src={serverURL + this.state.product.url}
-                                     alt=""
-                                     onClick={() => this.changeMainImage(this.state.product.url, true)}
-                                     className="all-small-images"
-                                     style={{
-                                         width: '100%',
-                                         height: 'auto'
-                                     }}
-                                />
-                            </div>
-                            {this.state.productImages.map((image, index) =>
-                                <AdditionalImage
-                                    url={image.url}
-                                    onClickHandler={this.changeMainImage}
-                                    key={index}
-                                />)}
-                        </div>
-                    </div>
+                        <div className="main-details">
+                            <h1>{this.state.product.name}</h1>
+                            <div id="zoomed-img-portal"
+                                 ref={this.zoomPortal}
+                                 className="detail"
+                            >
 
-                    <div className="main-details">
-                        <h1>{this.state.product.name}</h1>
-                        <div id="zoomed-img-portal"
-                             ref={this.zoomPortal}
-                             className="detail"
-                        >
-
-                            <div className="dirty-little-details dotted-spaced-bottom">
+                                <div className="dirty-little-details dotted-spaced-bottom">
                                 <span className="stock-and-time">
                                     <p>
                                         <FormattedMessage id="app.single.page.stock"/>
@@ -227,67 +269,68 @@ class SingleProduct extends Component {
                                         <FormattedMessage id="app.single.page.delivery.days"/>
                                     </p>
                                 </span>
-                                {/*<p className="frame-colors">Frame colors: </p>*/}
-                                {this.state.product.isInFrame ?
-                                    null
-                                    :
+                                    {/*<p className="frame-colors">Frame colors: </p>*/}
+                                    {this.state.product.isInFrame ?
+                                        null
+                                        :
 
-                                    <div className="small-frame-icons">
+                                        <div className="small-frame-icons">
 
                                         <span onMouseEnter={() => this.mouseEnterCapture(1)}
                                               style={{
                                                   backgroundImage: `url(${serverURL}/images/frames/color-options/1.png)`
                                               }}
                                         />
-                                        <span onMouseEnter={() => this.mouseEnterCapture(2)}
-                                              style={{
-                                                  backgroundImage: `url(${serverURL}/images/frames/color-options/2.png)`
-                                              }}
+                                            <span onMouseEnter={() => this.mouseEnterCapture(2)}
+                                                  style={{
+                                                      backgroundImage: `url(${serverURL}/images/frames/color-options/2.png)`
+                                                  }}
+                                            />
+                                            <span onMouseEnter={() => this.mouseEnterCapture(3)}
+                                                  style={{
+                                                      backgroundImage: `url(${serverURL}/images/frames/color-options/3.png)`
+                                                  }}
+                                            />
+                                        </div>
+                                    }
+                                </div>
+                                <div className="qty-and-buy-btn-container dotted-spaced-bottom">
+
+                                    <div className="number-input-container">
+                                        <FontAwesomeIcon icon={faChevronDown} className="fa-chevron"
+                                                         onClick={this.decreaseAmount}
                                         />
-                                        <span onMouseEnter={() => this.mouseEnterCapture(3)}
-                                              style={{
-                                                  backgroundImage: `url(${serverURL}/images/frames/color-options/3.png)`
-                                              }}
+                                        <input
+                                            className="qty-input"
+                                            type="number"
+                                            value={this.state.amount}
+                                            onChange={this.handleAmountChange}
+                                        />
+                                        <FontAwesomeIcon icon={faChevronUp} className="fa-chevron"
+                                                         onClick={this.increaseAmount}
                                         />
                                     </div>
-                                }
-                            </div>
-                            <div className="qty-and-buy-btn-container dotted-spaced-bottom">
+                                    <button
+                                        onClick={this.addToCart}
+                                        className="custom-add-to-cart"
+                                    >
 
-                                <div className="number-input-container">
-                                    <FontAwesomeIcon icon={faChevronDown} className="fa-chevron"
-                                                     onClick={this.decreaseAmount}
-                                    />
-                                    <input
-                                        className="qty-input"
-                                        type="number"
-                                        value={this.state.amount}
-                                        onChange={this.handleAmountChange}
-                                    />
-                                    <FontAwesomeIcon icon={faChevronUp} className="fa-chevron"
-                                                     onClick={this.increaseAmount}
-                                    />
-                                </div>
-                                <button
-                                    onClick={this.addToCart}
-                                    className="custom-add-to-cart"
-                                >
-
-                                    <FormattedMessage id="app.single.page.buy"/>
-                                </button>
-                                <p className='price'>{this.state.product.price}
-                                    €
-                                    <span id="dph">
+                                        <FormattedMessage id="app.single.page.buy"/>
+                                    </button>
+                                    <p className='price'>{this.state.product.price}
+                                        €
+                                        <span id="dph">
                                     <FormattedMessage id="app.single.page.dph"/>
+                                </span>
+                                    </p>
+                                </div>
+                                <p className="truck-and-shipping">
+                                    <FontAwesomeIcon icon={faTruckMoving}/>
+                                    <span>
+                                    Postovne
                                 </span>
                                 </p>
                             </div>
-                            <p className="truck-and-shipping">
-                                <FontAwesomeIcon icon={faTruckMoving}/>
-                                <span>
-                                    Postovne
-                                </span>
-                            </p>
                         </div>
                     </div>
                 </div>
