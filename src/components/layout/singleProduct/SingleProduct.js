@@ -8,12 +8,12 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTruckMoving, faChevronUp, faChevronDown} from "@fortawesome/free-solid-svg-icons";
 
 class SingleProduct extends Component {
+
     constructor(props) {
         super(props);
         this.zoomPortal = React.createRef();
         this.mainImage = React.createRef();
     }
-
 
     state = {
         id: 0,
@@ -21,7 +21,8 @@ class SingleProduct extends Component {
         productImages: [],
         mainImageUrl: '',
         frameNumber: 1,
-        frameThickness: 1
+        frameThickness: 1,
+        amount: 1,
     };
 
     getTheProduct = () => {
@@ -42,7 +43,7 @@ class SingleProduct extends Component {
         new Drift(this.mainImage.current, {
             paneContainer: this.zoomPortal.current
         });
-        console.log(this.mainImage.current)
+        window.scrollTo(0, 0);
     }
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
@@ -51,6 +52,7 @@ class SingleProduct extends Component {
                 id: this.props.match.params.id,
             });
             this.getTheProduct();
+            window.scrollTo(0, 0);
         }
     }
 
@@ -86,26 +88,30 @@ class SingleProduct extends Component {
     };
 
     addToCart = () => {
-        let wrappedProduct = {
-            uniqueId: Date.now(),
-            product: this.state.product,
-            frameOption: this.state.frameNumber,
-        };
-        this.props.addToShoppingCart(wrappedProduct)
+        if (this.countAddedProducts(this.state.product.id) < this.state.product.availableQuantity) {
+            for (let i = 0; i < this.state.amount; i++) {
+                let wrappedProduct = {
+                    uniqueId: Date.now(),
+                    product: this.state.product,
+                    frameOption: this.state.frameNumber,
+                };
+                this.props.addToShoppingCart(wrappedProduct)
+            }
+            this.setState({
+                amount: 1
+            });
+            if (this.state.product.availableQuantity - (this.countAddedProducts(this.state.product.id) + this.state.amount) === 0) {
+                this.setState({
+                    amount: 0
+                });
+            }
+        }
     };
 
-    getDescription = () => {
-        if (this.props.preferredLanguage === "hu") {
-            return this.state.product.descriptionHU;
-        } else if (this.props.preferredLanguage === "en") {
-            return this.state.product.descriptionEN;
-        } else if (this.props.preferredLanguage === "sk") {
-            return this.state.product.descriptionSK;
-        } else if (this.props.preferredLanguage === "de") {
-            return this.state.product.descriptionDE;
-        } else {
-            return;
-        }
+    countAddedProducts = (id) => {
+        const countTypes = this.props.productsInShoppingCart.filter(
+            wrappedProduct => wrappedProduct.product.id === id);
+        return countTypes.length;
     };
 
     handleMouseEnter = () => {
@@ -114,6 +120,43 @@ class SingleProduct extends Component {
 
     handleMouseLeave = () => {
         this.zoomPortal.current.classList.remove("zoomed-portal-active")
+    };
+
+    decreaseAmount = () => {
+        if (this.state.amount > 1) {
+            this.setState({
+                amount: this.state.amount - 1
+            })
+        }
+    };
+
+    increaseAmount = () => {
+        if (this.state.amount < (this.state.product.availableQuantity - this.countAddedProducts(this.state.product.id))) {
+            this.setState({
+                amount: this.state.amount + 1
+            });
+        }
+        if (this.state.product.availableQuantity - this.countAddedProducts(this.state.product.id) === 0) {
+            this.setState({
+                amount: 0
+            });
+        }
+    };
+
+    handleAmountChange = (e) => {
+        const re = /^[0-9\b]+$/;
+        if (e.target.value === '' || re.test(e.target.value)) {
+            if (parseInt(e.target.value) > this.state.product.availableQuantity - this.countAddedProducts(this.state.product.id)) {
+                this.setState({
+                    amount: this.state.product.availableQuantity - this.countAddedProducts(this.state.product.id),
+                });
+            } else {
+                this.setState({
+                    amount: parseInt(e.target.value),
+                });
+            }
+        }
+
     };
 
     render() {
@@ -212,13 +255,18 @@ class SingleProduct extends Component {
                             <div className="qty-and-buy-btn-container dotted-spaced-bottom">
 
                                 <div className="number-input-container">
-                                    <FontAwesomeIcon icon={faChevronDown} className="fa-chevron"/>
+                                    <FontAwesomeIcon icon={faChevronDown} className="fa-chevron"
+                                                     onClick={this.decreaseAmount}
+                                    />
                                     <input
                                         className="qty-input"
                                         type="number"
-                                        value={1}
+                                        value={this.state.amount}
+                                        onChange={this.handleAmountChange}
                                     />
-                                    <FontAwesomeIcon icon={faChevronUp} className="fa-chevron"/>
+                                    <FontAwesomeIcon icon={faChevronUp} className="fa-chevron"
+                                                     onClick={this.increaseAmount}
+                                    />
                                 </div>
                                 <button
                                     onClick={this.addToCart}
@@ -290,6 +338,7 @@ class SingleProduct extends Component {
 function mapStateToProps(state) {
     return {
         preferredLanguage: state.preferredLanguage,
+        productsInShoppingCart: state.productsInShoppingCart,
     }
 }
 

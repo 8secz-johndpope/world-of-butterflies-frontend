@@ -457,6 +457,14 @@ body {
 
 .shopping-cart-table {
     width: 98%;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                     supported by Chrome, Opera and Firefox */
 }
 
 .shopping-cart-fa-icons {
@@ -498,12 +506,8 @@ body {
     font-size: 12px;
 }
 
-.qty-input {
-    padding: 10px 5px;
-    margin-left: 5px;
-    width: 30px;
-    border: none;
-    font-size: 12px;
+
+input:focus {
     outline: none;
 }
 
@@ -725,6 +729,14 @@ input[type=number] {
 
 .number-input-container {
     border: 2px solid #ddd;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                     supported by Chrome, Opera and Firefox */
 }
 
 .number-input-container .fa-chevron {

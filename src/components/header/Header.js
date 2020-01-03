@@ -95,11 +95,11 @@ class Header extends Component {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/butterfly" className="main-link">
+                                <Link to="/main-categories/butterfly" className="main-link">
                                     <FormattedMessage id="app.header.main.butterfly"/>
                                 </Link>
                                 <ul className="dropdown">
-                                    <li className="dotted-spaced-bottom"><Link to="/" className="dropdown-link ">
+                                    <li className="dotted-spaced-bottom"><Link to="/sub-categories/moth" className="dropdown-link ">
                                         <FormattedMessage id="app.header.sub.moths"/>
                                     </Link></li>
                                     <li className="dotted-spaced-bottom"><Link to="/" className="dropdown-link ">
@@ -111,12 +111,12 @@ class Header extends Component {
                                 </ul>
                             </li>
                             <li>
-                                <Link to="/about" className="main-link">
+                                <Link to="/main-categories/beetle" className="main-link">
                                     <FormattedMessage id="app.header.main.beetles"/>
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/insect" className="main-link">
+                                <Link to="/main-categories/insect" className="main-link">
                                     <FormattedMessage id="app.header.main.insect"/>
                                 </Link>
                                 <ul className="dropdown">
@@ -129,7 +129,7 @@ class Header extends Component {
                                 </ul>
                             </li>
                             <li>
-                                <Link to="/fossil" className="main-link">
+                                <Link to="/main-categories/fossil" className="main-link">
                                     <FormattedMessage id="app.header.main.fossil"/>
                                 </Link>
                                 <ul className="dropdown">
@@ -137,7 +137,7 @@ class Header extends Component {
                                 </ul>
                             </li>
                             <li>
-                                <Link to="/minerals" className="main-link">
+                                <Link to="/main-categories/minerals" className="main-link">
                                     <FormattedMessage id="app.header.main.minerals"/>
                                 </Link>
                                 <ul className="dropdown">
@@ -147,7 +147,7 @@ class Header extends Component {
                                 </ul>
                             </li>
                             <li>
-                                <Link to="/jewelry" className="main-link">
+                                <Link to="/main-categories/jewelry" className="main-link">
                                     <FormattedMessage id="app.header.main.jewelry"/>
                                 </Link>
                                 <ul className="dropdown">

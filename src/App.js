@@ -3,18 +3,18 @@ import './css/App.css';
 import Header from "./components/header/Header";
 import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
 import MainPage from "./components/layout/mainPage/MainPage";
-import ProductMapper from "./components/product/ProductMapper";
 import SingleProduct from "./components/layout/singleProduct/SingleProduct"
 import ShoppingCart from "./components/header/ShoppingCart";
 import Checkout from "./components/layout/checkout/Checkout";
 import {isUserLoggedIn} from "./service/fetchService/fetchService";
 import {connect} from "react-redux";
-import {FormattedMessage} from "react-intl";
 import {IntlProvider} from "react-intl";
 import languageHU from './translations/hu.json'
 import languageUS from './translations/us.json'
 import languageSK from './translations/sk.json'
 import Footer from "./components/footer/Footer";
+import ProductMapperByMainType from "./components/layout/productsByMainType/ProductMapperByMainType";
+import ProductMapperBySubType from "./components/layout/productsBySubType/ProductMapperBySubType";
 
 const messages = {
     'hu': languageHU,
@@ -32,8 +32,8 @@ class App extends Component {
                     this.props.setUserEmail('');
                     this.props.setLoggedIn(false);
                     this.props.setBillingAddressList('');
-                    this.props.clearShoppingCart();
-                    this.props.setSubtotal(0);
+                    // this.props.clearShoppingCart();
+                    // this.props.setSubtotal(0);
                 }
             })
     }
@@ -50,7 +50,8 @@ class App extends Component {
                             <Route path="/products/:id" component={SingleProduct}/>
                             <Route path="/cart" component={ShoppingCart}/>
                             <Route path="/checkout" component={Checkout}/>
-                            {/*<Route path="/products/:type" component={}/>*/}
+                            <Route path="/main-categories/:type" component={ProductMapperByMainType}/>
+                            <Route path="/sub-categories/:type" component={ProductMapperBySubType}/>
                         </Switch>
                         <Footer/>
                     </div>
