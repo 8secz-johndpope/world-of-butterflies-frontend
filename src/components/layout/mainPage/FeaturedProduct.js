@@ -89,11 +89,12 @@ class FeaturedProduct extends Component {
                               color: 'black',
                           }}
                     >
+                        <span className="aligner-span">
                         {
                             this.props.isInFrame ?
                                 <img src={serverURL + this.props.url}
                                      style={{
-                                         width: `7cm`,
+                                         width: `100%`,
                                          height: 'auto',
                                          border: '1px solid #D3D3D3'
                                      }}/>
@@ -111,19 +112,20 @@ class FeaturedProduct extends Component {
                                 </div>
                         }
 
-                        {
-                            this.props.isInFrame ?
+                            {
+                                this.props.isInFrame ?
 
-                                <span className="main-page-informational-text">
+                                    <span className="main-page-informational-text">
                                     <p className="featured-product-name-framed">{this.props.name}</p>
                                     <p className="featured-product-price-framed">{this.props.price}€</p>
                                 </span>
-                                :
-                                <span className="main-page-informational-text-non-framed">
+                                    :
+                                    <span className="main-page-informational-text-non-framed">
                                     <p className="featured-product-name-non-framed">{this.props.name}</p>
                                     <p className="featured-product-price-non-framed">{this.props.price}€</p>
                                 </span>
-                        }
+                            }
+                        </span>
                     </Link>
                 </div>
             </React.Fragment>

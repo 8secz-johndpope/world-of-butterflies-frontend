@@ -106,12 +106,19 @@ body {
     justify-content: center;
     align-content: center;
     align-items: center;
+    background-color: #ffffff;
 }
 
 .main-page-featured-product {
     margin: 30px 1%;
-    flex: 0 1 auto;
+    flex: 0 1 23%;
     align-self: center;
+}
+
+.aligner-span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .featured-product-name-framed {
@@ -278,7 +285,7 @@ body {
     padding: 5px 0;
 }
 
-.vertical-single-product-container{
+.vertical-single-product-container {
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
@@ -286,11 +293,11 @@ body {
     align-items: flex-start;
 }
 
-.navigation-bar-above-product{
+.navigation-bar-above-product {
     margin: 12px 4px 10px;
 }
 
-.navigation-bar-above-product .slash-span{
+.navigation-bar-above-product .slash-span {
     margin: 0 10px;
 }
 
@@ -441,7 +448,7 @@ body {
     background-color: #ffffff;
 }
 
-.status-bar{
+.status-bar {
     font-size: 20px;
     margin: 35px 0;
     display: flex;
@@ -449,12 +456,12 @@ body {
     justify-content: center;
 }
 
-.status-bar .fa-right-arrow{
+.status-bar .fa-right-arrow {
     margin: 0 20px;
     display: block;
 }
 
-.status-bar .fa-down-arrow{
+.status-bar .fa-down-arrow {
     display: none;
 }
 
@@ -798,25 +805,37 @@ input[type=number] {
         flex-direction: column;
     }
 
-    .subtotal-container{
+    .subtotal-container {
         border-left: none;
         border-top: 1px solid #D3D3D3;
     }
 
-    .status-bar{
+    .status-bar {
         display: flex;
         flex-direction: column;
         font-size: 12px;
         margin: 10px 0;
     }
 
-    .status-bar .fa-right-arrow{
+    .status-bar .fa-right-arrow {
         display: none;
     }
 
-    .status-bar .fa-down-arrow{
+    .status-bar .fa-down-arrow {
         display: block;
     }
 
+    .main-page-featured-product {
+        flex: 0 1 48%;
+        align-self: center;
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+    .main-page-featured-product {
+        flex: 0 1 100%;
+        align-self: center;
+    }
 }
 

@@ -21,11 +21,6 @@ class ProductMapperBySubType extends Component {
         );
     };
 
-    //users.sort(function(a, b){
-    //     if(a.firstname < b.firstname) { return -1; }
-    //     if(a.firstname > b.firstname) { return 1; }
-    //     return 0;
-    // })
     render() {
         return (
             <div className="main-page-featured-product-container">
