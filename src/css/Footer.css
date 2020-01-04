@@ -11,21 +11,58 @@
     align-items: flex-start;
 }
 
-.footer-container p{
-    /*font-weight: bolder;*/
+.footer-container div div p {
+    font-size: 20px;
+    font-weight: bold;
 }
 
-.my-account {
-    flex: 1 1 auto;
-    align-self: auto;
+.footer-container div div li {
+    list-style: none;
+    padding: 1px 0;
+    font-weight: bolder;
 }
 
-.information {
+.my-account-container,
+.information-container,
+.find-us-on-container,
+.footer-logo-container {
     flex: 1 1 auto;
-    align-self: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.find-us-on {
-    flex: 1 1 auto;
-    align-self: auto;
+.my-account,
+.information,
+.find-us-on,
+.footer-logo {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.footer-icon-facebook {
+    padding-left: 15px;
+}
+
+.footer-icon-instagram {
+    padding-left: 4px;
+}
+
+#special-p {
+    margin-top: 0;
+    margin-bottom: 2px;
+}
+
+.payment-method-icons {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 130%;
+}
+
+.payment-method-icons *{
+    flex: 0 1 20%;
 }
