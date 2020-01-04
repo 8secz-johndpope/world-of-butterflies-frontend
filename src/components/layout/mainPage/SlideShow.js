@@ -1,8 +1,23 @@
 import React, {Component} from 'react';
 import {Carousel} from "react-responsive-carousel";
 import {FormattedMessage} from "react-intl";
+import {getSlideshowPictures} from "../../../service/fetchService/fetchService";
+import {Link} from "react-router-dom";
 
 class SlideShow extends Component {
+    state = {
+        slideshowPictures: []
+    };
+
+    componentDidMount() {
+        getSlideshowPictures()
+            .then(resp =>
+                this.setState({
+                    slideshowPictures: resp,
+                })
+            );
+    }
+
     render() {
         return (
             <div className="slide-show">
@@ -11,63 +26,25 @@ class SlideShow extends Component {
                           autoPlay
                           stopOnHover={true}
                           showThumbs={false}>
-                    <div>
-                        <img style={{
-                            width: '100%',
-                            height: 'auto',
-                        }} src={serverURL + '/images/slideshow/Slideshow1.jpg'}/>
-                        <p className="main-page-buy-now-btn">
-                            <FormattedMessage id="app.slide-show.shop-now"/>
-                        </p>
-                    </div>
-                    <div>
-                        <img src={serverURL + '/images/slideshow/Slideshow2.jpg'}/>
-                        <p className="main-page-buy-now-btn">
-                            <FormattedMessage id="app.slide-show.shop-now"/>
-                        </p>
-                    </div>
-                    <div>
-                        <img src={serverURL + '/images/slideshow/Slideshow3.jpg'}/>
-                        <p className="main-page-buy-now-btn">
-                            <FormattedMessage id="app.slide-show.shop-now"/>
-                        </p>
-                    </div>
-                    {/*<div>*/}
-                    {/*    <img src={serverURL + '/images/slideshow/Slideshow10.jpg'}/>*/}
-                    {/*    <p className="main-page-buy-now-btn">*/}
-                    {/*        <FormattedMessage id="app.slide-show.shop-now"/>*/}
-                    {/*    </p>*/}
-                    {/*</div>*/}
-                    {/*<div>*/}
-                    {/*    <img src={serverURL + '/images/slideshow/Slideshow5.jpg'}/>*/}
-                    {/*    <p className="main-page-buy-now-btn">*/}
-                    {/*        <FormattedMessage id="app.slide-show.shop-now"/>*/}
-                    {/*    </p>*/}
-                    {/*</div>*/}
-                    <div>
-                        <img src={serverURL + '/images/slideshow/Slideshow6.jpg'}/>
-                        <p className="main-page-buy-now-btn">
-                            <FormattedMessage id="app.slide-show.shop-now"/>
-                        </p>
-                    </div>
-                    <div>
-                        <img src={serverURL + '/images/slideshow/Slideshow7.jpg'}/>
-                        <p className="main-page-buy-now-btn">
-                            <FormattedMessage id="app.slide-show.shop-now"/>
-                        </p>
-                    </div>
-                    <div>
-                        <img src={serverURL + '/images/slideshow/Slideshow8.jpg'}/>
-                        <p className="main-page-buy-now-btn">
-                            <FormattedMessage id="app.slide-show.shop-now"/>
-                        </p>
-                    </div>
-                    <div>
-                        <img src={serverURL + '/images/slideshow/Slideshow9.jpg'}/>
-                        <p className="main-page-buy-now-btn">
-                            <FormattedMessage id="app.slide-show.shop-now"/>
-                        </p>
-                    </div>
+                    {
+                        this.state.slideshowPictures.map(picture =>
+                            <div>
+                                <img style={{
+                                    width: '100%',
+                                    height: 'auto',
+                                }} src={serverURL + picture.url}/>
+                                <Link to={'/products/' + picture.productId}
+                                      style={{
+                                          textDecoration: 'none',
+                                      }}
+                                >
+                                    <p className="main-page-buy-now-btn">
+                                        <FormattedMessage id="app.slide-show.shop-now"/>
+                                    </p>
+                                </Link>
+                            </div>
+                        )
+                    }
                 </Carousel>
             </div>
         );
