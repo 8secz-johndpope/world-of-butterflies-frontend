@@ -3,6 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSearch, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
 import {getProductsByQueryParam} from "../../service/fetchService/fetchService";
 import SearchBarFoundProduct from "./SearchBarFoundProduct";
+import {withRouter} from 'react-router-dom'
 
 class SearchBar extends Component {
     constructor(props) {
@@ -14,6 +15,7 @@ class SearchBar extends Component {
         products: [],
         twoBtnWidth: 0,
         isActive: false,
+        searchFieldValue: '',
     };
 
     componentWillMount() {
@@ -25,6 +27,10 @@ class SearchBar extends Component {
     }
 
     handleChange = (e) => {
+        this.setState({
+            searchFieldValue: e.target.value,
+        });
+
         if (e.target.value.length >= 3) {
             getProductsByQueryParam(e.target.value)
                 .then(resp => this.setState({
@@ -67,6 +73,12 @@ class SearchBar extends Component {
         })
     };
 
+    handleClickOnSearchIcon = () => {
+        if (this.state.searchFieldValue.length) {
+            this.props.history.push('/search/' + this.state.searchFieldValue)
+        }
+    };
+
     render() {
         return (
 
@@ -80,6 +92,7 @@ class SearchBar extends Component {
                        style={{
                            width: `${this.state.twoBtnWidth}px`,
                        }}
+                       value={this.state.searchFieldValue}
 
                 />
                 <FontAwesomeIcon
@@ -89,12 +102,13 @@ class SearchBar extends Component {
                         width: '27px',
                         height: '27px',
                     }}
+                    onClick={this.handleClickOnSearchIcon}
                 />
                 {this.state.products.length &&
                 this.state.isActive ?
                     <div className="search-bar-result-container">
                         {
-                            this.state.products.map((product, index) =>
+                            this.state.products.slice(0, 5).map((product, index) =>
                                 <SearchBarFoundProduct
                                     id={product.id}
                                     name={product.name}
@@ -119,4 +133,4 @@ class SearchBar extends Component {
     }
 }
 
-export default SearchBar;
+export default withRouter(SearchBar);

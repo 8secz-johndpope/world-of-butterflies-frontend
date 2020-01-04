@@ -22,7 +22,8 @@
     "react-scrollbar-js": "^1.0.1",
     "redux": "^4.0.4",
     "redux-persist": "^6.0.0",
-    "rodal": "^1.7.0"
+    "rodal": "^1.7.0",
+    "react-router": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
