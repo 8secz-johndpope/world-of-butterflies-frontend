@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import '../../css/Header.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars, faTimes} from "@fortawesome/free-solid-svg-icons";
-import {ReactComponent as GabannaLogo} from "../../components/images/logo/gabanna-logo2.svg";
+import {ReactComponent as GabannaLogo} from "../../components/images/logo/gabanna_logo.svg";
 import {ReactComponent as LogoSmall} from "../../components/images/logo/logo-small.svg";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
@@ -35,7 +35,7 @@ class Header extends Component {
 
     logMe = () => {
         console.log(window.innerWidth)
-    }
+    };
 
 
     render() {

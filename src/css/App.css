@@ -588,7 +588,8 @@ input[type=number] {
 
 .active-checkout-tab-option {
     /*border-bottom: 4px solid black;*/
-    text-decoration: underline solid black;
+    text-decoration: underline;
+    transition: 3s;
 
 }
 
@@ -638,8 +639,20 @@ input[type=number] {
 .billing-form {
     display: flex;
     flex-direction: column;
-    /*background-color: lightblue;*/
+}
 
+.billing-form p{
+    margin-bottom: 0;
+    color: grey;
+}
+
+.billing-half-style {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.billing-half-style label  {
+    width: 100%;
 }
 
 .billing-form label {
@@ -696,7 +709,7 @@ input[type=number] {
 
 .different-address-checkbox p {
     display: inline-block;
-    font-size: 15px;
+    font-size: 8px;
 
 }
 

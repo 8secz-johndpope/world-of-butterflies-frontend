@@ -8,7 +8,6 @@ class GuestBillingDetails extends Component {
         addressToFill: {
             firstName: "",
             lastName: "",
-            company: "",
             addressLineOne: "",
             addressLineTwo: "",
             city: "",
@@ -66,22 +65,73 @@ class GuestBillingDetails extends Component {
 
                 <div className="billing-form-container">
                     <form className="billing-form">
+                        <span className="billing-half-style">
+                            <label>
+                                <p>
+                                    <FormattedMessage id="app.checkout.form.first-name"/>
+                                </p>
+                                <input type="text"
+                                       name="firstName"
+                                       value={this.state.addressToFill.firstName}
+                                       onChange={this.handleChange}/>
+                            </label>
+                            <label>
+                                <p>
+                                    <FormattedMessage id="app.checkout.form.last-name"/>
+                                </p>
+                                <input type="text"
+                                       name="lastName"
+                                       value={this.state.addressToFill.lastName}
+                                       onChange={this.handleChange}/>
+                            </label>
+                        </span>
+                        <span className="billing-half-style">
+                            <label>
+                                <p>
+                                    <FormattedMessage id="app.checkout.form.addr-line-one"/>
+                                </p>
+                                <input type="text"
+                                       name="addressLineOne"
+                                       value={this.state.addressToFill.addressLineOne}
+                                       onChange={this.handleChange}/>
+                            </label>
+                            <label>
+                                <p>
+                                    <FormattedMessage id="app.checkout.form.city"/>
+                                </p>
+                                <input type="text"
+                                       name="city"
+                                       value={this.state.addressToFill.city}
+                                       onChange={this.handleChange}/>
+                            </label>
+                        </span>
+                        <span className="billing-half-style">
+                            <label>
+                                <p>
+                                    <FormattedMessage id="app.checkout.form.zip"/>
+                                </p>
+                                <input type="text"
+                                       name="zipCode"
+                                       value={this.state.addressToFill.zipCode}
+                                       onChange={this.handleChange}/>
+                            </label>
+                            <label>
+                                <p>
+                                    <FormattedMessage id="app.checkout.form.country"/>
+                                </p>
+                                <input type="text"
+                                       name="country"
+                                       value={this.state.addressToFill.country}
+                                       onChange={this.handleChange}/>
+                            </label>
+                        </span>
                         <label>
                             <p>
-                                <FormattedMessage id="app.checkout.form.first-name"/>
+                                <FormattedMessage id="app.checkout.form.phone-number"/>
                             </p>
                             <input type="text"
-                                   name="firstName"
-                                   value={this.state.addressToFill.firstName}
-                                   onChange={this.handleChange}/>
-                        </label>
-                        <label>
-                            <p>
-                                <FormattedMessage id="app.checkout.form.last-name"/>
-                            </p>
-                            <input type="text"
-                                   name="lastName"
-                                   value={this.state.addressToFill.lastName}
+                                   name="phoneNumber"
+                                   value={this.state.addressToFill.phoneNumber ? this.state.addressToFill.phoneNumber : ''}
                                    onChange={this.handleChange}/>
                         </label>
                         <label>
@@ -93,69 +143,26 @@ class GuestBillingDetails extends Component {
                                    value={this.state.addressToFill.company ? this.state.addressToFill.company : ''}
                                    onChange={this.handleChange}/>
                         </label>
-                        <label>
-                            <p>
-                                <FormattedMessage id="app.checkout.form.addr-line-one"/>
-                            </p>
-                            <input type="text"
-                                   name="addressLineOne"
-                                   value={this.state.addressToFill.addressLineOne}
-                                   onChange={this.handleChange}/>
-                        </label>
-                        <label>
-                            <p>
-                                <FormattedMessage id="app.checkout.form.addr-line-two"/>
-                            </p>
-                            <input type="text"
-                                   name="addressLineTwo"
-                                   value={this.state.addressToFill.addressLineTwo ? this.state.addressToFill.addressLineTwo : ''}
-                                   onChange={this.handleChange}/>
-                        </label>
-                        <label>
-                            <p>
-                                <FormattedMessage id="app.checkout.form.city"/>
-                            </p>
-                            <input type="text"
-                                   name="city"
-                                   value={this.state.addressToFill.city}
-                                   onChange={this.handleChange}/>
-                        </label>
-                        <label>
-                            <p>
-                                <FormattedMessage id="app.checkout.form.state"/>
-                            </p>
-                            <input type="text"
-                                   name="state"
-                                   value={this.state.addressToFill.state}
-                                   onChange={this.handleChange}/>
-                        </label>
-                        <label>
-                            <p>
-                                <FormattedMessage id="app.checkout.form.zip"/>
-                            </p>
-                            <input type="text"
-                                   name="zipCode"
-                                   value={this.state.addressToFill.zipCode}
-                                   onChange={this.handleChange}/>
-                        </label>
-                        <label>
-                            <p>
-                                <FormattedMessage id="app.checkout.form.country"/>
-                            </p>
-                            <input type="text"
-                                   name="country"
-                                   value={this.state.addressToFill.country}
-                                   onChange={this.handleChange}/>
-                        </label>
-                        <label>
-                            <p>
-                                <FormattedMessage id="app.checkout.form.phone-number"/>
-                            </p>
-                            <input type="text"
-                                   name="phoneNumber"
-                                   value={this.state.addressToFill.phoneNumber ? this.state.addressToFill.phoneNumber : ''}
-                                   onChange={this.handleChange}/>
-                        </label>
+                        <span className="billing-half-style">
+                            <label>
+                                <p>
+                                    IČO:
+                                </p>
+                                <input type="text"
+                                       name="company"
+                                       value={this.state.addressToFill.company ? this.state.addressToFill.company : ''}
+                                       onChange={this.handleChange}/>
+                            </label>
+                            <label>
+                                <p>
+                                    DIČ:
+                                </p>
+                                <input type="text"
+                                       name="company"
+                                       value={this.state.addressToFill.company ? this.state.addressToFill.company : ''}
+                                       onChange={this.handleChange}/>
+                            </label>
+                        </span>
                     </form>
                     <label className="different-address-checkbox">
                         <input type="checkbox"
@@ -170,96 +177,104 @@ class GuestBillingDetails extends Component {
                 {this.state.isShippingAddressDifferent ?
                     <div className="additional-shipping-address">
                         <form className="billing-form">
-                            <label>
-                                <p>
-                                    <FormattedMessage id="app.checkout.form.first-name"/>
-                                </p>
-                                <input type="text"
-                                       name="firstName2"
-                                       value={this.state.additionalShippingAddress.firstName2}
-                                       onChange={this.handleAdditionalChange}/>
-                            </label>
-                            <label>
-                                <p>
-                                    <FormattedMessage id="app.checkout.form.last-name"/>
-                                </p>
-                                <input type="text"
-                                       name="lastName2"
-                                       value={this.state.additionalShippingAddress.lastName2}
-                                       onChange={this.handleAdditionalChange}/>
-                            </label>
-                            <label>
-                                <p>
-                                    <FormattedMessage id="app.checkout.form.company"/>
-                                </p>
-                                <input type="text"
-                                       name="company2"
-                                       value={this.state.additionalShippingAddress.company2}
-                                       onChange={this.handleAdditionalChange}/>
-                            </label>
+                            <span className="billing-half-style">
+                                <label>
+                                    <p>
+                                        <FormattedMessage id="app.checkout.form.first-name"/>
+                                    </p>
+                                    <input type="text"
+                                           name="firstName"
+                                           value={this.state.addressToFill.firstName}
+                                           onChange={this.handleChange}/>
+                                </label>
+                                <label>
+                                    <p>
+                                        <FormattedMessage id="app.checkout.form.last-name"/>
+                                    </p>
+                                    <input type="text"
+                                           name="lastName"
+                                           value={this.state.addressToFill.lastName}
+                                           onChange={this.handleChange}/>
+                                </label>
+                            </span>
+                            <span className="billing-half-style">
                             <label>
                                 <p>
                                     <FormattedMessage id="app.checkout.form.addr-line-one"/>
                                 </p>
                                 <input type="text"
-                                       name="addressLineOne2"
-                                       value={this.state.additionalShippingAddress.addressLineOne2}
-                                       onChange={this.handleAdditionalChange}/>
-                            </label>
-                            <label>
-                                <p>
-                                    <FormattedMessage id="app.checkout.form.addr-line-two"/>
-                                </p>
-                                <input type="text"
-                                       name="addressLineTwo2"
-                                       value={this.state.additionalShippingAddress.addressLineTwo2}
-                                       onChange={this.handleAdditionalChange}/>
+                                       name="addressLineOne"
+                                       value={this.state.addressToFill.addressLineOne}
+                                       onChange={this.handleChange}/>
                             </label>
                             <label>
                                 <p>
                                     <FormattedMessage id="app.checkout.form.city"/>
                                 </p>
                                 <input type="text"
-                                       name="city2"
-                                       value={this.state.additionalShippingAddress.city2}
-                                       onChange={this.handleAdditionalChange}/>
+                                       name="city"
+                                       value={this.state.addressToFill.city}
+                                       onChange={this.handleChange}/>
                             </label>
-                            <label>
-                                <p>
-                                    <FormattedMessage id="app.checkout.form.state"/>
-                                </p>
-                                <input type="text"
-                                       name="state2"
-                                       value={this.state.additionalShippingAddress.state2}
-                                       onChange={this.handleAdditionalChange}/>
-                            </label>
+                        </span>
+                            <span className="billing-half-style">
                             <label>
                                 <p>
                                     <FormattedMessage id="app.checkout.form.zip"/>
                                 </p>
                                 <input type="text"
-                                       name="zipCode2"
-                                       value={this.state.additionalShippingAddress.zipCode2}
-                                       onChange={this.handleAdditionalChange}/>
+                                       name="zipCode"
+                                       value={this.state.addressToFill.zipCode}
+                                       onChange={this.handleChange}/>
                             </label>
                             <label>
                                 <p>
                                     <FormattedMessage id="app.checkout.form.country"/>
                                 </p>
                                 <input type="text"
-                                       name="country2"
-                                       value={this.state.additionalShippingAddress.country2}
-                                       onChange={this.handleAdditionalChange}/>
+                                       name="country"
+                                       value={this.state.addressToFill.country}
+                                       onChange={this.handleChange}/>
                             </label>
+                        </span>
                             <label>
                                 <p>
                                     <FormattedMessage id="app.checkout.form.phone-number"/>
                                 </p>
                                 <input type="text"
-                                       name="phoneNumber2"
-                                       value={this.state.additionalShippingAddress.phoneNumber2}
-                                       onChange={this.handleAdditionalChange}/>
+                                       name="phoneNumber"
+                                       value={this.state.addressToFill.phoneNumber ? this.state.addressToFill.phoneNumber : ''}
+                                       onChange={this.handleChange}/>
                             </label>
+                            <label>
+                                <p>
+                                    <FormattedMessage id="app.checkout.form.company"/>
+                                </p>
+                                <input type="text"
+                                       name="company"
+                                       value={this.state.addressToFill.company ? this.state.addressToFill.company : ''}
+                                       onChange={this.handleChange}/>
+                            </label>
+                            <span className="billing-half-style">
+                            <label>
+                                <p>
+                                    IČO:
+                                </p>
+                                <input type="text"
+                                       name="company"
+                                       value={this.state.addressToFill.company ? this.state.addressToFill.company : ''}
+                                       onChange={this.handleChange}/>
+                            </label>
+                            <label>
+                                <p>
+                                    DIČ:
+                                </p>
+                                <input type="text"
+                                       name="company"
+                                       value={this.state.addressToFill.company ? this.state.addressToFill.company : ''}
+                                       onChange={this.handleChange}/>
+                            </label>
+                        </span>
                         </form>
                     </div>
                     :

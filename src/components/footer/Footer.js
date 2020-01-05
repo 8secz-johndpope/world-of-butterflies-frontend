@@ -76,6 +76,8 @@ class Footer extends Component {
                             style={{
                                 width: '100%',
                                 height: '100%',
+                                opacity: '0.1',
+                                margin: '1em 0'
                             }}
                         />
                     </div>
