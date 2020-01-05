@@ -1,0 +1,2 @@
+(this["webpackJsonpworld-of-butterflies-frontend"]=this["webpackJsonpworld-of-butterflies-frontend"]||[]).push([[55],{149:function(e,t,a){"use strict";a.r(t);var n=a(15),r=a(0),l=a.n(r);t.default=function(e){return l.a.createElement("svg",Object(n.a)({viewBox:"0 0 33 21"},e),l.a.createElement("path",{fill:"#FFF",d:"M0 0h33v21H0z"}),l.a.createElement("path",{d:"M0 0h33v14H0z"}),l.a.createElement("path",{fill:"#4891D9",d:"M0 0h33v7H0z"}))}}}]);
+//# sourceMappingURL=flag-ee.13535f7a.chunk.js.map
