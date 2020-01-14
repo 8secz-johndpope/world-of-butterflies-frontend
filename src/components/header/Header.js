@@ -41,7 +41,6 @@ class Header extends Component {
     render() {
         return (
             <React.Fragment>
-                <h1>test changes {process.env.MY_TEST_THING}</h1>
                 <header className="header">
                     {
                         this.props.isLoggedIn ?
