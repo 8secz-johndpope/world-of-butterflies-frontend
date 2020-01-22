@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 class FeaturedProduct extends Component {
     state = {
-        frameNumber: "1",
+        frameColour: "black",
 
         smallPercentage: 0.3,
         mediumPercentage: 0.3,
@@ -30,18 +30,6 @@ class FeaturedProduct extends Component {
         this.calculateImageSize();
     };
 
-
-    mouseEnterCapture = (number) => {
-        this.setState({
-            frameNumber: number
-        })
-    };
-
-    mouseLeaveCapture = () => {
-        this.setState({
-            frameNumber: "1"
-        })
-    };
 
     calculateImageSize = () => {
         let width = this.props.width;
@@ -102,7 +90,7 @@ class FeaturedProduct extends Component {
                                 <div className="frame-around-butterfly additional-margin"
                                      style={{
                                          border: `${this.state.borderThickness}cm solid black`,
-                                         borderImage: `url(${serverURL}/images/frames/frame${this.state.frameNumber}.png) 50 / ${this.state.borderThickness}cm stretch `
+                                         borderImage: `url(${serverURL}/images/frames/${this.state.frameColour}.png) 50 / ${this.state.borderThickness}cm stretch `
                                      }}>
                                     <img src={serverURL + this.props.url}
                                          style={{

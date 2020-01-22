@@ -10,10 +10,10 @@ class ShoppingCart extends Component {
     subtotal = 0;
 
 
-    countQtyByIdAndFrameOption = (id, frameOption) => {
+    countQtyByIdAndFrameColour = (id, frameColour) => {
         const countTypes = this.props.productsInShoppingCart.filter(
             wrappedProduct => wrappedProduct.product.id === id &&
-                wrappedProduct.frameOption === frameOption
+                wrappedProduct.chosenFrame.colour === frameColour
         );
         return countTypes.length;
     };
@@ -35,21 +35,36 @@ class ShoppingCart extends Component {
 
 
     addOneProductToShoppingCart = (product, frame) => {
-        if (this.countAddedProducts(product.id) < product.availableQuantity) {
-
+        if (this.countAddedProducts(product.id) < product.availableQuantity&&
+            frame.quantity > this.countTakenFrameAmount(frame.id)) {
             this.subtotal += product.price;
+            let uniqueId = Date.now();
             let newWrappedProduct = {
-                uniqueId: Date.now(),
+                uniqueId: uniqueId,
                 product: product,
-                frameOption: frame,
+                chosenFrame: frame,
+            };
+            let customFrameObject = {
+                uniqueId: uniqueId,
+                frame: this.props.takenFrames.filter((takenFrame) => takenFrame.frame.id === frame.id)[0].frame,
             };
             this.props.addToShoppingCart(newWrappedProduct);
+            this.props.addFrame(customFrameObject);
+
         }
+    };
+
+    countTakenFrameAmount = (frameId) => {
+        console.log(frameId);
+        console.log(this.props.takenFrames);
+        return this.props.takenFrames.filter(takenFrame => takenFrame.frame.id === frameId).length;
     };
 
     removeOneProductFromShoppingCart = (wrappedProduct) => {
         this.subtotal -= wrappedProduct.product.price;
-        this.props.removeFromShoppingCart(wrappedProduct.uniqueId)
+        this.props.removeFromShoppingCart(wrappedProduct.uniqueId);
+        this.props.removeFrame(wrappedProduct.uniqueId);
+
 
     };
 
@@ -95,7 +110,7 @@ class ShoppingCart extends Component {
                             </span>
 
                             <span style={{
-                                cursor:'no-drop'
+                                cursor: 'no-drop'
                             }}>
                             CHECKOUT DETAILS
                             </span>
@@ -109,7 +124,7 @@ class ShoppingCart extends Component {
                             </span>
 
                             <span style={{
-                                cursor:'not-allowed'
+                                cursor: 'not-allowed'
                             }}>
                             ORDER COMPLETE
                             </span>
@@ -138,7 +153,7 @@ class ShoppingCart extends Component {
                                     {this.props.productsInShoppingCart.filter((wrappedProduct, index) =>
                                         index === this.props.productsInShoppingCart.findIndex(
                                         elem => elem.product.id === wrappedProduct.product.id &&
-                                            elem.frameOption === wrappedProduct.frameOption
+                                            elem.chosenFrame.colour === wrappedProduct.chosenFrame.colour
                                         ))
                                         .map((wrappedProduct) =>
 
@@ -147,7 +162,7 @@ class ShoppingCart extends Component {
                                                     <div className="frame-around-butterfly"
                                                          style={{
                                                              border: `${wrappedProduct.product.isInFrame ? '1px solid #D3D3D3' : '0.3cm solid black'}`,
-                                                             borderImage: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/frame${wrappedProduct.frameOption}.png) 50 / 0.3cm stretch`}`,
+                                                             borderImage: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedProduct.chosenFrame.colour}.png) 50 / 0.3cm stretch`}`,
                                                          }}>
                                                         {
                                                             <img src={serverURL + wrappedProduct.product.url}
@@ -166,14 +181,14 @@ class ShoppingCart extends Component {
                                                         icon={faMinusCircle}
                                                         onClick={() => this.removeOneProductFromShoppingCart(wrappedProduct)}
                                                     />
-                                                    {this.countQtyByIdAndFrameOption(wrappedProduct.product.id, wrappedProduct.frameOption)}
+                                                    {this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct.chosenFrame.colour)}
                                                     <FontAwesomeIcon
                                                         className="shopping-cart-fa-icons"
                                                         icon={faPlusCircle}
-                                                        onClick={() => this.addOneProductToShoppingCart(wrappedProduct.product, wrappedProduct.frameOption)}
+                                                        onClick={() => this.addOneProductToShoppingCart(wrappedProduct.product, wrappedProduct.chosenFrame)}
                                                     />
                                                 </td>
-                                                <td>{this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameOption(wrappedProduct.product.id, wrappedProduct.frameOption))}</td>
+                                                <td>{this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct.frameColour))}</td>
                                             </tr>
                                         )}
                                     </tbody>
@@ -218,6 +233,7 @@ function mapStateToProps(state) {
     return {
         productsInShoppingCart: state.productsInShoppingCart,
         subtotal: state.subtotal,
+        takenFrames: state.takenFrames,
     }
 }
 
@@ -234,7 +250,15 @@ const mapDispatchToProps = (dispatch) => {
         setSubtotal: function (subtotal) {
             const action = {type: "setSubtotal", subtotal};
             dispatch(action);
-        }
+        },
+        addFrame: function (customFrame) {
+            const action = {type: "addFrame", customFrame};
+            dispatch(action);
+        },
+        removeFrame: function (customFrameId) {
+            const action = {type: "removeFrame", customFrameId};
+            dispatch(action);
+        },
     }
 };
 

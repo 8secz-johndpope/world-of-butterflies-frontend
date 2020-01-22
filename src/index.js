@@ -17,6 +17,7 @@ const initialState = {
     preferredLanguage: 'hu',
     isLoginModalVisible: false,
     isRegisterModalVisible: false,
+    takenFrames:[],
 };
 
 function reducer(state = initialState, action) {
@@ -80,6 +81,16 @@ function reducer(state = initialState, action) {
             return {
                 ...state,
                 isRegisterModalVisible: action.boolean
+            };
+        case 'addFrame':
+            return {
+                ...state,
+                takenFrames: [...state.takenFrames, action.customFrame]
+            };
+        case 'removeFrame':
+            return {
+                ...state,
+                takenFrames: state.takenFrames.filter((frame) => frame.uniqueId !== action.customFrameId)
             };
         default:
             return state;

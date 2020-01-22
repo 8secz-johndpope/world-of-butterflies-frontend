@@ -417,6 +417,12 @@ body {
     align-self: auto;
 }
 
+.sold-out-message {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
 
 .truck-and-shipping {
     display: flex;
@@ -641,7 +647,7 @@ input[type=number] {
     flex-direction: column;
 }
 
-.billing-form p{
+.billing-form p {
     margin-bottom: 0;
     color: grey;
 }
@@ -651,7 +657,8 @@ input[type=number] {
     flex-direction: row;
     justify-content: center;
 }
-.billing-half-style label  {
+
+.billing-half-style label {
     width: 100%;
 }
 

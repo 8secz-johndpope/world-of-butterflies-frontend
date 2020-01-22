@@ -21,9 +21,12 @@ class SingleProduct extends Component {
         product: {},
         productImages: [],
         mainImageUrl: '',
-        frameNumber: 1,
+        chosenFrame: {},
         frameThickness: 1,
         amount: 1,
+        frames: [],
+        restrictedFrames: [],
+        isSoldOutMessage: false,
     };
 
     getTheProduct = () => {
@@ -33,6 +36,8 @@ class SingleProduct extends Component {
                     product: response.product,
                     productImages: response.productImages,
                     mainImageUrl: response.product.url,
+                    frames: response.frames,
+                    chosenFrame: response.frames[0],
                 })
         );
     };
@@ -82,30 +87,52 @@ class SingleProduct extends Component {
         )
     };
 
-    mouseEnterCapture = (number) => {
+    mouseEnterCapture = (frame) => {
         this.setState({
-            frameNumber: number
+            chosenFrame: frame,
+            isSoldOutMessage: false,
         })
     };
 
+    countTakenFrameAmount = (frameId) => {
+        return this.props.takenFrames.filter(takenFrame => takenFrame.frame.id === frameId).length;
+    };
+
     addToCart = () => {
-        if (this.countAddedProducts(this.state.product.id) < this.state.product.availableQuantity) {
-            for (let i = 0; i < this.state.amount; i++) {
+        if (
+            this.countAddedProducts(this.state.product.id) < this.state.product.availableQuantity &&
+            this.state.chosenFrame.quantity > this.countTakenFrameAmount(this.state.chosenFrame.id)
+        ) {
+            for (let i = 0; i < Math.min(this.state.amount, this.state.product.availableQuantity, this.state.chosenFrame.quantity); i++) {
+                let uniqueId = Date.now();
                 let wrappedProduct = {
-                    uniqueId: Date.now(),
+                    uniqueId: uniqueId,
                     product: this.state.product,
-                    frameOption: this.state.frameNumber,
+                    chosenFrame: this.state.chosenFrame,
                 };
-                this.props.addToShoppingCart(wrappedProduct)
+                let customFrameObject = {
+                    uniqueId: uniqueId,
+                    frame: this.state.frames.filter((frame) => frame.id === this.state.chosenFrame.id)[0],
+                };
+                this.props.addToShoppingCart(wrappedProduct);
+                this.props.addFrame(customFrameObject);
+                if (this.state.chosenFrame.quantity < this.countTakenFrameAmount(this.state.chosenFrame.id)) {
+                    console.log('hit here');
+
+                }
             }
             this.setState({
-                amount: 1
+                amount: 1,
             });
             if (this.state.product.availableQuantity - (this.countAddedProducts(this.state.product.id) + this.state.amount) === 0) {
                 this.setState({
                     amount: 0
                 });
             }
+        } else {
+            this.setState({
+                isSoldOutMessage: true,
+            });
         }
     };
 
@@ -209,7 +236,7 @@ class SingleProduct extends Component {
                                 <div className="frame-around-butterfly"
                                      style={{
                                          border: `${this.state.product.isInFrame ? 'none' : `${this.state.frameThickness}cm solid black`}`,
-                                         borderImage: `${this.state.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/frame${this.state.frameNumber}.png) 50 / ${this.state.frameThickness}cm stretch`}`
+                                         borderImage: `${this.state.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${this.state.chosenFrame.colour}.png) 50 / ${this.state.frameThickness}cm stretch`}`
                                      }}>
                                     <img src={serverURL + this.state.mainImageUrl}
                                          data-zoom={serverURL + this.state.mainImageUrl}
@@ -230,7 +257,7 @@ class SingleProduct extends Component {
                                 <div className="frame-around-butterfly"
                                      style={{
                                          border: `${this.state.product.isInFrame ? 'none' : '0.1cm solid black'}`,
-                                         borderImage: `${this.state.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/frame${this.state.frameNumber}.png) 50 / 0.1cm stretch`}`
+                                         borderImage: `${this.state.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${this.state.chosenFrame.colour}.png) 50 / 0.1cm stretch`}`
                                      }}>
                                     <img src={serverURL + this.state.product.url}
                                          alt=""
@@ -275,22 +302,17 @@ class SingleProduct extends Component {
                                         :
 
                                         <div className="small-frame-icons">
+                                            {this.state.frames.map((frame) =>
+                                                frame.quantity > this.props.takenFrames.filter(takenFrame => takenFrame.frame.id === frame.id).length ?
+                                                    <span onMouseEnter={() => this.mouseEnterCapture(frame)}
+                                                          style={{
+                                                              backgroundImage: `url(${serverURL}/images/frames/color-options/${frame.colour}.png)`
+                                                          }}
 
-                                        <span onMouseEnter={() => this.mouseEnterCapture(1)}
-                                              style={{
-                                                  backgroundImage: `url(${serverURL}/images/frames/color-options/1.png)`
-                                              }}
-                                        />
-                                            <span onMouseEnter={() => this.mouseEnterCapture(2)}
-                                                  style={{
-                                                      backgroundImage: `url(${serverURL}/images/frames/color-options/2.png)`
-                                                  }}
-                                            />
-                                            <span onMouseEnter={() => this.mouseEnterCapture(3)}
-                                                  style={{
-                                                      backgroundImage: `url(${serverURL}/images/frames/color-options/3.png)`
-                                                  }}
-                                            />
+                                                    />
+                                                    :
+                                                    null
+                                            )}
                                         </div>
                                     }
                                 </div>
@@ -310,6 +332,12 @@ class SingleProduct extends Component {
                                                          onClick={this.increaseAmount}
                                         />
                                     </div>
+                                    {this.state.isSoldOutMessage ?
+                                        <p className="sold-out-message">We are sorry, but the chosen frame is
+                                            unavailable!</p>
+                                        :
+                                        null
+                                    }
                                     <button
                                         onClick={this.addToCart}
                                         className="custom-add-to-cart"
@@ -378,21 +406,35 @@ class SingleProduct extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function
+
+mapStateToProps(state) {
     return {
         preferredLanguage: state.preferredLanguage,
         productsInShoppingCart: state.productsInShoppingCart,
+        takenFrames: state.takenFrames,
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addToShoppingCart: function (wrappedProduct) {
-            const action = {type: "addProdToShoppingC", wrappedProduct};
-            dispatch(action);
-        },
-    }
-};
+const
+    mapDispatchToProps = (dispatch) => {
+        return {
+            addToShoppingCart: function (wrappedProduct) {
+                const action = {type: "addProdToShoppingC", wrappedProduct};
+                dispatch(action);
+            },
+            addFrame: function (customFrame) {
+                const action = {type: "addFrame", customFrame};
+                dispatch(action);
+            },
+        }
+    };
 
-const serverURL = process.env.REACT_APP_API_URL;
-export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);
+const
+    serverURL = process.env.REACT_APP_API_URL;
+export default connect(mapStateToProps, mapDispatchToProps)
+
+(
+    SingleProduct
+)
+;
