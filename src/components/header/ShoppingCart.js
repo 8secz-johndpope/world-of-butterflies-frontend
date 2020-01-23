@@ -55,8 +55,6 @@ class ShoppingCart extends Component {
     };
 
     countTakenFrameAmount = (frameId) => {
-        console.log(frameId);
-        console.log(this.props.takenFrames);
         return this.props.takenFrames.filter(takenFrame => takenFrame.frame.id === frameId).length;
     };
 

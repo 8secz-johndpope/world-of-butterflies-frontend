@@ -117,7 +117,6 @@ class SingleProduct extends Component {
                 this.props.addToShoppingCart(wrappedProduct);
                 this.props.addFrame(customFrameObject);
                 if (this.state.chosenFrame.quantity < this.countTakenFrameAmount(this.state.chosenFrame.id)) {
-                    console.log('hit here');
 
                 }
             }

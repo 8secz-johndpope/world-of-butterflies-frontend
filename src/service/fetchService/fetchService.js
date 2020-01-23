@@ -167,13 +167,13 @@ export function deleteShippingAddressById(id, email) {
         .then(response => response.json())
 }
 
-export function getProductByMainCategory(category) {
-    return fetch(process.env.REACT_APP_API_URL + '/product-types/main-category/' + category)
+export function getProductByMainCategory(category, page, limit) {
+    return fetch(process.env.REACT_APP_API_URL + '/product-types/main-category/' + category + '/' + page + '/' + limit)
         .then(response => response.json())
 }
 
-export function getProductBySubCategory(category) {
-    return fetch(process.env.REACT_APP_API_URL + '/product-types/sub-category/' + category)
+export function getProductBySubCategory(category, page, limit) {
+    return fetch(process.env.REACT_APP_API_URL + '/product-types/sub-category/' + category + '/' + page + '/' + limit)
         .then(response => response.json())
 }
 
