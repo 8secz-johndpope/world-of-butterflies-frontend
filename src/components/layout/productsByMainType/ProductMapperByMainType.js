@@ -89,9 +89,9 @@ class ProductMapperByMainType extends Component {
                 this.state.products.filter(prod =>
                     this.state.chosenColours.find(chosenColour =>
                         prod.colourString.includes(chosenColour)) ||
-                        this.state.chosenOrigins.find(chosenOrigin =>
-                            prod.origin === chosenOrigin
-                        ))
+                    this.state.chosenOrigins.find(chosenOrigin =>
+                        prod.origin === chosenOrigin
+                    ))
         });
 
         if (this.state.chosenColours.length === 0 && this.state.chosenOrigins.length === 0) {
@@ -190,9 +190,9 @@ class ProductMapperByMainType extends Component {
                 this.state.products.filter(prod =>
                     this.state.chosenOrigins.find(chosenOrigin =>
                         prod.origin === chosenOrigin) ||
-                        this.state.chosenColours.find(chosenColour =>
-                            prod.colourString.includes(chosenColour)
-                        ))
+                    this.state.chosenColours.find(chosenColour =>
+                        prod.colourString.includes(chosenColour)
+                    ))
         });
 
 
@@ -236,7 +236,6 @@ class ProductMapperByMainType extends Component {
                     <div className="dropdown-filter-element-container">
                         <div className="dropdown-filter-element-title">
                             <p>
-                                {this.state.chosenColours}
                                 <input
                                     type="checkbox"
                                     id='check0'
@@ -270,7 +269,6 @@ class ProductMapperByMainType extends Component {
                         <div className="dropdown-filter-element-title">
 
                             <p>
-                                {this.state.chosenOrigins}
                                 <input
                                     type="checkbox"
                                     id='check0'
