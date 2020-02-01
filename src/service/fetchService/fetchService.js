@@ -183,4 +183,24 @@ export function getSlideshowPictures() {
 }
 
 
+export function getProductByMainCategoryAndColour(category, colour) {
+    return fetch(process.env.REACT_APP_API_URL + '/product-types/main-category/' + category + '?colour=' + colour)
+        .then(response => response.json())
+}
+
+export function getProductByMainCategoryAndOrigin(category, origin) {
+    return fetch(process.env.REACT_APP_API_URL + '/product-types/main-category/' + category + '?origin=' + origin)
+        .then(response => response.json())
+}
+
+export function getProductColours() {
+    return fetch(process.env.REACT_APP_API_URL + '/products/colours')
+        .then(response => response.json())
+}
+
+export function getProductOrigins() {
+    return fetch(process.env.REACT_APP_API_URL + '/products/origins')
+        .then(response => response.json())
+}
+
 

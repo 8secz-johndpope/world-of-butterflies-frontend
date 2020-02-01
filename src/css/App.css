@@ -99,6 +99,78 @@ body {
     position: relative;
 }
 
+.vertical-main-page-featured-product-container {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-filter-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.dropdown-filter-element-container {
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#check0 {
+    display: none;
+}
+
+.dropdown-filter-element-title {
+    display: flex;
+    flex-direction: row;
+    /*align-items: flex-start;*/
+}
+
+.dropdown-filter-element-title p {
+    margin: 10px;
+}
+
+.dropdown-filter-element-title p *{
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.dropdown-filter-element-title p .filter-arrow-down{
+    margin-left: 3px;
+}
+
+#price-filter{
+    margin: 10px 2px;
+}
+
+.dropdown-filter-element-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.dropdown-filter-element-body p input,
+.dropdown-filter-element-body p label {
+    cursor: pointer;
+}
+
+.dropdown-filter-element-body * {
+    margin: 2px;
+}
+
+.dropdown-filter-element-title .filter-arrows {
+    display: inline;
+    margin: 15px 8px 0px;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.checkbox-filters-hidden{
+    display: none;
+}
+
 .main-page-featured-product-container {
     display: flex;
     flex-direction: row;
@@ -106,7 +178,6 @@ body {
     justify-content: center;
     align-content: center;
     align-items: center;
-    background-color: #ffffff;
 }
 
 .main-page-featured-product {
