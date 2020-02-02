@@ -3,6 +3,7 @@ import {
     getProductByMainCategory,
     getProductByMainCategoryAndColour,
     getProductByMainCategoryAndOrigin,
+    getProductByMainCategoryAndPrice,
     getProductColours,
     getProductOrigins,
 } from "../../../service/fetchService/fetchService";
@@ -19,9 +20,10 @@ class ProductMapperByMainType extends Component {
         limit: 6,
         shouldFetchAgain: true,
         isChecked: false,
-        isAnyFilterChecked: false,
         chosenColours: [],
         chosenOrigins: [],
+        isRequestSorted: false,
+        wayOfSorting: '',
     };
 
     componentDidMount() {
@@ -69,18 +71,35 @@ class ProductMapperByMainType extends Component {
     };
 
     getProducts = () => {
-        getProductByMainCategory(this.props.match.params.type, this.state.page, this.state.limit).then(
-            products => {
-                if (products.length < this.state.limit) {
-                    this.setState({
-                        shouldFetchAgain: false,
-                    })
-                }
-                this.setState({
-                    products: [...this.state.products, ...products],
-                })
-            }
-        );
+        if (this.state.isRequestSorted) {
+            getProductByMainCategoryAndPrice(this.props.match.params.type, this.state.page, this.state.limit, this.state.wayOfSorting)
+                .then(
+                    products => {
+                        if (products.length < this.state.limit) {
+                            this.setState({
+                                shouldFetchAgain: false,
+                            })
+                        }
+                        this.setState({
+                            products: [...this.state.products, ...products],
+                        })
+                    }
+                )
+        } else {
+            getProductByMainCategory(this.props.match.params.type, this.state.page, this.state.limit)
+                .then(
+                    products => {
+                        if (products.length < this.state.limit) {
+                            this.setState({
+                                shouldFetchAgain: false,
+                            })
+                        }
+                        this.setState({
+                            products: [...this.state.products, ...products],
+                        })
+                    }
+                );
+        }
     };
 
     handleUnCheckingColourBox = () => {
@@ -229,6 +248,29 @@ class ProductMapperByMainType extends Component {
             )
     };
 
+    sortProducts = (wayOfSorting) => {
+        if (this.state.chosenColours.length > 0 || this.state.chosenOrigins.length > 0) {
+            if (wayOfSorting === "desc") {
+                this.setState({
+                    products: this.state.products.sort((a, b) => b.price - a.price),
+                }, () => window.dispatchEvent(new Event('resize')));
+
+            } else if (wayOfSorting === "asc") {
+                this.setState({
+                    products: this.state.products.sort((a, b) => a.price - b.price),
+                }, () => window.dispatchEvent(new Event('resize')));
+            }
+        } else {
+            this.setState({
+                isRequestSorted: true,
+                wayOfSorting: wayOfSorting,
+                shouldFetchAgain: true,
+                products: [],
+                page: 0,
+            },()=>this.getProducts())
+        }
+    };
+
     render() {
         return (
             <div className="vertical-main-page-featured-product-container">
@@ -303,10 +345,12 @@ class ProductMapperByMainType extends Component {
                         <div className="dropdown-filter-element-title">
                             <FontAwesomeIcon icon={faArrowDown}
                                              className="filter-arrows"
+                                             onClick={() => this.sortProducts("desc")}
                             />
                             <p id='price-filter'>Price </p>
                             <FontAwesomeIcon icon={faArrowUp}
                                              className="filter-arrows"
+                                             onClick={() => this.sortProducts("asc")}
                             />
                         </div>
                         <div className="dropdown-filter-element-body">

@@ -193,6 +193,11 @@ export function getProductByMainCategoryAndOrigin(category, origin) {
         .then(response => response.json())
 }
 
+export function getProductByMainCategoryAndPrice(category, page, limit, price) {
+    return fetch(process.env.REACT_APP_API_URL + '/product-types/main-category/' + category + '/' + page + '/' + limit + '?price=' + price)
+        .then(response => response.json())
+}
+
 export function getProductColours() {
     return fetch(process.env.REACT_APP_API_URL + '/products/colours')
         .then(response => response.json())
