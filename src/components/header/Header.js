@@ -40,7 +40,7 @@ class Header extends Component {
 
     render() {
         return (
-            <React.Fragment>
+            <div className="whole-header-container">
                 <header className="header">
                     {
                         this.props.isLoggedIn ?
@@ -269,7 +269,7 @@ class Header extends Component {
                         <button className="open-btn" onClick={this.alterNav}>☰</button>
                     </div>
                 </header>
-            </React.Fragment>
+            </div>
         );
     }
 }

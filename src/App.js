@@ -47,18 +47,20 @@ class App extends Component {
                 <Router>
                     <div className="App">
                         <Header/>
-                        <Switch>
-                            <Route exact path="/" component={MainPage}/>
-                            {/*<Route path="/about" component={ProductMapper}/>*/}
-                            <Route path="/products/:id" component={SingleProduct}/>
-                            <Route path="/cart" component={ShoppingCart}/>
-                            <Route path="/checkout" component={Checkout}/>
-                            <Route path="/main-categories/:type" component={ProductMapperByMainType}/>
-                            <Route path="/sub-categories/:type" component={ProductMapperBySubType}/>
-                            <Route path="/search/:queryParam" component={FoundProducts}/>
-                            <Route path="/order-history" component={OrderHistory}/>
-                            <Route path="/secret/admin" component={AdminPage}/>
-                        </Switch>
+                        <div className="whole-content-container">
+                            <Switch>
+                                <Route exact path="/" component={MainPage}/>
+                                {/*<Route path="/about" component={ProductMapper}/>*/}
+                                <Route path="/products/:id" component={SingleProduct}/>
+                                <Route path="/cart" component={ShoppingCart}/>
+                                <Route path="/checkout" component={Checkout}/>
+                                <Route path="/main-categories/:type" component={ProductMapperByMainType}/>
+                                <Route path="/sub-categories/:type" component={ProductMapperBySubType}/>
+                                <Route path="/search/:queryParam" component={FoundProducts}/>
+                                <Route path="/order-history" component={OrderHistory}/>
+                                <Route path="/secret/admin" component={AdminPage}/>
+                            </Switch>
+                        </div>
                         <Footer/>
                     </div>
                 </Router>

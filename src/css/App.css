@@ -4,6 +4,9 @@ Link {
 
 .App {
     text-align: center;
+    display: grid;
+    grid-template-areas:"whole-header-container" "whole-content-container" "footer-container";
+    grid-template-rows: max-content 1fr max-content;
 }
 
 
@@ -30,6 +33,8 @@ body {
     font-weight: 200;
     margin: 0 8%;
 }
+
+
 
 
 .react-draggable, .cursor {
