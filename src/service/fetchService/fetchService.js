@@ -208,4 +208,15 @@ export function getProductOrigins() {
         .then(response => response.json())
 }
 
+export function getOrderHistory() {
+    return fetch(process.env.REACT_APP_API_URL + '/orders', {
+        credentials: 'include',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(response => response.json())
+}
+
 

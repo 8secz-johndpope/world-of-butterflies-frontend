@@ -16,6 +16,7 @@ import Footer from "./components/footer/Footer";
 import ProductMapperByMainType from "./components/layout/productsByMainType/ProductMapperByMainType";
 import ProductMapperBySubType from "./components/layout/productsBySubType/ProductMapperBySubType";
 import FoundProducts from "./components/layout/search/FoundProducts";
+import OrderHistory from "./components/layout/orderHistory/OrderHistory";
 
 const messages = {
     'hu': languageHU,
@@ -54,6 +55,7 @@ class App extends Component {
                             <Route path="/main-categories/:type" component={ProductMapperByMainType}/>
                             <Route path="/sub-categories/:type" component={ProductMapperBySubType}/>
                             <Route path="/search/:queryParam" component={FoundProducts}/>
+                            <Route path="/order-history" component={OrderHistory}/>
                         </Switch>
                         <Footer/>
                     </div>
