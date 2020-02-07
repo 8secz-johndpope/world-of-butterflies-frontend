@@ -17,6 +17,7 @@ import ProductMapperByMainType from "./components/layout/productsByMainType/Prod
 import ProductMapperBySubType from "./components/layout/productsBySubType/ProductMapperBySubType";
 import FoundProducts from "./components/layout/search/FoundProducts";
 import OrderHistory from "./components/layout/orderHistory/OrderHistory";
+import AdminPage from "./components/layout/adminPage/AdminPage";
 
 const messages = {
     'hu': languageHU,
@@ -56,6 +57,7 @@ class App extends Component {
                             <Route path="/sub-categories/:type" component={ProductMapperBySubType}/>
                             <Route path="/search/:queryParam" component={FoundProducts}/>
                             <Route path="/order-history" component={OrderHistory}/>
+                            <Route path="/secret/admin" component={AdminPage}/>
                         </Switch>
                         <Footer/>
                     </div>

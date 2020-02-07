@@ -220,3 +220,317 @@ export function getOrderHistory() {
 }
 
 
+export function getAllProductsPaginated(page, limit) {
+    if (page !== undefined && limit !== undefined) {
+        return fetch(process.env.REACT_APP_API_URL + '/secret/admin/products?from=' + page + '&to=' + limit)
+            .then(response => response.json())
+    } else {
+        return fetch(process.env.REACT_APP_API_URL + '/products')
+            .then(response => response.json())
+    }
+
+}
+
+export function updateProductById(productId, product) {
+    return fetch(process.env.REACT_APP_API_URL + '/secret/admin/products/' + productId, {
+        credentials: 'include',
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(product),
+    })
+        .then(response => response.json())
+}
+
+export function addNewProduct(product) {
+    return fetch(process.env.REACT_APP_API_URL + '/secret/admin/products', {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(product),
+    })
+        .then(response => response.json())
+}
+
+export function deleteProductById(productId) {
+    return fetch(process.env.REACT_APP_API_URL + '/secret/admin/products' + productId, {
+        credentials: 'include',
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+}
+
+export function getAdditionalProductImagesByProdId(productId) {
+    return fetch(process.env.REACT_APP_API_URL + '/secret/admin/additional-images/' + productId)
+        .then(response => response.json())
+}
+
+
+export function updateAdditionalProductImageById(productId, additionalProductImage) {
+    return fetch(process.env.REACT_APP_API_URL + '/secret/admin/additional-images/' + productId, {
+        credentials: 'include',
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(additionalProductImage),
+    })
+        .then(response => response.json())
+}
+
+export function deleteAdditionalProductImageById(additImageId) {
+    return fetch(process.env.REACT_APP_API_URL + '/secret/admin/additional-images/' + additImageId, {
+        credentials: 'include',
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+}
+
+export function getMainProductTypes() {
+    return fetch(process.env.REACT_APP_API_URL + '/main-types', {
+        credentials: 'include',
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+}
+
+export function getSubProductTypes() {
+    return fetch(process.env.REACT_APP_API_URL + '/sub-types', {
+        credentials: 'include',
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+}
+
+export function getAllCategories() {
+    return fetch(process.env.REACT_APP_API_URL + '/categories', {
+        credentials: 'include',
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+}
+
+export function addNewCategory(category) {
+    return fetch(process.env.REACT_APP_API_URL + '/categories', {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(category),
+    })
+        .then(response => response.json())
+}
+
+export function updateCategory(categoryId, category) {
+    return fetch(process.env.REACT_APP_API_URL + '/categories/' + categoryId, {
+        credentials: 'include',
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(category),
+    })
+        .then(response => response.json())
+}
+
+export function deleteCategory(categoryId) {
+    return fetch(process.env.REACT_APP_API_URL + '/categories/' + categoryId, {
+        credentials: 'include',
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+}
+
+export function getAllProductOrigins() {
+    return fetch(process.env.REACT_APP_API_URL + '/origins', {
+        credentials: 'include',
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+}
+
+export function getAllColours() {
+    return fetch(process.env.REACT_APP_API_URL + '/colours', {
+        credentials: 'include',
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+}
+
+export function addNewColour(colour) {
+    return fetch(process.env.REACT_APP_API_URL + '/colours', {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+}
+
+export function updateColourById(colourId, colour) {
+    return fetch(process.env.REACT_APP_API_URL + '/colours/' + colourId, {
+        credentials: 'include',
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(colour),
+    })
+        .then(response => response.json())
+}
+
+export function deleteColourById(colourId) {
+    return fetch(process.env.REACT_APP_API_URL + '/colours', {
+        credentials: 'include',
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(response => response.json())
+}
+
+export function getAllFrames() {
+    return fetch(process.env.REACT_APP_API_URL + '/frames', {
+        credentials: 'include',
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(response => response.json())
+}
+
+export function addNewFrame(frame) {
+    return fetch(process.env.REACT_APP_API_URL + '/frames', {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(frame),
+    })
+        .then(response => response.json())
+}
+
+export function updateFrameById(frameId, frame) {
+    return fetch(process.env.REACT_APP_API_URL + '/frames/' + frameId, {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(frame),
+    })
+        .then(response => response.json())
+}
+
+export function deleteFrameById(frameId) {
+    return fetch(process.env.REACT_APP_API_URL + '/frames/' + frameId, {
+        credentials: 'include',
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(response => response.json())
+}
+
+export function getAllSlideshow() {
+    return fetch(process.env.REACT_APP_API_URL + '/slideshow', {
+        credentials: 'include',
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(response => response.json())
+}
+
+export function getProductBySlideshow(productId) {
+    return fetch(process.env.REACT_APP_API_URL + '/slideshow/' + productId, {
+        credentials: 'include',
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(response => response.json())
+}
+
+export function updateSlideshowById(id, slideshow) {
+    return fetch(process.env.REACT_APP_API_URL + '/slideshow/' + id, {
+        credentials: 'include',
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(slideshow)
+    })
+        .then(response => response.json())
+}
+
+export function deleteSlideshowById(id) {
+    return fetch(process.env.REACT_APP_API_URL + '/slideshow/' + id, {
+        credentials: 'include',
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+}
+
