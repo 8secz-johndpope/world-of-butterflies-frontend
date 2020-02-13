@@ -9,6 +9,10 @@ Link {
     grid-template-rows: max-content 1fr max-content;
 }
 
+.whole-content-container{
+    background-color: #ffffff;
+}
+
 
 .App-link {
     color: #09d3ac;
@@ -983,9 +987,9 @@ input[type=number] {
     align-self: auto;
 }
 
-table, th, td {
-    border: 1px solid black;
-}
+/*table, th, td {*/
+/*    border: 1px solid black;*/
+/*}*/
 
 
 
