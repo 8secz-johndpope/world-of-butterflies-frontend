@@ -1,3 +1,15 @@
+.add-entities{
+    background-color: #FF3333;
+}
+
+.getter-boards{
+    background-color: #129310;
+}
+
+.read-only-boards{
+    background-color: #8D908C;
+}
+
 .hide-content{
     display: none;
 }
@@ -9,15 +21,6 @@
 .admin-page-product-container .products table, th, td {
     border: 1px solid black;
 }
-/*showProducts: false,
-        showReadOnlyStuff: false,
-        // showMainProductTypes: false,
-        // showSubProductTypes: false,
-        // showOrigins: false,
-        showColours: false,
-        showFrames: false,
-        showSlideshow: false,
-        showCategories: false,*/
 .admin-page-product-container .products table {
     width: 80%;
 }
@@ -46,6 +49,10 @@
 .admin-page-product-value-container td .sub-type,
 .admin-page-product-value-container td .origin {
     width: 75px;
+}
+
+.addit-product-dropdown{
+    cursor: pointer;
 }
 
 .admin-page-product-container {
@@ -155,6 +162,26 @@
 
 .add-new-category {
     grid-area: add-new-category;
+    padding: 20px 0;
+}
+
+
+
+.addit-image-container {
+    display: grid;
+    grid-area: addit-image-container;
+    grid-template-areas: "mapped-addit-images"" add-new-addit-image";
+    grid-template-columns: 1fr;
+}
+
+
+.mapped-addit-images {
+    grid-area: mapped-addit-images;
+    padding: 20px 0;
+}
+
+.add-new-addit-image {
+    grid-area: add-new-addit-image;
     padding: 20px 0;
 }
 

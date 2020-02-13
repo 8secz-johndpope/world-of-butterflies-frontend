@@ -273,8 +273,8 @@ export function getAdditionalProductImagesByProdId(productId) {
 }
 
 
-export function updateAdditionalProductImageById(productId, additionalProductImage) {
-    return fetch(process.env.REACT_APP_API_URL + '/secret/admin/additional-images/' + productId, {
+export function updateAdditionalProductImageById(additImgId, additionalProductImage) {
+    return fetch(process.env.REACT_APP_API_URL + '/secret/admin/additional-images/' + additImgId, {
         credentials: 'include',
         method: 'PUT',
         headers: {
@@ -283,7 +283,18 @@ export function updateAdditionalProductImageById(productId, additionalProductIma
         },
         body: JSON.stringify(additionalProductImage),
     })
-        .then(response => response.json())
+}
+
+export function addNewAdditImg(additImg) {
+    return fetch(process.env.REACT_APP_API_URL + '/secret/admin/additional-images', {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(additImg),
+    })
 }
 
 export function deleteAdditionalProductImageById(additImageId) {
@@ -295,7 +306,6 @@ export function deleteAdditionalProductImageById(additImageId) {
             'Content-Type': 'application/json'
         }
     })
-        .then(response => response.json())
 }
 
 export function getMainProductTypes() {

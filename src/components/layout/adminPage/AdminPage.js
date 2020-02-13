@@ -25,6 +25,10 @@ import {
     addNewCategory,
     updateCategoryById,
     deleteCategoryById,
+    getAdditionalProductImagesByProdId,
+    updateAdditionalProductImageById,
+    addNewAdditImg,
+    deleteAdditionalProductImageById
 
 } from "../../../service/fetchService/fetchService";
 import update from "react-addons-update";
@@ -33,6 +37,9 @@ import {ColourObject} from "../../objects/ColourObject";
 import {FrameObject} from "../../objects/FrameObject";
 import {SlideshowObject} from "../../objects/SlideshowObject";
 import {CategoryObject} from "../../objects/CategoryObject";
+import {faArrowDown} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {AdditionalProductImageObject} from "../../objects/AdditionalProductImageObject";
 
 class AdminPage extends Component {
     state = {
@@ -83,7 +90,6 @@ class AdminPage extends Component {
             url: '',
         },
         showProducts: false,
-        // showReadOnlyStuff: false,
         showMainProductTypes: false,
         showSubProductTypes: false,
         showOrigins: false,
@@ -91,6 +97,13 @@ class AdminPage extends Component {
         showFrames: false,
         showSlideshow: false,
         showCategories: false,
+        showAdditImages: false,
+        additionalImages: [],
+        newAdditionalImage: {
+            productId: 0,
+            url: '',
+        },
+        selectedProductId: 0,
     };
 
     modifyShowStatus = (param) => {
@@ -526,6 +539,67 @@ class AdminPage extends Component {
         })
     };
 
+    getAdditionalImagesByProdId = (prodId) => {
+        getAdditionalProductImagesByProdId(prodId)
+            .then(resp => {
+                this.setState({
+                    additionalImages: resp,
+                    selectedProductId: prodId,
+                })
+            })
+    };
+
+    handleAdditImageFieldChanges = (index, paramName) => (event) => {
+        let newState = update(this.state, {
+            additionalImages: {
+                [index]: {
+                    [paramName]: {$set: event.target.value}
+                }
+            }
+        });
+        this.setState(newState);
+    };
+
+    ///////////////////
+    saveModifiedAdditImage = (index) => {
+        let additImgFromState = this.state.additionalImages[index];
+        let objectToUpdate = new AdditionalProductImageObject(
+            additImgFromState.productId,
+            additImgFromState.url);
+        updateAdditionalProductImageById(additImgFromState.id, objectToUpdate)
+    };
+
+    saveNewAdditImage = () => {
+        let additImgFromState = this.state.newAdditionalImage;
+        let objectToUpdate = new AdditionalProductImageObject(
+            additImgFromState.productId,
+            additImgFromState.url);
+        addNewAdditImg(objectToUpdate);
+    };
+
+    handleNewAdditImageFieldChanges = (paramName) => (event) => {
+        let newState = update(this.state, {
+            newAdditionalImage: {
+                [paramName]: {$set: event.target.value}
+            }
+        });
+        this.setState(newState);
+    };
+
+
+    clearNewAdditImageFields = () => {
+        this.setState({
+            newAdditionalImage: {
+                productId: 0,
+                url: '',
+            },
+        })
+    };
+
+    deleteAnAdditImageById = (additImageId) => {
+        deleteAdditionalProductImageById(additImageId);
+    };
+
     render() {
         return (
             <div className="admin-page-container">
@@ -534,10 +608,7 @@ class AdminPage extends Component {
 
                     <div className="main-types">
                         <button onClick={() => this.modifyShowStatus('showMainProductTypes')}> Show / Hide</button>
-                        <h2 style={{
-                            fontWeight: "bold",
-                            backgroundColor: '#A9A9A9'
-                        }}>Main Product Types</h2>
+                        <h2 className="read-only-boards">Main Product Types</h2>
                         <span className={this.state.showMainProductTypes ? '' : 'hide-content'}>
                         {
                             this.state.mainProductTypes.map(type =>
@@ -549,10 +620,7 @@ class AdminPage extends Component {
 
                     <div className="sub-types">
                         <button onClick={() => this.modifyShowStatus('showSubProductTypes')}> Show / Hide</button>
-                        <h2 style={{
-                            fontWeight: "bold",
-                            backgroundColor: '#A9A9A9'
-                        }}>Sub Product Types</h2>
+                        <h2 className="read-only-boards">Sub Product Types</h2>
                         <span className={this.state.showSubProductTypes ? '' : 'hide-content'}>
                         {
                             this.state.subProductTypes.map(type =>
@@ -564,10 +632,7 @@ class AdminPage extends Component {
 
                     <div className="origins">
                         <button onClick={() => this.modifyShowStatus('showOrigins')}> Show / Hide</button>
-                        <h2 style={{
-                            fontWeight: "bold",
-                            backgroundColor: '#A9A9A9'
-                        }}>Origins</h2>
+                        <h2 className="read-only-boards">Origins</h2>
                         <span className={this.state.showOrigins ? '' : 'hide-content'}>
                         {
                             this.state.origins.map(origin =>
@@ -578,7 +643,7 @@ class AdminPage extends Component {
                     </div>
                     <div className="colours-table-container">
                         <button onClick={() => this.modifyShowStatus('showColours')}> Show / Hide</button>
-                        <h2 style={{backgroundColor: '#A9A9A9'}}>Colours</h2>
+                        <h2 className="getter-boards">Colours</h2>
                         <span className={this.state.showColours ? '' : 'hide-content'}>
                             <table>
                                 <thead>
@@ -677,7 +742,7 @@ class AdminPage extends Component {
                             </table>
 
                             <div className="add-new-colour">
-                                <h2 style={{backgroundColor: '#A9A9A9'}}> Add New Colour</h2>
+                                <h2 className='add-entities'> Add New Colour</h2>
                                 <table>
                                     <thead>
                                     <tr>
@@ -774,9 +839,44 @@ class AdminPage extends Component {
 
                 <div className="admin-page-product-container">
                     <button onClick={() => this.modifyShowStatus('showProducts')}> Show / Hide</button>
-                    <h2 style={{backgroundColor: '#A9A9A9'}}>Products</h2>
+                    <h2 className="getter-boards">Products</h2>
                     <span className={this.state.showProducts ? '' : 'hide-content'}>
-                        <div className="products">
+
+                    {/*    <div>*/}
+                        {/*        <table>*/}
+
+                        {/*            {this.state.additionalImages.map((image, index) =>*/}
+                        {/*                <tr>*/}
+                        {/*                    <td>*/}
+                        {/*                        <p>{image.id}</p>*/}
+                        {/*                    </td>*/}
+
+                        {/*                    <td>*/}
+                        {/*                        <input type="text" value={this.state.additionalImages[index].productId}*/}
+                        {/*                               onChange={this.handleAdditImageFieldChanges(index, 'productId')}*/}
+                        {/*                        />*/}
+                        {/*                    </td>*/}
+                        {/*                    <td>*/}
+                        {/*                        <input type="text" value={this.state.additionalImages[index].url}*/}
+                        {/*                               onChange={this.handleAdditImageFieldChanges(index, 'url')}*/}
+                        {/*                        />*/}
+                        {/*                    </td>*/}
+                        {/*                    <td>*/}
+                        {/*                        <img src={serverURL + image.url}/>*/}
+                        {/*                    </td>*/}
+                        {/*                    <td>*/}
+                        {/*                        <button onClick={() => this.saveModifiedAdditImage(index)}>Save.Changes*/}
+                        {/*                        </button>*/}
+                        {/*                    </td>*/}
+                        {/*                    <td>*/}
+                        {/*                        <button onClick={() => this.deleteAnAdditImageById(image.id)}>Delete*/}
+                        {/*                        </button>*/}
+                        {/*                    </td>*/}
+                        {/*                </tr>*/}
+                        {/*            )}*/}
+                        {/*        </table>*/}
+                        {/*    </div>*/}
+                        <div>
                             <table>
                                 <thead>
                                 <tr>
@@ -820,6 +920,8 @@ class AdminPage extends Component {
                                         <p>url</p>
                                     </th>
                                     <th>
+                                    </th>
+                                    <th>
                                         <p></p>
                                     </th>
                                     <th>
@@ -829,18 +931,24 @@ class AdminPage extends Component {
                                 </thead>
                                 {/*//TODO fix origin/text*/}
 
-
                                 {
                                     this.state.products.map((product, index) =>
                                         <tr className="admin-page-product-value-container">
                                             <td>
-                                                <p>{product.id}</p>
+                                                <p>{product.id}
+                                                    <span className='addit-product-dropdown'>
+                                                    <FontAwesomeIcon icon={faArrowDown}
+                                                                     onClick={() => this.getAdditionalImagesByProdId(product.id)}
+                                                    />
+                                                </span>
+                                                </p>
                                             </td>
                                             <td>
                                                 <input type="text" value={this.state.products[index].name}
                                                        onChange={this.handleProductFieldChanges(index, 'name')}
                                                 />
                                             </td>
+
                                             <td>
                                                 <input type="number" value={this.state.products[index].price}
                                                        step="0.01"
@@ -905,6 +1013,9 @@ class AdminPage extends Component {
                                                 />
                                             </td>
                                             <td>
+                                                <img src={serverURL + this.state.products[index].URL} alt="img"/>
+                                            </td>
+                                            <td>
                                                 <button onClick={() => this.saveModifiedProduct(index)}>Save.Changes
                                                 </button>
                                             </td>
@@ -912,14 +1023,14 @@ class AdminPage extends Component {
                                                 <button onClick={() => this.deleteProductById(product.id)}>Delete
                                                 </button>
                                             </td>
+
                                         </tr>
-                                    )
-                                }
+                                    )}
                             </table>
                         </div>
 
                         <div className="add-new-product">
-                        <h2 style={{backgroundColor: '#A9A9A9'}}>Add New Product</h2>
+                        <h2 className='add-entities'>Add New Product</h2>
                         <table>
                             <thead>
                             <tr>
@@ -1052,10 +1163,106 @@ class AdminPage extends Component {
                     </div>
                     </span>
                 </div>
+                <div className='addit-image-container'>
+                    <button onClick={() => this.modifyShowStatus('showAdditImages')}> Show / Hide</button>
+                    <h2 className="getter-boards">Extra Images</h2>
+                    <span className={this.state.showAdditImages ? '' : 'hide-content'}>
+                        <div className="mapped-addit-images">
+                            <table>
 
+                                {this.state.additionalImages.map((image, index) =>
+                                    <tr>
+                                        <td>
+                                            <p>{image.id}</p>
+                                        </td>
+
+                                        <td>
+                                            <input type="text" value={this.state.additionalImages[index].productId}
+                                                   onChange={this.handleAdditImageFieldChanges(index, 'productId')}
+                                            />
+                                        </td>
+                                        <td>
+                                            <input type="text" value={this.state.additionalImages[index].url}
+                                                   onChange={this.handleAdditImageFieldChanges(index, 'url')}
+                                            />
+                                        </td>
+                                        <td>
+                                            <img src={serverURL + image.url}/>
+                                        </td>
+                                        <td>
+                                            <button onClick={() => this.saveModifiedAdditImage(index)}>Save.Changes
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button onClick={() => this.deleteAnAdditImageById(image.id)}>Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                )}
+                            </table>
+                        </div>
+
+                        {/*<span className={this.state.showProducts ? '' : 'hide-content'}>*/}
+                        <h2 className='add-entities'> Add New Extra Image To The Product</h2>
+                    <div className="add-new-addit-image">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>
+                                    <p>ID</p>
+                                </th>
+                                <th>
+                                    <p>product id</p>
+                                </th>
+                                <th>
+                                    <p>url</p>
+                                </th>
+                                <th>
+
+                                </th>
+                                <th>
+                                    <p>Updating</p>
+                                </th>
+                                <th>
+                                    <p>Clearing fields</p>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tr>
+                                <td>
+                                    <p>ID</p>
+                                </td>
+                                <td>
+                                    <input type="number" value={this.state.newAdditionalImage.productId}
+                                           onChange={this.handleNewAdditImageFieldChanges('productId')}
+                                    />
+                                </td>
+
+                                <td>
+                                    <input type="text" value={this.state.newAdditionalImage.url}
+                                           onChange={this.handleNewAdditImageFieldChanges('url')}
+                                    />
+                                </td>
+
+                                <td>
+                                    <img src={serverURL + this.state.newAdditionalImage.url} alt="add meg az URLt"/>
+                                </td>
+
+                                <td>
+                                    <button onClick={() => this.saveNewAdditImage()}>Save.Changes</button>
+                                </td>
+                                <td>
+                                    <button onClick={() => this.clearNewAdditImageFields()}>Clear.fields</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                        {/*</span>*/}
+                </span>
+                </div>
                 <div className="frame-container">
-                    <button onClick={()=>this.modifyShowStatus('showFrames')}> Show / Hide</button>
-                        <h2 style={{backgroundColor: '#A9A9A9'}}>Frames</h2>
+                    <button onClick={() => this.modifyShowStatus('showFrames')}> Show / Hide</button>
+                    <h2 className="getter-boards">Frames</h2>
                     <span className={this.state.showFrames ? '' : 'hide-content'}>
                         <div className="mapped-frames">
                             <table>
@@ -1125,7 +1332,7 @@ class AdminPage extends Component {
                             </table>
                         </div>
                         <div className="add-new-frame">
-                        <h2 style={{backgroundColor: '#A9A9A9'}}>Add New Frame</h2>
+                        <h2 className='add-entities'>Add New Frame</h2>
                         <table>
                             <thead>
                             <tr>
@@ -1190,8 +1397,8 @@ class AdminPage extends Component {
                     </span>
                 </div>
                 <div className="slideshow-container">
-                    <button onClick={()=>this.modifyShowStatus('showSlideshow')}> Show / Hide</button>
-                    <h2 style={{backgroundColor: '#A9A9A9'}}>Slideshow</h2>
+                    <button onClick={() => this.modifyShowStatus('showSlideshow')}> Show / Hide</button>
+                    <h2 className="getter-boards">Slideshow</h2>
                     <span className={this.state.showSlideshow ? '' : 'hide-content'}>
                         <div className="mapped-slideshow">
                             <table>
@@ -1238,7 +1445,8 @@ class AdminPage extends Component {
                                                 </button>
                                             </td>
                                             <td>
-                                                <button onClick={() => this.deleteASlideshowById(slide.id)}>Delete</button>
+                                                <button onClick={() => this.deleteASlideshowById(slide.id)}>Delete
+                                                </button>
                                             </td>
                                         </tr>
                                     )
@@ -1247,7 +1455,7 @@ class AdminPage extends Component {
                         </div>
 
                         <div className="add-new-slideshow">
-                            <h2 style={{backgroundColor: '#A9A9A9'}}>Add New Slideshow</h2>
+                            <h2 className='add-entities'>Add New Slideshow</h2>
                             <table>
                                 <thead>
                                 <tr>
@@ -1300,7 +1508,7 @@ class AdminPage extends Component {
 
                 <div className="categories-container">
                     <button onClick={() => this.modifyShowStatus('showCategories')}> Show / Hide</button>
-                    <h2 style={{backgroundColor: '#A9A9A9'}}>Categories</h2>
+                    <h2 className="getter-boards">Categories</h2>
                     <span className={this.state.showCategories ? '' : 'hide-content'}>
                         <div className="mapped-categories">
                             <table>
@@ -1365,7 +1573,7 @@ class AdminPage extends Component {
                         </div>
 
                         <div className="add-new-category">
-                        <h2 style={{backgroundColor: '#A9A9A9'}}>Add New Category</h2>
+                        <h2 className='add-entities'>Add New Category</h2>
                         <table>
                             <thead>
                             <tr>
@@ -1429,4 +1637,5 @@ class AdminPage extends Component {
     }
 }
 
+const serverURL = process.env.REACT_APP_API_URL;
 export default AdminPage;
