@@ -24,6 +24,7 @@ class ProductMapperByMainType extends Component {
         chosenOrigins: [],
         isRequestSorted: false,
         wayOfSorting: '',
+        type:'',
     };
 
     componentDidMount() {
@@ -31,10 +32,39 @@ class ProductMapperByMainType extends Component {
         this.getProductColoursAndOrigins();
         window.scrollTo(0, 0);
         window.addEventListener("scroll", this.handleScroll);
+        this.setState({
+            type: this.props.match.params.type,
+        })
+    }
+
+    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
+
+        console.log("updated to: " + this.props.match.params.type);
+        if (this.state.type !== this.props.match.params.type) {
+            console.log("getting into this if");
+            this.setState({
+                products: [],
+                colours: [],
+                origins: [],
+                page: 0,
+                limit: 6,
+                shouldFetchAgain: true,
+                isChecked: false,
+                chosenColours: [],
+                chosenOrigins: [],
+                isRequestSorted: false,
+                wayOfSorting: '',
+                type: this.props.match.params.type,
+            });
+            this.getProducts();
+            this.getProductColoursAndOrigins();
+            window.scrollTo(0, 0);
+        }
     }
 
     componentWillUnmount() {
         window.removeEventListener("scroll", this.handleScroll);
+        console.log("unmounted" )
     }
 
     getProductColoursAndOrigins = () => {

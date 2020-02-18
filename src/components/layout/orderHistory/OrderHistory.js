@@ -60,7 +60,7 @@ class OrderHistory extends Component {
                                            onChange={() => this.handleCheckboxChange('orderHistoryCheck' + index)}/>
                                     <label htmlFor={'order-history-check' + index}
                                            style={{textTransform: "capitalize"}}>
-                                        {resp.checkoutDate[0] + "-" + resp.checkoutDate[1] + "-" + resp.checkoutDate[2]}
+                                        {resp.checkoutDate.year + "-" + resp.checkoutDate.monthValue + "-" + resp.checkoutDate.dayOfMonth}
                                     </label>
 
                                     <span

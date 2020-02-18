@@ -501,6 +501,7 @@ export function getAllSlideshow() {
 }
 
 export function getProductBySlideshow(productId) {
+    console.log(productId);
     return fetch(process.env.REACT_APP_API_URL + '/secret/admin/slideshow/' + productId, {
         credentials: 'include',
         method: 'GET',

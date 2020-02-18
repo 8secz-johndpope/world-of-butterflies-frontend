@@ -17,7 +17,6 @@ import {
     addNewFrame,
     deleteFrameById,
     getAllSlideshow,
-    getProductBySlideshow,
     updateSlideshowById,
     deleteSlideshowById,
     addNewSlideshow,
@@ -28,8 +27,8 @@ import {
     getAdditionalProductImagesByProdId,
     updateAdditionalProductImageById,
     addNewAdditImg,
-    deleteAdditionalProductImageById
-
+    deleteAdditionalProductImageById,
+    getProductBySlideshow
 } from "../../../service/fetchService/fetchService";
 import update from "react-addons-update";
 import {ProductObject} from "../../objects/ProductObject";
@@ -104,6 +103,20 @@ class AdminPage extends Component {
             url: '',
         },
         selectedProductId: 0,
+        productBySlideshow: {
+            name: '',
+            price: 0,
+            availableQuantity: 0,
+            URL: '',
+            width: '',
+            height: '',
+            isInFrame: false,
+            isBestSeller: false,
+            origin: '',
+            colourString: '',
+            mainType: '',
+            subType: ''
+        },
     };
 
     modifyShowStatus = (param) => {
@@ -196,7 +209,7 @@ class AdminPage extends Component {
                 if (this.state.products.length === 0) {
                     this.setState({
                         products: resp
-                    }, () => console.log(this.state.products))
+                    })
                 } else {
                     this.setState({
                         products: [...this.state.products, ...resp]
@@ -226,7 +239,7 @@ class AdminPage extends Component {
                 }
             }
         });
-        this.setState(newState, () => console.log(this.state.products[index]));
+        this.setState(newState);
     };
 
     handleNewProductCheckboxChanges = (paramName, value) => {
@@ -254,7 +267,6 @@ class AdminPage extends Component {
             productFromState.mainType,
             productFromState.subType,
             productFromState.url);
-        console.log(productToUpdate);
         updateProductById(productFromState.id, productToUpdate)
     };
 
@@ -273,7 +285,6 @@ class AdminPage extends Component {
             productFromState.mainType,
             productFromState.subType,
             productFromState.url);
-        console.log(productToUpdate);
         addNewProduct(productToUpdate)
     };
 
@@ -282,7 +293,7 @@ class AdminPage extends Component {
             newProduct: {
                 [paramName]: {$set: event.target.value}
             }
-        }, () => console.log(this.state.newProduct));
+        });
         this.setState(newState);
     };
 
@@ -326,7 +337,7 @@ class AdminPage extends Component {
             newColour: {
                 [paramName]: {$set: event.target.value}
             }
-        }, () => console.log(this.state.newColour));
+        });
         this.setState(newState);
     };
 
@@ -407,7 +418,7 @@ class AdminPage extends Component {
             newFrame: {
                 [paramName]: {$set: event.target.value}
             }
-        }, () => console.log(this.state.newFrame));
+        });
         this.setState(newState);
     };
 
@@ -560,7 +571,6 @@ class AdminPage extends Component {
         this.setState(newState);
     };
 
-    ///////////////////
     saveModifiedAdditImage = (index) => {
         let additImgFromState = this.state.additionalImages[index];
         let objectToUpdate = new AdditionalProductImageObject(
@@ -599,6 +609,65 @@ class AdminPage extends Component {
     deleteAnAdditImageById = (additImageId) => {
         deleteAdditionalProductImageById(additImageId);
     };
+
+
+    getAssociatedProduct = (prodId) => {
+        getProductBySlideshow(prodId)
+            .then(resp => {
+                this.setState({
+                    productBySlideshow: resp,
+                })
+            })
+    };
+
+
+    handleExtraProductFieldChanges = (paramName) => (event) => {
+        let newState = update(this.state, {
+            productBySlideshow: {
+                [paramName]: {$set: event.target.value}
+            }
+        });
+        this.setState(newState);
+    };
+
+
+    clearExtraProduct = () => {
+        this.setState({
+            productBySlideshow: {
+                name: '',
+                price: 0,
+                availableQuantity: 0,
+                URL: '',
+                width: '',
+                height: '',
+                isInFrame: false,
+                isBestSeller: false,
+                origin: '',
+                colourString: '',
+                mainType: '',
+                subType: ''
+            },
+        })
+    };
+
+    saveExtraModifiedProduct = () => {
+        let productFromState = this.state.productBySlideshow;
+        let productToUpdate = new ProductObject(
+            productFromState.name,
+            productFromState.price,
+            productFromState.availableQuantity,
+            productFromState.width,
+            productFromState.height,
+            productFromState.isInFrame,
+            productFromState.isBestSeller,
+            productFromState.origin,
+            productFromState.colourString,
+            productFromState.mainType,
+            productFromState.subType,
+            productFromState.url);
+        updateProductById(productFromState.id, productToUpdate)
+    };
+
 
     render() {
         return (
@@ -841,41 +910,6 @@ class AdminPage extends Component {
                     <button onClick={() => this.modifyShowStatus('showProducts')}> Show / Hide</button>
                     <h2 className="getter-boards">Products</h2>
                     <span className={this.state.showProducts ? '' : 'hide-content'}>
-
-                    {/*    <div>*/}
-                        {/*        <table>*/}
-
-                        {/*            {this.state.additionalImages.map((image, index) =>*/}
-                        {/*                <tr>*/}
-                        {/*                    <td>*/}
-                        {/*                        <p>{image.id}</p>*/}
-                        {/*                    </td>*/}
-
-                        {/*                    <td>*/}
-                        {/*                        <input type="text" value={this.state.additionalImages[index].productId}*/}
-                        {/*                               onChange={this.handleAdditImageFieldChanges(index, 'productId')}*/}
-                        {/*                        />*/}
-                        {/*                    </td>*/}
-                        {/*                    <td>*/}
-                        {/*                        <input type="text" value={this.state.additionalImages[index].url}*/}
-                        {/*                               onChange={this.handleAdditImageFieldChanges(index, 'url')}*/}
-                        {/*                        />*/}
-                        {/*                    </td>*/}
-                        {/*                    <td>*/}
-                        {/*                        <img src={serverURL + image.url}/>*/}
-                        {/*                    </td>*/}
-                        {/*                    <td>*/}
-                        {/*                        <button onClick={() => this.saveModifiedAdditImage(index)}>Save.Changes*/}
-                        {/*                        </button>*/}
-                        {/*                    </td>*/}
-                        {/*                    <td>*/}
-                        {/*                        <button onClick={() => this.deleteAnAdditImageById(image.id)}>Delete*/}
-                        {/*                        </button>*/}
-                        {/*                    </td>*/}
-                        {/*                </tr>*/}
-                        {/*            )}*/}
-                        {/*        </table>*/}
-                        {/*    </div>*/}
                         <div>
                             <table>
                                 <thead>
@@ -972,7 +1006,6 @@ class AdminPage extends Component {
                                                 />
                                             </td>
                                             <td>
-                                                {console.log()}
                                                 <input type="checkbox"
                                                        value={this.state.products[index].isInFrame ? true : false}
                                                        defaultChecked={this.state.products[index].isInFrame}
@@ -1082,7 +1115,6 @@ class AdminPage extends Component {
                             </tr>
                             </thead>
                             <tr className="admin-page-product-value-container">
-                                {console.log(this.state.products[0])}
                                 <td>
                                     <p>ID</p>
                                 </td>
@@ -1426,7 +1458,11 @@ class AdminPage extends Component {
                                     this.state.slideshow.map((slide, index) =>
                                         <tr>
                                             <td>
-                                                <p>{slide.id}</p>
+                                                <p>{slide.id}
+                                                    <FontAwesomeIcon icon={faArrowDown}
+                                                                     onClick={() => this.getAssociatedProduct(slide.productId)}
+                                                    />
+                                                </p>
                                             </td>
                                             <td>
                                                 <input type="text" value={this.state.slideshow[index].url}
@@ -1453,6 +1489,147 @@ class AdminPage extends Component {
                                 }
                             </table>
                         </div>
+
+                        <div className="product-by-slideshow">
+                            <div>
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <p>id</p>
+                                        </th>
+                                        <th>
+                                            <p>name</p>
+                                        </th>
+                                        <th>
+                                            <p>price</p>
+                                        </th>
+                                        <th>
+                                            <p>Qty</p>
+                                        </th>
+                                        <th>
+                                            <p>width</p>
+                                        </th>
+                                        <th>
+                                            <p>height</p>
+                                        </th>
+                                        <th>
+                                            <p>frame</p>
+                                        </th>
+                                        <th>
+                                            <p>bestSeller</p>
+                                        </th>
+                                        <th>
+                                            <p>origin</p>
+                                        </th>
+                                        <th>
+                                            <p>colour</p>
+                                        </th>
+                                        <th>
+                                            <p>mainType</p>
+                                        </th>
+                                        <th>
+                                            <p>subType</p>
+                                        </th>
+                                        <th>
+                                            <p>url</p>
+                                        </th>
+                                        <th>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tr className="admin-page-product-value-container">
+                                            <td>
+                                               <p>{this.state.productBySlideshow.id}</p>
+                                            </td>
+                                            <td>
+                                                <input type="text" value={this.state.productBySlideshow.name}
+                                                       onChange={this.handleExtraProductFieldChanges('name')}
+                                                />
+                                            </td>
+
+                                            <td>
+                                                <input type="number" value={this.state.productBySlideshow.price}
+                                                       step="0.01"
+                                                       onChange={this.handleExtraProductFieldChanges('price')}
+                                                />
+                                            </td>
+                                            <td>
+                                                <input type="number"
+                                                       value={this.state.productBySlideshow.availableQuantity}
+                                                       step="1"
+                                                       onChange={this.handleExtraProductFieldChanges('availableQuantity')}/>
+                                            </td>
+                                            <td>
+                                                <input type="number" value={this.state.productBySlideshow.width}
+                                                       step="1"
+                                                       onChange={this.handleExtraProductFieldChanges('width')}
+                                                />
+                                            </td>
+                                            <td>
+                                                <input type="number" value={this.state.productBySlideshow.height}
+                                                       step="1"
+                                                       onChange={this.handleExtraProductFieldChanges('height')}
+                                                />
+                                            </td>
+                                            <td>
+                                                <input type="checkbox"
+                                                       value={this.state.productBySlideshow.isInFrame ? true : false}
+                                                       defaultChecked={this.state.productBySlideshow.isInFrame}
+                                                       onChange={() => this.handleExtraProductFieldChanges('isInFrame', !this.state.productBySlideshow.isInFrame)}
+                                                />
+                                            </td>
+                                            <td>
+                                                <input type="checkbox"
+                                                       value={this.state.productBySlideshow.isBestSeller}
+                                                       defaultChecked={this.state.productBySlideshow.isBestSeller}
+                                                       onChange={() => this.handleExtraProductFieldChanges('isBestSeller', !this.state.productBySlideshow.isBestSeller)}
+                                                />
+                                            </td>
+                                            <td>
+                                                <input className="origin" value={this.state.productBySlideshow.origin}
+                                                       onChange={this.handleExtraProductFieldChanges('origin')}
+                                                />
+                                            </td>
+                                            <td>
+                                                <input type="text" value={this.state.productBySlideshow.colourString}
+                                                       onChange={this.handleExtraProductFieldChanges('colourString')}
+                                                />
+                                            </td>
+                                            <td>
+                                                <input className="main-type" type="text"
+                                                       value={this.state.productBySlideshow.mainType}
+                                                       onChange={this.handleExtraProductFieldChanges('mainType')}
+                                                />
+                                            </td>
+                                            <td>
+                                                <input className="sub-type" type="text"
+                                                       value={this.state.productBySlideshow.subType}
+                                                       onChange={this.handleExtraProductFieldChanges('subType')}
+                                                />
+                                            </td>
+                                            <td>
+                                                <input type="text" value={this.state.productBySlideshow.URL}
+                                                       onChange={this.handleExtraProductFieldChanges('URL')}
+                                                />
+                                            </td>
+                                            <td>
+                                                <img src={serverURL + this.state.productBySlideshow.URL} alt="img"/>
+                                            </td>
+                                            <td>
+                                                <button onClick={() => this.saveExtraModifiedProduct()}>Save.Changes
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button onClick={() => this.clearExtraProduct()}>Delete
+                                                </button>
+                                            </td>
+
+                                        </tr>
+                                </table>
+                            </div>
+
+                    </div>
 
                         <div className="add-new-slideshow">
                             <h2 className='add-entities'>Add New Slideshow</h2>
@@ -1505,6 +1682,7 @@ class AdminPage extends Component {
                         </div>
                     </span>
                 </div>
+
 
                 <div className="categories-container">
                     <button onClick={() => this.modifyShowStatus('showCategories')}> Show / Hide</button>
@@ -1631,7 +1809,6 @@ class AdminPage extends Component {
                     </div>
                     </span>
                 </div>
-
             </div>
         );
     }
@@ -1639,3 +1816,4 @@ class AdminPage extends Component {
 
 const serverURL = process.env.REACT_APP_API_URL;
 export default AdminPage;
+
