@@ -222,7 +222,14 @@ export function getOrderHistory() {
 
 export function getAllProductsPaginated(page, limit) {
     if (page !== undefined && limit !== undefined) {
-        return fetch(process.env.REACT_APP_API_URL + '/secret/admin/products?from=' + page + '&to=' + limit)
+        return fetch(process.env.REACT_APP_API_URL + '/secret/admin/products?from=' + page + '&to=' + limit, {
+            credentials: 'include',
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
             .then(response => response.json())
     } else {
         return fetch(process.env.REACT_APP_API_URL + '/products')
