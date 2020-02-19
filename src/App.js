@@ -43,10 +43,10 @@ class App extends Component {
 
     render() {
         return (
-            //test comment
             <IntlProvider locale={this.props.preferredLanguage} messages={messages[this.props.preferredLanguage]}>
                 <Router>
                     <div className="App">
+                        {console.log("testing gh-pages")}
                         <Header/>
                         <div className="whole-content-container">
                             <Switch>
