@@ -710,200 +710,6 @@ class AdminPage extends Component {
                         }
                         </span>
                     </div>
-                    <div className="colours-table-container">
-                        <button onClick={() => this.modifyShowStatus('showColours')}> Show / Hide</button>
-                        <h2 className="getter-boards">Colours</h2>
-                        <span className={this.state.showColours ? '' : 'hide-content'}>
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th>
-                                        <p>ID</p>
-                                    </th>
-                                    <th>
-                                        <p>colourName (//TODO)</p>
-                                    </th>
-                                    <th>
-                                        <p>HU</p>
-                                    </th>
-                                    <th>
-                                        <p>ENG</p>
-                                    </th>
-                                    <th>
-                                        <p>SK</p>
-                                    </th>
-                                    <th>
-                                        <p>DE</p>
-                                    </th>
-                                    <th>
-                                        <p>RU</p>
-                                    </th>
-                                    <th>
-                                        <p>oneExtraLanguage</p>
-                                    </th>
-                                    <th>
-                                        <p>Updating</p>
-                                    </th>
-                                    <th>
-                                        <p>Deleting</p>
-                                    </th>
-                                </tr>
-                                </thead>
-                                {
-                                    this.state.colours.map((colour, index) =>
-                                        <tr>
-                                            <td>
-                                                <p>{colour.id}</p>
-                                            </td>
-                                            <td>
-                                                <input type="text" value={this.state.colours[index].colourName}
-                                                       onChange={this.handleColourFieldChanges(index, 'colourName')}
-                                                />
-                                            </td>
-
-                                            <td>
-                                                <input type="text" value={this.state.colours[index].colourNameHU}
-                                                       onChange={this.handleColourFieldChanges(index, 'colourNameHU')}
-                                                />
-                                            </td>
-
-                                            <td>
-                                                <input type="text" value={this.state.colours[index].colourNameENG}
-                                                       onChange={this.handleColourFieldChanges(index, 'colourNameENG')}
-                                                />
-                                            </td>
-
-                                            <td>
-                                                <input type="text" value={this.state.colours[index].colourNameSK}
-                                                       onChange={this.handleColourFieldChanges(index, 'colourNameSK')}
-                                                />
-                                            </td>
-
-                                            <td>
-                                                <input type="text" value={this.state.colours[index].colourNameDE}
-                                                       onChange={this.handleColourFieldChanges(index, 'colourNameDE')}
-                                                />
-                                            </td>
-
-                                            <td>
-                                                <input type="text" value={this.state.colours[index].colourNameRU}
-                                                       onChange={this.handleColourFieldChanges(index, 'colourNameRU')}
-                                                />
-                                            </td>
-
-                                            <td>
-                                                <input type="text" value={this.state.colours[index].colourNamePlusOne}
-                                                       onChange={this.handleColourFieldChanges(index, 'colourNamePlusOne')}
-                                                />
-                                            </td>
-
-                                            <td>
-                                                <button onClick={() => this.saveModifiedColour(index)}>Save.Changes
-                                                </button>
-                                            </td>
-                                            <td>
-                                                <button onClick={() => this.deleteAColourById(colour.id)}>Delete
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    )
-                                }
-                            </table>
-
-                            <div className="add-new-colour">
-                                <h2 className='add-entities'> Add New Colour</h2>
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <th>
-                                            <p>ID</p>
-                                        </th>
-                                        <th>
-                                            <p>colourName (//TODO)</p>
-                                        </th>
-                                        <th>
-                                            <p>HU</p>
-                                        </th>
-                                        <th>
-                                            <p>ENG</p>
-                                        </th>
-                                        <th>
-                                            <p>SK</p>
-                                        </th>
-                                        <th>
-                                            <p>DE</p>
-                                        </th>
-                                        <th>
-                                            <p>RU</p>
-                                        </th>
-                                        <th>
-                                            <p>oneExtraLanguage</p>
-                                        </th>
-                                        <th>
-                                            <p>Updating</p>
-                                        </th>
-                                        <th>
-                                            <p>Clearing fields</p>
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tr>
-                                        <td>
-                                            <p>ID</p>
-                                        </td>
-                                        <td>
-                                            <input type="text" value={this.state.newColour.colourName}
-                                                   onChange={this.handleNewColourFieldChanges('colourName')}
-                                            />
-                                        </td>
-
-                                        <td>
-                                            <input type="text" value={this.state.newColour.colourNameHU}
-                                                   onChange={this.handleNewColourFieldChanges('colourNameHU')}
-                                            />
-                                        </td>
-
-                                        <td>
-                                            <input type="text" value={this.state.newColour.colourNameENG}
-                                                   onChange={this.handleNewColourFieldChanges('colourNameENG')}
-                                            />
-                                        </td>
-
-                                        <td>
-                                            <input type="text" value={this.state.newColour.colourNameSK}
-                                                   onChange={this.handleNewColourFieldChanges('colourNameSK')}
-                                            />
-                                        </td>
-
-                                        <td>
-                                            <input type="text" value={this.state.newColour.colourNameDE}
-                                                   onChange={this.handleNewColourFieldChanges('colourNameDE')}
-                                            />
-                                        </td>
-
-                                        <td>
-                                            <input type="text" value={this.state.newColour.colourNameRU}
-                                                   onChange={this.handleNewColourFieldChanges('colourNameRU')}
-                                            />
-                                        </td>
-
-                                        <td>
-                                            <input type="text" value={this.state.newColour.colourNamePlusOne}
-                                                   onChange={this.handleNewColourFieldChanges('colourNamePlusOne')}
-                                            />
-                                        </td>
-
-                                        <td>
-                                            <button onClick={() => this.saveNewlyCreatedColour()}>Save.Changes</button>
-                                        </td>
-                                        <td>
-                                            <button onClick={() => this.clearNewColourFields()}>Clear.fields</button>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </span>
-                    </div>
                 </div>
 
                 <div className="admin-page-product-container">
@@ -1194,6 +1000,201 @@ class AdminPage extends Component {
                         </table>
                     </div>
                     </span>
+                </div>
+
+                <div className="colours-table-container">
+                    <button onClick={() => this.modifyShowStatus('showColours')}> Show / Hide</button>
+                    <h2 className="getter-boards">Colours</h2>
+                    <span className={this.state.showColours ? '' : 'hide-content'}>
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <p>ID</p>
+                                    </th>
+                                    <th>
+                                        <p>colourName (//TODO)</p>
+                                    </th>
+                                    <th>
+                                        <p>HU</p>
+                                    </th>
+                                    <th>
+                                        <p>ENG</p>
+                                    </th>
+                                    <th>
+                                        <p>SK</p>
+                                    </th>
+                                    <th>
+                                        <p>DE</p>
+                                    </th>
+                                    <th>
+                                        <p>RU</p>
+                                    </th>
+                                    <th>
+                                        <p>oneExtraLanguage</p>
+                                    </th>
+                                    <th>
+                                        <p>Updating</p>
+                                    </th>
+                                    <th>
+                                        <p>Deleting</p>
+                                    </th>
+                                </tr>
+                                </thead>
+                                {
+                                    this.state.colours.map((colour, index) =>
+                                        <tr>
+                                            <td>
+                                                <p>{colour.id}</p>
+                                            </td>
+                                            <td>
+                                                <input type="text" value={this.state.colours[index].colourName}
+                                                       onChange={this.handleColourFieldChanges(index, 'colourName')}
+                                                />
+                                            </td>
+
+                                            <td>
+                                                <input type="text" value={this.state.colours[index].colourNameHU}
+                                                       onChange={this.handleColourFieldChanges(index, 'colourNameHU')}
+                                                />
+                                            </td>
+
+                                            <td>
+                                                <input type="text" value={this.state.colours[index].colourNameENG}
+                                                       onChange={this.handleColourFieldChanges(index, 'colourNameENG')}
+                                                />
+                                            </td>
+
+                                            <td>
+                                                <input type="text" value={this.state.colours[index].colourNameSK}
+                                                       onChange={this.handleColourFieldChanges(index, 'colourNameSK')}
+                                                />
+                                            </td>
+
+                                            <td>
+                                                <input type="text" value={this.state.colours[index].colourNameDE}
+                                                       onChange={this.handleColourFieldChanges(index, 'colourNameDE')}
+                                                />
+                                            </td>
+
+                                            <td>
+                                                <input type="text" value={this.state.colours[index].colourNameRU}
+                                                       onChange={this.handleColourFieldChanges(index, 'colourNameRU')}
+                                                />
+                                            </td>
+
+                                            <td>
+                                                <input type="text" value={this.state.colours[index].colourNamePlusOne}
+                                                       onChange={this.handleColourFieldChanges(index, 'colourNamePlusOne')}
+                                                />
+                                            </td>
+
+                                            <td>
+                                                <button onClick={() => this.saveModifiedColour(index)}>Save.Changes
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button onClick={() => this.deleteAColourById(colour.id)}>Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    )
+                                }
+                            </table>
+
+                            <div className="add-new-colour">
+                                <h2 className='add-entities'> Add New Colour</h2>
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <p>ID</p>
+                                        </th>
+                                        <th>
+                                            <p>colourName (//TODO)</p>
+                                        </th>
+                                        <th>
+                                            <p>HU</p>
+                                        </th>
+                                        <th>
+                                            <p>ENG</p>
+                                        </th>
+                                        <th>
+                                            <p>SK</p>
+                                        </th>
+                                        <th>
+                                            <p>DE</p>
+                                        </th>
+                                        <th>
+                                            <p>RU</p>
+                                        </th>
+                                        <th>
+                                            <p>oneExtraLanguage</p>
+                                        </th>
+                                        <th>
+                                            <p>Updating</p>
+                                        </th>
+                                        <th>
+                                            <p>Clearing fields</p>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tr>
+                                        <td>
+                                            <p>ID</p>
+                                        </td>
+                                        <td>
+                                            <input type="text" value={this.state.newColour.colourName}
+                                                   onChange={this.handleNewColourFieldChanges('colourName')}
+                                            />
+                                        </td>
+
+                                        <td>
+                                            <input type="text" value={this.state.newColour.colourNameHU}
+                                                   onChange={this.handleNewColourFieldChanges('colourNameHU')}
+                                            />
+                                        </td>
+
+                                        <td>
+                                            <input type="text" value={this.state.newColour.colourNameENG}
+                                                   onChange={this.handleNewColourFieldChanges('colourNameENG')}
+                                            />
+                                        </td>
+
+                                        <td>
+                                            <input type="text" value={this.state.newColour.colourNameSK}
+                                                   onChange={this.handleNewColourFieldChanges('colourNameSK')}
+                                            />
+                                        </td>
+
+                                        <td>
+                                            <input type="text" value={this.state.newColour.colourNameDE}
+                                                   onChange={this.handleNewColourFieldChanges('colourNameDE')}
+                                            />
+                                        </td>
+
+                                        <td>
+                                            <input type="text" value={this.state.newColour.colourNameRU}
+                                                   onChange={this.handleNewColourFieldChanges('colourNameRU')}
+                                            />
+                                        </td>
+
+                                        <td>
+                                            <input type="text" value={this.state.newColour.colourNamePlusOne}
+                                                   onChange={this.handleNewColourFieldChanges('colourNamePlusOne')}
+                                            />
+                                        </td>
+
+                                        <td>
+                                            <button onClick={() => this.saveNewlyCreatedColour()}>Save.Changes</button>
+                                        </td>
+                                        <td>
+                                            <button onClick={() => this.clearNewColourFields()}>Clear.fields</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </span>
                 </div>
                 <div className='addit-image-container'>
                     <button onClick={() => this.modifyShowStatus('showAdditImages')}> Show / Hide</button>

@@ -18,7 +18,15 @@
     padding: 20px 0;
 }
 
-.admin-page-product-container .products table, th, td {
+/*.admin-page-product-container .products table,*/
+/*.admin-page-product-container .products table th,*/
+/*.admin-page-product-container .products table th td {*/
+/*    border: 1px solid black;*/
+/*}*/
+
+.admin-page-product-container table,
+.admin-page-product-container th,
+.admin-page-product-container td{
     border: 1px solid black;
 }
 .admin-page-product-container .products table {
