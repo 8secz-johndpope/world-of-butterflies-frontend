@@ -37,6 +37,7 @@ class App extends Component {
                     this.props.setBillingAddressList('');
                     // this.props.clearShoppingCart();
                     // this.props.setSubtotal(0);
+                    localStorage.clear();
                 }
             })
     }
@@ -46,7 +47,6 @@ class App extends Component {
             <IntlProvider locale={this.props.preferredLanguage} messages={messages[this.props.preferredLanguage]}>
                 <Router>
                     <div className="App">
-                        {console.log("testing gh-pages")}
                         <Header/>
                         <div className="whole-content-container">
                             <Switch>
