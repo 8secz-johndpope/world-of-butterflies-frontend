@@ -256,6 +256,10 @@ ul li .dropdown-link {
     z-index: 44;
 }
 
+.open-btn:focus{
+    outline: 0;
+}
+
 @media screen and (max-width: 945px) {
     .nav-header {
         display: none;
@@ -264,6 +268,22 @@ ul li .dropdown-link {
     .open-btn {
         display: block;
     }
+}
+
+.search-bar-cart-container-under-open-btn-line {
+    display: grid;
+    grid-template-areas: "second-element first-element";
+    grid-template-columns: 1fr 24px;
+}
+
+.search-bar-cart-container-under-open-btn-line .first-element {
+    grid-area: first-element;
+    justify-self: end;
+}
+
+.search-bar-cart-container-under-open-btn-line .second-element {
+    grid-area: second-element;
+    padding-right: 4px;;
 }
 
 #sidebar-content {
@@ -371,16 +391,16 @@ ul li .dropdown-link {
 .shopping-cart-icon {
     display: block;
     background: #ffffff;
-    width: 24px;
-    height: 24px;
+    width: 27px;
+    height: 27px;
     text-align: center;
     line-height: 28px;
-    margin-top: 7px;
+    margin-top: 4px;
     position: relative;
     font-family: Helvetica;
     border: 1px solid #111111;
     bottom: -3px;
-    left: -1px;
+    /*left: -1px;*/
 }
 
 .shopping-cart-icon:after {
@@ -569,6 +589,7 @@ ul li .dropdown-link {
     display: flex;
     flex-direction: column;
     top: 67px;
+    z-index: 3;
 }
 
 .search-bar-result {

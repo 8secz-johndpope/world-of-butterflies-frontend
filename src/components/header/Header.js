@@ -20,6 +20,10 @@ class Header extends Component {
         isScreenSmall: false,
     };
 
+    componentWillMount(): void {
+        this.modifySearchBarPlace()
+    }
+
     componentDidMount() {
         window.addEventListener("resize", this.modifySearchBarPlace);
     }
@@ -96,17 +100,18 @@ class Header extends Component {
                             </Link>
 
                         </div>
-                        {!this.state.isScreenSmall ?
-                        <div className="other-icons">
-                            <div className="search-bar-cart-container">
-                                <ShoppingCart/>
-                                <SearchBar
-                                    headerBtnWidth={'20px'}
-                                />
-                            </div>
-                        </div>
-                            :
-                            null
+                        {
+                            !this.state.isScreenSmall ?
+                                <div className="other-icons">
+                                    <div className="search-bar-cart-container">
+                                        <ShoppingCart/>
+                                        <SearchBar
+                                            headerBtnWidth={'20px'}
+                                        />
+                                    </div>
+                                </div>
+                                :
+                                null
                         }
                     </div>
 
@@ -295,10 +300,25 @@ class Header extends Component {
                         {/*<a href="#">Clients</a>*/}
                         {/*<a href="#">Contact</a>*/}
                     </div>
+                    {this.state.isScreenSmall ?
+                        <div className="search-bar-cart-container-under-open-btn-line">
+                        <span className="first-element">
+                            <ShoppingCart/>
+                        </span>
 
+                            <span className="second-element">
+                            <SearchBar
+                                headerBtnWidth={'20px'}
+                            />
+                        </span>
+                        </div>
+                        :
+                        null
+                    }
                     <div id="open-btn-line" ref="openBtnLine">
                         <button className="open-btn" onClick={this.alterNav}>☰</button>
                     </div>
+
                 </header>
             </div>
         );

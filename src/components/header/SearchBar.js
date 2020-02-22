@@ -16,14 +16,15 @@ class SearchBar extends Component {
         twoBtnWidth: 0,
         isActive: false,
         searchFieldValue: '',
+        isScreenSmall: false,
     };
 
     componentWillMount() {
-        this.getTwoButtonWidth();
+        this.handleResizeEvent();
     }
 
     componentDidMount() {
-        window.addEventListener("resize", this.getTwoButtonWidth);
+        window.addEventListener("resize", this.handleResizeEvent);
     }
 
     handleChange = (e) => {
@@ -65,12 +66,31 @@ class SearchBar extends Component {
         });
     };
 
+    handleResizeEvent = () => {
+        this.getTwoButtonWidth();
+        this.getIfScreenIsMobileSize();
+    };
+
     getTwoButtonWidth = () => {
         let windowWidth = window.innerWidth;
         let twoBtnWidth = ((windowWidth * 0.84 - 16) / 4) - 27;
         this.setState({
             twoBtnWidth: twoBtnWidth,
         })
+    };
+
+    getIfScreenIsMobileSize = () => {
+        let windowWidth = window.innerWidth;
+        if (windowWidth <= 945 && !this.state.isScreenSmall) {
+            this.setState({
+                isScreenSmall: true
+            })
+        } else if (windowWidth > 945 && this.state.isScreenSmall) {
+            this.setState({
+                isScreenSmall: false
+            })
+        }
+
     };
 
     handleClickOnSearchIcon = () => {
@@ -90,7 +110,7 @@ class SearchBar extends Component {
                        onChange={this.handleChange}
                        ref={this.inputField}
                        style={{
-                           width: `${this.state.twoBtnWidth}px`,
+                           width: `${this.state.isScreenSmall ? `calc(100% - 31px)` : `${this.state.twoBtnWidth}px`}`,
                        }}
                        value={this.state.searchFieldValue}
 
