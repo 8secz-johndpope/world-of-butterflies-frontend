@@ -207,92 +207,125 @@ class Header extends Component {
                             </label>
                         </ul>
                     </nav>
+
+
                     <div id="mySidebar" ref="mySidebar" className="sidebar">
                         <a className="close-btn" onClick={this.closeNav}>×</a>
                         <div id="sidebar-content">
                             <ul className="main-menu">
-                                <li><Link to="/">
-                                    <FormattedMessage id="app.header.home"/>
-                                </Link></li>
-                                <li><Link to="/about">
-                                    <FormattedMessage id="app.header.about"/>
-                                </Link></li>
+                                <li>
+                                    <Link to="/" className="sidebar-main-link">
+                                        <FormattedMessage id="app.header.home"/>
+                                    </Link>
+                                </li>
+                                {/*<li>*/}
+                                {/*    <Link to="/about">*/}
+                                {/*        <FormattedMessage id="app.header.about"/>*/}
+                                {/*    </Link>*/}
+                                {/*</li>*/}
 
 
-                                <li><Link id="butterfly-main" className="sidebar-main-link"
-                                          to="/butterfly">
-                                    <FormattedMessage id="app.header.main.butterfly"/>
-                                </Link>
+                                <li>
+                                    <Link id="butterfly-main" className="sidebar-main-link"
+                                          to="/main-categories/butterfly">
+                                        <FormattedMessage id="app.header.main.butterfly"/>
+                                    </Link>
                                     <label title="Toggle Drop-down" className="drop-icon" htmlFor="sm1">▾</label>
                                     <input type="checkbox" id="sm1"/>
                                     <ul className="sub-menu">
-                                        <li><Link to="/">
-                                            <FormattedMessage id="app.header.sub.moths"/>
-                                        </Link></li>
-                                        <li><Link to="/">
-                                            <FormattedMessage id="app.header.sub.botanical.prints"/>
-                                        </Link></li>
-                                        <li><Link to="/">
-                                            <FormattedMessage id="app.header.sub.create.your.frame"/>
-                                        </Link></li>
+                                        <li>
+                                            <Link to="/sub-categories/moth">
+                                                <FormattedMessage id="app.header.sub.moths"/>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/">
+                                                <FormattedMessage id="app.header.sub.botanical.prints"/>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/">
+                                                <FormattedMessage id="app.header.sub.create.your.frame"/>
+                                            </Link>
+                                        </li>
                                     </ul>
                                 </li>
 
 
-                                <li><Link id="insect-main" className="sidebar-main-link" to="/insect">
-                                    <FormattedMessage id="app.header.main.insect"/>
-                                </Link>
+                                <li>
+                                    <Link id="insect-main" className="sidebar-main-link" to="/main-categories/insect">
+                                        <FormattedMessage id="app.header.main.insect"/>
+                                    </Link>
                                     <label title="Toggle Drop-down" className="drop-icon" htmlFor="sm2">▾</label>
                                     <input type="checkbox" id="sm2"/>
                                     <ul className="sub-menu">
-                                        <li><Link to="/">
-                                            <FormattedMessage id="app.header.sub.botanical.prints"/>
-                                        </Link></li>
-                                        <li><Link to="/">
-                                            <FormattedMessage id="app.header.sub.create.your.frame"/>
-                                        </Link></li>
+                                        <li>
+                                            <Link to="/">
+                                                <FormattedMessage id="app.header.sub.botanical.prints"/>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/">
+                                                <FormattedMessage id="app.header.sub.create.your.frame"/>
+                                            </Link>
+                                        </li>
                                     </ul>
                                 </li>
 
 
-                                <li><Link id="fossil-main" to="/fossil">
-                                    <FormattedMessage id="app.header.main.fossil"/>
-                                </Link>
+                                <li>
+                                    <Link id="fossil-main" to="/main-categories/fossil" className="sidebar-main-link">
+                                        <FormattedMessage id="app.header.main.fossil"/>
+                                    </Link>
                                     <label title="Toggle Drop-down" className="drop-icon" htmlFor="sm3">▾</label>
                                     <input type="checkbox" id="sm3"/>
                                     <ul className="sub-menu">
-                                        <li><Link to="/">FOSSIL SOMETHING</Link></li>
+                                        <li>
+                                            <Link to="/">FOSSIL SOMETHING</Link>
+                                        </li>
                                     </ul>
                                 </li>
 
 
-                                <li><Link id="mineral-main" to="/mineral">
-                                    <FormattedMessage id="app.header.main.minerals"/>
-                                </Link>
+                                <li>
+                                    <Link id="mineral-main" to="/main-categories/minerals" className="sidebar-main-link">
+                                        <FormattedMessage id="app.header.main.minerals"/>
+                                    </Link>
                                     <label title="Toggle Drop-down" className="drop-icon" htmlFor="sm4">▾</label>
                                     <input type="checkbox" id="sm4"/>
                                     <ul className="sub-menu">
-                                        <li><Link to="/">MINERAL 1</Link></li>
-                                        <li><Link to="/">MINERAL 2</Link></li>
+                                        <li>
+                                            <Link to="/">MINERAL 1</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/">MINERAL 2</Link>
+                                        </li>
                                     </ul>
                                 </li>
 
 
-                                <li><Link id="jewelry-main" to="/jewelry">
-                                    <FormattedMessage id="app.header.main.jewelry"/>
-                                </Link>
+                                <li>
+                                    <Link id="jewelry-main" to="/main-categories/jewelry" className="sidebar-main-link">
+                                        <FormattedMessage id="app.header.main.jewelry"/>
+                                    </Link>
                                     <label title="Toggle Drop-down" className="drop-icon" htmlFor="sm5">▾</label>
                                     <input type="checkbox" id="sm5"/>
                                     <ul className="sub-menu">
-                                        <li><Link to="/">BUTTERFLY</Link></li>
-                                        <li><Link to="/">BEATL ASSECUALL</Link></li>
+                                        <li>
+                                            <Link to="/">BUTTERFLY</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/">BEATL ASSECUALL</Link>
+                                        </li>
                                     </ul>
                                 </li>
 
 
-                                <li><Link to="/contact">
-                                    <FormattedMessage id="app.header.contact"/>
-                                </Link></li>
+                                <li>
+                                    <Link to="/contact" className="sidebar-main-link">
+                                        <FormattedMessage id="app.header.contact"/>
+                                    </Link>
+                                </li>
                             </ul>
                         </div>
                         {/*<a href="#">About</a>*/}

@@ -177,6 +177,20 @@ ul li .dropdown-link {
     font-size: 11px;
 }
 
+.sidebar-main-link {
+    color: #ffffff;
+    background-color: #000000;
+    border: 1px solid transparent;
+    text-decoration: none;
+    padding: 5px;
+    margin: 2px;
+    font-weight: bold;
+    font-family: "Helvetica Neue", sans-serif;
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
 .show-menu-btn,
 .hide-menu-btn {
     transition: 0.4s;
