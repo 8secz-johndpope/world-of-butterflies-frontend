@@ -16,12 +16,41 @@ import LanguageChanger from "./LanguageChanger";
 import {FormattedMessage} from "react-intl";
 
 class Header extends Component {
+    state = {
+        isScreenSmall: false,
+    };
+
+    componentDidMount() {
+        window.addEventListener("resize", this.modifySearchBarPlace);
+    }
+
+    componentWillUnmount(): void {
+        window.removeEventListener("resize", this.modifySearchBarPlace);
+    }
+
+    modifySearchBarPlace = () => {
+        console.log("resizing")
+        let windowWidth = window.innerWidth;
+        if (windowWidth <= 945 && !this.state.isScreenSmall) {
+            console.log("first if");
+            this.setState({
+                isScreenSmall: true
+            })
+        } else if (windowWidth > 945 && this.state.isScreenSmall) {
+            console.log("second if");
+
+            this.setState({
+                isScreenSmall: false
+            })
+        }
+
+    };
 
     alterNav = () => {
         const width = window.getComputedStyle(this.refs.mySidebar).getPropertyValue("width");
         if (width === "0px") {
             this.refs.mySidebar.style.width = "85%";
-            this.refs.openBtnLine.style.marginLeft = "85%";
+            this.refs.openBtnLine.style.marginLeft = "91.5%";
         } else {
             this.refs.mySidebar.style.width = "0px";
             this.refs.openBtnLine.style.marginLeft = "0px";
@@ -67,16 +96,18 @@ class Header extends Component {
                             </Link>
 
                         </div>
+                        {!this.state.isScreenSmall ?
                         <div className="other-icons">
-                            <div
-                                className="search-bar-cart-container"
-                            >
+                            <div className="search-bar-cart-container">
                                 <ShoppingCart/>
                                 <SearchBar
                                     headerBtnWidth={'20px'}
                                 />
                             </div>
                         </div>
+                            :
+                            null
+                        }
                     </div>
 
                     <nav

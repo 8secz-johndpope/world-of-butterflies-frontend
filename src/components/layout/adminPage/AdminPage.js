@@ -713,8 +713,10 @@ class AdminPage extends Component {
                 </div>
 
                 <div className="admin-page-product-container">
-                    <button onClick={() => this.modifyShowStatus('showProducts')}> Show / Hide</button>
-                    <h2 className="getter-boards">Products</h2>
+                    <h2 className="getter-boards">
+                        <button onClick={() => this.modifyShowStatus('showProducts')}> Show / Hide</button>
+                        Products
+                    </h2>
                     <span className={this.state.showProducts ? '' : 'hide-content'}>
                         <div>
                             <table>
@@ -1003,8 +1005,10 @@ class AdminPage extends Component {
                 </div>
 
                 <div className="colours-table-container">
-                    <button onClick={() => this.modifyShowStatus('showColours')}> Show / Hide</button>
-                    <h2 className="getter-boards">Colours</h2>
+                    <h2 className="getter-boards">
+                        <button onClick={() => this.modifyShowStatus('showColours')}> Show / Hide</button>
+                        Colours
+                    </h2>
                     <span className={this.state.showColours ? '' : 'hide-content'}>
                             <table>
                                 <thead>
@@ -1197,8 +1201,9 @@ class AdminPage extends Component {
                         </span>
                 </div>
                 <div className='addit-image-container'>
-                    <button onClick={() => this.modifyShowStatus('showAdditImages')}> Show / Hide</button>
-                    <h2 className="getter-boards">Extra Images</h2>
+                    <h2 className="getter-boards">
+                        <button onClick={() => this.modifyShowStatus('showAdditImages')}> Show / Hide</button>
+                        Extra Images</h2>
                     <span className={this.state.showAdditImages ? '' : 'hide-content'}>
                         <div className="mapped-addit-images">
                             <table>
@@ -1294,8 +1299,9 @@ class AdminPage extends Component {
                 </span>
                 </div>
                 <div className="frame-container">
-                    <button onClick={() => this.modifyShowStatus('showFrames')}> Show / Hide</button>
-                    <h2 className="getter-boards">Frames</h2>
+                    <h2 className="getter-boards">
+                        <button onClick={() => this.modifyShowStatus('showFrames')}> Show / Hide</button>
+                        Frames</h2>
                     <span className={this.state.showFrames ? '' : 'hide-content'}>
                         <div className="mapped-frames">
                             <table>
@@ -1430,8 +1436,9 @@ class AdminPage extends Component {
                     </span>
                 </div>
                 <div className="slideshow-container">
-                    <button onClick={() => this.modifyShowStatus('showSlideshow')}> Show / Hide</button>
-                    <h2 className="getter-boards">Slideshow</h2>
+                    <h2 className="getter-boards">
+                        <button onClick={() => this.modifyShowStatus('showSlideshow')}> Show / Hide</button>
+                        Slideshow</h2>
                     <span className={this.state.showSlideshow ? '' : 'hide-content'}>
                         <div className="mapped-slideshow">
                             <table>
@@ -1683,11 +1690,10 @@ class AdminPage extends Component {
                         </div>
                     </span>
                 </div>
-
-
                 <div className="categories-container">
-                    <button onClick={() => this.modifyShowStatus('showCategories')}> Show / Hide</button>
-                    <h2 className="getter-boards">Categories</h2>
+                    <h2 className="getter-boards">
+                        <button onClick={() => this.modifyShowStatus('showCategories')}> Show / Hide</button>
+                        Categories</h2>
                     <span className={this.state.showCategories ? '' : 'hide-content'}>
                         <div className="mapped-categories">
                             <table>

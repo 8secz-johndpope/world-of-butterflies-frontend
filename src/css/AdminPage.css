@@ -24,9 +24,9 @@
 /*    border: 1px solid black;*/
 /*}*/
 
-.admin-page-product-container table,
-.admin-page-product-container th,
-.admin-page-product-container td{
+.admin-page-container table,
+.admin-page-container th,
+.admin-page-container td{
     border: 1px solid black;
 }
 .admin-page-product-container .products table {

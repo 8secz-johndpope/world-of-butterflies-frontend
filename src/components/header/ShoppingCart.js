@@ -84,8 +84,6 @@ class ShoppingCart extends Component {
     render() {
         return (
             <React.Fragment>
-                <p>succesfully</p>
-                <p>did it</p>
                 {this.props.productsInShoppingCart.length ?
                     <div className="vertical-container">
                         <p className="status-bar">
