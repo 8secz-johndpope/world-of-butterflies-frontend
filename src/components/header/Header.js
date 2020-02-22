@@ -214,7 +214,7 @@ class Header extends Component {
                         <div id="sidebar-content">
                             <ul className="main-menu">
                                 <li>
-                                    <Link to="/" className="sidebar-main-link">
+                                    <Link to="/" className="sidebar-main-link" onClick={this.closeNav}>
                                         <FormattedMessage id="app.header.home"/>
                                     </Link>
                                 </li>
@@ -226,25 +226,27 @@ class Header extends Component {
 
 
                                 <li>
-                                    <Link id="butterfly-main" className="sidebar-main-link"
-                                          to="/main-categories/butterfly">
+                                    <Link id="butterfly-main"
+                                          className="sidebar-main-link"
+                                          to="/main-categories/butterfly"
+                                          onClick={this.closeNav}>
                                         <FormattedMessage id="app.header.main.butterfly"/>
                                     </Link>
                                     <label title="Toggle Drop-down" className="drop-icon" htmlFor="sm1">▾</label>
                                     <input type="checkbox" id="sm1"/>
                                     <ul className="sub-menu">
                                         <li>
-                                            <Link to="/sub-categories/moth">
+                                            <Link to="/sub-categories/moth" onClick={this.closeNav}>
                                                 <FormattedMessage id="app.header.sub.moths"/>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link to="/">
+                                            <Link to="/" onClick={this.closeNav}>
                                                 <FormattedMessage id="app.header.sub.botanical.prints"/>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link to="/">
+                                            <Link to="/" onClick={this.closeNav}>
                                                 <FormattedMessage id="app.header.sub.create.your.frame"/>
                                             </Link>
                                         </li>
@@ -253,19 +255,22 @@ class Header extends Component {
 
 
                                 <li>
-                                    <Link id="insect-main" className="sidebar-main-link" to="/main-categories/insect">
+                                    <Link id="insect-main"
+                                          className="sidebar-main-link"
+                                          to="/main-categories/insect"
+                                          onClick={this.closeNav}>
                                         <FormattedMessage id="app.header.main.insect"/>
                                     </Link>
                                     <label title="Toggle Drop-down" className="drop-icon" htmlFor="sm2">▾</label>
                                     <input type="checkbox" id="sm2"/>
                                     <ul className="sub-menu">
                                         <li>
-                                            <Link to="/">
+                                            <Link to="/" onClick={this.closeNav}>
                                                 <FormattedMessage id="app.header.sub.botanical.prints"/>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link to="/">
+                                            <Link to="/" onClick={this.closeNav}>
                                                 <FormattedMessage id="app.header.sub.create.your.frame"/>
                                             </Link>
                                         </li>
@@ -274,55 +279,66 @@ class Header extends Component {
 
 
                                 <li>
-                                    <Link id="fossil-main" to="/main-categories/fossil" className="sidebar-main-link">
+                                    <Link id="fossil-main"
+                                          to="/main-categories/fossil"
+                                          className="sidebar-main-link"
+                                          onClick={this.closeNav}>
                                         <FormattedMessage id="app.header.main.fossil"/>
                                     </Link>
                                     <label title="Toggle Drop-down" className="drop-icon" htmlFor="sm3">▾</label>
                                     <input type="checkbox" id="sm3"/>
                                     <ul className="sub-menu">
                                         <li>
-                                            <Link to="/">FOSSIL SOMETHING</Link>
+                                            <Link to="/" onClick={this.closeNav}>FOSSIL SOMETHING</Link>
                                         </li>
                                     </ul>
                                 </li>
 
 
                                 <li>
-                                    <Link id="mineral-main" to="/main-categories/minerals" className="sidebar-main-link">
+                                    <Link id="mineral-main"
+                                          to="/main-categories/minerals"
+                                          className="sidebar-main-link"
+                                          onClick={this.closeNav}>
                                         <FormattedMessage id="app.header.main.minerals"/>
                                     </Link>
                                     <label title="Toggle Drop-down" className="drop-icon" htmlFor="sm4">▾</label>
                                     <input type="checkbox" id="sm4"/>
                                     <ul className="sub-menu">
                                         <li>
-                                            <Link to="/">MINERAL 1</Link>
+                                            <Link to="/" onClick={this.closeNav}>MINERAL 1</Link>
                                         </li>
                                         <li>
-                                            <Link to="/">MINERAL 2</Link>
+                                            <Link to="/" onClick={this.closeNav}>MINERAL 2</Link>
                                         </li>
                                     </ul>
                                 </li>
 
 
                                 <li>
-                                    <Link id="jewelry-main" to="/main-categories/jewelry" className="sidebar-main-link">
+                                    <Link id="jewelry-main"
+                                          to="/main-categories/jewelry"
+                                          className="sidebar-main-link"
+                                          onClick={this.closeNav}>
                                         <FormattedMessage id="app.header.main.jewelry"/>
                                     </Link>
                                     <label title="Toggle Drop-down" className="drop-icon" htmlFor="sm5">▾</label>
                                     <input type="checkbox" id="sm5"/>
                                     <ul className="sub-menu">
                                         <li>
-                                            <Link to="/">BUTTERFLY</Link>
+                                            <Link to="/" onClick={this.closeNav}>BUTTERFLY</Link>
                                         </li>
                                         <li>
-                                            <Link to="/">BEATL ASSECUALL</Link>
+                                            <Link to="/" onClick={this.closeNav}>BEATL ASSECUALL</Link>
                                         </li>
                                     </ul>
                                 </li>
 
 
                                 <li>
-                                    <Link to="/contact" className="sidebar-main-link">
+                                    <Link to="/contact"
+                                          className="sidebar-main-link"
+                                          onClick={this.closeNav}>
                                         <FormattedMessage id="app.header.contact"/>
                                     </Link>
                                 </li>
