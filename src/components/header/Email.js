@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {faUser} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 
 class Email extends Component {
     render() {
         return (
             <React.Fragment>
-                <p
-                    className="header-email-address"
-                    style={{
-                        fontSize:`${this.props.fontSize}`
-                    }}
-                >{this.props.email}</p>
+                <button
+                    className="header-modal-btn"
+                >
+                    <FontAwesomeIcon icon={faUser}/>
+                </button>
             </React.Fragment>
         );
     }

@@ -69,12 +69,7 @@ class LoginModal extends Component {
                             fontSize: `${this.props.fontSize}`
                         }}
                 >
-                    <FormattedMessage id="app.header.login.login-btn"/>
-                    <FontAwesomeIcon icon={faUser}
-                                     style={{
-                                         marginLeft: '4px'
-                                     }}
-                    />
+                    <FontAwesomeIcon icon={faUser}/>
                 </button>
 
                 <Rodal

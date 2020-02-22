@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {doLogout} from "../../service/fetchService/fetchService";
 import {FormattedMessage} from "react-intl";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPowerOff} from "@fortawesome/free-solid-svg-icons";
 
 class LogoutBtn extends Component {
 
@@ -24,7 +26,7 @@ class LogoutBtn extends Component {
                     onClick={this.doLogoutAndClearLocalStorage}
                     className="header-modal-btn"
                 >
-                    <FormattedMessage id="app.header.logout"/>
+                    <FontAwesomeIcon icon={faPowerOff}/>
                 </button>
 
             </React.Fragment>

@@ -26,7 +26,7 @@ class SingleProduct extends Component {
         amount: 1,
         frames: [],
         restrictedFrames: [],
-        isSoldOutMessage: false,
+        isFrameSoldOutMessage: false,
     };
 
     getTheProduct = () => {
@@ -47,7 +47,8 @@ class SingleProduct extends Component {
         this.calculateImageSize();
         this.getTheProduct();
         new Drift(this.mainImage.current, {
-            paneContainer: this.zoomPortal.current
+            paneContainer: this.zoomPortal.current,
+            handleTouch: false
         });
         window.scrollTo(0, 0);
     }
@@ -65,6 +66,7 @@ class SingleProduct extends Component {
     handleResizeEvent = () => {
         this.calculateImageSize();
     };
+
     calculateImageSize = () => {
         let windowWidth = window.innerWidth;
         if (windowWidth < 450) {
@@ -90,7 +92,7 @@ class SingleProduct extends Component {
     mouseEnterCapture = (frame) => {
         this.setState({
             chosenFrame: frame,
-            isSoldOutMessage: false,
+            isFrameSoldOutMessage: false,
         })
     };
 
@@ -130,7 +132,7 @@ class SingleProduct extends Component {
             }
         } else {
             this.setState({
-                isSoldOutMessage: true,
+                isFrameSoldOutMessage: true,
             });
         }
     };
@@ -285,16 +287,22 @@ class SingleProduct extends Component {
                             >
 
                                 <div className="dirty-little-details dotted-spaced-bottom">
-                                <span className="stock-and-time">
-                                    <p>
-                                        <FormattedMessage id="app.single.page.stock"/>
-                                        {this.state.product.availableQuantity}</p>
-                                    <p>
-                                        <FormattedMessage id="app.single.page.delivery.time"/>
-                                        3-5
-                                        <FormattedMessage id="app.single.page.delivery.days"/>
-                                    </p>
-                                </span>
+                                    <span className="stock-and-time">
+                                        <p>
+                                            <FormattedMessage id="app.single.page.stock"/>
+                                            {this.state.product.availableQuantity}</p>
+                                        <p>
+                                            <FormattedMessage id="app.single.page.delivery.time"/>
+                                            3-5
+                                            <FormattedMessage id="app.single.page.delivery.days"/>
+                                        </p>
+                                        {
+                                            this.state.isFrameSoldOutMessage ?
+                                                <p className="sold-out-message">We are sorry, but the chosen frame is unavailable!</p>
+                                                :
+                                                null
+                                        }
+                                    </span>
                                     {/*<p className="frame-colors">Frame colors: </p>*/}
                                     {this.state.product.isInFrame ?
                                         null
@@ -331,12 +339,7 @@ class SingleProduct extends Component {
                                                          onClick={this.increaseAmount}
                                         />
                                     </div>
-                                    {this.state.isSoldOutMessage ?
-                                        <p className="sold-out-message">We are sorry, but the chosen frame is
-                                            unavailable!</p>
-                                        :
-                                        null
-                                    }
+
                                     <button
                                         onClick={this.addToCart}
                                         className="custom-add-to-cart"
@@ -344,12 +347,14 @@ class SingleProduct extends Component {
 
                                         <FormattedMessage id="app.single.page.buy"/>
                                     </button>
-                                    <p className='price'>{this.state.product.price}
-                                        €
+                                    <div className='price-container'>
+                                        <p className="price">
+                                            {this.state.product.price}€
+                                        </p>
                                         <span id="dph">
-                                    <FormattedMessage id="app.single.page.dph"/>
-                                </span>
-                                    </p>
+                                            <FormattedMessage id="app.single.page.dph"/>
+                                        </span>
+                                    </div>
                                 </div>
                                 <p className="truck-and-shipping">
                                     <FontAwesomeIcon icon={faTruckMoving}/>

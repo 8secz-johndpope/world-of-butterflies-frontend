@@ -475,18 +475,49 @@ body {
     justify-content: flex-end;
 }
 
-.price {
+.price-container {
     font-weight: bold;
     font-size: 35px;
-    display: inline;
     margin: 0;
     padding: 0;
-    align-self: flex-end;
+    align-self: center !important;
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 auto;
+    justify-content: flex-end;
+}
+
+.price {
+    margin: 0;
+}
+
+
+@media screen and (max-width: 475px) {
+    .price-container {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .price-container {
+        font-size: 1rem;
+    }
+
+    .custom-add-to-cart {
+        padding: 0.5rem;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .price-container {
+        flex-direction: column;
+    }
 }
 
 #dph {
     font-weight: 100;
     font-size: 15px;
+    align-self: center;
 }
 
 .qty-and-buy-btn-container {
@@ -498,16 +529,16 @@ body {
     padding: 20px 0;
 }
 
-.number-input-container,
-.price {
-    flex: 1 1 auto;
-    align-self: auto;
+.number-input-container {
+    flex: 0 1 4.5rem;
 }
 
 .sold-out-message {
-    position: absolute;
-    top: 0px;
-    left: 0px;
+    /*position: absolute;*/
+    /*top: 0px;*/
+    /*left: 0px;*/
+    color: #FF0000;
+    font-size: 0.9rem;
 }
 
 
@@ -618,16 +649,35 @@ body {
     font-size: 15px;
     color: #ffffff;
     /*font-weight: bold;*/
-    padding: 10px 70px;
+    padding: 0.5rem 4rem;
     cursor: pointer;
     transition: .1s;
     text-transform: uppercase;
 }
 
+
+@media screen and (max-width: 1550px) {
+    .custom-add-to-cart{
+        padding: 0.5rem 2rem;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .custom-add-to-cart{
+        padding: 0.5rem 1rem;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .custom-add-to-cart {
+        padding: 0.5rem;
+    }
+}
+
 .qty-input {
-    padding: 10px 5px;
-    margin-left: 5px;
-    width: 30px;
+    padding: 10px 0;
+    /*margin-left: 5px;*/
+    width: 1rem;
     border: none;
     font-size: 12px;
 }
