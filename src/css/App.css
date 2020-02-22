@@ -282,6 +282,13 @@ body {
     transition: background-color 2s;
 }
 
+@media screen and (max-width: 945px) {
+    .main-page-buy-now-btn{
+        padding: 4px 10px;
+        font-size: 12px
+    }
+}
+
 .main-page-buy-now-btn:hover {
     background-color: #202020;
     transition: background-color 300ms;
