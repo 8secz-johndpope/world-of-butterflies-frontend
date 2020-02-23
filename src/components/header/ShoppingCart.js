@@ -160,26 +160,38 @@ class ShoppingCart extends Component {
 
                                             <tr>
                                                 <td>
-                                                    <div
-                                                        className={wrappedProduct.product.isInFrame ? 'wrapped-product-in-frame frame-around-butterfly' : 'wrapped-product-not-in-frame frame-around-butterfly'}
-                                                        style={{
-                                                            // border: `${wrappedProduct.product.isInFrame ? 'none' : '0.3cm solid black'}`,
-                                                            // borderImage: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedProduct.chosenFrame.colour}.png) 50 / 0.3cm stretch`}`,
-                                                            borderImageSource: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedProduct.chosenFrame.colour}.png)`}`,
-                                                            // width: `${wrappedProduct.product.isInFrame ? '100%' : `auto`}`,
-                                                        }}>
-                                                        {
-                                                            <img src={serverURL + wrappedProduct.product.url}
-                                                                 className="image-in-shopping-cart"
-                                                                 style={{
-                                                                     border: `${wrappedProduct.product.isInFrame ? '1px solid #D3D3D3' : 'none'}`,
-                                                                 }}
+                                                    <Link to={"/products/" + wrappedProduct.product.id}>
+                                                        <div
+                                                            className={wrappedProduct.product.isInFrame ? 'wrapped-product-in-frame frame-around-butterfly' : 'wrapped-product-not-in-frame frame-around-butterfly'}
+                                                            style={{
+                                                                // border: `${wrappedProduct.product.isInFrame ? 'none' : '0.3cm solid black'}`,
+                                                                // borderImage: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedProduct.chosenFrame.colour}.png) 50 / 0.3cm stretch`}`,
+                                                                borderImageSource: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedProduct.chosenFrame.colour}.png)`}`,
+                                                                // width: `${wrappedProduct.product.isInFrame ? '100%' : `auto`}`,
+                                                            }}>
+                                                            {
+                                                                <img src={serverURL + wrappedProduct.product.url}
+                                                                     className="image-in-shopping-cart"
+                                                                     style={{
+                                                                         border: `${wrappedProduct.product.isInFrame ? '1px solid #D3D3D3' : 'none'}`,
+                                                                     }}
 
-                                                            />
-                                                        }
-                                                    </div>
+                                                                />
+                                                            }
+                                                        </div>
+                                                    </Link>
                                                 </td>
-                                                <td className="shopping-cart-product-name">{wrappedProduct.product.name}</td>
+                                                <td className="shopping-cart-product-name">
+                                                    <Link to={"/products/" + wrappedProduct.product.id}
+                                                          style={{
+                                                              textDecoration: 'none',
+                                                              color: 'black',
+                                                          }}>
+                                                        <span>
+                                                            {wrappedProduct.product.name}
+                                                        </span>
+                                                    </Link>
+                                                </td>
                                                 <td>{wrappedProduct.product.price}</td>
                                                 <td className="shopping-cart-fa-icons-container">
                                                     <FontAwesomeIcon

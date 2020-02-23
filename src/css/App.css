@@ -641,6 +641,10 @@ body {
     height: 150px;
 }
 
+.shopping-cart-product-name span:hover{
+    text-decoration: underline;
+}
+
 #fa-icon-1 {
     grid-area: fa-icon-1;
 }
