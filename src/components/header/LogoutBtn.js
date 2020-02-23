@@ -26,7 +26,8 @@ class LogoutBtn extends Component {
                     onClick={this.doLogoutAndClearLocalStorage}
                     className="header-modal-btn"
                 >
-                    <FontAwesomeIcon icon={faPowerOff}/>
+                    <FontAwesomeIcon icon={faPowerOff}
+                                     style={{fontSize: '12px'}}/>
                 </button>
 
             </React.Fragment>

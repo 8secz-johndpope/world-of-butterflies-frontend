@@ -26,6 +26,10 @@ class FeaturedProduct extends Component {
         window.addEventListener("resize", this.handleResizeEvent);
     }
 
+    componentWillUnmount(): void {
+        window.removeEventListener("resize", this.handleResizeEvent);
+    }
+
     handleResizeEvent = () => {
         this.calculateImageSize();
     };

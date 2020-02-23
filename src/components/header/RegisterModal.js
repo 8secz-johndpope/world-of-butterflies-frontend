@@ -12,6 +12,25 @@ class RegisterModal extends Component {
         password: '',
         confPass: '',
         errorMessage: false,
+        windowWidth: 0,
+    };
+
+    componentDidMount() {
+        this.handleResizeEvent();
+        window.addEventListener("resize", this.handleResizeEvent);
+    }
+
+    componentWillUnmount(): void {
+        window.removeEventListener("resize", this.handleResizeEvent);
+    }
+
+    handleResizeEvent = () => {
+        let windowWidth = window.innerWidth;
+        if (windowWidth !== this.state.windowWidth) {
+            this.setState({
+                windowWidth: windowWidth,
+            })
+        }
     };
 
     showRegisterModal = () => {
@@ -46,7 +65,7 @@ class RegisterModal extends Component {
 
         e.preventDefault();
         if (this.state.password === this.state.confPass) {
-            doRegister(this.state.email, this.state.password)
+            doRegister(this.state.email.split(' ').join(''), this.state.password)
                 .then(res => {
                     if (res.success === true) {
                         this.props.alterRegisterModal(false);
@@ -81,9 +100,9 @@ class RegisterModal extends Component {
                 <Rodal visible={this.props.isRegisterModalVisible}
                        onClose={this.hideRegisterModal}
                        animation='fade'
-                       width='50'
-                       height='55'
-                       measure="%"
+                       width={this.state.windowWidth * 0.8}
+                       height='600'
+                       measure="px"
                 >
                     <div>
                         <form

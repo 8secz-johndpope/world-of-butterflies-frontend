@@ -267,10 +267,10 @@ ul li .dropdown-link {
 #open-btn-line {
     transition: margin-left .5s;
     position: relative;
-    z-index: 44;
+    z-index: 1;
 }
 
-.open-btn:focus{
+.open-btn:focus {
     outline: 0;
 }
 
@@ -518,6 +518,9 @@ ul li .dropdown-link {
     display: inline;
 }
 
+.login-modal {
+}
+
 .header-modal-form {
     text-align: center;
 }
@@ -541,7 +544,7 @@ ul li .dropdown-link {
 
 .header-modal-input {
     width: 100%;
-    padding: 10px;
+    padding: 25px;
     background: transparent;
     border: none;
     outline: none;
@@ -573,6 +576,14 @@ ul li .dropdown-link {
     font-weight: bold;
     top: -3em;
     transition: 0.6s;
+}
+
+.not-registered-yet-btn {
+    cursor: pointer;
+}
+
+.not-registered-yet-btn:hover {
+    text-decoration: underline;
 }
 
 .header-modal-submit-btn {
@@ -665,7 +676,7 @@ ul li .dropdown-link {
 }
 
 .languages-dropdown {
-    -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
     /*font-size: 20px;*/
     /*width: 30px;*/
     cursor: pointer;
