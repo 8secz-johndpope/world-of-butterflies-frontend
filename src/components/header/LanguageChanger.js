@@ -5,12 +5,28 @@ import {faCaretDown} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 class LanguageChanger extends Component {
+    state = {
+        areLanguagesDisplayed: false,
+    };
+
+    openOrCloseLanguageChangerDropdown = () => {
+        this.setState({
+            areLanguagesDisplayed: !this.state.areLanguagesDisplayed,
+        })
+    };
+
+    handleFlagClick = (language) => {
+        this.openOrCloseLanguageChangerDropdown();
+        this.props.setPreferredLanguage(language);
+    };
+
     render() {
         return (
             <React.Fragment>
 
                 <li className="languages-dropdown">
-                    <div className="main-language-and-arrow-icon">
+                    <div className="main-language-and-arrow-icon"
+                         onClick={this.openOrCloseLanguageChangerDropdown}>
                         <span className="main-flag">
                             <Flag country={this.props.preferredLanguage.toLowerCase()} asSquare={true}/>
                         </span>
@@ -18,23 +34,28 @@ class LanguageChanger extends Component {
                             <FontAwesomeIcon icon={faCaretDown}/>
                         </span>
                     </div>
-                    <ul className="languages-dropdown-content">
-                        <li
-                            onClick={() => this.props.setPreferredLanguage('us')}
-                        >
-                            <Flag country="us" asSquare={true}/>
-                        </li>
-                        <li
-                            onClick={() => this.props.setPreferredLanguage('hu')}
-                        >
-                            <Flag country="hu" asSquare={true}/>
-                        </li>
-                        <li
-                            onClick={() => this.props.setPreferredLanguage('sk')}
-                        >
-                            <Flag country="sk" asSquare={true}/>
-                        </li>
-                    </ul>
+                    {
+                        this.state.areLanguagesDisplayed ?
+                            <ul className="languages-dropdown-content">
+                                <li
+                                    onClick={() => this.handleFlagClick('us')}
+                                >
+                                    <Flag country="us" asSquare={true}/>
+                                </li>
+                                <li
+                                    onClick={() => this.handleFlagClick('hu')}
+                                >
+                                    <Flag country="hu" asSquare={true}/>
+                                </li>
+                                <li
+                                    onClick={() => this.handleFlagClick('sk')}
+                                >
+                                    <Flag country="sk" asSquare={true}/>
+                                </li>
+                            </ul>
+                            :
+                            null
+                    }
                 </li>
             </React.Fragment>
         );

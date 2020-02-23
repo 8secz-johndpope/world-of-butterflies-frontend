@@ -665,6 +665,7 @@ ul li .dropdown-link {
 }
 
 .languages-dropdown {
+    -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
     /*font-size: 20px;*/
     /*width: 30px;*/
     cursor: pointer;
@@ -680,19 +681,19 @@ ul li .dropdown-link {
 }
 
 .languages-dropdown-content {
-    display: none;
+    /*display: none;*/
     /*margin: 0;*/
     padding: 0;
     list-style: none;
     margin-bottom: 20px;
 }
 
-.languages-dropdown:hover .languages-dropdown-content {
-    display: block;
-}
+/*.languages-dropdown:hover .languages-dropdown-content {*/
+/*    display: block;*/
+/*}*/
 
 .languages-dropdown-content li {
-    margin-top: 0px;
+    margin-top: 0;
     /*margin-bottom: 0;*/
     /*padding-bottom: 0px;*/
     width: 20px;
