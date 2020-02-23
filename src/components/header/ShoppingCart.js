@@ -192,7 +192,7 @@ class ShoppingCart extends Component {
                                                         </span>
                                                     </Link>
                                                 </td>
-                                                <td>{wrappedProduct.product.price}</td>
+                                                <td>{wrappedProduct.product.price}€</td>
                                                 <td className="shopping-cart-fa-icons-container">
                                                     <FontAwesomeIcon
                                                         id="fa-icon-1"
@@ -213,7 +213,7 @@ class ShoppingCart extends Component {
                                                 <td>
                                                     {
                                                         this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct.chosenFrame.colour))
-                                                    }
+                                                    }€
                                                 </td>
                                             </tr>
                                         )}
@@ -231,7 +231,7 @@ class ShoppingCart extends Component {
                                 <p>
                                     <FormattedMessage id="app.shopping.cart.sub-total"/>
                                 </p>
-                                <h1>{this.subtotal.toFixed(2)}</h1>
+                                <h1>{this.subtotal.toFixed(2)}€</h1>
                                 <Link to="/checkout"
                                       className="action-btn-lg"
                                       style={{

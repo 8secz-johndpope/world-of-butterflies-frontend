@@ -89,9 +89,9 @@ class LoginModal extends Component {
                             fontSize: `${this.props.fontSize}`
                         }}
                 >
-                    {/*<FontAwesomeIcon icon={faUser}/>*/}
-                    <FontAwesomeIcon icon={faSignInAlt}
-                                     style={{fontSize: '16px'}}/>
+                    <FontAwesomeIcon icon={faUser}/>
+                    {/*<FontAwesomeIcon icon={faSignInAlt}*/}
+                    {/*                 style={{fontSize: '16px'}}/>*/}
                 </button>
                 <div className="login-modal">
                     <Rodal
