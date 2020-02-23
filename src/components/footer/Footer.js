@@ -10,72 +10,169 @@ import {ReactComponent as PayU} from "../../components/images/payment_methods/pa
 import {ReactComponent as Visa} from "../../components/images/payment_methods/visa.svg";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFacebookSquare, faInstagram} from '@fortawesome/free-brands-svg-icons'
+import update from "react-addons-update";
 
 
 class Footer extends Component {
+
+    state = {
+        isAccountContainerShown: true,
+        isInformationContainerShown: true,
+        isItMobileDevice: false,
+    };
+
+    componentDidMount() {
+        this.handleResizeEvent();
+        window.addEventListener("resize", this.handleResizeEvent);
+    }
+
+    componentWillUnmount(): void {
+        window.removeEventListener("resize", this.handleResizeEvent);
+    }
+
+    handleResizeEvent = () => {
+        if (window.innerWidth < 1000) {
+            this.setState({
+                isAccountContainerShown: false,
+                isInformationContainerShown: false,
+                isItMobileDevice: true,
+            })
+        } else {
+            this.setState({
+                isAccountContainerShown: true,
+                isInformationContainerShown: true,
+                isItMobileDevice: false,
+
+            })
+        }
+    };
+
+    handleProductFieldChanges = (index, paramName) => (event) => {
+        let newState = update(this.state, {
+            products: {
+                [index]: {
+                    [paramName]: {$set: event.target.value}
+                }
+            }
+        });
+        this.setState(newState);
+    };
+
+    changeState = (value) => {
+        this.setState({
+            [value]: !this.state[value]
+        })
+    };
+
     render() {
         return (
             <div className="footer-container">
+
                 <div className='my-account-container'>
                     <div className='my-account'>
-                        <p>My account</p>
-                        <li>My account</li>
-                        <li>Order history</li>
-                        <li>Cart</li>
+                        <p
+                            className="my-account-title"
+                            onClick={() => this.changeState("isAccountContainerShown")}
+                        >
+                            My account
+                        </p>
+                        {
+                            this.state.isAccountContainerShown ?
+                                <span>
+                                    <li>My account</li>
+                                    <li>Order history</li>
+                                    <li>Cart</li>
+                                </span>
+                                :
+                                null
+                        }
                     </div>
                 </div>
+
+
                 <div className='information-container'>
                     <div className='information'>
-                        <p>Information</p>
-                        <li>Delivery Information</li>
-                        <li>About Us</li>
-                        <li>Privacy</li>
-                        <li>Returns Policy</li>
-                        <li>Contact Us</li>
+                        <p
+                            className="information-title"
+                            onClick={() => this.changeState("isInformationContainerShown")}
+                        >
+                            Information
+                        </p>
+                        {
+                            this.state.isInformationContainerShown ?
+                                <span>
+                                    <li>Delivery Information</li>
+                                    <li>About Us</li>
+                                    <li>Privacy</li>
+                                    <li>Returns Policy</li>
+                                    <li>Contact Us</li>
+                                </span>
+                                :
+                                null
+                        }
                     </div>
                 </div>
+
+
                 <div className='find-us-on-container'>
                     <div className='find-us-on'>
                         <p>
-                            Find Us On
+                            {
+                                this.state.isItMobileDevice ?
+                                    null
+
+                                    :
+                                    <span className="find-us-on-line">
+                                        Find Us On
+                                    </span>
+
+                            }
                             <span className="footer-icon-facebook">
-                        <FontAwesomeIcon icon={faFacebookSquare}/>
-                        </span>
+                                <FontAwesomeIcon icon={faFacebookSquare}/>
+                            </span>
                             <span className="footer-icon-instagram">
-                        <FontAwesomeIcon icon={faInstagram}/>
-                        </span>
+                                <FontAwesomeIcon icon={faInstagram}/>
+                            </span>
+
                         </p>
 
-                        <p id="special-p">
-                            We accept
+                        <p className="we-accept">
+                            {
+                                this.state.isItMobileDevice ?
+                                    null
+
+                                    :
+                                    <span>
+                                        We accept
+                                    </span>
+                            }
                         </p>
                         <div className="payment-method-icons">
-                            <ApplePBlk
-                                style={{
-                                    backgroundColor: '#111111'
-                                }}
-                            />
-                            <GoogleP/>
-                            <GoP
-                                style={{
-                                    backgroundColor: '#111111'
-                                }}
-                            />
-                            <Maestro
-                            />
-                            <Master
-                            />
+                            {/*<ApplePBlk*/}
+                            {/*    style={{*/}
+                            {/*        backgroundColor: '#111111'*/}
+                            {/*    }}*/}
+                            {/*/>*/}
+                            {/*<GoogleP/>*/}
+                            {/*<GoP*/}
+                            {/*    style={{*/}
+                            {/*        backgroundColor: '#111111'*/}
+                            {/*    }}*/}
+                            {/*/>*/}
+                            {/*<Maestro/>*/}
+                            {/*<Master/>*/}
                             <PayU/>
-                            <Visa/>
+                            {/*<Visa/>*/}
                         </div>
                     </div>
                 </div>
+
                 <div className='footer-logo-container'>
                     <div className='footer-logo'>
                         <FooterLogo
                             style={{
-                                width: '100%',
-                                height: '100%',
+                                // width: '100%',
+                                // height: '100%',
                                 opacity: '0.1',
                                 margin: '1em 0'
                             }}

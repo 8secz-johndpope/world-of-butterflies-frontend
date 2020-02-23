@@ -37,7 +37,7 @@ class App extends Component {
                     this.props.setBillingAddressList('');
                     // this.props.clearShoppingCart();
                     // this.props.setSubtotal(0);
-                    // localStorage.clear();
+                    localStorage.clear();
                 }
             })
     }

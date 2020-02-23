@@ -1,15 +1,37 @@
 .footer-container {
-    /*margin-top: 200px;*/
     width: 100%;
     background-color: #111111;
     color: white;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: center;
-    align-items: flex-start;
+    display: grid;
+    grid-template-areas: "my-account-container information-container find-us-on-container footer-logo-container";
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
+
+.my-account-container {
+    grid-area: my-account-container;
+}
+
+.information-container {
+    grid-area: information-container;
+}
+
+.find-us-on-container {
+    grid-area: find-us-on-container;
+}
+
+.footer-logo-container {
+    grid-area: footer-logo-container;
+}
+
+.my-account-title,
+.information-title {
+    cursor: pointer;
+}
+
+.payment-method-icons * {
+    height: 3rem;
+}
+
 
 .footer-container div div p {
     font-size: 20px;
@@ -20,49 +42,42 @@
     list-style: none;
     padding: 1px 0;
     font-weight: bolder;
+
 }
 
-.my-account-container,
-.information-container,
-.find-us-on-container,
-.footer-logo-container {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.we-accept {
+    margin-bottom: 0;
 }
 
-.my-account,
-.information,
-.find-us-on,
-.footer-logo {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
+.find-us-on-line {
+    margin-right: 1rem;
 }
 
 .footer-icon-facebook {
-    padding-left: 15px;
+    margin-right: 1rem;
+    font-size: 1.5rem;
 }
 
 .footer-icon-instagram {
-    padding-left: 4px;
+    font-size: 1.5rem;
 }
 
-#special-p {
-    margin-top: 0;
-    margin-bottom: 2px;
+.footer-logo * {
+    height: 12rem;
 }
 
-.payment-method-icons {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    width: 130%;
-}
 
-.payment-method-icons *{
-    flex: 0 1 20%;
+@media screen and (max-width: 1000px) {
+    .footer-container {
+        grid-template-areas: "my-account-container" "information-container" "find-us-on-container" "footer-logo-container";
+    }
+
+    .footer-logo-container {
+        margin-bottom: 0.5rem;
+    }
+
+    .footer-logo * {
+        height: 6rem;
+    }
+
 }
