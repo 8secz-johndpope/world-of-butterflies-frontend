@@ -11,10 +11,12 @@ class ShoppingCart extends Component {
 
 
     countQtyByIdAndFrameColour = (id, frameColour) => {
+        console.log(id, frameColour);
         const countTypes = this.props.productsInShoppingCart.filter(
             wrappedProduct => wrappedProduct.product.id === id &&
                 wrappedProduct.chosenFrame.colour === frameColour
         );
+        console.log("return" + countTypes.length);
         return countTypes.length;
     };
 
@@ -35,7 +37,7 @@ class ShoppingCart extends Component {
 
 
     addOneProductToShoppingCart = (product, frame) => {
-        if (this.countAddedProducts(product.id) < product.availableQuantity&&
+        if (this.countAddedProducts(product.id) < product.availableQuantity &&
             frame.quantity > this.countTakenFrameAmount(frame.id)) {
             this.subtotal += product.price;
             let uniqueId = Date.now();
@@ -67,6 +69,7 @@ class ShoppingCart extends Component {
     };
 
     calculatePricePerCategory = (price, qty) => {
+        console.log(price, qty);
         let total = (price * qty);
         return total.toFixed(2);
     };
@@ -132,17 +135,20 @@ class ShoppingCart extends Component {
                             <div className="shopping-cart-elements-container">
                                 <table className="shopping-cart-table">
                                     <thead>
-                                    <tr>
-                                        <th colSpan="2">
+                                    <tr className="shopping-cart-table-header-row">
+                                        <th className="shopping-cart-table-header-row-image">
                                             <FormattedMessage id="app.shopping.cart.product"/>
+                                        </th>
+                                        <th>
+                                            <FormattedMessage id="app.shopping.cart.name"/>
                                         </th>
                                         <th>
                                             <FormattedMessage id="app.shopping.cart.price"/>
                                         </th>
-                                        <th>
+                                        <th className="shopping-cart-table-header-row-qty">
                                             <FormattedMessage id="app.shopping.cart.qty"/>
                                         </th>
-                                        <th>
+                                        <th className="shopping-cart-table-header-row-total">
                                             <FormattedMessage id="app.shopping.cart.total"/>
                                         </th>
                                     </tr>
@@ -157,30 +163,39 @@ class ShoppingCart extends Component {
 
                                             <tr>
                                                 <td>
-                                                    <div className="frame-around-butterfly"
-                                                         style={{
-                                                             border: `${wrappedProduct.product.isInFrame ? '1px solid #D3D3D3' : '0.3cm solid black'}`,
-                                                             borderImage: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedProduct.chosenFrame.colour}.png) 50 / 0.3cm stretch`}`,
-                                                         }}>
+                                                    <div
+                                                        className={wrappedProduct.product.isInFrame ? 'wrapped-product-in-frame frame-around-butterfly' : 'wrapped-product-not-in-frame frame-around-butterfly'}
+                                                        style={{
+                                                            // border: `${wrappedProduct.product.isInFrame ? 'none' : '0.3cm solid black'}`,
+                                                            // borderImage: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedProduct.chosenFrame.colour}.png) 50 / 0.3cm stretch`}`,
+                                                            borderImageSource: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedProduct.chosenFrame.colour}.png)`}`,
+                                                            // width: `${wrappedProduct.product.isInFrame ? '100%' : `auto`}`,
+                                                        }}>
                                                         {
                                                             <img src={serverURL + wrappedProduct.product.url}
+                                                                 className="image-in-shopping-cart"
                                                                  style={{
-                                                                     width: '100%',
+                                                                     border: `${wrappedProduct.product.isInFrame ? '1px solid #D3D3D3' : 'none'}`,
                                                                  }}
+
                                                             />
                                                         }
                                                     </div>
                                                 </td>
-                                                <td>{wrappedProduct.product.name}</td>
+                                                <td className="shopping-cart-product-name">{wrappedProduct.product.name}</td>
                                                 <td>{wrappedProduct.product.price}</td>
-                                                <td>
+                                                <td className="shopping-cart-fa-icons-container">
                                                     <FontAwesomeIcon
+                                                        id="fa-icon-1"
                                                         className="shopping-cart-fa-icons"
                                                         icon={faMinusCircle}
                                                         onClick={() => this.removeOneProductFromShoppingCart(wrappedProduct)}
                                                     />
-                                                    {this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct.chosenFrame.colour)}
+                                                    <span id="element-between-fa-icons">
+                                                        {this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct.chosenFrame.colour)}
+                                                    </span>
                                                     <FontAwesomeIcon
+                                                        id="fa-icon-2"
                                                         className="shopping-cart-fa-icons"
                                                         icon={faPlusCircle}
                                                         onClick={() => this.addOneProductToShoppingCart(wrappedProduct.product, wrappedProduct.chosenFrame)}
