@@ -38,10 +38,7 @@ class ProductMapperByMainType extends Component {
     }
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
-
-        console.log("updated to: " + this.props.match.params.type);
         if (this.state.type !== this.props.match.params.type) {
-            console.log("getting into this if");
             this.setState({
                 products: [],
                 colours: [],
@@ -64,7 +61,6 @@ class ProductMapperByMainType extends Component {
 
     componentWillUnmount() {
         window.removeEventListener("scroll", this.handleScroll);
-        console.log("unmounted" )
     }
 
     getProductColoursAndOrigins = () => {

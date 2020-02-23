@@ -11,12 +11,10 @@ class ShoppingCart extends Component {
 
 
     countQtyByIdAndFrameColour = (id, frameColour) => {
-        console.log(id, frameColour);
         const countTypes = this.props.productsInShoppingCart.filter(
             wrappedProduct => wrappedProduct.product.id === id &&
                 wrappedProduct.chosenFrame.colour === frameColour
         );
-        console.log("return" + countTypes.length);
         return countTypes.length;
     };
 
@@ -69,7 +67,6 @@ class ShoppingCart extends Component {
     };
 
     calculatePricePerCategory = (price, qty) => {
-        console.log(price, qty);
         let total = (price * qty);
         return total.toFixed(2);
     };
@@ -201,7 +198,11 @@ class ShoppingCart extends Component {
                                                         onClick={() => this.addOneProductToShoppingCart(wrappedProduct.product, wrappedProduct.chosenFrame)}
                                                     />
                                                 </td>
-                                                <td>{this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct.frameColour))}</td>
+                                                <td>
+                                                    {
+                                                        this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct.chosenFrame.colour))
+                                                    }
+                                                </td>
                                             </tr>
                                         )}
                                     </tbody>

@@ -33,16 +33,12 @@ class Header extends Component {
     }
 
     modifySearchBarPlace = () => {
-        console.log("resizing")
         let windowWidth = window.innerWidth;
         if (windowWidth <= 945 && !this.state.isScreenSmall) {
-            console.log("first if");
             this.setState({
                 isScreenSmall: true
             })
         } else if (windowWidth > 945 && this.state.isScreenSmall) {
-            console.log("second if");
-
             this.setState({
                 isScreenSmall: false
             })
@@ -64,10 +60,6 @@ class Header extends Component {
     closeNav = () => {
         this.refs.mySidebar.style.width = "0";
         this.refs.openBtnLine.style.marginLeft = "0";
-    };
-
-    logMe = () => {
-        console.log(window.innerWidth)
     };
 
 
