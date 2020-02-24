@@ -160,14 +160,7 @@ class Header extends Component {
                                     </Link></li>
                                 </ul>
                             </li>
-                            <li>
-                                <Link to="/main-categories/fossil" className="main-link">
-                                    <FormattedMessage id="app.header.main.fossil"/>
-                                </Link>
-                                <ul className="dropdown">
-                                    <li><Link to="/" className="dropdown-link">FOSSIL</Link></li>
-                                </ul>
-                            </li>
+
                             <li>
                                 <Link to="/main-categories/minerals" className="main-link">
                                     <FormattedMessage id="app.header.main.minerals"/>
@@ -177,6 +170,7 @@ class Header extends Component {
                                         1</Link>
                                     </li>
                                     <li><Link to="/" className="dropdown-link">MINERAL 2</Link></li>
+                                    <li><Link to="/" className="dropdown-link">FOSSIL</Link></li>
                                 </ul>
                             </li>
                             <li>

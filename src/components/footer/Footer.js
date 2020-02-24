@@ -59,9 +59,11 @@ class Footer extends Component {
     };
 
     changeState = (value) => {
-        this.setState({
-            [value]: !this.state[value]
-        })
+        if (this.state.isItMobileDevice) {
+            this.setState({
+                [value]: !this.state[value]
+            })
+        }
     };
 
     render() {

@@ -190,7 +190,7 @@ class SingleProduct extends Component {
 
     render() {
         return (
-            <React.Fragment>
+            <div className="vertical-container">
                 <div className="vertical-single-product-container">
                     <p className="navigation-bar-above-product">
                         <Link to='/'
@@ -405,7 +405,7 @@ class SingleProduct extends Component {
                         </span>
                     </p>
                 </div>
-            </React.Fragment>
+            </div>
         );
     }
 }

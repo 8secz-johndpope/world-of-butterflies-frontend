@@ -44,7 +44,7 @@ class LoginModal extends Component {
     handleSubmit = (e) => {
 
         e.preventDefault();
-        doLogin(this.state.email.split(' ').join(''), this.state.password)
+        doLogin(this.state.email.split(' ').join('').toLowerCase(), this.state.password)
             .then(res => {
                 if (res === true) {
                     this.props.alterLoginModal(false);

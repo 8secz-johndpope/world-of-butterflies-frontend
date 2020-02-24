@@ -20,7 +20,6 @@ Link {
 .logo-holder {
     position: relative;
     width: 50%;
-    /*background-color: lightcoral;*/
 }
 
 .other-icons {
@@ -30,7 +29,6 @@ Link {
     justify-content: flex-end;
     width: 50%;
     z-index: 1;
-    /*background-color: lightgreen;*/
 }
 
 .logo-header {
@@ -40,7 +38,7 @@ Link {
     position: relative;
     right: -50%;
     z-index: 2;
-    /*background-color: red;*/
+    padding-bottom: 2rem;
 }
 
 .search-bar-cart-container {
@@ -49,7 +47,6 @@ Link {
     align-self: flex-end;
     position: relative;
     right: 0;
-    /*background-color: blue;*/
 }
 
 .logo-small {
@@ -282,6 +279,10 @@ ul li .dropdown-link {
     .open-btn {
         display: block;
     }
+
+    .logo-header{
+        padding-bottom: 0;
+    }
 }
 
 .search-bar-cart-container-under-open-btn-line {
@@ -366,6 +367,9 @@ ul li .dropdown-link {
 
 #sidebar-content .drop-icon {
     line-height: 1;
+    font-size: 2rem;
+    display: inline-block;
+    width: 3rem;
 }
 
 #sidebar-content ul {

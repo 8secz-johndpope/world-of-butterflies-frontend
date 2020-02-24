@@ -99,26 +99,19 @@ class ShoppingCart extends Component {
                                 </span>
                             </Link>
 
-                            <span className="fa-right-arrow">
-                                <FontAwesomeIcon icon={faArrowRight}/>
+                            <span className="slash-between">
+                                /
                             </span>
 
-                            <span className="fa-down-arrow">
-                                <FontAwesomeIcon icon={faArrowDown}/>
-                            </span>
 
                             <span style={{
-                                cursor: 'no-drop'
+                                cursor: 'not-allowed'
                             }}>
                             CHECKOUT DETAILS
                             </span>
 
-                            <span className="fa-right-arrow">
-                                <FontAwesomeIcon icon={faArrowRight}/>
-                            </span>
-
-                            <span className="fa-down-arrow">
-                                <FontAwesomeIcon icon={faArrowDown}/>
+                            <span className="slash-between">
+                                /
                             </span>
 
                             <span style={{

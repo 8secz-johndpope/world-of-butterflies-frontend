@@ -73,7 +73,7 @@ class SearchBar extends Component {
 
     getTwoButtonWidth = () => {
         let windowWidth = window.innerWidth;
-        let twoBtnWidth = ((windowWidth * 0.84 - 16) / 4) - 27;
+        let twoBtnWidth = ((windowWidth * 0.84 - 28) / 7 * 2) - 22;
         this.setState({
             twoBtnWidth: twoBtnWidth,
         })

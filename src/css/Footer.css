@@ -23,11 +23,6 @@
     grid-area: footer-logo-container;
 }
 
-.my-account-title,
-.information-title {
-    cursor: pointer;
-}
-
 .payment-method-icons * {
     height: 3rem;
 }

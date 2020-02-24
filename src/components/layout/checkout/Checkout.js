@@ -40,12 +40,8 @@ class Checkout extends Component {
                         </span>
                     </Link>
 
-                    <span className="fa-right-arrow">
-                        <FontAwesomeIcon icon={faArrowRight}/>
-                    </span>
-
-                    <span className="fa-down-arrow">
-                        <FontAwesomeIcon icon={faArrowDown}/>
+                    <span className="slash-between">
+                                /
                     </span>
 
                     <Link to={"/checkout"}
@@ -60,16 +56,12 @@ class Checkout extends Component {
                         </span>
                     </Link>
 
-                    <span className="fa-right-arrow">
-                        <FontAwesomeIcon icon={faArrowRight}/>
-                    </span>
-
-                    <span className="fa-down-arrow">
-                        <FontAwesomeIcon icon={faArrowDown}/>
+                    <span className="slash-between">
+                                /
                     </span>
 
                     <span style={{
-                        cursor:'not-allowed'
+                        cursor: 'not-allowed'
                     }}>
                     ORDER COMPLETE
                     </span>
