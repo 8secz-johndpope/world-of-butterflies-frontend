@@ -63,5 +63,10 @@
 	"app.single.page.latin-name": "Latinský názov ",
 	"app.single.page.origin": "Pôvod ",
 	"app.single.page.stock": "Na sklade",
-	"app.slide-show.shop-now": "Kúpiť"
+	"app.slide-show.shop-now": "Kúpiť",
+	"app.basic-shipping-locations.slovakia": "Slovakia",
+	"app.basic-shipping-locations.europe": "Europa",
+	"app.basic-shipping-locations.third-world": "Tretí ország",
+	"app.basic-shipping-locations.choose-location": "Prosíííím..."
+
 }

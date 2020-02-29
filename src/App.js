@@ -4,7 +4,7 @@ import Header from "./components/header/Header";
 import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
 import MainPage from "./components/layout/mainPage/MainPage";
 import SingleProduct from "./components/layout/singleProduct/SingleProduct"
-import ShoppingCart from "./components/header/ShoppingCart";
+import ShoppingCart from "./components/layout/shoppingCart/ShoppingCart";
 import Checkout from "./components/layout/checkout/Checkout";
 import {isUserLoggedIn} from "./service/fetchService/fetchService";
 import {connect} from "react-redux";
@@ -37,7 +37,7 @@ class App extends Component {
                     this.props.setBillingAddressList('');
                     // this.props.clearShoppingCart();
                     // this.props.setSubtotal(0);
-                    localStorage.clear();
+                    // localStorage.clear();
                 }
             })
     }

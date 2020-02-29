@@ -63,5 +63,10 @@
 	"app.single.page.latin-name": "Latin name ",
 	"app.single.page.origin": "Origin ",
 	"app.single.page.stock": "In stock ",
-	"app.slide-show.shop-now": "Shop now"
+	"app.slide-show.shop-now": "Shop now",
+	"app.basic-shipping-locations.slovakia": "Slovakia",
+	"app.basic-shipping-locations.europe": "Europe",
+	"app.basic-shipping-locations.third-world": "Third World Country",
+	"app.basic-shipping-locations.choose-location": "Please choose a location..."
+
 }

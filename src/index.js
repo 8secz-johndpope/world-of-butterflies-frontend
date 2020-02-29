@@ -11,13 +11,14 @@ const initialState = {
     isLoggedIn: false,
     productsInShoppingCart: [],
     subtotal: 0,
+    shippingCost: 0,
     billingAddressList: [],
     chosenShippingAddress: '',
     chosenBillingAddress: '',
     preferredLanguage: 'hu',
     isLoginModalVisible: false,
     isRegisterModalVisible: false,
-    takenFrames:[],
+    takenFrames: [],
 };
 
 function reducer(state = initialState, action) {
@@ -92,6 +93,11 @@ function reducer(state = initialState, action) {
                 ...state,
                 takenFrames: state.takenFrames.filter((frame) => frame.uniqueId !== action.customFrameId)
             };
+        case 'updateShippingCost':
+            return {
+                ...state,
+                shippingCost: action.newShippingCost
+            };
         default:
             return state;
 
@@ -122,11 +128,11 @@ const persistedState = loadFromLocalStorage();
 
 export const store = createStore(
     reducer,
-    // persistedState,
+    persistedState,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
-// store.subscribe(() => saveToLocalStorage(store.getState()));
+store.subscribe(() => saveToLocalStorage(store.getState()));
 
 ReactDOM.render(
     <Provider store={store}>

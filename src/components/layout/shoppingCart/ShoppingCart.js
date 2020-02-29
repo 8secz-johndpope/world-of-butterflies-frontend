@@ -4,10 +4,35 @@ import {faPlusCircle, faMinusCircle, faArrowRight, faArrowDown} from "@fortaweso
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Link} from "react-router-dom";
 import {FormattedMessage} from "react-intl";
+import BasicShippingLocationDropdown from "./BasicShippingLocationDropdown";
 
 
 class ShoppingCart extends Component {
     subtotal = 0;
+
+    state = {
+        chosenLocation: {
+            key: 'app.basic-shipping-locations.slovakia',
+            value: 15
+        },
+        areLocationChoicesVisible: false,
+        // isLocationSet: false,
+        basicLocations: [
+            {
+                key: 'app.basic-shipping-locations.slovakia',
+                value: 15
+            },
+            {
+                key: 'app.basic-shipping-locations.europe',
+                value: 20
+
+            },
+            {
+                key: 'app.basic-shipping-locations.third-world',
+                value: 35
+            }
+        ]
+    };
 
 
     countQtyByIdAndFrameColour = (id, frameColour) => {
@@ -72,13 +97,39 @@ class ShoppingCart extends Component {
     };
 
     calculateSubtotal = () => {
+        this.calculateShippingCost();
         let total = 0;
         this.props.productsInShoppingCart.map((wrappedProduct =>
                 total += wrappedProduct.product.price
         ));
-        this.subtotal = total;
+        let shippingCost = this.props.shippingCost;
+        this.subtotal = total + shippingCost;
         this.props.setSubtotal(this.subtotal);
+    };
 
+    calculateShippingCost = () => {
+        let productWeight = 0;
+        this.props.productsInShoppingCart.map((productInCart) =>
+            productWeight += productInCart.product.weight
+        );
+        let shippingCost;
+        shippingCost = productWeight * this.state.chosenLocation.value;
+        this.props.updateShippingCost(shippingCost);
+    };
+
+    setLocation = (location) => {
+        this.setState({
+            // isLocationSet: true,
+            chosenLocation: location,
+            areLocationChoicesVisible: false,
+        }, () => this.calculateShippingCost())
+
+    };
+
+    displayLocationChoices = () => {
+        this.setState({
+            areLocationChoicesVisible: !this.props.areLocationChoicesVisible
+        })
     };
 
     render() {
@@ -219,8 +270,18 @@ class ShoppingCart extends Component {
                                 <h1>Cart Totals</h1>
                                 <p>
                                     <FormattedMessage id="app.shopping.cart.shipping"/>
-                                    bla bla
+                                    {this.props.shippingCost}€
                                 </p>
+
+                                <BasicShippingLocationDropdown
+                                    chosenLocation={this.state.chosenLocation}
+                                    areLocationChoicesVisible={this.state.areLocationChoicesVisible}
+                                    isLocationSet={this.state.isLocationSet}
+                                    basicLocations={this.state.basicLocations}
+                                    setLocation={this.setLocation}
+                                    displayLocationChoices={this.displayLocationChoices}
+                                />
+
                                 <p>
                                     <FormattedMessage id="app.shopping.cart.sub-total"/>
                                 </p>
@@ -253,6 +314,7 @@ function mapStateToProps(state) {
         productsInShoppingCart: state.productsInShoppingCart,
         subtotal: state.subtotal,
         takenFrames: state.takenFrames,
+        shippingCost: state.shippingCost,
     }
 }
 
@@ -276,6 +338,10 @@ const mapDispatchToProps = (dispatch) => {
         },
         removeFrame: function (customFrameId) {
             const action = {type: "removeFrame", customFrameId};
+            dispatch(action);
+        },
+        updateShippingCost: function (newShippingCost) {
+            const action = {type: "updateShippingCost", newShippingCost};
             dispatch(action);
         },
     }
