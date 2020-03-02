@@ -1145,6 +1145,7 @@ input[type=number] {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin-bottom: 1rem;
 }
 
 .detailed-product-history-view p {
@@ -1155,6 +1156,22 @@ input[type=number] {
 .detailed-product-history-view img {
     flex: 0 1 15%;
     align-self: auto;
+}
+
+.framed-product-in-order-history-border {
+    margin: 1rem 0;
+    width: 120px;
+}
+
+.framed-product-in-order-history-img,
+.non-framed-product-in-order-history-img {
+    width: 100px;
+    height: auto;
+
+}
+
+.non-framed-product-in-order-history-img {
+    border: 1px solid #D3D3D3;
 }
 
 /*table, th, td {*/

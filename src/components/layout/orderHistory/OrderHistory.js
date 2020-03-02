@@ -65,17 +65,37 @@ class OrderHistory extends Component {
 
                                     <span
                                         className={this.state['orderHistoryCheck' + index] ? 'display-detailed-order-view' : 'hide-detailed-order-view'}>
-                                        {resp.products.map(prod =>
-                                            <div className='detailed-product-history-view'>
-                                                <img src={serverURL + prod.url}
-                                                     style={{
-                                                         width: '1cm',
-                                                         height: "auto",
-                                                     }}
-                                                />
-                                                <p>{prod.name}</p>
-                                                <p>{prod.price}</p>
-                                            </div>
+                                        {resp.wrappedOrderIds.map(wrappedOrderId =>
+
+                                            wrappedOrderId.frame.colour === invisibleFrame ?
+                                                <div className='detailed-product-history-view'>
+                                                    <img className="non-framed-product-in-order-history-img"
+                                                         src={serverURL + wrappedOrderId.product.url}/>
+                                                    <p>{wrappedOrderId.product.name}</p>
+                                                    <p>{wrappedOrderId.product.price}€</p>
+                                                </div>
+
+                                                :
+
+                                                <span>
+                                                    <div className="detailed-product-history-view">
+                                                        <div
+                                                            className="framed-product-in-order-history-border"
+                                                            style={{
+                                                                border: '10px solid black',
+                                                                borderImage: `url(${serverURL}/images/frames/${wrappedOrderId.frame.colour}.png) 50 / 0.3cm stretch`,
+                                                                borderImageSource: `url(${serverURL}/images/frames/${wrappedOrderId.frame.colour}.png)`
+                                                            }}>
+                                                            {
+                                                                <img src={serverURL + wrappedOrderId.product.url}
+                                                                     className="framed-product-in-order-history-img"
+                                                                />
+                                                            }
+                                                        </div>
+                                                        <p>{wrappedOrderId.product.name}</p>
+                                                        <p>{wrappedOrderId.product.price}€</p>
+                                                    </div>
+                                                </span>
                                         )}
                                     </span>
                                 </td>
@@ -83,7 +103,7 @@ class OrderHistory extends Component {
                                     <p>123€</p>
                                 </td>
                                 <td className='td-order-history-purchase-order-id'>
-                                    <p>{resp.id}</p>
+                                    {/*<p>{resp.id}</p>*/}
                                 </td>
                             </tr>
                         )
@@ -145,4 +165,5 @@ class OrderHistory extends Component {
 }
 
 const serverURL = process.env.REACT_APP_API_URL;
+const invisibleFrame = process.env.REACT_APP_INVISIBLE_FRAME;
 export default OrderHistory;
