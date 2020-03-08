@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import {
     updateShippingAddressById,
     saveNewShippingAddress,
-    deleteShippingAddressById, getShippingAddresses
+    deleteShippingAddressById,
+    getShippingAddresses
 } from "../../../service/fetchService/fetchService";
 import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -76,35 +77,39 @@ class UserBillingDetails extends Component {
             });
             // this.setChosenShippingAddress(addressToFill[0]);
         } else {
-            this.setState({
-                addressToFill: {
-                    id: "new",
-                    nickName: "",
-                    firstName: "",
-                    lastName: "",
-                    company: "",
-                    addressLineOne: "",
-                    addressLineTwo: "",
-                    city: "",
-                    state: "",
-                    zipCode: "",
-                    country: "",
-                    phoneNumber: ""
-                },
-            })
+            this.clearAddressToFil();
         }
+    };
+
+    clearAddressToFil = () => {
+        this.setState({
+            addressToFill: {
+                id: "new",
+                nickName: "",
+                firstName: "",
+                lastName: "",
+                company: "",
+                addressLineOne: "",
+                addressLineTwo: "",
+                city: "",
+                state: "",
+                zipCode: "",
+                country: "",
+                phoneNumber: ""
+            },
+        })
     };
 
     saveModifiedChanges = () => {
         if (this.state.addressToFill.id !== "new") {
-            updateShippingAddressById(this.state.addressToFill, this.state.addressToFill.id, this.props.email)
+            updateShippingAddressById(this.state.addressToFill, this.state.addressToFill.id)
                 .then(resp =>
                     this.setState({
                         billingAddressList: resp,
                     })
                 );
         } else {
-            saveNewShippingAddress(this.state.addressToFill, this.props.email)
+            saveNewShippingAddress(this.state.addressToFill)
                 .then(resp =>
                     this.setState({
                         billingAddressList: resp,
@@ -118,11 +123,11 @@ class UserBillingDetails extends Component {
     };
 
     deleteAddressById = (id) => {
-        deleteShippingAddressById(id, this.props.email)
+        deleteShippingAddressById(id)
             .then(resp =>
                 this.setState({
                     billingAddressList: resp,
-                })
+                }, () => this.clearAddressToFil())
             );
     };
 
@@ -394,12 +399,6 @@ class UserBillingDetails extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        email: state.email,
-    }
-}
-
 const mapDispatchToProps = (dispatch) => {
     return {
         setSubtotal: function (subtotal) {
@@ -409,4 +408,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserBillingDetails);
+export default connect(null, mapDispatchToProps)(UserBillingDetails);

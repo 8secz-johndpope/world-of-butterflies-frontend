@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Rodal from 'rodal'
 import 'rodal/lib/rodal.css';
-import {doLogin, getShippingAddresses} from "../../service/fetchService/fetchService";
+import {doLogin} from "../../service/fetchService/fetchService";
 import {connect} from 'react-redux';
 import {FormattedMessage} from "react-intl";
 import {faSignInAlt, faUser} from "@fortawesome/free-solid-svg-icons";
