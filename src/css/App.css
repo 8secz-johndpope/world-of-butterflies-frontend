@@ -884,6 +884,11 @@ input[type=number] {
 
 }
 
+.additional-shipping-address-in-billing-form {
+    flex: 1 1 70%;
+    align-self: flex-start;
+}
+
 .billing-form {
     display: flex;
     flex-direction: column;

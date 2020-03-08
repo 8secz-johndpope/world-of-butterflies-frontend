@@ -130,7 +130,9 @@ export function updateShippingAddressById(newShippingAddress, id) {
                 state: newShippingAddress.state,
                 zipCode: newShippingAddress.zipCode,
                 country: newShippingAddress.country,
-                phoneNumber: newShippingAddress.phoneNumber
+                phoneNumber: newShippingAddress.phoneNumber,
+                ico: newShippingAddress.ico,
+                dic: newShippingAddress.dic
             }),
     })
         .then(response => response.json())
@@ -156,7 +158,9 @@ export function saveNewShippingAddress(newShippingAddress) {
                 state: newShippingAddress.state,
                 zipCode: newShippingAddress.zipCode,
                 country: newShippingAddress.country,
-                phoneNumber: newShippingAddress.phoneNumber
+                phoneNumber: newShippingAddress.phoneNumber,
+                ico: newShippingAddress.ico,
+                dic: newShippingAddress.dic
             }),
     })
         .then(response => response.json())
