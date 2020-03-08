@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {
     updateShippingAddressById,
     saveNewShippingAddress,
-    deleteShippingAddressById
+    deleteShippingAddressById, getShippingAddresses
 } from "../../../service/fetchService/fetchService";
 import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -12,6 +12,7 @@ import {FormattedMessage} from "react-intl";
 
 class UserBillingDetails extends Component {
     state = {
+        billingAddressList: [],
         addressToFill: {
             id: "new",
             firstName: "",
@@ -41,6 +42,16 @@ class UserBillingDetails extends Component {
         isShippingAddressDifferent: false,
     };
 
+    componentDidMount(): void {
+        getShippingAddresses()
+            .then(resp => {
+                    this.setState({
+                        billingAddressList: resp,
+                    })
+                }
+            )
+    }
+
     handleChange = (e) => {
         this.setState({
             addressToFill: {
@@ -59,11 +70,11 @@ class UserBillingDetails extends Component {
 
     chooseAddress = (id) => {
         if (id !== "new") {
-            let addressToFill = this.props.billingAddressList.filter(address => address.id === id);
+            let addressToFill = this.state.billingAddressList.filter(address => address.id === id);
             this.setState({
                 addressToFill: addressToFill[0],
             });
-            this.props.setChosenShippingAddress(addressToFill[0]);
+            // this.setChosenShippingAddress(addressToFill[0]);
         } else {
             this.setState({
                 addressToFill: {
@@ -88,35 +99,40 @@ class UserBillingDetails extends Component {
         if (this.state.addressToFill.id !== "new") {
             updateShippingAddressById(this.state.addressToFill, this.state.addressToFill.id, this.props.email)
                 .then(resp =>
-                    this.props.setBillingAddressList(resp)
+                    this.setState({
+                        billingAddressList: resp,
+                    })
                 );
         } else {
             saveNewShippingAddress(this.state.addressToFill, this.props.email)
                 .then(resp =>
-                    this.props.setBillingAddressList(resp)
+                    this.setState({
+                        billingAddressList: resp,
+                    })
                 );
         }
         this.setState({
             isChange: false
         });
-        this.props.setChosenShippingAddress(this.state.addressToFill);
+        // this.props.setChosenShippingAddress(this.state.addressToFill);
     };
 
     deleteAddressById = (id) => {
         deleteShippingAddressById(id, this.props.email)
             .then(resp =>
-                this.props.setBillingAddressList(resp)
+                this.setState({
+                    billingAddressList: resp,
+                })
             );
     };
 
     handleAdditionalChange = (e) => {
         this.setState({
-                additionalShippingAddress: {
-                    ...this.state.additionalShippingAddress,
-                    [e.target.name]: e.target.value,
-                },
+            additionalShippingAddress: {
+                ...this.state.additionalShippingAddress,
+                [e.target.name]: e.target.value,
             },
-            () => this.props.setChosenBillingAddress(this.state.additionalShippingAddress));
+        });
 
     };
 
@@ -143,10 +159,10 @@ class UserBillingDetails extends Component {
                         </h3>
                     </div>
                     {
-                        this.props.billingAddressList ?
+                        this.state.billingAddressList ?
                             <React.Fragment>
                                 {
-                                    this.props.billingAddressList.map(address =>
+                                    this.state.billingAddressList.map(address =>
                                         <div className="billing-address">
                                             <h3 onClick={() => this.chooseAddress(address.id)}>
                                                 <FontAwesomeIcon
@@ -381,7 +397,6 @@ class UserBillingDetails extends Component {
 function mapStateToProps(state) {
     return {
         email: state.email,
-        billingAddressList: state.billingAddressList,
     }
 }
 
@@ -389,18 +404,6 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setSubtotal: function (subtotal) {
             const action = {type: "setSubtotal", subtotal};
-            dispatch(action);
-        },
-        setBillingAddressList: function (billingAddressList) {
-            const action = {type: "setBillingAddressList", billingAddressList};
-            dispatch(action);
-        },
-        setChosenShippingAddress: function (chosenShippingAddress) {
-            const action = {type: "setChosenShippingAddress", chosenShippingAddress};
-            dispatch(action);
-        },
-        setChosenBillingAddress: function (chosenBillingAddress) {
-            const action = {type: "setChosenBillingAddress", chosenBillingAddress};
             dispatch(action);
         },
     }

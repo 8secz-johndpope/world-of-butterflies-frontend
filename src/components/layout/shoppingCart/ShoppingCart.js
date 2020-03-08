@@ -4,8 +4,8 @@ import {faPlusCircle, faMinusCircle, faArrowRight, faArrowDown} from "@fortaweso
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Link} from "react-router-dom";
 import {FormattedMessage} from "react-intl";
+import {updateShoppingCart} from "../../../service/fetchService/fetchService";
 import BasicShippingLocationDropdown from "./BasicShippingLocationDropdown";
-
 
 class ShoppingCart extends Component {
     subtotal = 0;
@@ -51,13 +51,43 @@ class ShoppingCart extends Component {
 
     componentWillMount() {
         this.calculateSubtotal();
-
+        this.saveShoppingCartToServer();
     }
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
         this.calculateSubtotal();
+        // this.saveShoppingCartToServer();
     }
 
+
+    saveShoppingCartToServer = () => {
+        let entityIds = [];
+
+        // eslint-disable-next-line array-callback-return
+        this.props.productsInShoppingCart.filter((wrappedProduct, index) =>
+            index === this.props.productsInShoppingCart.findIndex(
+            elem => elem.product.id === wrappedProduct.product.id &&
+                elem.chosenFrame.colour === wrappedProduct.chosenFrame.colour
+            )).map((wrappedProduct) => {
+
+                let productId = wrappedProduct.product.id;
+                let frameId = wrappedProduct.chosenFrame.id;
+                let qty = this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct.chosenFrame.colour);
+                entityIds.push({productId, frameId, qty})
+            }
+        );
+
+        let object = {'entityIds': entityIds};
+        console.log(object);
+        updateShoppingCart(object)
+            .then(resp => console.log(resp))
+    };
+
+
+    //var arr = [];
+    // for(var i=1; i<=mynumber; i++) {
+    //    arr.push(i.toString());
+    // }
 
     addOneProductToShoppingCart = (product, frame) => {
         if (this.countAddedProducts(product.id) < product.availableQuantity &&

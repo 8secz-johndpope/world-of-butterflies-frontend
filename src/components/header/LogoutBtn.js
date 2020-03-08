@@ -11,7 +11,6 @@ class LogoutBtn extends Component {
         doLogout();
         this.props.setUserEmail("");
         this.props.setLoggedIn(false);
-        this.props.setBillingAddressList("");
         this.props.clearShoppingCart();
         this.props.setSubtotal(0);
         this.props.setChosenShippingAddress("");
@@ -43,10 +42,6 @@ const mapDispatchToProps = (dispatch) => {
         },
         setLoggedIn: function (boolean) {
             const action = {type: "setLoggedIn", boolean};
-            dispatch(action);
-        },
-        setBillingAddressList: function (billingAddressList) {
-            const action = {type: "setBillingAddressList", billingAddressList};
             dispatch(action);
         },
         clearShoppingCart: function () {

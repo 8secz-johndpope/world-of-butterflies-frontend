@@ -12,9 +12,6 @@ const initialState = {
     productsInShoppingCart: [],
     subtotal: 0,
     shippingCost: 0,
-    billingAddressList: [],
-    chosenShippingAddress: '',
-    chosenBillingAddress: '',
     preferredLanguage: 'hu',
     isLoginModalVisible: false,
     isRegisterModalVisible: false,
@@ -52,21 +49,6 @@ function reducer(state = initialState, action) {
             return {
                 ...state,
                 subtotal: action.subtotal
-            };
-        case 'setBillingAddressList':
-            return {
-                ...state,
-                billingAddressList: action.billingAddressList
-            };
-        case 'setChosenShippingAddress':
-            return {
-                ...state,
-                chosenShippingAddress: action.chosenShippingAddress
-            };
-        case 'setChosenBillingAddress':
-            return {
-                ...state,
-                chosenBillingAddress: action.chosenBillingAddress
             };
         case 'setPreferredLanguage':
             return {

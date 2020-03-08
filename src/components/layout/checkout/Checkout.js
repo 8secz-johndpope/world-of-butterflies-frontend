@@ -8,6 +8,7 @@ import GuestBillingDetails from "./GuestBillingDetails";
 import {FormattedMessage} from "react-intl";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowDown, faArrowRight} from "@fortawesome/free-solid-svg-icons";
+import {getShippingAddresses} from "../../../service/fetchService/fetchService";
 
 class Checkout extends Component {
     state = {

@@ -98,13 +98,20 @@ export function isUserLoggedIn() {
         .then(response => response.json())
 }
 
-export function getShippingAddresses(userEmail) {
-    return fetch(process.env.REACT_APP_API_URL + '/ship-address/' + userEmail + '/')
+export function getShippingAddresses() {
+    return fetch(process.env.REACT_APP_API_URL + '/ship-address/', {
+        credentials: 'include',
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
         .then(response => response.json())
 }
 
-export function updateShippingAddressById(newShippingAddress, id, email) {
-    return fetch(process.env.REACT_APP_API_URL + '/ship-address/' + id + '/' + email + '/', {
+export function updateShippingAddressById(newShippingAddress, id) {
+    return fetch(process.env.REACT_APP_API_URL + '/ship-address/' + id + '/', {
         credentials: 'include',
         method: 'PUT',
         headers: {
@@ -129,8 +136,8 @@ export function updateShippingAddressById(newShippingAddress, id, email) {
         .then(response => response.json())
 }
 
-export function saveNewShippingAddress(newShippingAddress, email) {
-    return fetch(process.env.REACT_APP_API_URL + '/ship-address/' + email + '/', {
+export function saveNewShippingAddress(newShippingAddress) {
+    return fetch(process.env.REACT_APP_API_URL + '/ship-address/', {
         credentials: 'include',
         method: 'POST',
         headers: {
@@ -155,8 +162,8 @@ export function saveNewShippingAddress(newShippingAddress, email) {
         .then(response => response.json())
 }
 
-export function deleteShippingAddressById(id, email) {
-    return fetch(process.env.REACT_APP_API_URL + '/ship-address/' + id + '/' + email + '/', {
+export function deleteShippingAddressById(id) {
+    return fetch(process.env.REACT_APP_API_URL + '/ship-address/' + id + '/', {
         credentials: 'include',
         method: 'DELETE',
         headers: {
@@ -409,6 +416,7 @@ export function getAllColours() {
     })
         .then(response => response.json())
 }
+
 export function addNewColour(colour) {
     return fetch(process.env.REACT_APP_API_URL + '/secret/admin/colours', {
         credentials: 'include',
@@ -417,7 +425,7 @@ export function addNewColour(colour) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body:JSON.stringify(colour),
+        body: JSON.stringify(colour),
     })
 }
 
@@ -490,6 +498,7 @@ export function deleteFrameById(frameId) {
         },
     })
 }
+
 //{
 //         "id": 1,
 //         "url": "/images/slideshow/1.jpg",
@@ -552,4 +561,19 @@ export function addNewSlideshow(slideshow) {
         },
         body: JSON.stringify(slideshow),
     })
+}
+
+
+export function updateShoppingCart(shoppingCart) {
+    return fetch(process.env.REACT_APP_API_URL + '/cart', {
+        credentials: 'include',
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(shoppingCart),
+    })
+        .then(response => response.json())
+
 }

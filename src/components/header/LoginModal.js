@@ -50,10 +50,6 @@ class LoginModal extends Component {
                     this.props.alterLoginModal(false);
                     this.props.setUserEmail(this.state.email);
                     this.props.setLoggedIn(true);
-                    getShippingAddresses(this.state.email)
-                        .then(resp =>
-                            this.props.setBillingAddressList(resp)
-                        )
                 }
             })
 
@@ -183,10 +179,6 @@ const mapDispatchToProps = (dispatch) => {
         },
         setLoggedIn: function (boolean) {
             const action = {type: "setLoggedIn", boolean};
-            dispatch(action);
-        },
-        setBillingAddressList: function (billingAddressList) {
-            const action = {type: "setBillingAddressList", billingAddressList};
             dispatch(action);
         },
         alterLoginModal: function (boolean) {

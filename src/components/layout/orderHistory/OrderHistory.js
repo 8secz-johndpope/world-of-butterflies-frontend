@@ -65,14 +65,14 @@ class OrderHistory extends Component {
 
                                     <span
                                         className={this.state['orderHistoryCheck' + index] ? 'display-detailed-order-view' : 'hide-detailed-order-view'}>
-                                        {resp.wrappedOrderIds.map(wrappedOrderId =>
+                                        {resp.wrappedOrderEntities.map(wrappedOrderEntity =>
 
-                                            wrappedOrderId.frame.colour === invisibleFrame ?
+                                            wrappedOrderEntity.frame.colour === invisibleFrame ?
                                                 <div className='detailed-product-history-view'>
                                                     <img className="non-framed-product-in-order-history-img"
-                                                         src={serverURL + wrappedOrderId.product.url}/>
-                                                    <p>{wrappedOrderId.product.name}</p>
-                                                    <p>{wrappedOrderId.product.price}€</p>
+                                                         src={serverURL + wrappedOrderEntity.product.url}/>
+                                                    <p>{wrappedOrderEntity.product.name}</p>
+                                                    <p>{wrappedOrderEntity.product.price}€</p>
                                                 </div>
 
                                                 :
@@ -83,17 +83,17 @@ class OrderHistory extends Component {
                                                             className="framed-product-in-order-history-border"
                                                             style={{
                                                                 border: '10px solid black',
-                                                                borderImage: `url(${serverURL}/images/frames/${wrappedOrderId.frame.colour}.png) 50 / 0.3cm stretch`,
-                                                                borderImageSource: `url(${serverURL}/images/frames/${wrappedOrderId.frame.colour}.png)`
+                                                                borderImage: `url(${serverURL}/images/frames/${wrappedOrderEntity.frame.colour}.png) 50 / 0.3cm stretch`,
+                                                                borderImageSource: `url(${serverURL}/images/frames/${wrappedOrderEntity.frame.colour}.png)`
                                                             }}>
                                                             {
-                                                                <img src={serverURL + wrappedOrderId.product.url}
+                                                                <img src={serverURL + wrappedOrderEntity.product.url}
                                                                      className="framed-product-in-order-history-img"
                                                                 />
                                                             }
                                                         </div>
-                                                        <p>{wrappedOrderId.product.name}</p>
-                                                        <p>{wrappedOrderId.product.price}€</p>
+                                                        <p>{wrappedOrderEntity.product.name}</p>
+                                                        <p>{wrappedOrderEntity.product.price}€</p>
                                                     </div>
                                                 </span>
                                         )}
