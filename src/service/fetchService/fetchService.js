@@ -581,3 +581,17 @@ export function updateShoppingCart(shoppingCart) {
         .then(response => response.json())
 
 }
+
+export function getShoppingCartContent(shoppingCart) {
+    return fetch(process.env.REACT_APP_API_URL + '/cart', {
+        credentials: 'include',
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(shoppingCart),
+    })
+        .then(response => response.json())
+
+}

@@ -1182,3 +1182,35 @@ input[type=number] {
 /*table, th, td {*/
 /*    border: 1px solid black;*/
 /*}*/
+
+
+.order-complete-container {
+    display: grid;
+    grid-template-areas: "status-bar-container" "order-container" "address-container" "pay-container";
+}
+
+.status-bar-container {
+    grid-area: status-bar-container;
+}
+
+.order-container {
+    display: grid;
+    grid-area: order-container;
+    grid-template-areas: "actual-products" "unavailable-products";
+}
+
+.actual-products {
+    grid-area: actual-products;
+}
+
+.unavailable-products {
+    grid-area: unavailable-products;
+}
+
+.address-container {
+    grid-area: address-container;
+}
+
+.pay-container {
+    grid-area: pay-container;
+}

@@ -128,14 +128,14 @@ class Checkout extends Component {
                             <FormattedMessage id="app.shopping.cart.sub-total"/>
                         </p>
                         <h1>{this.props.subtotal.toFixed(2)}</h1>
-                        <Link to="/pay"
+                        <Link to="/order-complete"
                               className="action-btn-lg"
                               onClick={this.payClickHandler}
                               style={{
                                   textDecoration: 'none',
                               }}
                         >
-                            <FormattedMessage id="app.shopping.cart.to-pay"/>
+                            <FormattedMessage id="app.shopping.cart.to-order-overview"/>
                         </Link>
                     </div>
                 </div>

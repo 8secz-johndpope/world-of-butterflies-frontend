@@ -67,6 +67,7 @@
 	"app.basic-shipping-locations.slovakia": "Szloákia",
 	"app.basic-shipping-locations.europe": "Európa",
 	"app.basic-shipping-locations.third-world": "Harmadik ország",
-	"app.basic-shipping-locations.choose-location": "Kérlek válassz..."
+	"app.basic-shipping-locations.choose-location": "Kérlek válassz...",
+	"app.shopping.cart.to-order-overview": "Áttekintés és fizetés"
 
 }

@@ -18,6 +18,7 @@ import ProductMapperBySubType from "./components/layout/productsBySubType/Produc
 import FoundProducts from "./components/layout/search/FoundProducts";
 import OrderHistory from "./components/layout/orderHistory/OrderHistory";
 import AdminPage from "./components/layout/adminPage/AdminPage";
+import OrderComplete from "./components/layout/orderComplete/OrderComplete";
 
 const messages = {
     'hu': languageHU,
@@ -54,6 +55,7 @@ class App extends Component {
                                 <Route path="/products/:id" component={SingleProduct}/>
                                 <Route path="/cart" component={ShoppingCart}/>
                                 <Route path="/checkout" component={Checkout}/>
+                                <Route path="/order-complete" component={OrderComplete}/>
                                 <Route path="/main-categories/:type" component={ProductMapperByMainType}/>
                                 <Route path="/sub-categories/:type" component={ProductMapperBySubType}/>
                                 <Route path="/search/:queryParam" component={FoundProducts}/>
