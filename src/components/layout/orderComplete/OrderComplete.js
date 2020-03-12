@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import {getShoppingCartContent} from "../../../service/fetchService/fetchService";
 import {FormattedMessage} from "react-intl";
-
+//TODO unsuccesful products
 class OrderComplete extends Component {
 
     state = {
@@ -111,16 +111,16 @@ class OrderComplete extends Component {
                                 elem => elem.product.id === wrappedEntity.product.id &&
                                     elem.frame.colour === wrappedEntity.frame.colour
                                 )).map((wrappedE) =>
-                                <span>
+                                <span className="products-span">
                                     <div className="product-img">
                                         <div
-                                            className={wrappedE.product.isInFrame ? 'wrapped-product-in-frame frame-around-butterfly' : 'wrapped-product-not-in-frame frame-around-butterfly'}
+                                            className={wrappedE.product.isInFrame ? 'wrapped-product-in-frame' : 'wrapped-product-not-in-frame'}
                                             style={{
                                                 borderImageSource: `${wrappedE.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedE.frame.colour}.png)`}`,
                                             }}>
                                                 {
                                                     <img src={serverURL + wrappedE.product.url}
-                                                         className="image-in-shopping-cart"
+                                                         className="image-in-order-overview-cart"
                                                          style={{
                                                              border: `${wrappedE.product.isInFrame ? '1px solid #D3D3D3' : 'none'}`,
                                                          }}
@@ -151,7 +151,12 @@ class OrderComplete extends Component {
                 </div>
 
                 <div className="address-container">
+                    <div className="shipping-address-overview">
 
+                    </div>
+                    <div className="billing-address-overview">
+
+                    </div>
                 </div>
 
                 <div className="pay-container">

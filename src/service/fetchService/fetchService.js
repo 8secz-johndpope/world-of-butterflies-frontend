@@ -595,3 +595,18 @@ export function getShoppingCartContent(shoppingCart) {
         .then(response => response.json())
 
 }
+
+export function setAddressesForShoppingCart(shippingAddress, billingAddress) {
+    return fetch(process.env.REACT_APP_API_URL + '/cart/address', {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            shippingAddress: shippingAddress.toString(),
+            billingAddress: billingAddress.toString()
+        }),
+    })
+}

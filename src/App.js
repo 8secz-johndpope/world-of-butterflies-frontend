@@ -9,9 +9,9 @@ import Checkout from "./components/layout/checkout/Checkout";
 import {isUserLoggedIn} from "./service/fetchService/fetchService";
 import {connect} from "react-redux";
 import {IntlProvider} from "react-intl";
-import languageHU from './translations/hu.json'
-import languageUS from './translations/us.json'
-import languageSK from './translations/sk.json'
+import languageHU from './translations/hu.json';
+import languageUS from './translations/us.json';
+import languageSK from './translations/sk.json';
 import Footer from "./components/footer/Footer";
 import ProductMapperByMainType from "./components/layout/productsByMainType/ProductMapperByMainType";
 import ProductMapperBySubType from "./components/layout/productsBySubType/ProductMapperBySubType";

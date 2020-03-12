@@ -12,6 +12,15 @@ import {faArrowDown, faArrowRight} from "@fortawesome/free-solid-svg-icons";
 class Checkout extends Component {
     state = {
         isUser: true,
+        chosenShippingAddress: {},
+        chosenBillingAddress: {},
+    };
+
+    setChosenAddresses = (shippingAddress, billingAddress) => {
+        this.setState({
+            chosenShippingAddress: shippingAddress,
+            chosenBillingAddress: billingAddress
+        })
     };
 
     setOption = (boolean) => {
@@ -20,7 +29,7 @@ class Checkout extends Component {
         })
     };
 
-    payClickHandler = () => {
+    toOverviewClickHandler = () => {
         // this.props.chosenShippingAddress
         // this.props.chosenBillingAddress
 
@@ -94,7 +103,9 @@ class Checkout extends Component {
                             {
                                 this.props.isLoggedIn ?
                                     <div className="billing-info-container">
-                                        <UserBillingDetails/>
+                                        <UserBillingDetails
+                                            setChosenAddresses={this.setChosenAddresses}
+                                        />
                                     </div>
                                     :
                                     <div className="user-register-login-container">
@@ -130,7 +141,7 @@ class Checkout extends Component {
                         <h1>{this.props.subtotal.toFixed(2)}</h1>
                         <Link to="/order-complete"
                               className="action-btn-lg"
-                              onClick={this.payClickHandler}
+                              onClick={this.toOverviewClickHandler}
                               style={{
                                   textDecoration: 'none',
                               }}
