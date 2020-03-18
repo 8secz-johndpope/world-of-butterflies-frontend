@@ -2,12 +2,17 @@ import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import {getShoppingCartContent} from "../../../service/fetchService/fetchService";
 import {FormattedMessage} from "react-intl";
+
 //TODO unsuccesful products
 class OrderComplete extends Component {
 
     state = {
         wrappedOrderEntities: [],
-        outOfQtyList: []
+        outOfQtyList: [],
+        shippingAddress: {},
+        billingAddress: {},
+        isBillingAddressDifferent: false,
+        subtotal: 0,
     };
 
     componentDidMount(): void {
@@ -17,10 +22,25 @@ class OrderComplete extends Component {
     fetchShoppingCart = () => {
         getShoppingCartContent()
             .then(resp => {
-                this.setState({
-                    wrappedOrderEntities: resp.wrappedOrderEntities,
-                    outOfQtyList: resp.outOfQtyList,
-                })
+                if (resp.chosenShippingAddress.id === resp.chosenBillingAddress.id) {
+                    this.setState({
+                        wrappedOrderEntities: resp.wrappedOrderEntities,
+                        outOfQtyList: resp.outOfQtyList,
+                        shippingAddress: resp.chosenShippingAddress,
+                        billingAddress: resp.chosenBillingAddress,
+                        subtotal: resp.subtotal,
+                        isBillingAddressDifferent: false,
+                    })
+                } else {
+                    this.setState({
+                        wrappedOrderEntities: resp.wrappedOrderEntities,
+                        outOfQtyList: resp.outOfQtyList,
+                        shippingAddress: resp.chosenShippingAddress,
+                        billingAddress: resp.chosenBillingAddress,
+                        subtotal: resp.subtotal,
+                        isBillingAddressDifferent: true,
+                    })
+                }
             })
     };
 
@@ -38,10 +58,9 @@ class OrderComplete extends Component {
     };
 
 
-
     render() {
         return (
-            <div className="order-complete-container">
+            <div className="order-overview-container">
 
                 <div className="status-bar-container">
                     <p className="status-bar">
@@ -151,15 +170,131 @@ class OrderComplete extends Component {
                 </div>
 
                 <div className="address-container">
-                    <div className="shipping-address-overview">
+                    <div className="address-overview">
+                        <h4>
+                            Shipping Address
+                        </h4>
+                        <p>
+                            {this.state.shippingAddress.nickName}
+                        </p>
 
-                    </div>
-                    <div className="billing-address-overview">
+                        <span className="half-style-overview">
+                                <p>
+                                    {this.state.shippingAddress.firstName}
+                                </p>
+                                <p>
+                                    {this.state.shippingAddress.lastName}
+                                </p>
+                        </span>
 
+
+                        <span className="half-style-overview">
+                                <p>
+                                    {this.state.shippingAddress.addressLineOne}
+                                </p>
+                                <p>
+                                    {this.state.shippingAddress.city}
+                                </p>
+                        </span>
+
+
+                        <span className="half-style-overview">
+                                <p>
+                                    {this.state.shippingAddress.zipCode}
+                                </p>
+                                <p>
+                                    {this.state.shippingAddress.country}
+                                </p>
+                        </span>
+
+                        <p>
+                            {this.state.shippingAddress.phoneNumber}
+                        </p>
+                        <p>
+                            {this.state.shippingAddress.company}
+                        </p>
+
+                        <span className="half-style-overview">
+                                <p>
+                                    {this.state.shippingAddress.ico}
+                                </p>
+                                <p>
+                                    {this.state.shippingAddress.dic}
+                                </p>
+                        </span>
                     </div>
+
+                    {
+                        this.state.isBillingAddressDifferent ?
+                            <div className="address-overview billing-address-overview">
+                                <h4>
+                                    Billing Address
+                                </h4>
+                                <p>
+                                    {this.state.billingAddress.nickName}
+                                </p>
+
+                                <span className="half-style-overview">
+                                        <p>
+                                            {this.state.billingAddress.firstName}
+                                        </p>
+                                        <p>
+                                            {this.state.billingAddress.lastName}
+                                        </p>
+                                </span>
+
+
+                                <span className="half-style-overview">
+                                        <p>
+                                            {this.state.billingAddress.addressLineOne}
+                                        </p>
+                                        <p>
+                                            {this.state.billingAddress.city}
+                                        </p>
+                                </span>
+
+
+                                <span className="half-style-overview">
+                                        <p>
+                                            {this.state.billingAddress.zipCode}
+                                        </p>
+                                        <p>
+                                            {this.state.billingAddress.country}
+                                        </p>
+                                </span>
+
+                                <p>
+                                    {this.state.billingAddress.phoneNumber}
+                                </p>
+                                <p>
+                                    {this.state.billingAddress.company}
+                                </p>
+
+                                <span className="half-style-overview">
+                                        <p>
+                                            {this.state.billingAddress.ico}
+                                        </p>
+                                        <p>
+                                            {this.state.billingAddress.dic}
+                                        </p>
+                                </span>
+                            </div>
+                            :
+                            null
+                    }
                 </div>
 
                 <div className="pay-container">
+
+                    <div className="subtotal">
+                        {this.state.subtotal.toFixed(2)}€
+                    </div>
+
+                    <div className="pay-btn-container">
+                        <div className="pay-btn">
+                            Pay!
+                        </div>
+                    </div>
 
                 </div>
 

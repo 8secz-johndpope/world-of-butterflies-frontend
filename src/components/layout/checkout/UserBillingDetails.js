@@ -54,6 +54,10 @@ class UserBillingDetails extends Component {
     };
 
     componentDidMount(): void {
+        this.getAllTheShippingAddresses();
+    }
+
+    getAllTheShippingAddresses = () => {
         getShippingAddresses()
             .then(resp => {
                     this.setState({
@@ -61,7 +65,7 @@ class UserBillingDetails extends Component {
                     })
                 }
             )
-    }
+    };
 
     handleChange = (e) => {
         this.setState({
@@ -91,26 +95,30 @@ class UserBillingDetails extends Component {
     };
 
     chooseAddress = (id) => {
-        if (id !== "new") {
-            let addressToFill = this.state.billingAddressList.filter(address => address.id === id);
-            this.setState({
-                addressToFill: addressToFill[0],
-            }, () => this.changeAccessibility());
-            // this.setChosenShippingAddress(addressToFill[0]);
-        } else {
-            this.clearAddressToFil();
+        if (!this.state.isCheckboxDisabled) {
+            if (id !== "new") {
+                let addressToFill = this.state.billingAddressList.filter(address => address.id === id);
+                this.setState({
+                    addressToFill: addressToFill[0],
+                }, () => this.changeAccessibility());
+                // this.setChosenShippingAddress(addressToFill[0]);
+            } else {
+                this.clearAddressToFil();
+            }
         }
     };
 
     chooseBillingAddress = (id) => {
-        if (id !== "new") {
-            let billingAddressToFill = this.state.billingAddressList.filter(address => address.id === id);
-            this.setState({
-                billingAddress: billingAddressToFill[0],
-            }, () => this.changeAccessibility());
-            // this.setChosenShippingAddress(addressToFill[0]);
-        } else {
-            this.clearBillingAddressToFil();
+        if (!this.state.isCheckboxDisabled) {
+            if (id !== "new") {
+                let billingAddressToFill = this.state.billingAddressList.filter(address => address.id === id);
+                this.setState({
+                    billingAddress: billingAddressToFill[0],
+                }, () => this.changeAccessibility());
+                // this.setChosenShippingAddress(addressToFill[0]);
+            } else {
+                this.clearBillingAddressToFil();
+            }
         }
     };
 
@@ -165,8 +173,8 @@ class UserBillingDetails extends Component {
             saveNewShippingAddress(this.state.addressToFill)
                 .then(resp =>
                     this.setState({
-                        billingAddressList: resp,
-                    })
+                        addressToFill: resp,
+                    }, () => this.getAllTheShippingAddresses())
                 );
         }
         this.setState({
@@ -187,32 +195,23 @@ class UserBillingDetails extends Component {
             saveNewShippingAddress(this.state.billingAddress)
                 .then(resp =>
                     this.setState({
-                        billingAddressList: resp,
-                    })
+                        billingAddress: resp,
+                    }, () => this.getAllTheShippingAddresses())
                 );
         }
         this.setState({
             isBillingAddressChanged: false
         });
-        // this.props.setChosenShippingAddress(this.state.addressToFill);
     };
 
     deleteAddressById = (id) => {
-        deleteShippingAddressById(id)
-            .then(resp =>
-                this.setState({
-                    billingAddressList: resp,
-                }, () => this.clearAddressToFil())
-            );
-    };
-
-    setChosenAddressesInParentComponent = () => {
-        this.props.setChosenAddresses()
-    };
-
-    sendChosenAddressesToTheSever = () => {
-        if (this.state.isShippingAddressDifferent) {
-
+        if (!this.state.isCheckboxDisabled) {
+            deleteShippingAddressById(id)
+                .then(resp =>
+                    this.setState({
+                        billingAddressList: resp,
+                    }, () => this.clearAddressToFil())
+                );
         }
     };
 
@@ -232,13 +231,28 @@ class UserBillingDetails extends Component {
     };
 
     saveAddresses = () => {
-        this.setState({
-            isCheckboxDisabled: true,
-            isShippingAddressInputsDisabled: true,
-            isBillingAddressInputsDisabled: true,
-        });
-        setAddressesForShoppingCart(this.state.addressToFill.id, this.state.billingAddress.id);
+        if (this.state.addressToFill.id !== 'new') {
+            this.setState({
+                isCheckboxDisabled: true,
+                isShippingAddressInputsDisabled: true,
+                isBillingAddressInputsDisabled: true,
+            });
+            this.sendAddressesForTheServer(this.state.addressToFill.id, this.state.billingAddress.id);
+        }
     };
+
+    sendAddressesForTheServer = (shippingAddressId, billingAddressId) => {
+        if (this.state.addressToFill.id !== 'new' && !this.state.isShippingAddressDifferent) {
+            setAddressesForShoppingCart(shippingAddressId, shippingAddressId);
+        } else if (this.state.addressToFill.id !== 'new' && this.state.billingAddress.id !== 'new' && this.state.isShippingAddressDifferent) {
+            setAddressesForShoppingCart(shippingAddressId, billingAddressId);
+        } else if (this.state.addressToFill.id !== 'new' && this.state.billingAddress.id !== 'new' && !this.state.isShippingAddressDifferent) {
+            setAddressesForShoppingCart(shippingAddressId, shippingAddressId);
+        }
+
+
+    };
+
 
     makeEditable = () => {
         this.setState({
@@ -266,7 +280,9 @@ class UserBillingDetails extends Component {
                                 null
                         }
                         <div className="billing-address">
-                            <h3 onClick={() => this.chooseAddress("new")}>
+                            <h3 onClick={() => this.chooseAddress("new")}
+                                className={this.state.isCheckboxDisabled ? 'disabled-paragraph ' : 'billing-address-title'}
+                            >
                                 <FormattedMessage id="app.checkout.add-new-address"/>
                             </h3>
                         </div>
@@ -276,7 +292,9 @@ class UserBillingDetails extends Component {
                                     {
                                         this.state.billingAddressList.map(address =>
                                             <div className="billing-address">
-                                                <h3 onClick={() => this.chooseAddress(address.id)}>
+                                                <h3 onClick={() => this.chooseAddress(address.id)}
+                                                    className={this.state.isCheckboxDisabled ? 'disabled-paragraph ' : 'billing-address-title'}
+                                                >
                                                     <FontAwesomeIcon
                                                         icon={faTrashAlt}
                                                         className="delete-btn"
@@ -292,6 +310,7 @@ class UserBillingDetails extends Component {
                     </div>
                     <div className="billing-form-container">
                         <form className="billing-form">
+                            <p>{this.state.addressToFill.id}</p>
                             <label>
                                 <p>
                                     <FormattedMessage id="app.checkout.form.nickname"/>
@@ -301,7 +320,7 @@ class UserBillingDetails extends Component {
                                        value={this.state.addressToFill.nickName}
                                        onChange={this.handleChange}
                                        disabled={this.state.isShippingAddressInputsDisabled}
-                                       className={this.state.isShippingAddressInputsDisabled? 'disabled' : null}
+                                       className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
                                 />
                             </label>
                             <span className="billing-half-style">
@@ -314,7 +333,7 @@ class UserBillingDetails extends Component {
                                        value={this.state.addressToFill.firstName}
                                        onChange={this.handleChange}
                                        disabled={this.state.isShippingAddressInputsDisabled}
-                                       className={this.state.isShippingAddressInputsDisabled? 'disabled' : null}
+                                       className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
                                 />
                             </label>
                             <label>
@@ -326,7 +345,7 @@ class UserBillingDetails extends Component {
                                        value={this.state.addressToFill.lastName}
                                        onChange={this.handleChange}
                                        disabled={this.state.isShippingAddressInputsDisabled}
-                                       className={this.state.isShippingAddressInputsDisabled? 'disabled' : null}
+                                       className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
                                 />
                             </label>
                         </span>
@@ -342,7 +361,7 @@ class UserBillingDetails extends Component {
                                        value={this.state.addressToFill.addressLineOne}
                                        onChange={this.handleChange}
                                        disabled={this.state.isShippingAddressInputsDisabled}
-                                       className={this.state.isShippingAddressInputsDisabled? 'disabled' : null}
+                                       className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
                                 />
                             </label>
                             <label>
@@ -354,7 +373,7 @@ class UserBillingDetails extends Component {
                                        value={this.state.addressToFill.city}
                                        onChange={this.handleChange}
                                        disabled={this.state.isShippingAddressInputsDisabled}
-                                       className={this.state.isShippingAddressInputsDisabled? 'disabled' : null}
+                                       className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
                                 />
                             </label>
                         </span>
@@ -370,7 +389,7 @@ class UserBillingDetails extends Component {
                                        value={this.state.addressToFill.zipCode}
                                        onChange={this.handleChange}
                                        disabled={this.state.isShippingAddressInputsDisabled}
-                                       className={this.state.isShippingAddressInputsDisabled? 'disabled' : null}
+                                       className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
                                 />
                             </label>
                             <label>
@@ -382,7 +401,7 @@ class UserBillingDetails extends Component {
                                        value={this.state.addressToFill.country}
                                        onChange={this.handleChange}
                                        disabled={this.state.isShippingAddressInputsDisabled}
-                                       className={this.state.isShippingAddressInputsDisabled? 'disabled' : null}
+                                       className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
                                 />
                             </label>
                         </span>
@@ -396,7 +415,7 @@ class UserBillingDetails extends Component {
                                        value={this.state.addressToFill.phoneNumber ? this.state.addressToFill.phoneNumber : ''}
                                        onChange={this.handleChange}
                                        disabled={this.state.isShippingAddressInputsDisabled}
-                                       className={this.state.isShippingAddressInputsDisabled? 'disabled' : null}
+                                       className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
                                 />
                             </label>
                             <label>
@@ -408,7 +427,7 @@ class UserBillingDetails extends Component {
                                        value={this.state.addressToFill.company ? this.state.addressToFill.company : ''}
                                        onChange={this.handleChange}
                                        disabled={this.state.isShippingAddressInputsDisabled}
-                                       className={this.state.isShippingAddressInputsDisabled? 'disabled' : null}
+                                       className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
                                 />
                             </label>
 
@@ -422,7 +441,7 @@ class UserBillingDetails extends Component {
                                        value={this.state.addressToFill.ico ? this.state.addressToFill.ico : ''}
                                        onChange={this.handleChange}
                                        disabled={this.state.isShippingAddressInputsDisabled}
-                                       className={this.state.isShippingAddressInputsDisabled? 'disabled' : null}
+                                       className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
                                 />
                             </label>
                             <label>
@@ -434,7 +453,7 @@ class UserBillingDetails extends Component {
                                        value={this.state.addressToFill.dic ? this.state.addressToFill.dic : ''}
                                        onChange={this.handleChange}
                                        disabled={this.state.isShippingAddressInputsDisabled}
-                                       className={this.state.isShippingAddressInputsDisabled? 'disabled' : null}
+                                       className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
                                 />
                             </label>
                         </span>
@@ -445,9 +464,9 @@ class UserBillingDetails extends Component {
                             <input type="checkbox"
                                    onChange={this.handleCheckbox}
                                    disabled={this.state.isCheckboxDisabled}
-                                   className={this.state.isCheckboxDisabled? 'disabled different-add-check' : 'different-address-checkbox-input different-add-check'}
+                                   className={this.state.isCheckboxDisabled ? 'disabled different-add-check' : 'different-address-checkbox-input different-add-check'}
                             />
-                            <p className={this.state.isCheckboxDisabled? 'disabled-paragraph' : 'different-address-checkbox-p'}>
+                            <p className={this.state.isCheckboxDisabled ? 'disabled-paragraph' : 'different-address-checkbox-p'}>
                                 <FormattedMessage id="app.checkout.ship-different-addr"/>
                             </p>
                         </label>
@@ -471,7 +490,9 @@ class UserBillingDetails extends Component {
                                     null
                             }
                             <div className="billing-address">
-                                <h3 onClick={() => this.chooseBillingAddress("new")}>
+                                <h3 onClick={() => this.chooseBillingAddress("new")}
+                                    className={this.state.isCheckboxDisabled ? 'disabled-paragraph ' : 'billing-address-title'}
+                                >
                                     <FormattedMessage id="app.checkout.add-new-address"/>
                                 </h3>
                             </div>
@@ -481,7 +502,9 @@ class UserBillingDetails extends Component {
                                         {
                                             this.state.billingAddressList.map(address =>
                                                 <div className="billing-address">
-                                                    <h3 onClick={() => this.chooseBillingAddress(address.id)}>
+                                                    <h3 onClick={() => this.chooseBillingAddress(address.id)}
+                                                        className={this.state.isCheckboxDisabled ? 'disabled-paragraph ' : 'billing-address-title'}
+                                                    >
                                                         <FontAwesomeIcon
                                                             icon={faTrashAlt}
                                                             className="delete-btn"
@@ -500,6 +523,7 @@ class UserBillingDetails extends Component {
                             <div className="additional-shipping-address-in-billing-form">
 
                                 <form className="billing-form">
+                                    <p>{this.state.billingAddress.id}</p>
                                     <label>
                                         <p>
                                             <FormattedMessage id="app.checkout.form.nickname"/>
@@ -509,7 +533,7 @@ class UserBillingDetails extends Component {
                                                value={this.state.billingAddress.nickName}
                                                onChange={this.handleBillingAddressChange}
                                                disabled={this.state.isBillingAddressInputsDisabled}
-                                               className={this.state.isBillingAddressInputsDisabled? 'disabled' : null}
+                                               className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
                                         />
                                     </label>
                                     <span className="billing-half-style">
@@ -522,7 +546,7 @@ class UserBillingDetails extends Component {
                                                    value={this.state.billingAddress.firstName}
                                                    onChange={this.handleBillingAddressChange}
                                                    disabled={this.state.isBillingAddressInputsDisabled}
-                                                   className={this.state.isBillingAddressInputsDisabled? 'disabled' : null}
+                                                   className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
                                             />
                                         </label>
                                         <label>
@@ -534,7 +558,7 @@ class UserBillingDetails extends Component {
                                                    value={this.state.billingAddress.lastName}
                                                    onChange={this.handleBillingAddressChange}
                                                    disabled={this.state.isBillingAddressInputsDisabled}
-                                                   className={this.state.isBillingAddressInputsDisabled? 'disabled' : null}
+                                                   className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
                                             />
                                         </label>
                                     </span>
@@ -548,7 +572,7 @@ class UserBillingDetails extends Component {
                                                    value={this.state.billingAddress.addressLineOne}
                                                    onChange={this.handleBillingAddressChange}
                                                    disabled={this.state.isBillingAddressInputsDisabled}
-                                                   className={this.state.isBillingAddressInputsDisabled? 'disabled' : null}
+                                                   className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
                                             />
                                         </label>
                                         <label>
@@ -560,7 +584,7 @@ class UserBillingDetails extends Component {
                                                    value={this.state.billingAddress.city}
                                                    onChange={this.handleBillingAddressChange}
                                                    disabled={this.state.isBillingAddressInputsDisabled}
-                                                   className={this.state.isBillingAddressInputsDisabled? 'disabled' : null}
+                                                   className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
                                             />
                                         </label>
                                     </span>
@@ -574,7 +598,7 @@ class UserBillingDetails extends Component {
                                                    value={this.state.billingAddress.zipCode}
                                                    onChange={this.handleBillingAddressChange}
                                                    disabled={this.state.isBillingAddressInputsDisabled}
-                                                   className={this.state.isBillingAddressInputsDisabled? 'disabled' : null}
+                                                   className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
                                             />
                                         </label>
                                         <label>
@@ -586,7 +610,7 @@ class UserBillingDetails extends Component {
                                                    value={this.state.billingAddress.country}
                                                    onChange={this.handleBillingAddressChange}
                                                    disabled={this.state.isBillingAddressInputsDisabled}
-                                                   className={this.state.isBillingAddressInputsDisabled? 'disabled' : null}
+                                                   className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
                                             />
                                         </label>
                                     </span>
@@ -599,7 +623,7 @@ class UserBillingDetails extends Component {
                                                value={this.state.billingAddress.phoneNumber ? this.state.billingAddress.phoneNumber : ''}
                                                onChange={this.handleBillingAddressChange}
                                                disabled={this.state.isBillingAddressInputsDisabled}
-                                               className={this.state.isBillingAddressInputsDisabled? 'disabled' : null}
+                                               className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
                                         />
                                     </label>
                                     <label>
@@ -611,7 +635,7 @@ class UserBillingDetails extends Component {
                                                value={this.state.billingAddress.company ? this.state.billingAddress.company : ''}
                                                onChange={this.handleBillingAddressChange}
                                                disabled={this.state.isBillingAddressInputsDisabled}
-                                               className={this.state.isBillingAddressInputsDisabled? 'disabled' : null}
+                                               className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
                                         />
                                     </label>
                                     <span className="billing-half-style">
@@ -624,7 +648,7 @@ class UserBillingDetails extends Component {
                                                    value={this.state.billingAddress.ico ? this.state.billingAddress.ico : ''}
                                                    onChange={this.handleBillingAddressChange}
                                                    disabled={this.state.isBillingAddressInputsDisabled}
-                                                   className={this.state.isBillingAddressInputsDisabled? 'disabled' : null}
+                                                   className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
                                             />
                                         </label>
                                         <label>
@@ -636,7 +660,7 @@ class UserBillingDetails extends Component {
                                                    value={this.state.billingAddress.dic ? this.state.billingAddress.dic : ''}
                                                    onChange={this.handleBillingAddressChange}
                                                    disabled={this.state.isBillingAddressInputsDisabled}
-                                                   className={this.state.isBillingAddressInputsDisabled? 'disabled' : null}
+                                                   className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
                                             />
                                         </label>
                                     </span>
@@ -658,7 +682,8 @@ class UserBillingDetails extends Component {
                         :
                         <div className="address-changes-holder">
                             <button onClick={this.saveAddresses}
-                                    className="address-changes-btn">Save
+                                    className={this.state.addressToFill.id === 'new' ? 'address-changes-btn disabled-paragraph ' : 'address-changes-btn pointer'}>Save
+
                             </button>
                         </div>
                     }

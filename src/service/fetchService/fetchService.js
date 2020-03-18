@@ -596,7 +596,7 @@ export function getShoppingCartContent(shoppingCart) {
 
 }
 
-export function setAddressesForShoppingCart(shippingAddress, billingAddress) {
+export function setAddressesForShoppingCart(shippingAddressId, billingAddressId) {
     return fetch(process.env.REACT_APP_API_URL + '/cart/address', {
         credentials: 'include',
         method: 'POST',
@@ -605,8 +605,8 @@ export function setAddressesForShoppingCart(shippingAddress, billingAddress) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            shippingAddress: shippingAddress.toString(),
-            billingAddress: billingAddress.toString()
+            shippingAddress: shippingAddressId.toString(),
+            billingAddress: billingAddressId.toString()
         }),
     })
 }

@@ -947,6 +947,9 @@ input[type=number] {
 .billing-address h3 {
     margin: 0;
     border-bottom: 1px solid #606060;
+}
+
+.billing-address-title {
     cursor: pointer;
 }
 
@@ -1005,6 +1008,9 @@ input[type=number] {
     margin: 0 0.5rem;
     color: #242424;
     border: 1px solid black;
+}
+
+.pointer {
     cursor: pointer;
 }
 
@@ -1215,9 +1221,10 @@ input[type=number] {
 /*}*/
 
 
-.order-complete-container {
+.order-overview-container {
     display: grid;
-    grid-template-areas: "status-bar-container" "order-container" "address-container" "pay-container";
+    grid-template-areas: "status-bar-container status-bar-container" "order-container address-container" "pay-container pay-container";
+    grid-template-columns: 60% 40%;
 }
 
 .status-bar-container {
@@ -1228,6 +1235,7 @@ input[type=number] {
     display: grid;
     grid-area: order-container;
     grid-template-areas: "actual-products" "unavailable-products";
+    align-content: start;
 }
 
 .actual-products {
@@ -1317,10 +1325,57 @@ input[type=number] {
 
 .address-container {
     grid-area: address-container;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-left: 1px solid #D3D3D3;
+    padding-left: 1rem;
+}
+
+.address-overview {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.address-overview p {
+    align-self: start;
+    margin: .5rem 0;
+}
+
+.billing-address-overview {
+    border-top: 1px solid #D3D3D3;
+}
+
+.half-style-overview {
+    display: grid;
+    grid-template-areas: "1 2";
+    grid-template-columns: 50% 50%;
+    justify-items: start;
 }
 
 .pay-container {
     grid-area: pay-container;
+    padding: 2rem 0;
+    display: grid;
+    grid-template-areas: "1" "2";
+    justify-content: center;
+    border-top: 1px solid #D3D3D3;
+}
+
+.subtotal {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.pay-btn {
+    font-size: 2.5rem;
+    font-weight: bolder;
+    cursor: pointer;
+    border: 1px solid #D3D3D3;
+    border-radius: 5px;
+    justify-items: center;
+    padding: 0 2rem;
 }
 
 .image-in-order-overview-cart {
