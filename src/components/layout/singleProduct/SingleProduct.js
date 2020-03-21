@@ -26,6 +26,7 @@ class SingleProduct extends Component {
         amount: 1,
         frames: [],
         restrictedFrames: [],
+        isProductSoldOutMessage: false,
         isFrameSoldOutMessage: false,
     };
 
@@ -37,7 +38,7 @@ class SingleProduct extends Component {
                     productImages: response.productImages,
                     mainImageUrl: response.product.url,
                     frames: response.frames,
-                    chosenFrame: response.frames[0],
+                    chosenFrame: response.frames.filter((frame) => frame.colour === "black").length !== 0 ? response.frames.filter((frame) => frame.colour === "black")[0] : response.frames[0],
                 })
         );
     };
@@ -101,10 +102,9 @@ class SingleProduct extends Component {
     };
 
     addToCart = () => {
-        if (
-            this.countAddedProducts(this.state.product.id) < this.state.product.availableQuantity &&
-            this.state.chosenFrame.quantity > this.countTakenFrameAmount(this.state.chosenFrame.id)
-        ) {
+        if (this.countAddedProducts(this.state.product.id) < this.state.product.availableQuantity &&
+            this.state.chosenFrame.quantity > this.countTakenFrameAmount(this.state.chosenFrame.id)) {
+
             for (let i = 0; i < Math.min(this.state.amount, this.state.product.availableQuantity, this.state.chosenFrame.quantity); i++) {
                 let uniqueId = Date.now();
                 let wrappedProduct = {
@@ -118,9 +118,6 @@ class SingleProduct extends Component {
                 };
                 this.props.addToShoppingCart(wrappedProduct);
                 this.props.addFrame(customFrameObject);
-                if (this.state.chosenFrame.quantity < this.countTakenFrameAmount(this.state.chosenFrame.id)) {
-
-                }
             }
             this.setState({
                 amount: 1,
@@ -131,9 +128,16 @@ class SingleProduct extends Component {
                 });
             }
         } else {
-            this.setState({
-                isFrameSoldOutMessage: true,
-            });
+            if (this.countTakenFrameAmount(this.state.chosenFrame.id) >= this.state.chosenFrame.quantity) {
+                this.setState({
+                    isFrameSoldOutMessage: true,
+                });
+            }
+            if (this.countAddedProducts(this.state.product.id) >= this.state.product.availableQuantity) {
+                this.setState({
+                    isProductSoldOutMessage: true,
+                });
+            }
         }
     };
 
@@ -298,7 +302,15 @@ class SingleProduct extends Component {
                                         </p>
                                         {
                                             this.state.isFrameSoldOutMessage ?
-                                                <p className="sold-out-message">We are sorry, but the chosen frame is unavailable!</p>
+                                                <p className="sold-out-message">We are sorry, but the chosen frame is
+                                                    unavailable!</p>
+                                                :
+                                                null
+                                        }
+                                        {
+                                            this.state.isProductSoldOutMessage ?
+                                                <p className="sold-out-message">We are sorry, but the chosen product is
+                                                    unavailable!</p>
                                                 :
                                                 null
                                         }
