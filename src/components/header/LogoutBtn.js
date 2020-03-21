@@ -12,6 +12,7 @@ class LogoutBtn extends Component {
         this.props.setUserEmail("");
         this.props.setLoggedIn(false);
         this.props.clearShoppingCart();
+        this.props.clearTakenFramesList();
         this.props.setSubtotal(0);
         this.props.setChosenShippingAddress("");
         this.props.setChosenBillingAddress("");
@@ -46,6 +47,10 @@ const mapDispatchToProps = (dispatch) => {
         },
         clearShoppingCart: function () {
             const action = {type: "clearShoppingCart"};
+            dispatch(action);
+        },
+        clearTakenFramesList: function () {
+            const action = {type: "clearTakenFramesList"};
             dispatch(action);
         },
         setSubtotal: function (subtotal) {

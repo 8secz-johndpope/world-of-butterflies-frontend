@@ -12,16 +12,8 @@ import {faArrowDown, faArrowRight} from "@fortawesome/free-solid-svg-icons";
 class Checkout extends Component {
     state = {
         isUser: true,
-        chosenShippingAddress: {},
-        chosenBillingAddress: {},
     };
 
-    setChosenAddresses = (shippingAddress, billingAddress) => {
-        this.setState({
-            chosenShippingAddress: shippingAddress,
-            chosenBillingAddress: billingAddress
-        })
-    };
 
     setOption = (boolean) => {
         this.setState({
@@ -104,18 +96,14 @@ class Checkout extends Component {
                                 this.props.isLoggedIn ?
                                     <div className="billing-info-container">
                                         <UserBillingDetails
-                                            setChosenAddresses={this.setChosenAddresses}
                                         />
                                     </div>
                                     :
                                     <div className="user-register-login-container">
                                         <div>
-                                            <RegisterModal
-                                                fontSize={'20px'}/>
-                                        </div>
-                                        <div>
                                             <LoginModal
-                                                fontSize={'20px'}/>
+                                                fontSize={'20px'}
+                                                isTitleVisible={true}/>
                                         </div>
                                     </div>
                             }
@@ -160,8 +148,6 @@ function mapStateToProps(state) {
         subtotal: state.subtotal,
         isLoggedIn: state.isLoggedIn,
         email: state.email,
-        chosenShippingAddress: state.chosenShippingAddress,
-        chosenBillingAddress: state.chosenBillingAddress,
     }
 }
 

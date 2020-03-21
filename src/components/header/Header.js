@@ -8,7 +8,7 @@ import {ReactComponent as LogoSmall} from "../../components/images/logo/logo-sma
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import SearchBar from "./SearchBar";
-import ShoppingCart from "./ShoppingCartIcon";
+import ShoppingCartIcon from "./ShoppingCartIcon";
 import LogoutBtn from "./LogoutBtn";
 import Email from "./Email";
 import {connect} from 'react-redux';
@@ -78,7 +78,8 @@ class Header extends Component {
                             <div className="register-login-container">
                                 <LanguageChanger/>
                                 <RegisterModal/>
-                                <LoginModal/>
+                                <LoginModal
+                                isTitleVisible={false}/>
                             </div>
                     }
                     <LogoSmall className="logo-small"/>
@@ -96,7 +97,7 @@ class Header extends Component {
                             !this.state.isScreenSmall ?
                                 <div className="other-icons">
                                     <div className="search-bar-cart-container">
-                                        <ShoppingCart/>
+                                        <ShoppingCartIcon/>
                                         <SearchBar
                                             headerBtnWidth={'20px'}
                                         />
@@ -338,7 +339,7 @@ class Header extends Component {
                     {this.state.isScreenSmall ?
                         <div className="search-bar-cart-container-under-open-btn-line">
                         <span className="first-element">
-                            <ShoppingCart/>
+                            <ShoppingCartIcon/>
                         </span>
 
                             <span className="second-element">

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Rodal from 'rodal'
 import 'rodal/lib/rodal.css';
-import {doLogin} from "../../service/fetchService/fetchService";
+import {doLogin, getShoppingCartContent} from "../../service/fetchService/fetchService";
 import {connect} from 'react-redux';
 import {FormattedMessage} from "react-intl";
 import {faSignInAlt, faUser} from "@fortawesome/free-solid-svg-icons";
@@ -42,7 +42,6 @@ class LoginModal extends Component {
     };
 
     handleSubmit = (e) => {
-
         e.preventDefault();
         doLogin(this.state.email.split(' ').join('').toLowerCase(), this.state.password)
             .then(res => {
@@ -52,8 +51,42 @@ class LoginModal extends Component {
                     this.props.setLoggedIn(true);
                 }
             })
+            .then(this.fetchCart);
 
     };
+
+    fetchCart = () => {
+        if (this.props.productsInShoppingCart.length === 0) {
+            let productsInShoppingCart = [];
+            let takenFrames = [];
+            getShoppingCartContent()
+                .then(resp => {
+                    if (resp.id != null) {
+                        resp.wrappedOrderEntities.map(wrappedEntity => {
+
+                            let uniqueId = Date.now() + Math.floor(Math.random() * Math.floor(9999999));
+                            let newWrappedProduct = {
+                                uniqueId: uniqueId,
+                                product: wrappedEntity.product,
+                                chosenFrame: wrappedEntity.frame,
+                            };
+
+                            let customFrameObject = {
+                                uniqueId: uniqueId,
+                                frame: wrappedEntity.frame,
+                            };
+
+                            productsInShoppingCart.push(newWrappedProduct);
+                            takenFrames.push(customFrameObject);
+                        })
+                    }
+                }).then(() => {
+                    this.props.setShoppingCart(productsInShoppingCart);
+                    this.props.setFrames(takenFrames);
+                });
+        }
+    };
+
 
     captureFocusIn = (e) => {
         e.target.parentNode.firstChild.classList.add('header-label-active');
@@ -86,8 +119,12 @@ class LoginModal extends Component {
                         }}
                 >
                     <FontAwesomeIcon icon={faUser}/>
-                    {/*<FontAwesomeIcon icon={faSignInAlt}*/}
-                    {/*                 style={{fontSize: '16px'}}/>*/}
+                    {
+                        this.props.isTitleVisible ?
+                            <span> <FormattedMessage id="app.header.login.login-btn"/> </span>
+                            :
+                            null
+                    }
                 </button>
                 <div className="login-modal">
                     <Rodal
@@ -143,7 +180,7 @@ class LoginModal extends Component {
                                 <p>
                                     <div>
                                         <p onClick={this.switchModals}
-                                        className="not-registered-yet-btn">
+                                           className="not-registered-yet-btn">
                                             Regisztrálj!
                                         </p>
                                     </div>
@@ -168,6 +205,7 @@ function mapStateToProps(state) {
     return {
         isLoginModalVisible: state.isLoginModalVisible,
         isRegisterModalVisible: state.isRegisterModalVisible,
+        productsInShoppingCart: state.productsInShoppingCart,
     }
 }
 
@@ -187,6 +225,14 @@ const mapDispatchToProps = (dispatch) => {
         },
         alterRegisterModal: function (boolean) {
             const action = {type: "alterRegisterModal", boolean};
+            dispatch(action);
+        },
+        setShoppingCart: function (productsInShoppingCart) {
+            const action = {type: "setShoppingC", productsInShoppingCart};
+            dispatch(action);
+        },
+        setFrames: function (takeFrames) {
+            const action = {type: "setFrames", takeFrames};
             dispatch(action);
         },
     }

@@ -5,7 +5,7 @@ import {
     saveNewShippingAddress,
     deleteShippingAddressById,
     getShippingAddresses,
-    setAddressesForShoppingCart
+    setAddressesForShoppingCart, updateShoppingCart
 } from "../../../service/fetchService/fetchService";
 import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -55,6 +55,7 @@ class UserBillingDetails extends Component {
 
     componentDidMount(): void {
         this.getAllTheShippingAddresses();
+        this.saveShoppingCartToServer();
     }
 
     getAllTheShippingAddresses = () => {
@@ -66,6 +67,40 @@ class UserBillingDetails extends Component {
                 }
             )
     };
+
+    saveShoppingCartToServer = () => {
+        if (this.props.productsInShoppingCart.length > 0) {
+            let entityIds = [];
+
+            // eslint-disable-next-line array-callback-return
+            this.props.productsInShoppingCart.filter((wrappedProduct, index) =>
+                index === this.props.productsInShoppingCart.findIndex(
+                elem => elem.product.id === wrappedProduct.product.id &&
+                    elem.chosenFrame.colour === wrappedProduct.chosenFrame.colour
+                )).map((wrappedProduct) => {
+
+                    let productId = wrappedProduct.product.id;
+                    let frameId = wrappedProduct.chosenFrame.id;
+                    let qty = this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct.chosenFrame.colour);
+                    entityIds.push({productId, frameId, qty})
+                }
+            );
+
+            let object = {'entityIds': entityIds};
+            console.log(object);
+            updateShoppingCart(object)
+                .then(resp => console.log(resp))
+        }
+    };
+
+    countQtyByIdAndFrameColour = (id, frameColour) => {
+        const countTypes = this.props.productsInShoppingCart.filter(
+            wrappedProduct => wrappedProduct.product.id === id &&
+                wrappedProduct.chosenFrame.colour === frameColour
+        );
+        return countTypes.length;
+    };
+
 
     handleChange = (e) => {
         this.setState({
@@ -693,6 +728,12 @@ class UserBillingDetails extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        productsInShoppingCart: state.productsInShoppingCart,
+    }
+}
+
 const mapDispatchToProps = (dispatch) => {
     return {
         setSubtotal: function (subtotal) {
@@ -702,4 +743,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(null, mapDispatchToProps)(UserBillingDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(UserBillingDetails);

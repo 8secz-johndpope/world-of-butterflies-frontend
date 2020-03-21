@@ -30,6 +30,11 @@ function reducer(state = initialState, action) {
                 ...state,
                 isLoggedIn: action.boolean,
             };
+        case 'setShoppingC':
+            return {
+                ...state,
+                productsInShoppingCart: action.productsInShoppingCart
+            };
         case 'addProdToShoppingC':
             return {
                 ...state,
@@ -65,6 +70,11 @@ function reducer(state = initialState, action) {
                 ...state,
                 isRegisterModalVisible: action.boolean
             };
+        case 'setFrames':
+            return {
+                ...state,
+                takenFrames: action.takeFrames
+            };
         case 'addFrame':
             return {
                 ...state,
@@ -74,6 +84,11 @@ function reducer(state = initialState, action) {
             return {
                 ...state,
                 takenFrames: state.takenFrames.filter((frame) => frame.uniqueId !== action.customFrameId)
+            };
+        case 'clearTakenFramesList':
+            return {
+                ...state,
+                takenFrames: []
             };
         case 'updateShippingCost':
             return {
