@@ -31,7 +31,8 @@ class ShoppingCart extends Component {
                 key: 'app.basic-shipping-locations.third-world',
                 value: 35
             }
-        ]
+        ],
+        outOfQtyList: [],
     };
 
 
@@ -39,6 +40,14 @@ class ShoppingCart extends Component {
         const countTypes = this.props.productsInShoppingCart.filter(
             wrappedProduct => wrappedProduct.product.id === id &&
                 wrappedProduct.chosenFrame.colour === frameColour
+        );
+        return countTypes.length;
+    };
+
+    countQtyByIdAndFrameColourForOutOfStock = (id, frameColour) => {
+        const countTypes = this.state.outOfQtyList.filter(
+            wrappedProduct => wrappedProduct.product.id === id &&
+                wrappedProduct.frame.colour === frameColour
         );
         return countTypes.length;
     };
@@ -61,26 +70,58 @@ class ShoppingCart extends Component {
 
 
     saveShoppingCartToServer = () => {
-        let entityIds = [];
+        if (this.props.isLoggedIn) {
+            let entityIds = [];
+            let productsInShoppingCart = [];
+            let takenFrames = [];
 
-        // eslint-disable-next-line array-callback-return
-        this.props.productsInShoppingCart.filter((wrappedProduct, index) =>
-            index === this.props.productsInShoppingCart.findIndex(
-            elem => elem.product.id === wrappedProduct.product.id &&
-                elem.chosenFrame.colour === wrappedProduct.chosenFrame.colour
-            )).map((wrappedProduct) => {
+            // eslint-disable-next-line array-callback-return
+            this.props.productsInShoppingCart.filter((wrappedProduct, index) =>
+                index === this.props.productsInShoppingCart.findIndex(
+                elem => elem.product.id === wrappedProduct.product.id &&
+                    elem.chosenFrame.colour === wrappedProduct.chosenFrame.colour
+                )).map((wrappedProduct) => {
 
-                let productId = wrappedProduct.product.id;
-                let frameId = wrappedProduct.chosenFrame.id;
-                let qty = this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct.chosenFrame.colour);
-                entityIds.push({productId, frameId, qty})
-            }
-        );
+                    let productId = wrappedProduct.product.id;
+                    let frameId = wrappedProduct.chosenFrame.id;
+                    let qty = this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct.chosenFrame.colour);
+                    entityIds.push({productId, frameId, qty})
+                }
+            );
+            let object = {'entityIds': entityIds};
+            console.log(object);
 
-        let object = {'entityIds': entityIds};
-        console.log(object);
-        updateShoppingCart(object)
-            .then(resp => console.log(resp))
+            updateShoppingCart(object)
+                .then(resp => {
+                    if (resp.id != null) {
+                        this.setState({
+                            outOfQtyList: resp.outOfQtyList,
+                        });
+                        console.log(resp);
+
+                        resp.wrappedOrderEntities.map(wrappedEntity => {
+
+                            let uniqueId = Date.now() + Math.floor(Math.random() * Math.floor(9999999));
+                            let newWrappedProduct = {
+                                uniqueId: uniqueId,
+                                product: wrappedEntity.product,
+                                chosenFrame: wrappedEntity.frame,
+                            };
+
+                            let customFrameObject = {
+                                uniqueId: uniqueId,
+                                frame: wrappedEntity.frame,
+                            };
+
+                            productsInShoppingCart.push(newWrappedProduct);
+                            takenFrames.push(customFrameObject);
+                        })
+                    }
+                }).then(() => {
+                this.props.setShoppingCart(productsInShoppingCart);
+                this.props.setFrames(takenFrames);
+            });
+        }
     };
 
 
@@ -293,6 +334,92 @@ class ShoppingCart extends Component {
                                         )}
                                     </tbody>
                                 </table>
+
+
+
+
+
+                                {this.state.outOfQtyList.length === 0 ?
+                                    null
+                                    :
+                                    <span>
+                                        <p>We are Sorry, but while You were browsing, these items run out of stock:</p>
+                                        <table className="shopping-cart-table">
+                                            <thead>
+                                            <tr className="shopping-cart-table-header-row">
+                                                <th className="shopping-cart-table-header-row-image">
+                                                    <FormattedMessage id="app.shopping.cart.product"/>
+                                                </th>
+                                                <th>
+                                                    <FormattedMessage id="app.shopping.cart.name"/>
+                                                </th>
+                                                <th>
+                                                    <FormattedMessage id="app.shopping.cart.price"/>
+                                                </th>
+                                                <th className="shopping-cart-table-header-row-qty">
+                                                    <FormattedMessage id="app.shopping.cart.qty"/>
+                                                </th>
+                                                <th className="shopping-cart-table-header-row-total">
+                                                    <FormattedMessage id="app.shopping.cart.total"/>
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {this.state.outOfQtyList.filter((wrappedProduct, index) =>
+                                                index === this.state.outOfQtyList.findIndex(
+                                                elem => elem.product.id === wrappedProduct.product.id &&
+                                                    elem.frame.colour === wrappedProduct.frame.colour
+                                                ))
+                                                .map((wrappedProduct) =>
+
+                                                    <tr>
+                                                        <td>
+                                                            <Link to={"/products/" + wrappedProduct.product.id}>
+                                                                <div
+                                                                    className={wrappedProduct.product.isInFrame ? 'wrapped-product-in-frame frame-around-butterfly' : 'wrapped-product-not-in-frame frame-around-butterfly'}
+                                                                    style={{
+                                                                        borderImageSource: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedProduct.frame.colour}.png)`}`,
+                                                                    }}>
+                                                                    {
+                                                                        <img src={serverURL + wrappedProduct.product.url}
+                                                                             className="image-in-shopping-cart"
+                                                                             style={{
+                                                                                 border: `${wrappedProduct.product.isInFrame ? '1px solid #D3D3D3' : 'none'}`,
+                                                                             }}
+
+                                                                        />
+                                                                    }
+                                                                </div>
+                                                            </Link>
+                                                        </td>
+                                                        <td className="shopping-cart-product-name">
+                                                            <Link to={"/products/" + wrappedProduct.product.id}
+                                                                  style={{
+                                                                      textDecoration: 'none',
+                                                                      color: 'black',
+                                                                  }}>
+                                                            <span>
+                                                                {wrappedProduct.product.name}
+                                                            </span>
+                                                            </Link>
+                                                        </td>
+                                                        <td>{wrappedProduct.product.price}€</td>
+                                                        <td className="shopping-cart-fa-icons-container">
+                                                        <span id="element-between-fa-icons">
+                                                            {this.countQtyByIdAndFrameColourForOutOfStock(wrappedProduct.product.id, wrappedProduct.frame.colour)}
+                                                        </span>
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                                this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColourForOutOfStock(wrappedProduct.product.id, wrappedProduct.frame.colour))
+                                                            }€
+                                                        </td>
+                                                    </tr>
+                                                )}
+                                            </tbody>
+                                        </table>
+                                    </span>
+                                }
                             </div>
 
 
@@ -345,6 +472,7 @@ function mapStateToProps(state) {
         subtotal: state.subtotal,
         takenFrames: state.takenFrames,
         shippingCost: state.shippingCost,
+        isLoggedIn: state.isLoggedIn,
     }
 }
 
@@ -372,6 +500,14 @@ const mapDispatchToProps = (dispatch) => {
         },
         updateShippingCost: function (newShippingCost) {
             const action = {type: "updateShippingCost", newShippingCost};
+            dispatch(action);
+        },
+        setShoppingCart: function (productsInShoppingCart) {
+            const action = {type: "setShoppingC", productsInShoppingCart};
+            dispatch(action);
+        },
+        setFrames: function (takeFrames) {
+            const action = {type: "setFrames", takeFrames};
             dispatch(action);
         },
     }

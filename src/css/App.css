@@ -869,10 +869,9 @@ input[type=number] {
 
 .user-billing-detail-container {
     display: grid;
-    grid-template-areas: "1" "2" "3";
+    grid-template-areas: "1" "2";
     grid-template-columns: 1fr;
     grid-row-gap: 2rem;
-    padding-bottom: 4rem;
 }
 
 .billing-selector-and-input-field-container {
@@ -995,6 +994,7 @@ input[type=number] {
     display: flex;
     flex-direction: row;
     justify-self: center;
+    padding: 2.5rem 0;
 }
 
 .address-changes-holder {
