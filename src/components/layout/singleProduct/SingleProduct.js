@@ -102,41 +102,74 @@ class SingleProduct extends Component {
     };
 
     addToCart = () => {
-        if (this.countAddedProducts(this.state.product.id) < this.state.product.availableQuantity &&
-            this.state.chosenFrame.quantity > this.countTakenFrameAmount(this.state.chosenFrame.id)) {
+        if (this.state.frames.length === 0) {
 
-            for (let i = 0; i < Math.min(this.state.amount, this.state.product.availableQuantity, this.state.chosenFrame.quantity); i++) {
-                let uniqueId = Date.now();
-                let wrappedProduct = {
-                    uniqueId: uniqueId,
-                    product: this.state.product,
-                    chosenFrame: this.state.chosenFrame,
-                };
-                let customFrameObject = {
-                    uniqueId: uniqueId,
-                    frame: this.state.frames.filter((frame) => frame.id === this.state.chosenFrame.id)[0],
-                };
-                this.props.addToShoppingCart(wrappedProduct);
-                this.props.addFrame(customFrameObject);
-            }
-            this.setState({
-                amount: 1,
-            });
-            if (this.state.product.availableQuantity - (this.countAddedProducts(this.state.product.id) + this.state.amount) === 0) {
+            if (this.countAddedProducts(this.state.product.id) < this.state.product.availableQuantity) {
+
+                for (let i = 0; i < Math.min(this.state.amount, this.state.product.availableQuantity); i++) {
+                    let uniqueId = Date.now();
+                    let wrappedProduct = {
+                        uniqueId: uniqueId,
+                        product: this.state.product,
+                        chosenFrame: null,
+                    };
+                    this.props.addToShoppingCart(wrappedProduct);
+                }
                 this.setState({
-                    amount: 0
+                    amount: 1,
                 });
+                if (this.state.product.availableQuantity - (this.countAddedProducts(this.state.product.id) + this.state.amount) === 0) {
+                    this.setState({
+                        amount: 0
+                    });
+                }
+            } else {
+                if (this.countAddedProducts(this.state.product.id) >= this.state.product.availableQuantity) {
+                    this.setState({
+                        isProductSoldOutMessage: true,
+                    });
+                }
             }
+
         } else {
-            if (this.countTakenFrameAmount(this.state.chosenFrame.id) >= this.state.chosenFrame.quantity) {
+
+
+            if (this.countAddedProducts(this.state.product.id) < this.state.product.availableQuantity &&
+                this.state.chosenFrame.quantity > this.countTakenFrameAmount(this.state.chosenFrame.id)) {
+
+                for (let i = 0; i < Math.min(this.state.amount, this.state.product.availableQuantity, this.state.chosenFrame.quantity); i++) {
+                    let uniqueId = Date.now();
+                    let wrappedProduct = {
+                        uniqueId: uniqueId,
+                        product: this.state.product,
+                        chosenFrame: this.state.chosenFrame,
+                    };
+                    let customFrameObject = {
+                        uniqueId: uniqueId,
+                        frame: this.state.frames.filter((frame) => frame.id === this.state.chosenFrame.id)[0],
+                    };
+                    this.props.addToShoppingCart(wrappedProduct);
+                    this.props.addFrame(customFrameObject);
+                }
                 this.setState({
-                    isFrameSoldOutMessage: true,
+                    amount: 1,
                 });
-            }
-            if (this.countAddedProducts(this.state.product.id) >= this.state.product.availableQuantity) {
-                this.setState({
-                    isProductSoldOutMessage: true,
-                });
+                if (this.state.product.availableQuantity - (this.countAddedProducts(this.state.product.id) + this.state.amount) === 0) {
+                    this.setState({
+                        amount: 0
+                    });
+                }
+            } else {
+                if (this.countTakenFrameAmount(this.state.chosenFrame.id) >= this.state.chosenFrame.quantity) {
+                    this.setState({
+                        isFrameSoldOutMessage: true,
+                    });
+                }
+                if (this.countAddedProducts(this.state.product.id) >= this.state.product.availableQuantity) {
+                    this.setState({
+                        isProductSoldOutMessage: true,
+                    });
+                }
             }
         }
     };
@@ -422,9 +455,7 @@ class SingleProduct extends Component {
     }
 }
 
-function
-
-mapStateToProps(state) {
+function mapStateToProps(state) {
     return {
         preferredLanguage: state.preferredLanguage,
         productsInShoppingCart: state.productsInShoppingCart,
@@ -432,25 +463,18 @@ mapStateToProps(state) {
     }
 }
 
-const
-    mapDispatchToProps = (dispatch) => {
-        return {
-            addToShoppingCart: function (wrappedProduct) {
-                const action = {type: "addProdToShoppingC", wrappedProduct};
-                dispatch(action);
-            },
-            addFrame: function (customFrame) {
-                const action = {type: "addFrame", customFrame};
-                dispatch(action);
-            },
-        }
-    };
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addToShoppingCart: function (wrappedProduct) {
+            const action = {type: "addProdToShoppingC", wrappedProduct};
+            dispatch(action);
+        },
+        addFrame: function (customFrame) {
+            const action = {type: "addFrame", customFrame};
+            dispatch(action);
+        },
+    }
+};
 
-const
-    serverURL = process.env.REACT_APP_API_URL;
-export default connect(mapStateToProps, mapDispatchToProps)
-
-(
-    SingleProduct
-)
-;
+const serverURL = process.env.REACT_APP_API_URL;
+export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);

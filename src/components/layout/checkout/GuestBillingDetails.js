@@ -104,7 +104,7 @@ class GuestBillingDetails extends Component {
     countQtyByIdAndFrameColour = (id, frameColour) => {
         const countTypes = this.props.productsInShoppingCart.filter(
             wrappedProduct => wrappedProduct.product.id === id &&
-                wrappedProduct.chosenFrame.colour === frameColour
+                wrappedProduct?.chosenFrame?.colour === frameColour
         );
         return countTypes.length;
     };
@@ -126,12 +126,12 @@ class GuestBillingDetails extends Component {
         this.props.productsInShoppingCart.filter((wrappedProduct, index) =>
             index === this.props.productsInShoppingCart.findIndex(
             elem => elem.product.id === wrappedProduct.product.id &&
-                elem.chosenFrame.colour === wrappedProduct.chosenFrame.colour
+                elem?.chosenFrame?.colour === wrappedProduct?.chosenFrame?.colour
             )).map((wrappedProduct) => {
 
                 let productId = wrappedProduct.product.id;
-                let frameId = wrappedProduct.chosenFrame.id;
-                let qty = this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct.chosenFrame.colour);
+                let frameId = wrappedProduct?.chosenFrame?.id;
+                let qty = this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct?.chosenFrame?.colour);
                 entityIds.push({productId, frameId, qty})
             }
         );
@@ -155,8 +155,35 @@ class GuestBillingDetails extends Component {
 
         updateGuestShoppingCart(outgoingCartAndAddress)
             .then(resp => {
-                window.sessionStorage.setItem(process.env.REACT_APP_SESSION_STORAGE_KEY, JSON.stringify(resp))
-            })
+                window.sessionStorage.setItem(process.env.REACT_APP_SESSION_STORAGE_KEY, JSON.stringify(resp));
+                if (resp.id != null) {
+                    this.props.setOutOfQtyList(resp.outOfQtyList);
+                    this.props.setSubtotal(resp.subtotal);
+
+                    resp.wrappedOrderEntities.map(wrappedEntity => {
+
+                        let uniqueId = Date.now() + Math.floor(Math.random() * Math.floor(9999999));
+                        let newWrappedProduct = {
+                            uniqueId: uniqueId,
+                            product: wrappedEntity.product,
+                            chosenFrame: wrappedEntity.frame,
+                        };
+
+                        let customFrameObject = {
+                            uniqueId: uniqueId,
+                            frame: wrappedEntity.frame,
+                        };
+
+                        productsInShoppingCart.push(newWrappedProduct);
+                        takenFrames.push(customFrameObject);
+                    })
+
+
+                }
+            }).then(() => {
+            this.props.setShoppingCart(productsInShoppingCart);
+            this.props.setFrames(takenFrames);
+        });
     };
 
     getIdFromSessionStorage = () => {
@@ -471,6 +498,22 @@ const mapDispatchToProps = (dispatch) => {
         },
         setChosenBillingAddress: function (chosenBillingAddress) {
             const action = {type: "setChosenBillingAddress", chosenBillingAddress};
+            dispatch(action);
+        },
+        setShoppingCart: function (productsInShoppingCart) {
+            const action = {type: "setShoppingC", productsInShoppingCart};
+            dispatch(action);
+        },
+        setFrames: function (takeFrames) {
+            const action = {type: "setFrames", takeFrames};
+            dispatch(action);
+        },
+        setOutOfQtyList: function (outOfQtyList) {
+            const action = {type: "setOutOfQtyList", outOfQtyList};
+            dispatch(action);
+        },
+        setSubtotal: function (subtotal) {
+            const action = {type: "setSubtotal", subtotal};
             dispatch(action);
         },
     }

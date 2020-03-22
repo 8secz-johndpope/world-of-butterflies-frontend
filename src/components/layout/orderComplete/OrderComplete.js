@@ -97,6 +97,14 @@ class OrderComplete extends Component {
         return total.toFixed(2);
     };
 
+    countQtyByIdAndFrameColourForOutOfStock = (id, frameColour) => {
+        const countTypes = this.props.outOfQtyList.filter(
+            wrappedProduct => wrappedProduct.product.id === id &&
+                wrappedProduct?.frame?.colour === frameColour
+        );
+        return countTypes.length;
+    };
+
 
     render() {
         return (
@@ -324,6 +332,90 @@ class OrderComplete extends Component {
                     }
                 </div>
 
+                <div className="out-of-quantity-container">
+                    {this.props.outOfQtyList.length === 0 ?
+                        null
+                        :
+                        <span>
+                            <p>We are Sorry, but while You were browsing, these items run out of stock:</p>
+                            <table className="shopping-cart-table">
+                                <thead>
+                                <tr className="shopping-cart-table-header-row">
+                                    <th className="shopping-cart-table-header-row-image">
+                                        <FormattedMessage id="app.shopping.cart.product"/>
+                                    </th>
+                                    <th>
+                                        <FormattedMessage id="app.shopping.cart.name"/>
+                                    </th>
+                                    <th>
+                                        <FormattedMessage id="app.shopping.cart.price"/>
+                                    </th>
+                                    <th className="shopping-cart-table-header-row-qty">
+                                        <FormattedMessage id="app.shopping.cart.qty"/>
+                                    </th>
+                                    <th className="shopping-cart-table-header-row-total">
+                                        <FormattedMessage id="app.shopping.cart.total"/>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {this.props.outOfQtyList.filter((wrappedProduct, index) =>
+                                    index === this.props.outOfQtyList.findIndex(
+                                    elem => elem.product.id === wrappedProduct.product.id &&
+                                        elem?.frame?.colour === wrappedProduct?.frame?.colour
+                                    ))
+                                    .map((wrappedProduct) =>
+
+                                        <tr>
+                                            <td>
+                                                <Link to={"/products/" + wrappedProduct.product.id}>
+                                                    <div
+                                                        className={wrappedProduct.product.isInFrame ? 'wrapped-product-in-frame frame-around-butterfly' : 'wrapped-product-not-in-frame frame-around-butterfly'}
+                                                        style={{
+                                                            borderImageSource: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedProduct?.frame?.colour}.png)`}`,
+                                                        }}>
+                                                        {
+                                                            <img src={serverURL + wrappedProduct.product.url}
+                                                                 className="image-in-shopping-cart"
+                                                                 style={{
+                                                                     border: `${wrappedProduct.product.isInFrame ? '1px solid #D3D3D3' : 'none'}`,
+                                                                 }}
+
+                                                            />
+                                                        }
+                                                    </div>
+                                                </Link>
+                                            </td>
+                                            <td className="shopping-cart-product-name">
+                                                <Link to={"/products/" + wrappedProduct.product.id}
+                                                      style={{
+                                                          textDecoration: 'none',
+                                                          color: 'black',
+                                                      }}>
+                                                <span>
+                                                    {wrappedProduct.product.name}
+                                                </span>
+                                                </Link>
+                                            </td>
+                                            <td>{wrappedProduct.product.price}€</td>
+                                            <td className="shopping-cart-fa-icons-container">
+                                            <span id="element-between-fa-icons">
+                                                {this.countQtyByIdAndFrameColourForOutOfStock(wrappedProduct.product.id, wrappedProduct?.frame?.colour)}
+                                            </span>
+                                            </td>
+                                            <td>
+                                                {
+                                                    this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColourForOutOfStock(wrappedProduct.product.id, wrappedProduct?.frame?.colour))
+                                                }€
+                                            </td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </span>
+                    }
+                </div>
+
                 <div className="pay-container">
 
                     <div className="subtotal">
@@ -346,6 +438,7 @@ class OrderComplete extends Component {
 function mapStateToProps(state) {
     return {
         isLoggedIn: state.isLoggedIn,
+        outOfQtyList: state.outOfQtyList,
     }
 }
 

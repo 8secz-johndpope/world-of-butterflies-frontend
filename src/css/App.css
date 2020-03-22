@@ -1222,7 +1222,7 @@ input[type=number] {
 
 .order-overview-container {
     display: grid;
-    grid-template-areas: "status-bar-container status-bar-container" "order-container address-container" "pay-container pay-container";
+    grid-template-areas: "status-bar-container status-bar-container" "order-container address-container" "out-of-quantity-container out-of-quantity-container" "pay-container pay-container";
     grid-template-columns: 60% 40%;
 }
 
@@ -1359,6 +1359,12 @@ input[type=number] {
     display: grid;
     grid-template-areas: "1" "2";
     justify-content: center;
+    border-top: 1px solid #D3D3D3;
+}
+
+.out-of-quantity-container {
+    grid-area: out-of-quantity-container;
+    padding: 2rem 0;
     border-top: 1px solid #D3D3D3;
 }
 
