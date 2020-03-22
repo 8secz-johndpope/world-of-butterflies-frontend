@@ -582,6 +582,20 @@ export function updateShoppingCart(shoppingCart) {
 
 }
 
+export function updateGuestShoppingCart(cartAndAddress) {
+    return fetch(process.env.REACT_APP_API_URL + '/cart/guest', {
+        credentials: 'include',
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(cartAndAddress),
+    })
+        .then(response => response.json())
+
+}
+
 export function getShoppingCartContent() {
     return fetch(process.env.REACT_APP_API_URL + '/cart', {
         credentials: 'include',

@@ -5,7 +5,8 @@ import {
     saveNewShippingAddress,
     deleteShippingAddressById,
     getShippingAddresses,
-    setAddressesForShoppingCart, updateShoppingCart
+    setAddressesForShoppingCart,
+    updateShoppingCart
 } from "../../../service/fetchService/fetchService";
 import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";

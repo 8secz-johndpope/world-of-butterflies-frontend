@@ -88,10 +88,8 @@ class ShoppingCart extends Component {
                     entityIds.push({productId, frameId, qty})
                 }
             );
-            let object = {'entityIds': entityIds};
-            console.log(object);
-
-            updateShoppingCart(object)
+            let outgoingCurrentCart = {'entityIds': entityIds};
+            updateShoppingCart(outgoingCurrentCart)
                 .then(resp => {
                     if (resp.id != null) {
                         this.setState({

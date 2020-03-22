@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
+import {updateGuestShoppingCart} from "../../../service/fetchService/fetchService";
 
 
 class GuestBillingDetails extends Component {
@@ -39,6 +40,32 @@ class GuestBillingDetails extends Component {
         isCheckboxDisabled: false,
     };
 
+    isAddressCorrectlyFilled = () => {
+        if (this.state.isBillingAddressDifferent) {
+            return this.state.shippingAddress.firstName === '' ||
+                this.state.shippingAddress.lastName === '' ||
+                this.state.shippingAddress.addressLineOne === '' ||
+                this.state.shippingAddress.city === '' ||
+                this.state.shippingAddress.zipCode === '' ||
+                this.state.shippingAddress.country === '' ||
+                this.state.shippingAddress.phoneNumber === '' ||
+                this.state.billingAddress.lastName === '' ||
+                this.state.billingAddress.addressLineOne === '' ||
+                this.state.billingAddress.city === '' ||
+                this.state.billingAddress.zipCode === '' ||
+                this.state.billingAddress.country === '' ||
+                this.state.billingAddress.phoneNumber === '';
+        } else {
+            return this.state.shippingAddress.firstName === '' ||
+                this.state.shippingAddress.lastName === '' ||
+                this.state.shippingAddress.addressLineOne === '' ||
+                this.state.shippingAddress.city === '' ||
+                this.state.shippingAddress.zipCode === '' ||
+                this.state.shippingAddress.country === '' ||
+                this.state.shippingAddress.phoneNumber === '';
+        }
+    };
+
     handleShippingAddressChange = (e) => {
         this.setState({
                 shippingAddress: {
@@ -74,12 +101,71 @@ class GuestBillingDetails extends Component {
         });
     };
 
+    countQtyByIdAndFrameColour = (id, frameColour) => {
+        const countTypes = this.props.productsInShoppingCart.filter(
+            wrappedProduct => wrappedProduct.product.id === id &&
+                wrappedProduct.chosenFrame.colour === frameColour
+        );
+        return countTypes.length;
+    };
+
     saveAddresses = () => {
-            this.setState({
-                isCheckboxDisabled: true,
-                isShippingAddressInputsDisabled: true,
-                isBillingAddressInputsDisabled: true,
-            });
+        this.setState({
+            isCheckboxDisabled: true,
+            isShippingAddressInputsDisabled: true,
+            isBillingAddressInputsDisabled: true,
+        });
+        this.updateGuestCartAndAddress();
+    };
+
+    updateGuestCartAndAddress = () => {
+        let entityIds = [];
+        let shippingAddressList = [];
+        let productsInShoppingCart = [];
+        let takenFrames = [];
+        this.props.productsInShoppingCart.filter((wrappedProduct, index) =>
+            index === this.props.productsInShoppingCart.findIndex(
+            elem => elem.product.id === wrappedProduct.product.id &&
+                elem.chosenFrame.colour === wrappedProduct.chosenFrame.colour
+            )).map((wrappedProduct) => {
+
+                let productId = wrappedProduct.product.id;
+                let frameId = wrappedProduct.chosenFrame.id;
+                let qty = this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct.chosenFrame.colour);
+                entityIds.push({productId, frameId, qty})
+            }
+        );
+
+
+        let outgoingCurrentCart = {
+            'id': this.getIdFromSessionStorage(),
+            'entityIds': entityIds
+        };
+
+        shippingAddressList.push(this.state.shippingAddress);
+        if (this.state.isBillingAddressDifferent) {
+            shippingAddressList.push(this.state.billingAddress)
+        }
+
+        let outgoingCartAndAddress = {
+            'incomingCurrentCart': outgoingCurrentCart,
+            'shippingAddressList': shippingAddressList,
+        };
+
+
+        updateGuestShoppingCart(outgoingCartAndAddress)
+            .then(resp => {
+                window.sessionStorage.setItem(process.env.REACT_APP_SESSION_STORAGE_KEY, JSON.stringify(resp))
+            })
+    };
+
+    getIdFromSessionStorage = () => {
+        if (window.sessionStorage.getItem(process.env.REACT_APP_SESSION_STORAGE_KEY) !== null) {
+            let sessionStorage = JSON.parse(window.sessionStorage.getItem(process.env.REACT_APP_SESSION_STORAGE_KEY));
+            return sessionStorage.id !== null ? sessionStorage.id : null;
+        }
+        return null;
+
     };
 
     render() {
@@ -356,13 +442,7 @@ class GuestBillingDetails extends Component {
                         <div className="address-changes-holder">
                             <button onClick={this.saveAddresses}
                                     className={
-                                        this.state.shippingAddress.firstName === '' ||
-                                        this.state.shippingAddress.lastName === '' ||
-                                        this.state.shippingAddress.addressLineOne === '' ||
-                                        this.state.shippingAddress.city === '' ||
-                                        this.state.shippingAddress.zipCode === '' ||
-                                        this.state.shippingAddress.country === '' ||
-                                        this.state.shippingAddress.phoneNumber === ''
+                                        this.isAddressCorrectlyFilled()
                                             ? 'address-changes-btn disabled-paragraph ' : 'address-changes-btn pointer'}
                             >Save
                             </button>
@@ -371,6 +451,15 @@ class GuestBillingDetails extends Component {
                 </div>
             </div>
         );
+    }
+}
+
+function mapStateToProps(state) {
+    return {
+        productsInShoppingCart: state.productsInShoppingCart,
+        subtotal: state.subtotal,
+        takenFrames: state.takenFrames,
+        shippingCost: state.shippingCost,
     }
 }
 
@@ -386,4 +475,4 @@ const mapDispatchToProps = (dispatch) => {
         },
     }
 };
-export default connect(null, mapDispatchToProps)(GuestBillingDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(GuestBillingDetails);
