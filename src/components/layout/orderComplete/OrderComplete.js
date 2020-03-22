@@ -2,9 +2,14 @@ import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import {getShoppingCartContent} from "../../../service/fetchService/fetchService";
 import {FormattedMessage} from "react-intl";
+import {connect} from "react-redux";
+import {withRouter} from 'react-router-dom'
 
 //TODO unsuccesful products
 class OrderComplete extends Component {
+    constructor(props) {
+        super(props)
+    }
 
     state = {
         wrappedOrderEntities: [],
@@ -20,28 +25,63 @@ class OrderComplete extends Component {
     }
 
     fetchShoppingCart = () => {
-        getShoppingCartContent()
-            .then(resp => {
-                if (resp.chosenShippingAddress.id === resp.chosenBillingAddress.id) {
+        if (this.props.isLoggedIn) {
+            getShoppingCartContent()
+                .then(resp => {
+                    if (resp.chosenShippingAddress.id === resp.chosenBillingAddress.id) {
+                        this.setState({
+                            wrappedOrderEntities: resp.wrappedOrderEntities,
+                            outOfQtyList: resp.outOfQtyList,
+                            shippingAddress: resp.chosenShippingAddress,
+                            billingAddress: resp.chosenBillingAddress,
+                            subtotal: resp.subtotal,
+                            isBillingAddressDifferent: false,
+                        })
+                    } else {
+                        this.setState({
+                            wrappedOrderEntities: resp.wrappedOrderEntities,
+                            outOfQtyList: resp.outOfQtyList,
+                            shippingAddress: resp.chosenShippingAddress,
+                            billingAddress: resp.chosenBillingAddress,
+                            subtotal: resp.subtotal,
+                            isBillingAddressDifferent: true,
+                        })
+                    }
+                })
+        } else {
+            let sessionStorage = this.getSessionStorage();
+            if (sessionStorage != null) {
+                if (sessionStorage.chosenShippingAddress.id === sessionStorage.chosenBillingAddress.id) {
                     this.setState({
-                        wrappedOrderEntities: resp.wrappedOrderEntities,
-                        outOfQtyList: resp.outOfQtyList,
-                        shippingAddress: resp.chosenShippingAddress,
-                        billingAddress: resp.chosenBillingAddress,
-                        subtotal: resp.subtotal,
+                        wrappedOrderEntities: sessionStorage.wrappedOrderEntities,
+                        outOfQtyList: sessionStorage.outOfQtyList,
+                        shippingAddress: sessionStorage.chosenShippingAddress,
+                        billingAddress: sessionStorage.chosenBillingAddress,
+                        subtotal: sessionStorage.subtotal,
                         isBillingAddressDifferent: false,
                     })
                 } else {
                     this.setState({
-                        wrappedOrderEntities: resp.wrappedOrderEntities,
-                        outOfQtyList: resp.outOfQtyList,
-                        shippingAddress: resp.chosenShippingAddress,
-                        billingAddress: resp.chosenBillingAddress,
-                        subtotal: resp.subtotal,
+                        wrappedOrderEntities: sessionStorage.wrappedOrderEntities,
+                        outOfQtyList: sessionStorage.outOfQtyList,
+                        shippingAddress: sessionStorage.chosenShippingAddress,
+                        billingAddress: sessionStorage.chosenBillingAddress,
+                        subtotal: sessionStorage.subtotal,
                         isBillingAddressDifferent: true,
                     })
                 }
-            })
+            }
+        }
+    };
+
+    getSessionStorage = () => {
+        if (window.sessionStorage.getItem(process.env.REACT_APP_SESSION_STORAGE_KEY) !== null) {
+            console.log("not null");
+            return JSON.parse(window.sessionStorage.getItem(process.env.REACT_APP_SESSION_STORAGE_KEY));
+        } else {
+            console.log(" null");
+            return this.props.history.push("/cart");
+        }
     };
 
     countQtyByIdAndFrameColour = (id, frameColour) => {
@@ -303,6 +343,12 @@ class OrderComplete extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        isLoggedIn: state.isLoggedIn,
+    }
+}
+
 const invisibleFrame = process.env.REACT_APP_INVISIBLE_FRAME;
 const serverURL = process.env.REACT_APP_API_URL;
-export default OrderComplete;
+export default withRouter(connect(mapStateToProps, null)(OrderComplete));
