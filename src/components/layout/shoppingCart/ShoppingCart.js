@@ -338,9 +338,7 @@ class ShoppingCart extends Component {
                                                     />
                                                 </td>
                                                 <td>
-                                                    {
-                                                        this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct?.chosenFrame?.colour))
-                                                    }€
+                                                    {this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct?.chosenFrame?.colour))}€
                                                 </td>
                                             </tr>
                                         )}

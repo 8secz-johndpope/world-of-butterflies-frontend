@@ -60,8 +60,6 @@ Link {
 
 .nav-header {
     display: flex;
-    position: relative;
-    z-index: 1;
 }
 
 .main-link {
@@ -128,6 +126,8 @@ li .main-link {
     opacity: 0;
     transition: all 0.5s ease;
     display: none;
+    z-index: 1;
+    position: relative;
 }
 
 ul li .dropdown-link {
@@ -280,7 +280,7 @@ ul li .dropdown-link {
         display: block;
     }
 
-    .logo-header{
+    .logo-header {
         padding-bottom: 0;
     }
 }
@@ -403,6 +403,80 @@ ul li .dropdown-link {
 .shopping-cart-icon-div {
     align-self: flex-end;
     display: inline;
+    position: relative;
+    z-index: 222;
+}
+
+.cart-content-container {
+    display: grid;
+    position: absolute;
+    z-index: 12;
+    top: 35px;
+    /*top: 102px;*/
+    /*left:29px;*/
+    right:0;
+    background-color: white;
+    border: 1px solid #606060;
+    /*grid-row-gap: 1rem;*/
+    width: 300px;
+}
+
+.mapped-cart-content-container {
+    display: grid;
+    grid-template-areas:
+            "cart-content-img-container cart-content-body"
+            "cart-content-img-container cart-content-body";
+    font-size: 0.8rem;
+    border-top: 1px solid #D3D3D3;
+    padding: 0.5rem 0.1rem;
+    grid-template-columns: 125px 1fr;
+}
+
+.cart-content-img-container {
+    grid-area: cart-content-img-container;
+    justify-self: center;
+}
+
+.cart-content-img {
+    width: 100px;
+    height: auto;
+}
+
+.cart-content-body {
+    grid-area: cart-content-body;
+    display: grid;
+    grid-template-areas:
+            "cart-content-name"
+            "cart-content-price-and-qty-container";
+    padding-left: 1rem;
+}
+
+.cart-content-name {
+    grid-area: cart-content-name;
+    align-self: center;
+    font-weight: bolder;
+    justify-self: start;
+}
+
+.cart-content-price-and-qty-container {
+    grid-area: cart-content-price-and-qty-container;
+    display: grid;
+    grid-template-areas: "cart-content-qty  cart-content-multiply-sign cart-content-price";
+    justify-items: left;
+    justify-content: start;
+    grid-column-gap: 0.5rem;
+}
+
+.cart-content-qty {
+    grid-area: cart-content-qty;
+}
+
+.cart-content-multiply-sign {
+    grid-area: cart-content-multiply-sign;
+}
+
+.cart-content-price {
+    grid-area: cart-content-price;
 }
 
 
@@ -617,7 +691,8 @@ ul li .dropdown-link {
     position: absolute;
     display: flex;
     flex-direction: column;
-    top: 67px;
+    /*top: 67px;*/
+    top: 95%;
     z-index: 3;
 }
 
