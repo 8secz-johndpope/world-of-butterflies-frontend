@@ -6,18 +6,32 @@ import {FormattedMessage} from "react-intl";
 class ShoppingCartIcon extends Component {
     state = {
         showCartContent: false,
+        totalCost: 0,
     };
 
     handleMouseEnter = () => {
         this.setState({
             showCartContent: true,
-        })
+        });
+        this.calculateTotalCostOfCart();
     };
 
     handleMouseleave = () => {
         this.setState({
             showCartContent: false,
         })
+    };
+
+    calculateTotalCostOfCart = () => {
+        let totalPriceOfProducts = 0;
+        this.props.productsInShoppingCart.map((wrappedProduct) =>
+            totalPriceOfProducts += wrappedProduct.product.price
+        );
+        if (this.state.totalCost !== totalPriceOfProducts) {
+            this.setState({
+                totalCost: totalPriceOfProducts,
+            })
+        }
     };
 
     countQtyByIdAndFrameColour = (id, frameColour) => {
@@ -36,8 +50,8 @@ class ShoppingCartIcon extends Component {
     render() {
         return (
             <div className="shopping-cart-icon-div"
-            onMouseEnter={this.handleMouseEnter}
-            onMouseLeave={this.handleMouseleave}>
+                 onMouseEnter={this.handleMouseEnter}
+                 onMouseLeave={this.handleMouseleave}>
                 <div>
                     <Link style={{
                         textDecoration: 'none',
@@ -54,60 +68,70 @@ class ShoppingCartIcon extends Component {
                 {
                     this.state.showCartContent ?
                         <div className="cart-content-container">
-                            {
-                                this.props.productsInShoppingCart.filter((wrappedProduct, index) =>
-                                    index === this.props.productsInShoppingCart.findIndex(
-                                    elem => elem.product.id === wrappedProduct.product.id &&
-                                        elem?.chosenFrame?.colour === wrappedProduct?.chosenFrame?.colour
-                                    ))
-                                    .map((wrappedProduct) =>
-                                        <div className="mapped-cart-content-container">
-                                            <div className="cart-content-img-container">
-                                                <Link to={"/products/" + wrappedProduct.product.id}>
-                                                    <div
-                                                        className={wrappedProduct.product.isInFrame ? 'wrapped-product-in-frame frame-around-butterfly' : 'wrapped-product-not-in-frame frame-around-butterfly'}
-                                                        style={{
-                                                            borderImageSource: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedProduct?.chosenFrame?.colour}.png)`}`,
-                                                        }}>
-                                                        {
-                                                            <img src={serverURL + wrappedProduct.product.url}
-                                                                 className="cart-content-img"
-                                                                 style={{
-                                                                     border: `${wrappedProduct.product.isInFrame ? '1px solid #D3D3D3' : 'none'}`,
-                                                                 }}
+                            <div className="cart-content">
+                                {
+                                    this.props.productsInShoppingCart.filter((wrappedProduct, index) =>
+                                        index === this.props.productsInShoppingCart.findIndex(
+                                        elem => elem.product.id === wrappedProduct.product.id &&
+                                            elem?.chosenFrame?.colour === wrappedProduct?.chosenFrame?.colour
+                                        ))
+                                        .map((wrappedProduct) =>
+                                            <div className="mapped-cart-content-container">
+                                                <div className="cart-content-img-container">
+                                                    <Link to={"/products/" + wrappedProduct.product.id}>
+                                                        <div
+                                                            className={wrappedProduct.product.isInFrame ? 'wrapped-product-in-frame frame-around-butterfly' : 'wrapped-product-not-in-frame frame-around-butterfly'}
+                                                            style={{
+                                                                borderImageSource: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedProduct?.chosenFrame?.colour}.png)`}`,
+                                                            }}>
+                                                            {
+                                                                <img src={serverURL + wrappedProduct.product.url}
+                                                                     className="cart-content-img"
+                                                                     style={{
+                                                                         border: `${wrappedProduct.product.isInFrame ? '1px solid #D3D3D3' : 'none'}`,
+                                                                     }}
 
-                                                            />
-                                                        }
-                                                    </div>
-                                                </Link>
-                                            </div>
-                                            <div className="cart-content-body">
-                                                <div className="cart-content-name">
-                                                    <Link to={"/products/" + wrappedProduct.product.id}
-                                                          style={{
-                                                              textDecoration: 'none',
-                                                              color: 'black',
-                                                          }}>
+                                                                />
+                                                            }
+                                                        </div>
+                                                    </Link>
+                                                </div>
+                                                <div className="cart-content-body">
+                                                    <div className="cart-content-name">
+                                                        <Link to={"/products/" + wrappedProduct.product.id}
+                                                              style={{
+                                                                  textDecoration: 'none',
+                                                                  color: 'black',
+                                                              }}>
                                                         <span>
                                                             {wrappedProduct.product.name}
                                                         </span>
-                                                    </Link>
-                                                </div>
-                                                <div className="cart-content-price-and-qty-container">
-                                                    <div className="cart-content-qty">
-                                                        {this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct?.chosenFrame?.colour)}
+                                                        </Link>
                                                     </div>
-                                                    <div className="cart-content-multiply-sign">
-                                                        x
-                                                    </div>
-                                                    <div className="cart-content-price">
-                                                        {this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct?.chosenFrame?.colour))}€
+                                                    <div className="cart-content-price-and-qty-container">
+                                                        <div className="cart-content-qty">
+                                                            {this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct?.chosenFrame?.colour)}
+                                                        </div>
+                                                        <div className="cart-content-multiply-sign">
+                                                            x
+                                                        </div>
+                                                        <div className="cart-content-price">
+                                                            {this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct?.chosenFrame?.colour))}€
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    )
-                            }
+                                        )
+                                }
+                            </div>
+                            <div className="total-price-count-container">
+                                <div className="total-count-text">
+                                    <FormattedMessage id="app.shopping.cart.sub-total"/>
+                                </div>
+                                <div className="total-count-price">
+                                    {this.state.totalCost.toFixed(2)}€
+                                </div>
+                            </div>
                         </div>
                         :
                         null
@@ -122,6 +146,7 @@ class ShoppingCartIcon extends Component {
 function mapStateToProps(state) {
     return {
         productsInShoppingCart: state.productsInShoppingCart,
+        subtotal: state.subtotal,
     }
 }
 

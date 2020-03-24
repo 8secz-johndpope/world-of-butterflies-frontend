@@ -417,8 +417,32 @@ ul li .dropdown-link {
     right:0;
     background-color: white;
     border: 1px solid #606060;
+    border-bottom: none;
     /*grid-row-gap: 1rem;*/
     width: 300px;
+    grid-template-areas: "cart-content" "total-price-count-container";
+}
+
+.cart-content {
+    grid-area: cart-content;
+}
+.total-price-count-container {
+    grid-area: total-price-count-container;
+    grid-template-areas: "total-count-text total-count-price";
+    display: grid;
+    padding: 0.5rem 0;
+    font-weight: bold;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    justify-items: center;
+}
+
+.total-count-text {
+    grid-area: total-count-text;
+}
+
+.total-count-price {
+    grid-area: total-count-price;
 }
 
 .mapped-cart-content-container {
