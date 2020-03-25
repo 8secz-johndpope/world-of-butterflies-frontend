@@ -224,101 +224,100 @@ class ShoppingCart extends Component {
                         <StatusBar
                             position={1}>
                         </StatusBar>
-                        <div className="shopping-cart-elements-subtotal-container">
-                            <div className="shopping-cart-elements-container">
-                                <table className="shopping-cart-table">
-                                    <thead>
-                                    <tr className="shopping-cart-table-header-row">
-                                        <th className="shopping-cart-table-header-row-image">
-                                            <FormattedMessage id="app.shopping.cart.product"/>
-                                        </th>
-                                        <th>
-                                            <FormattedMessage id="app.shopping.cart.name"/>
-                                        </th>
-                                        <th>
-                                            <FormattedMessage id="app.shopping.cart.price"/>
-                                        </th>
-                                        <th className="shopping-cart-table-header-row-qty">
-                                            <FormattedMessage id="app.shopping.cart.qty"/>
-                                        </th>
-                                        <th className="shopping-cart-table-header-row-total">
-                                            <FormattedMessage id="app.shopping.cart.total"/>
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {this.props.productsInShoppingCart.filter((wrappedProduct, index) =>
-                                        index === this.props.productsInShoppingCart.findIndex(
-                                        elem => elem.product.id === wrappedProduct.product.id &&
-                                            elem?.chosenFrame?.colour === wrappedProduct?.chosenFrame?.colour
-                                        ))
-                                        .map((wrappedProduct) =>
+                        <div className="shopping-cart-elements-container">
+                            <table className="shopping-cart-table">
+                                <thead>
+                                <tr className="shopping-cart-table-header-row">
+                                    <th className="shopping-cart-table-header-row-image">
+                                        <FormattedMessage id="app.shopping.cart.product"/>
+                                    </th>
+                                    <th>
+                                        <FormattedMessage id="app.shopping.cart.name"/>
+                                    </th>
+                                    <th>
+                                        <FormattedMessage id="app.shopping.cart.price"/>
+                                    </th>
+                                    <th className="shopping-cart-table-header-row-qty">
+                                        <FormattedMessage id="app.shopping.cart.qty"/>
+                                    </th>
+                                    <th className="shopping-cart-table-header-row-total">
+                                        <FormattedMessage id="app.shopping.cart.total"/>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {this.props.productsInShoppingCart.filter((wrappedProduct, index) =>
+                                    index === this.props.productsInShoppingCart.findIndex(
+                                    elem => elem.product.id === wrappedProduct.product.id &&
+                                        elem?.chosenFrame?.colour === wrappedProduct?.chosenFrame?.colour
+                                    ))
+                                    .map((wrappedProduct) =>
 
-                                            <tr>
-                                                <td>
-                                                    <Link to={"/products/" + wrappedProduct.product.id}>
-                                                        <div
-                                                            className={wrappedProduct.product.isInFrame ? 'wrapped-product-in-frame frame-around-butterfly' : 'wrapped-product-not-in-frame frame-around-butterfly'}
-                                                            style={{
-                                                                // border: `${wrappedProduct.product.isInFrame ? 'none' : '0.3cm solid black'}`,
-                                                                // borderImage: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedProduct.chosenFrame.colour}.png) 50 / 0.3cm stretch`}`,
-                                                                borderImageSource: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedProduct?.chosenFrame?.colour}.png)`}`,
-                                                                // width: `${wrappedProduct.product.isInFrame ? '100%' : `auto`}`,
-                                                            }}>
-                                                            {
-                                                                <img src={serverURL + wrappedProduct.product.url}
-                                                                     className="image-in-shopping-cart"
-                                                                     style={{
-                                                                         border: `${wrappedProduct.product.isInFrame ? '1px solid #D3D3D3' : 'none'}`,
-                                                                     }}
+                                        <tr>
+                                            <td>
+                                                <Link to={"/products/" + wrappedProduct.product.id}>
+                                                    <div
+                                                        className={wrappedProduct.product.isInFrame ? 'wrapped-product-in-frame frame-around-butterfly' : 'wrapped-product-not-in-frame frame-around-butterfly'}
+                                                        style={{
+                                                            // border: `${wrappedProduct.product.isInFrame ? 'none' : '0.3cm solid black'}`,
+                                                            // borderImage: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedProduct.chosenFrame.colour}.png) 50 / 0.3cm stretch`}`,
+                                                            borderImageSource: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedProduct?.chosenFrame?.colour}.png)`}`,
+                                                            // width: `${wrappedProduct.product.isInFrame ? '100%' : `auto`}`,
+                                                        }}>
+                                                        {
+                                                            <img src={serverURL + wrappedProduct.product.url}
+                                                                 className="image-in-shopping-cart"
+                                                                 style={{
+                                                                     border: `${wrappedProduct.product.isInFrame ? '1px solid #D3D3D3' : 'none'}`,
+                                                                 }}
 
-                                                                />
-                                                            }
-                                                        </div>
-                                                    </Link>
-                                                </td>
-                                                <td className="shopping-cart-product-name">
-                                                    <Link to={"/products/" + wrappedProduct.product.id}
-                                                          style={{
-                                                              textDecoration: 'none',
-                                                              color: 'black',
-                                                          }}>
+                                                            />
+                                                        }
+                                                    </div>
+                                                </Link>
+                                            </td>
+                                            <td className="shopping-cart-product-name">
+                                                <Link to={"/products/" + wrappedProduct.product.id}
+                                                      style={{
+                                                          textDecoration: 'none',
+                                                          color: 'black',
+                                                      }}>
                                                         <span>
                                                             {wrappedProduct.product.name}
                                                         </span>
-                                                    </Link>
-                                                </td>
-                                                <td>{wrappedProduct.product.price}€</td>
-                                                <td className="shopping-cart-fa-icons-container">
-                                                    <FontAwesomeIcon
-                                                        id="fa-icon-1"
-                                                        className="shopping-cart-fa-icons"
-                                                        icon={faMinusCircle}
-                                                        onClick={() => this.removeOneProductFromShoppingCart(wrappedProduct)}
-                                                    />
-                                                    <span id="element-between-fa-icons">
+                                                </Link>
+                                            </td>
+                                            <td>{wrappedProduct.product.price}€</td>
+                                            <td className="shopping-cart-fa-icons-container">
+                                                <FontAwesomeIcon
+                                                    id="fa-icon-1"
+                                                    className="shopping-cart-fa-icons"
+                                                    icon={faMinusCircle}
+                                                    onClick={() => this.removeOneProductFromShoppingCart(wrappedProduct)}
+                                                />
+                                                <span id="element-between-fa-icons">
                                                         {this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct?.chosenFrame?.colour)}
                                                     </span>
-                                                    <FontAwesomeIcon
-                                                        id="fa-icon-2"
-                                                        className="shopping-cart-fa-icons"
-                                                        icon={faPlusCircle}
-                                                        onClick={() => this.addOneProductToShoppingCart(wrappedProduct.product, wrappedProduct.chosenFrame)}
-                                                    />
-                                                </td>
-                                                <td>
-                                                    {this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct?.chosenFrame?.colour))}€
-                                                </td>
-                                            </tr>
-                                        )}
-                                    </tbody>
-                                </table>
+                                                <FontAwesomeIcon
+                                                    id="fa-icon-2"
+                                                    className="shopping-cart-fa-icons"
+                                                    icon={faPlusCircle}
+                                                    onClick={() => this.addOneProductToShoppingCart(wrappedProduct.product, wrappedProduct.chosenFrame)}
+                                                />
+                                            </td>
+                                            <td>
+                                                {this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct?.chosenFrame?.colour))}€
+                                            </td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
 
 
-                                {this.state.outOfQtyList.length === 0 ?
-                                    null
-                                    :
-                                    <span>
+                            {this.state.outOfQtyList.length === 0 ?
+                                null
+                                :
+                                <span>
                                         <p>We are Sorry, but while You were browsing, these items run out of stock:</p>
                                         <table className="shopping-cart-table">
                                             <thead>
@@ -396,40 +395,7 @@ class ShoppingCart extends Component {
                                             </tbody>
                                         </table>
                                     </span>
-                                }
-                            </div>
-
-
-                            <div className="subtotal-container">
-                                <h1>Cart Totals</h1>
-                                <p>
-                                    <FormattedMessage id="app.shopping.cart.shipping"/>
-                                    {this.props.shippingCost}€
-                                </p>
-
-                                <BasicShippingLocationDropdown
-                                    chosenLocation={this.state.chosenLocation}
-                                    areLocationChoicesVisible={this.state.areLocationChoicesVisible}
-                                    isLocationSet={this.state.isLocationSet}
-                                    basicLocations={this.state.basicLocations}
-                                    setLocation={this.setLocation}
-                                    displayLocationChoices={this.displayLocationChoices}
-                                />
-
-                                <p>
-                                    <FormattedMessage id="app.shopping.cart.sub-total"/>
-                                </p>
-                                <h1>{this.subtotal.toFixed(2)}€</h1>
-                                <Link to="/checkout"
-                                      className="action-btn-lg"
-                                      style={{
-                                          textDecoration: 'none',
-                                      }}
-                                >
-                                    <FormattedMessage id="app.shopping.cart.to-checkout"/>
-                                </Link>
-                            </div>
-
+                            }
                         </div>
                     </div>
                     :

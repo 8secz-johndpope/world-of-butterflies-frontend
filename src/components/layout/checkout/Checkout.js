@@ -34,7 +34,6 @@ class Checkout extends Component {
                 <StatusBar
                     position={2}>
                 </StatusBar>
-                <div className="billing-information-and-subtotal-container">
                     <div className="billing-information-container">
                         <div className="tab-options">
                             <h3
@@ -79,31 +78,7 @@ class Checkout extends Component {
                             className={this.state.isUser ? 'non-active-checkout-tab-content' : 'active-checkout-tab-content'}>
                             <GuestBillingDetails/>
                         </div>
-
-
                     </div>
-
-
-                    <div className="subtotal-container">
-                        <h1>Cart Totals</h1>
-                        <p>
-                            <FormattedMessage id="app.shopping.cart.shipping"/>
-                            bla bla</p>
-                        <p>
-                            <FormattedMessage id="app.shopping.cart.sub-total"/>
-                        </p>
-                        <h1>{this.props.subtotal.toFixed(2)}</h1>
-                        <Link to="/order-complete"
-                              className="action-btn-lg"
-                              onClick={this.toOverviewClickHandler}
-                              style={{
-                                  textDecoration: 'none',
-                              }}
-                        >
-                            <FormattedMessage id="app.shopping.cart.to-order-overview"/>
-                        </Link>
-                    </div>
-                </div>
             </div>
         );
     }

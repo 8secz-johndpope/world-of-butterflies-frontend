@@ -579,24 +579,6 @@ body {
     margin-bottom: 5rem;
 }
 
-.shopping-cart-elements-subtotal-container,
-.billing-information-and-subtotal-container {
-    display: flex;
-    flex-direction: row;
-}
-
-.shopping-cart-elements-container,
-.billing-information-container {
-    flex: 0 1 65%;
-    align-self: auto;
-}
-
-.subtotal-container {
-    flex: 0 1 35%;
-    align-self: auto;
-    border-left: 1px solid #D3D3D3;
-}
-
 .shopping-cart-table {
     width: 98%;
     -webkit-touch-callout: none; /* iOS Safari */
