@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 import {FormattedMessage} from "react-intl";
 import {updateShoppingCart} from "../../../service/fetchService/fetchService";
 import BasicShippingLocationDropdown from "./BasicShippingLocationDropdown";
+import StatusBar from "../../shared/statusBar/StatusBar";
 
 class ShoppingCart extends Component {
     subtotal = 0;
@@ -220,41 +221,9 @@ class ShoppingCart extends Component {
             <React.Fragment>
                 {this.props.productsInShoppingCart.length ?
                     <div className="vertical-container">
-                        <p className="status-bar">
-                            <Link to={"/cart"}
-                                  style={{
-                                      textDecoration: 'none',
-                                      color: 'black',
-                                  }}>
-                                <span style={{
-                                    fontWeight: "bold",
-                                }}>
-                                SHOPPING CART
-                                </span>
-                            </Link>
-
-                            <span className="slash-between">
-                                /
-                            </span>
-
-
-                            <span style={{
-                                cursor: 'not-allowed'
-                            }}>
-                            CHECKOUT DETAILS
-                            </span>
-
-                            <span className="slash-between">
-                                /
-                            </span>
-
-                            <span style={{
-                                cursor: 'not-allowed'
-                            }}>
-                            ORDER COMPLETE
-                            </span>
-                        </p>
-
+                        <StatusBar
+                            position={1}>
+                        </StatusBar>
                         <div className="shopping-cart-elements-subtotal-container">
                             <div className="shopping-cart-elements-container">
                                 <table className="shopping-cart-table">

@@ -8,6 +8,7 @@ import GuestBillingDetails from "./GuestBillingDetails";
 import {FormattedMessage} from "react-intl";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowDown, faArrowRight} from "@fortawesome/free-solid-svg-icons";
+import StatusBar from "../../shared/statusBar/StatusBar";
 
 class Checkout extends Component {
     state = {
@@ -30,44 +31,9 @@ class Checkout extends Component {
     render() {
         return (
             <div className="vertical-container">
-                <p className="status-bar">
-                    <Link to={"/cart"}
-                          style={{
-                              textDecoration: 'none',
-                              color: 'black',
-                          }}>
-                        <span>
-                        SHOPPING CART
-                        </span>
-                    </Link>
-
-                    <span className="slash-between">
-                                /
-                    </span>
-
-                    <Link to={"/checkout"}
-                          style={{
-                              textDecoration: 'none',
-                              color: 'black',
-                          }}>
-                        <span style={{
-                            fontWeight: "bold",
-                        }}>
-                        CHECKOUT DETAILS
-                        </span>
-                    </Link>
-
-                    <span className="slash-between">
-                                /
-                    </span>
-
-                    <span style={{
-                        cursor: 'not-allowed'
-                    }}>
-                    ORDER COMPLETE
-                    </span>
-                </p>
-
+                <StatusBar
+                    position={2}>
+                </StatusBar>
                 <div className="billing-information-and-subtotal-container">
                     <div className="billing-information-container">
                         <div className="tab-options">

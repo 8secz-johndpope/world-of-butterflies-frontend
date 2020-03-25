@@ -4,6 +4,7 @@ import {getShoppingCartContent} from "../../../service/fetchService/fetchService
 import {FormattedMessage} from "react-intl";
 import {connect} from "react-redux";
 import {withRouter} from 'react-router-dom'
+import StatusBar from "../../shared/statusBar/StatusBar";
 
 //TODO unsuccesful products
 class OrderComplete extends Component {
@@ -111,46 +112,9 @@ class OrderComplete extends Component {
             <div className="order-overview-container">
 
                 <div className="status-bar-container">
-                    <p className="status-bar">
-                        <Link to={"/cart"}
-                              style={{
-                                  textDecoration: 'none',
-                                  color: 'black',
-                              }}>
-                        <span>
-                        SHOPPING CART
-                        </span>
-                        </Link>
-
-                        <span className="slash-between">
-                                /
-                    </span>
-
-                        <Link to={"/checkout"}
-                              style={{
-                                  textDecoration: 'none',
-                                  color: 'black',
-                              }}>
-                        <span>
-                        CHECKOUT DETAILS
-                        </span>
-                        </Link>
-
-                        <span className="slash-between">
-                                /
-                    </span>
-                        <Link to={"/order-complete"}
-                              style={{
-                                  textDecoration: 'none',
-                                  color: 'black',
-                              }}>
-                        <span style={{
-                            fontWeight: "bold",
-                        }}>
-                        ORDER COMPLETE
-                        </span>
-                        </Link>
-                    </p>
+                    <StatusBar
+                        position={4}>
+                    </StatusBar>
                 </div>
 
                 <div className="order-container">

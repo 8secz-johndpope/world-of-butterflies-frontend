@@ -579,21 +579,6 @@ body {
     margin-bottom: 5rem;
 }
 
-.status-bar {
-    margin: 35px 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    font-size: 1.5rem;
-}
-
-.status-bar .slash-between {
-    margin: 0 20px;
-    display: block;
-    align-self: center;
-}
-
-
 .shopping-cart-elements-subtotal-container,
 .billing-information-and-subtotal-container {
     display: flex;
@@ -619,9 +604,7 @@ body {
     -khtml-user-select: none; /* Konqueror HTML */
     -moz-user-select: none; /* Old versions of Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none;
-    /* Non-prefixed version, currently
-                                     supported by Chrome, Opera and Firefox */
+    user-select: none; /* Non-prefixed version, currentlynsupported by Chrome, Opera and Firefox */
     table-layout: fixed;
 }
 
@@ -1115,10 +1098,6 @@ input[type=number] {
         border-top: 1px solid #D3D3D3;
     }
 
-    .status-bar {
-        font-size: 1rem;
-    }
-
 
     .main-page-featured-product {
         flex: 0 1 48%;
@@ -1127,30 +1106,7 @@ input[type=number] {
 
 }
 
-@media screen and (max-width: 700px) {
-    .status-bar .slash-between {
-        margin: 0 10px;
-        display: block;
-    }
 
-}
-
-@media screen and (max-width: 600px) {
-    .main-page-featured-product {
-        flex: 0 1 100%;
-        align-self: center;
-    }
-
-    .status-bar {
-        font-size: 0.8rem;
-    }
-
-    .status-bar .slash-between {
-        margin: 0 5px;
-        display: block;
-    }
-
-}
 
 .order-history-table {
     width: 98%;
