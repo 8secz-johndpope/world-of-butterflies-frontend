@@ -35,7 +35,9 @@ body {
     color: #222;
     font-family: "Helvetica Neue", sans-serif;
     font-weight: 200;
-    margin: 0 8%;
+    padding: 0 8%;
+    height: 100%;
+    position: relative;
 }
 
 @media screen and (max-width: 400px) {

@@ -7,6 +7,7 @@ import {FormattedMessage} from "react-intl";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTruckMoving, faChevronUp, faChevronDown, faHome} from "@fortawesome/free-solid-svg-icons";
 import {Link} from "react-router-dom";
+import ProductAddedPopUp from "../../shared/productAddedPopUp/ProductAddedPopUp";
 
 class SingleProduct extends Component {
 
@@ -28,6 +29,8 @@ class SingleProduct extends Component {
         restrictedFrames: [],
         isProductSoldOutMessage: false,
         isFrameSoldOutMessage: false,
+        isPopUpVisible: false,
+        amountToShowInThePopUp: 0,
     };
 
     getTheProduct = () => {
@@ -114,6 +117,7 @@ class SingleProduct extends Component {
                         chosenFrame: null,
                     };
                     this.props.addToShoppingCart(wrappedProduct);
+                    this.openPopUp(Math.min(this.state.amount, this.state.product.availableQuantity));
                 }
                 this.setState({
                     amount: 1,
@@ -150,6 +154,7 @@ class SingleProduct extends Component {
                     };
                     this.props.addToShoppingCart(wrappedProduct);
                     this.props.addFrame(customFrameObject);
+                    this.openPopUp(Math.min(this.state.amount, this.state.product.availableQuantity, this.state.chosenFrame.quantity));
                 }
                 this.setState({
                     amount: 1,
@@ -222,12 +227,37 @@ class SingleProduct extends Component {
                 });
             }
         }
+    };
 
+    openPopUp = (amount) => {
+        // document.body.style.overflow = 'hidden';
+        this.setState({
+            isPopUpVisible: true,
+            amountToShowInThePopUp: amount,
+        })
+    };
+
+    closePopUp = () => {
+        // document.body.style.overflow = 'auto';
+        this.setState({
+            isPopUpVisible: false
+        })
     };
 
     render() {
         return (
             <div className="vertical-container">
+                {this.state.isPopUpVisible ?
+                    <ProductAddedPopUp
+                        product={this.state.product}
+                        chosenFrame={this.state.chosenFrame}
+                        amount={this.state.amountToShowInThePopUp}
+                        closePopUp={this.closePopUp}
+                    >
+                    </ProductAddedPopUp>
+                    :
+                    null
+                }
                 <div className="vertical-single-product-container">
                     <p className="navigation-bar-above-product">
                         <Link to='/'
