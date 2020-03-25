@@ -10,7 +10,7 @@ import {isUserLoggedIn} from "./service/fetchService/fetchService";
 import {connect} from "react-redux";
 import {IntlProvider} from "react-intl";
 import languageHU from './translations/hu.json';
-import languageUS from './translations/us.json';
+import languageEN from './translations/en.json';
 import languageSK from './translations/sk.json';
 import Footer from "./components/footer/Footer";
 import ProductMapperByMainType from "./components/layout/productsByMainType/ProductMapperByMainType";
@@ -19,10 +19,11 @@ import FoundProducts from "./components/layout/search/FoundProducts";
 import OrderHistory from "./components/layout/orderHistory/OrderHistory";
 import AdminPage from "./components/layout/adminPage/AdminPage";
 import OrderComplete from "./components/layout/orderComplete/OrderComplete";
+import ShippingAndPaymentMethods from "./components/layout/shippingAndPaymentMethods/ShippingAndPaymentMethods";
 
 const messages = {
     'hu': languageHU,
-    'us': languageUS,
+    'en': languageEN,
     'sk': languageSK,
 };
 
@@ -55,6 +56,7 @@ class App extends Component {
                                 <Route path="/products/:id" component={SingleProduct}/>
                                 <Route path="/cart" component={ShoppingCart}/>
                                 <Route path="/checkout" component={Checkout}/>
+                                <Route path="/shipping-and-payment-methods" component={ShippingAndPaymentMethods}/>
                                 <Route path="/order-complete" component={OrderComplete}/>
                                 <Route path="/main-categories/:type" component={ProductMapperByMainType}/>
                                 <Route path="/sub-categories/:type" component={ProductMapperBySubType}/>

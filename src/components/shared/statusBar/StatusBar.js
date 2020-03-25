@@ -47,7 +47,7 @@ class StatusBar extends Component {
                         fontWeight: `${3 === this.props.position ? 'bold' : 'normal'}`,
                         cursor: `${3 <= this.props.position ? 'pointer' : 'not-allowed'}`
                     }}
-                          onClick={() => this.redirect(3, '/')}
+                          onClick={() => this.redirect(3, '/shipping-and-payment-methods')}
                     >
                         SHIPPING AND PAYMENT
                         </span>

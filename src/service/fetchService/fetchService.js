@@ -623,3 +623,26 @@ export function setAddressesForShoppingCart(shippingAddressId, billingAddressId)
         }),
     })
 }
+
+
+export function getAllPaymentMethods() {
+    return fetch(process.env.REACT_APP_API_URL + '/payment-methods', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(response => response.json())
+}
+
+export function getAllShippingMethods() {
+    return fetch(process.env.REACT_APP_API_URL + '/shipping-methods', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(response => response.json())
+}

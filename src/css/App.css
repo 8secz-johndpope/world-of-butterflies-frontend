@@ -1089,7 +1089,6 @@ input[type=number] {
 }
 
 
-
 .order-history-table {
     width: 98%;
     -webkit-touch-callout: none; /* iOS Safari */
@@ -1393,3 +1392,126 @@ input[type=number] {
     cursor: not-allowed;
     color: #afafaf;
 }
+
+
+/*ShippingAndPaymentMethods*/
+
+.shipping-and-payment-container {
+    display: grid;
+    grid-template-areas: "shipping-and-payment-status-bar shipping-and-payment-status-bar" "shipping-method-container payment-method-container " "total-price-container total-price-container";
+    grid-row-gap: 3rem;
+    padding-bottom: 4rem;
+}
+
+
+@media screen and (max-width: 600px) {
+    .shipping-and-payment-container {
+        grid-template-areas: "shipping-and-payment-status-bar" "shipping-method-container" "payment-method-container " "total-price-container";
+    }
+
+}
+
+.shipping-and-payment-status-bar {
+    grid-area: shipping-and-payment-status-bar;
+}
+
+.payment-method-container {
+    grid-area: payment-method-container;
+    display: grid;
+    grid-template-areas: "1";
+    justify-content: center;
+    grid-row-gap: 1rem;
+}
+
+.payment-method {
+    display: grid;
+    grid-template-areas: "payment-method-radio payment-method-image payment-method-name";
+    grid-template-columns: max-content 75px max-content;
+    grid-column-gap: 1rem;
+    border: 1px solid #d3d3d3;
+    border-radius: 5px;
+    padding: 0.5rem;
+    align-items: center;
+    justify-items: center;
+}
+
+.payment-method-image {
+    grid-area: payment-method-image;
+}
+
+.payment-method-radio {
+    grid-area: payment-method-radio;
+}
+
+.payment-method-name {
+    grid-area: payment-method-name;
+}
+
+.shipping-method-container {
+    grid-area: shipping-method-container;
+    display: grid;
+    grid-template-areas: "1";
+    justify-content: center;
+    grid-row-gap: 1rem;
+}
+
+.shipping-method {
+    display: grid;
+    grid-template-areas: "shipping-method-radio shipping-method-image shipping-method-name";
+    grid-template-columns: max-content 75px max-content;
+    grid-column-gap: 1rem;
+    border: 1px solid #d3d3d3;
+    border-radius: 5px;
+    padding: 0.5rem;
+    align-items: center;
+    justify-items: center;
+
+}
+
+.shipping-method-radio {
+    grid-area: shipping-method-radio;
+}
+
+.shipping-method-name {
+    grid-area: shipping-method-name;
+}
+
+.shipping-method-image {
+    grid-area: shipping-method-image;
+
+}
+
+.total-price-container {
+    grid-area: total-price-container;
+    display: grid;
+    grid-template-areas: "price" "continue-btn";
+    justify-items: center;
+}
+
+.price {
+    grid-area: price;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.continue-btn {
+    grid-area: continue-btn;
+    font-size: 1.3rem;
+    padding: .2rem .7rem;
+    border: 1px solid #d3d3d3;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bolder;
+}
+
+.continue-btn:hover {
+    background-color: #d3d3d3;
+}
+
+.payment-method-image img,
+.shipping-method-image img {
+    width: 75px;
+    height: auto;
+    max-height: 75px;
+}
+

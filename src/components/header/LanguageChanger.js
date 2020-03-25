@@ -28,7 +28,9 @@ class LanguageChanger extends Component {
                     <div className="main-language-and-arrow-icon"
                          onClick={this.openOrCloseLanguageChangerDropdown}>
                         <span className="main-flag">
-                            <Flag country={this.props.preferredLanguage.toLowerCase()} asSquare={true}/>
+                            <Flag
+                                country={this.props.preferredLanguage.toLowerCase() === 'en' ? 'us' : this.props.preferredLanguage.toLowerCase()}
+                                asSquare={true}/>
                         </span>
                         <span className="arrow-down">
                             <FontAwesomeIcon icon={faCaretDown}/>
@@ -38,7 +40,7 @@ class LanguageChanger extends Component {
                         this.state.areLanguagesDisplayed ?
                             <ul className="languages-dropdown-content">
                                 <li
-                                    onClick={() => this.handleFlagClick('us')}
+                                    onClick={() => this.handleFlagClick('en')}
                                 >
                                     <Flag country="us" asSquare={true}/>
                                 </li>
