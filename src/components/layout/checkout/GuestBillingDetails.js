@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
-import {updateGuestShoppingCart} from "../../../service/fetchService/fetchService";
+import {getAllCountries, updateGuestShoppingCart} from "../../../service/fetchService/fetchService";
 
 
 class GuestBillingDetails extends Component {
     state = {
+        countries: [],
         shippingAddress: {
             firstName: "",
             lastName: "",
@@ -38,6 +39,19 @@ class GuestBillingDetails extends Component {
         isShippingAddressInputsDisabled: false,
         isBillingAddressInputsDisabled: false,
         isCheckboxDisabled: false,
+    };
+
+    componentDidMount(): void {
+        this.getAllOfTheCountries()
+    }
+
+    getAllOfTheCountries = () => {
+        getAllCountries()
+            .then(resp => {
+                this.setState({
+                    countries: resp
+                })
+            })
     };
 
     isAddressCorrectlyFilled = () => {

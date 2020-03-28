@@ -1,14 +1,25 @@
 import React, {Component} from 'react';
-import {getAllPaymentMethods, getAllShippingMethods} from "../../../service/fetchService/fetchService";
+import {
+    getAllPaymentMethods,
+    getAllShippingMethods,
+    setShippingAndPaymentMethodsCart
+} from "../../../service/fetchService/fetchService";
 import StatusBar from "../../shared/statusBar/StatusBar";
 import {connect} from "react-redux";
+import {FormattedMessage} from "react-intl";
+import {withRouter} from "react-router-dom";
 
 class ShippingAndPaymentMethods extends Component {
+    constructor(props) {
+        super(props)
+    }
+
     state = {
         paymentMethods: [],
         shippingMethods: [],
-        paymentMethodName: '',
-        shippingMethodName: '',
+        chosenPaymentMethod: {},
+        chosenShippingMethod: {},
+
     };
 
     componentDidMount(): void {
@@ -32,17 +43,25 @@ class ShippingAndPaymentMethods extends Component {
             })
     };
 
-    onRadioChange = (type, inputName) => {
+    onRadioChange = (type, method) => {
         if (type === "payment") {
             this.setState({
-                paymentMethodName: inputName
-            })
+                chosenPaymentMethod: method
+            });
+            this.props.setPaymentCost(method.price);
         } else if (type === "shipping") {
             this.setState({
-                shippingMethodName: inputName
-            })
+                chosenShippingMethod: method
+            });
+            this.props.setShippingCost(method.price);
         }
+    };
 
+    saveAndRedirectToOrderComplete = () => {
+        setShippingAndPaymentMethodsCart(this.state.chosenShippingMethod.id, this.state.chosenPaymentMethod.id)
+            .then(resp=>{
+                this.props.history.push('/order-complete')
+            })
     };
 
     render() {
@@ -59,8 +78,9 @@ class ShippingAndPaymentMethods extends Component {
                             <div className="payment-method-radio">
                                 <input type="radio"
                                        name={paymentMethod.nameEN}
-                                       checked={this.state.paymentMethodName === paymentMethod.nameEN}
-                                       onChange={() => this.onRadioChange("payment", paymentMethod.nameEN)}
+                                       checked={this.state.chosenPaymentMethod.nameEN === paymentMethod.nameEN}
+                                       onChange={() => this.onRadioChange("payment", paymentMethod)}
+                                       className="radio-input"
                                 />
                             </div>
                             <div className="payment-method-name">
@@ -68,6 +88,9 @@ class ShippingAndPaymentMethods extends Component {
                             </div>
                             <div className="payment-method-image">
                                 <img src={serverURL + paymentMethod.imageUrl} alt="payment-method"/>
+                            </div>
+                            <div className="payment-method-price">
+                                {paymentMethod.price} €
                             </div>
                         </div>
                     )}
@@ -78,8 +101,9 @@ class ShippingAndPaymentMethods extends Component {
                             <div className="shipping-method-radio">
                                 <input type="radio"
                                        name={shippingMethod.nameEN}
-                                       checked={this.state.shippingMethodName === shippingMethod.nameEN}
-                                       onChange={() => this.onRadioChange("shipping", shippingMethod.nameEN)}
+                                       checked={this.state.chosenShippingMethod.nameEN === shippingMethod.nameEN}
+                                       onChange={() => this.onRadioChange("shipping", shippingMethod)}
+                                       className="radio-input"
                                 />
                             </div>
                             <div className="shipping-method-name">
@@ -88,12 +112,27 @@ class ShippingAndPaymentMethods extends Component {
                             <div className="shipping-method-image">
                                 <img src={serverURL + shippingMethod.imageUrl} alt="payment-method"/>
                             </div>
+                            <div className="shipping-method-price">
+                                {shippingMethod.price} €
+                            </div>
                         </div>
                     )}
                 </div>
                 <div className="total-price-container">
-                    <div className="price">123,45€</div>
-                    <div className="continue-btn">Continue </div>
+                    <div
+                        className="price">{(this.props.subtotal + this.props.shippingCost + this.props.paymentCost).toFixed(2)}€
+                    </div>
+                    {/*<div className="shipping-info">*/}
+                    {/*    <span>*/}
+                    {/*        <FormattedMessage id="app.shopping.cart.shipping"/>*/}
+                    {/*    </span>*/}
+                    {/*    <span>*/}
+                    {/*    </span>*/}
+                    {/*</div>*/}
+                    <div className="custom-next-btn"
+                         onClick={this.saveAndRedirectToOrderComplete}>
+                        Continue
+                    </div>
                 </div>
             </div>
         );
@@ -103,12 +142,28 @@ class ShippingAndPaymentMethods extends Component {
 function mapStateToProps(state) {
     return {
         preferredLanguage: state.preferredLanguage,
+        subtotal: state.subtotal,
+        shippingCost: state.shippingCost,
+        paymentCost: state.paymentCost,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {}
+    return {
+        setSubtotal: function (subtotal) {
+            const action = {type: "setSubtotal", subtotal};
+            dispatch(action);
+        },
+        setShippingCost: function (newShippingCost) {
+            const action = {type: "setShippingCost", newShippingCost};
+            dispatch(action);
+        },
+        setPaymentCost: function (newPaymentCost) {
+            const action = {type: "setPaymentCost", newPaymentCost};
+            dispatch(action);
+        },
+    }
 };
 
 const serverURL = process.env.REACT_APP_API_URL;
-export default connect(mapStateToProps, mapDispatchToProps)(ShippingAndPaymentMethods);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ShippingAndPaymentMethods));

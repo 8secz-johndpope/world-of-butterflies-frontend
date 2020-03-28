@@ -2,13 +2,16 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {faPlusCircle, faMinusCircle, faArrowRight, faArrowDown} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import {FormattedMessage} from "react-intl";
 import {updateShoppingCart} from "../../../service/fetchService/fetchService";
-import BasicShippingLocationDropdown from "./BasicShippingLocationDropdown";
 import StatusBar from "../../shared/statusBar/StatusBar";
 
 class ShoppingCart extends Component {
+    constructor(props) {
+        super(props)
+    }
+
     subtotal = 0;
 
     state = {
@@ -34,6 +37,11 @@ class ShoppingCart extends Component {
             }
         ],
         outOfQtyList: [],
+    };
+
+    clearShippingAndPaymentCost = () => {
+        this.props.setShippingCost(0);
+        this.props.setPaymentCost(0);
     };
 
 
@@ -62,6 +70,7 @@ class ShoppingCart extends Component {
     componentWillMount() {
         this.calculateSubtotal();
         this.saveShoppingCartToServer();
+        this.clearShippingAndPaymentCost();
     }
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
@@ -181,7 +190,6 @@ class ShoppingCart extends Component {
     };
 
     calculateSubtotal = () => {
-        this.calculateShippingCost();
         let total = 0;
         this.props.productsInShoppingCart.map((wrappedProduct =>
                 total += wrappedProduct.product.price
@@ -191,29 +199,14 @@ class ShoppingCart extends Component {
         this.props.setSubtotal(this.subtotal);
     };
 
-    calculateShippingCost = () => {
-        let productWeight = 0;
-        this.props.productsInShoppingCart.map((productInCart) =>
-            productWeight += productInCart.product.weight
-        );
-        let shippingCost;
-        shippingCost = productWeight * this.state.chosenLocation.value;
-        this.props.updateShippingCost(shippingCost);
-    };
-
-    setLocation = (location) => {
-        this.setState({
-            // isLocationSet: true,
-            chosenLocation: location,
-            areLocationChoicesVisible: false,
-        }, () => this.calculateShippingCost())
-
-    };
-
     displayLocationChoices = () => {
         this.setState({
             areLocationChoicesVisible: !this.props.areLocationChoicesVisible
         })
+    };
+
+    redirectToCheckout = () => {
+        this.props.history.push("/checkout")
     };
 
     render() {
@@ -397,6 +390,12 @@ class ShoppingCart extends Component {
                                     </span>
                             }
                         </div>
+                        <div className="next-btn-container">
+                            <button onClick={this.redirectToCheckout}
+                                    className="custom-next-btn">
+                                <FormattedMessage id="app.next"/>
+                            </button>
+                        </div>
                     </div>
                     :
                     <h1>
@@ -441,10 +440,6 @@ const mapDispatchToProps = (dispatch) => {
             const action = {type: "removeFrame", customFrameId};
             dispatch(action);
         },
-        updateShippingCost: function (newShippingCost) {
-            const action = {type: "updateShippingCost", newShippingCost};
-            dispatch(action);
-        },
         setShoppingCart: function (productsInShoppingCart) {
             const action = {type: "setShoppingC", productsInShoppingCart};
             dispatch(action);
@@ -453,8 +448,16 @@ const mapDispatchToProps = (dispatch) => {
             const action = {type: "setFrames", takeFrames};
             dispatch(action);
         },
+        setShippingCost: function (newShippingCost) {
+            const action = {type: "setShippingCost", newShippingCost};
+            dispatch(action);
+        },
+        setPaymentCost: function (newPaymentCost) {
+            const action = {type: "setPaymentCost", newPaymentCost};
+            dispatch(action);
+        },
     }
 };
 
 const serverURL = process.env.REACT_APP_API_URL;
-export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ShoppingCart));

@@ -46,7 +46,7 @@
 	"app.shopping.cart.price": "Egységár",
 	"app.shopping.cart.product": "Termék",
 	"app.shopping.cart.qty": "DB",
-	"app.shopping.cart.shipping": "Postaköltség: ",
+	"app.shopping.cart.shipping": "Postaköltség ",
 	"app.shopping.cart.sub-total": "Összesen",
 	"app.shopping.cart.to-checkout": "Tovább!",
 	"app.shopping.cart.to-pay": "Kifizetni!",
@@ -68,6 +68,7 @@
 	"app.basic-shipping-locations.europe": "Európa",
 	"app.basic-shipping-locations.third-world": "Harmadik ország",
 	"app.basic-shipping-locations.choose-location": "Kérlek válassz...",
-	"app.shopping.cart.to-order-overview": "Áttekintés és fizetés"
+	"app.shopping.cart.to-order-overview": "Áttekintés és fizetés",
+	"app.next": "Tovább"
 
 }

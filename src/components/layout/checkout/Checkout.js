@@ -15,6 +15,14 @@ class Checkout extends Component {
         isUser: true,
     };
 
+    componentDidMount(): void {
+        this.clearShippingAndPaymentCost();
+    }
+
+    clearShippingAndPaymentCost = () => {
+        this.props.setShippingCost(0);
+        this.props.setPaymentCost(0);
+    };
 
     setOption = (boolean) => {
         this.setState({
@@ -34,51 +42,53 @@ class Checkout extends Component {
                 <StatusBar
                     position={2}>
                 </StatusBar>
-                    <div className="billing-information-container">
-                        <div className="tab-options">
-                            <h3
-                                className={this.state.isUser ? 'active-checkout-tab-option' : 'non-active-checkout-tab-option'}
-                                onClick={() => this.setOption(true)}
-                            >
-                                <FormattedMessage id="app.checkout.user"/>
-                            </h3>
-                            {
-                                this.props.isLoggedIn ?
-                                    null
-                                    :
-                                    <h3
-                                        className={this.state.isUser ? 'non-active-checkout-tab-option' : 'active-checkout-tab-option'}
-                                        onClick={() => this.setOption(false)}
-                                    >
-                                        <FormattedMessage id="app.checkout.guest"/>
-                                    </h3>
-                            }
-                        </div>
-                        <div
-                            id='tab1'
-                            className={this.state.isUser ? 'active-checkout-tab-content' : 'non-active-checkout-tab-content'}>
-                            {
-                                this.props.isLoggedIn ?
-                                    <div className="billing-info-container">
-                                        <UserBillingDetails
-                                        />
+                <div className="billing-information-container">
+                    {
+                        this.props.isLoggedIn ?
+                            null
+                            :
+                            <div className="tab-options">
+                                <h3
+                                    className={this.state.isUser ? 'active-checkout-tab-option' : 'non-active-checkout-tab-option'}
+                                    onClick={() => this.setOption(true)}
+                                >
+                                    <FormattedMessage id="app.checkout.user"/>
+                                </h3>
+
+                                <h3
+                                    className={this.state.isUser ? 'non-active-checkout-tab-option' : 'active-checkout-tab-option'}
+                                    onClick={() => this.setOption(false)}
+                                >
+                                    <FormattedMessage id="app.checkout.guest"/>
+                                </h3>
+
+                            </div>
+                    }
+                    <div
+                        id='tab1'
+                        className={this.state.isUser ? 'active-checkout-tab-content' : 'non-active-checkout-tab-content'}>
+                        {
+                            this.props.isLoggedIn ?
+                                <div className="billing-info-container">
+                                    <UserBillingDetails
+                                    />
+                                </div>
+                                :
+                                <div className="user-register-login-container">
+                                    <div>
+                                        <LoginModal
+                                            fontSize={'20px'}
+                                            isTitleVisible={true}/>
                                     </div>
-                                    :
-                                    <div className="user-register-login-container">
-                                        <div>
-                                            <LoginModal
-                                                fontSize={'20px'}
-                                                isTitleVisible={true}/>
-                                        </div>
-                                    </div>
-                            }
-                        </div>
-                        <div
-                            id='tab2'
-                            className={this.state.isUser ? 'non-active-checkout-tab-content' : 'active-checkout-tab-content'}>
-                            <GuestBillingDetails/>
-                        </div>
+                                </div>
+                        }
                     </div>
+                    <div
+                        id='tab2'
+                        className={this.state.isUser ? 'non-active-checkout-tab-content' : 'active-checkout-tab-content'}>
+                        <GuestBillingDetails/>
+                    </div>
+                </div>
             </div>
         );
     }
@@ -97,7 +107,15 @@ const mapDispatchToProps = (dispatch) => {
         setSubtotal: function (subtotal) {
             const action = {type: "setSubtotal", subtotal};
             dispatch(action);
-        }
+        },
+        setShippingCost: function (newShippingCost) {
+            const action = {type: "setShippingCost", newShippingCost};
+            dispatch(action);
+        },
+        setPaymentCost: function (newPaymentCost) {
+            const action = {type: "setPaymentCost", newPaymentCost};
+            dispatch(action);
+        },
     }
 };
 

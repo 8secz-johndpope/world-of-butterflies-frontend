@@ -129,7 +129,7 @@ export function updateShippingAddressById(newShippingAddress, id) {
                 city: newShippingAddress.city,
                 state: newShippingAddress.state,
                 zipCode: newShippingAddress.zipCode,
-                country: newShippingAddress.country,
+                countryId: newShippingAddress.country.id,
                 phoneNumber: newShippingAddress.phoneNumber,
                 ico: newShippingAddress.ico,
                 dic: newShippingAddress.dic
@@ -622,6 +622,7 @@ export function setAddressesForShoppingCart(shippingAddressId, billingAddressId)
             billingAddress: billingAddressId.toString()
         }),
     })
+        .then(response => response.json())
 }
 
 
@@ -638,6 +639,7 @@ export function getAllPaymentMethods() {
 
 export function getAllShippingMethods() {
     return fetch(process.env.REACT_APP_API_URL + '/shipping-methods', {
+        credentials: 'include',
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -646,3 +648,31 @@ export function getAllShippingMethods() {
     })
         .then(response => response.json())
 }
+
+export function getAllCountries() {
+    return fetch(process.env.REACT_APP_API_URL + '/countries', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(response => response.json())
+}
+
+export function setShippingAndPaymentMethodsCart(shippingMethodId, paymentMethodId) {
+    return fetch(process.env.REACT_APP_API_URL + '/payment-and-shipping', {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            shippingMethodId: shippingMethodId.toString(),
+            paymentMethodId: paymentMethodId.toString()
+        }),
+    })
+        .then(response => response.json())
+}
+

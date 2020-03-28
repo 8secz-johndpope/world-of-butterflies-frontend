@@ -46,7 +46,7 @@
 	"app.shopping.cart.price": "Price",
 	"app.shopping.cart.product": "Product",
 	"app.shopping.cart.qty": "PCS",
-	"app.shopping.cart.shipping": "Shipping: ",
+	"app.shopping.cart.shipping": "Shipping ",
 	"app.shopping.cart.sub-total": "Subtotal",
 	"app.shopping.cart.to-checkout": "Proceed to checkout!",
 	"app.shopping.cart.to-pay": "Pay!",
@@ -67,6 +67,7 @@
 	"app.basic-shipping-locations.slovakia": "Slovakia",
 	"app.basic-shipping-locations.europe": "Europe",
 	"app.basic-shipping-locations.third-world": "Third World Country",
-	"app.basic-shipping-locations.choose-location": "Please choose a location..."
+	"app.basic-shipping-locations.choose-location": "Please choose a location...",
+	"app.next": "Next"
 
 }

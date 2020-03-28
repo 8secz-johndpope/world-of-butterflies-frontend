@@ -6,16 +6,23 @@ import {
     deleteShippingAddressById,
     getShippingAddresses,
     setAddressesForShoppingCart,
-    updateShoppingCart
+    updateShoppingCart,
+    getAllCountries
 } from "../../../service/fetchService/fetchService";
 import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {FormattedMessage} from "react-intl";
+import {withRouter} from "react-router-dom";
 
 
 class UserBillingDetails extends Component {
+    constructor(props) {
+        super(props)
+    }
+
     state = {
         billingAddressList: [],
+        countries: [],
         addressToFill: {
             id: "new",
             firstName: "",
@@ -25,7 +32,11 @@ class UserBillingDetails extends Component {
             addressLineTwo: "",
             city: "",
             zipCode: "",
-            country: "",
+            country: {
+                id: 1,
+                name: "",
+                location: "",
+            },
             phoneNumber: "",
             ico: "",
             dic: "",
@@ -39,7 +50,11 @@ class UserBillingDetails extends Component {
             addressLineTwo: "",
             city: "",
             zipCode: "",
-            country: "",
+            country: {
+                id: 1,
+                name: "",
+                location: "",
+            },
             phoneNumber: "",
             ico: "",
             dic: "",
@@ -55,7 +70,18 @@ class UserBillingDetails extends Component {
     componentDidMount(): void {
         this.getAllTheShippingAddresses();
         this.saveShoppingCartToServer();
+        this.getAllOfTheCountries()
     }
+
+    getAllOfTheCountries = () => {
+        getAllCountries()
+            .then(resp => {
+                this.setState({
+                    countries: resp
+                });
+                console.log(resp)
+            })
+    };
 
     getAllTheShippingAddresses = () => {
         getShippingAddresses()
@@ -271,17 +297,23 @@ class UserBillingDetails extends Component {
                 isShippingAddressInputsDisabled: true,
                 isBillingAddressInputsDisabled: true,
             });
-            this.sendAddressesForTheServer(this.state.addressToFill.id, this.state.billingAddress.id);
+            this.sendAddressesForTheServer(this.state.addressToFill.id, this.state.billingAddress.id)
+                .then(resp=>{
+                    console.log(resp);
+                    this.redirectToShippingAndPayment()
+
+                });
+
         }
     };
 
     sendAddressesForTheServer = (shippingAddressId, billingAddressId) => {
         if (this.state.addressToFill.id !== 'new' && !this.state.isShippingAddressDifferent) {
-            setAddressesForShoppingCart(shippingAddressId, shippingAddressId);
+            return setAddressesForShoppingCart(shippingAddressId, shippingAddressId);
         } else if (this.state.addressToFill.id !== 'new' && this.state.billingAddress.id !== 'new' && this.state.isShippingAddressDifferent) {
-            setAddressesForShoppingCart(shippingAddressId, billingAddressId);
+            return setAddressesForShoppingCart(shippingAddressId, billingAddressId);
         } else if (this.state.addressToFill.id !== 'new' && this.state.billingAddress.id !== 'new' && !this.state.isShippingAddressDifferent) {
-            setAddressesForShoppingCart(shippingAddressId, shippingAddressId);
+            return setAddressesForShoppingCart(shippingAddressId, shippingAddressId);
         }
 
 
@@ -295,6 +327,33 @@ class UserBillingDetails extends Component {
             isBillingAddressInputsDisabled: false,
         });
     };
+
+    handleShippingAddressDropdownChange = (e) => {
+        console.log(e);
+        this.setState({
+            addressToFill: {
+                ...this.state.addressToFill,
+                country: this.state.countries[e.target.value],
+            },
+            isChange: true
+        });
+    };
+
+    handleBillingAddressDropdownChange = (e) => {
+        console.log(e);
+        this.setState({
+            addressToFill: {
+                ...this.state.billingAddress,
+                country: this.state.countries[e.target.value],
+            },
+            isBillingAddressChanged: true
+        });
+    };
+
+    redirectToShippingAndPayment = () => {
+        this.props.history.push("/shipping-and-payment-methods")
+    };
+
 
     render() {
         return (
@@ -430,13 +489,17 @@ class UserBillingDetails extends Component {
                                 <p>
                                     <FormattedMessage id="app.checkout.form.country"/>
                                 </p>
-                                <input type="text"
-                                       name="country"
-                                       value={this.state.addressToFill.country}
-                                       onChange={this.handleChange}
-                                       disabled={this.state.isShippingAddressInputsDisabled}
-                                       className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
-                                />
+                                    <select value={this.state.addressToFill.country.name}
+                                            onChange={this.handleShippingAddressDropdownChange}
+                                            disabled={this.state.isShippingAddressInputsDisabled}
+                                            className={this.state.isShippingAddressInputsDisabled ? 'disabled dropdown-selection' : 'dropdown-selection'}>
+                                         <option name='chosen-country'>{this.state.addressToFill.country.name}</option>
+                                        {this.state.countries.map((country, index) =>
+                                            <option name={'country' + index} value={index}>
+                                                {country.name}
+                                            </option>
+                                        )}
+                                    </select>
                             </label>
                         </span>
 
@@ -639,13 +702,18 @@ class UserBillingDetails extends Component {
                                             <p>
                                                 <FormattedMessage id="app.checkout.form.country"/>
                                             </p>
-                                            <input type="text"
-                                                   name="country"
-                                                   value={this.state.billingAddress.country}
-                                                   onChange={this.handleBillingAddressChange}
-                                                   disabled={this.state.isBillingAddressInputsDisabled}
-                                                   className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
-                                            />
+                                            <select value={this.state.billingAddress.country.name}
+                                                    onChange={this.handleBillingAddressDropdownChange}
+                                                    disabled={this.state.isBillingAddressInputsDisabled}
+                                                    className={this.state.isBillingAddressInputsDisabled ? 'disabled dropdown-selection' : 'dropdown-selection'}>
+                                                <option
+                                                    name='chosen-country'>{this.state.billingAddress.country.name}</option>
+                                                {this.state.countries.map((country, index) =>
+                                                    <option name={'country' + index} value={index}>
+                                                        {country.name}
+                                                    </option>
+                                                )}
+                                            </select>
                                         </label>
                                     </span>
                                     <label>
@@ -707,20 +775,12 @@ class UserBillingDetails extends Component {
                     null
                 }
                 <div className="save-edit-button-container">
-                    {this.state.isCheckboxDisabled ?
-                        <div className="address-changes-holder">
-                            <button onClick={this.makeEditable}
-                                    className="address-changes-btn">Edit
-                            </button>
-                        </div>
-                        :
-                        <div className="address-changes-holder">
-                            <button onClick={this.saveAddresses}
-                                    className={this.state.addressToFill.id === 'new' ? 'address-changes-btn disabled-paragraph ' : 'address-changes-btn pointer'}>Save
-
-                            </button>
-                        </div>
-                    }
+                    <div className="address-changes-holder">
+                        <button onClick={this.saveAddresses}
+                                className='custom-next-btn'>
+                            <FormattedMessage id="app.next"/>
+                        </button>
+                    </div>
                 </div>
             </div>
         );
@@ -742,4 +802,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserBillingDetails);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserBillingDetails));

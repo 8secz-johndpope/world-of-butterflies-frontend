@@ -12,6 +12,7 @@ const initialState = {
     productsInShoppingCart: [],
     subtotal: 0,
     shippingCost: 0,
+    paymentCost: 0,
     preferredLanguage: 'hu',
     isLoginModalVisible: false,
     isRegisterModalVisible: false,
@@ -91,10 +92,15 @@ function reducer(state = initialState, action) {
                 ...state,
                 takenFrames: []
             };
-        case 'updateShippingCost':
+        case 'setShippingCost':
             return {
                 ...state,
                 shippingCost: action.newShippingCost
+            };
+        case 'setPaymentCost':
+            return {
+                ...state,
+                paymentCost: action.newPaymentCost
             };
         case 'setOutOfQtyList':
             return {

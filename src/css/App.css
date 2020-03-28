@@ -576,11 +576,11 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
-    margin-bottom: 5rem;
 }
 
 .shopping-cart-table {
-    width: 98%;
+    margin: 2rem 0;
+    width: 100%;
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
     -khtml-user-select: none; /* Konqueror HTML */
@@ -838,7 +838,6 @@ input[type=number] {
     display: grid;
     grid-template-areas: "1" "2";
     grid-template-columns: 1fr;
-    grid-row-gap: 2rem;
 }
 
 .billing-selector-and-input-field-container {
@@ -955,13 +954,6 @@ input[type=number] {
     -webkit-transform-origin: 0 0;
     -o-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
-}
-
-.save-edit-button-container {
-    display: flex;
-    flex-direction: row;
-    justify-self: center;
-    padding: 2.5rem 0;
 }
 
 .address-changes-holder {
@@ -1400,7 +1392,6 @@ input[type=number] {
     display: grid;
     grid-template-areas: "shipping-and-payment-status-bar shipping-and-payment-status-bar" "shipping-method-container payment-method-container " "total-price-container total-price-container";
     grid-row-gap: 3rem;
-    padding-bottom: 4rem;
 }
 
 
@@ -1417,22 +1408,23 @@ input[type=number] {
 
 .payment-method-container {
     grid-area: payment-method-container;
-    display: grid;
-    grid-template-areas: "1";
-    justify-content: center;
-    grid-row-gap: 1rem;
+    display: flex;
+    justify-self: center;
+    flex-direction: column;
+
 }
 
 .payment-method {
     display: grid;
-    grid-template-areas: "payment-method-radio payment-method-image payment-method-name";
-    grid-template-columns: max-content 75px max-content;
+    grid-template-areas: "payment-method-radio payment-method-image payment-method-name" "payment-method-price payment-method-price payment-method-price ";
+    grid-template-columns: max-content 75px 1fr;
     grid-column-gap: 1rem;
     border: 1px solid #d3d3d3;
     border-radius: 5px;
     padding: 0.5rem;
     align-items: center;
     justify-items: center;
+    margin: 0.5rem 0;
 }
 
 .payment-method-image {
@@ -1447,29 +1439,38 @@ input[type=number] {
     grid-area: payment-method-name;
 }
 
+.payment-method-price {
+    grid-area: payment-method-price;
+}
+
 .shipping-method-container {
     grid-area: shipping-method-container;
-    display: grid;
-    grid-template-areas: "1";
-    justify-content: center;
-    grid-row-gap: 1rem;
+    display: flex;
+    justify-self: center;
+    flex-direction: column;
+
 }
 
 .shipping-method {
     display: grid;
-    grid-template-areas: "shipping-method-radio shipping-method-image shipping-method-name";
-    grid-template-columns: max-content 75px max-content;
+    grid-template-areas: "shipping-method-radio shipping-method-image shipping-method-name" "shipping-method-price shipping-method-price shipping-method-price";
+    grid-template-columns: max-content 75px 1fr;
     grid-column-gap: 1rem;
     border: 1px solid #d3d3d3;
     border-radius: 5px;
     padding: 0.5rem;
     align-items: center;
     justify-items: center;
+    margin: 0.5rem 0;
 
 }
 
 .shipping-method-radio {
     grid-area: shipping-method-radio;
+}
+
+.radio-input {
+    cursor: pointer;
 }
 
 .shipping-method-name {
@@ -1478,7 +1479,10 @@ input[type=number] {
 
 .shipping-method-image {
     grid-area: shipping-method-image;
+}
 
+.shipping-method-price {
+    grid-area: shipping-method-price;
 }
 
 .total-price-container {
@@ -1486,6 +1490,16 @@ input[type=number] {
     display: grid;
     grid-template-areas: "price" "continue-btn";
     justify-items: center;
+}
+
+.payment-method-price,
+.shipping-method-price {
+    font-size: 1rem;
+    font-weight: bolder;
+}
+
+.dropdown-selection {
+    font-size: 1rem;
 }
 
 .price {
@@ -1515,3 +1529,20 @@ input[type=number] {
     max-height: 75px;
 }
 
+.custom-next-btn {
+    font-size: 1.3rem;
+    border-radius: 3px;
+    padding: 0 1rem;
+    color: #242424;
+    border: 1px solid black;
+    cursor: pointer;
+    margin: 2rem 0 3rem;
+}
+
+.custom-next-btn:hover {
+    background-color: #d3d3d3;
+}
+
+.custom-next-btn:focus {
+    outline: none;
+}
