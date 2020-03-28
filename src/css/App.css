@@ -1153,15 +1153,10 @@ input[type=number] {
 
 .order-overview-container {
     display: grid;
-    grid-template-areas:
-            "status-bar-container status-bar-container"
-            "order-container address-container"
-            "border-line border-line"
-            "order-overview-shipping-and-payment order-overview-shipping-and-payment"
-            "out-of-quantity-container out-of-quantity-container"
-            "pay-container pay-container";
+    grid-template-areas: "status-bar-container status-bar-container" "order-container address-container" "border-line border-line" "order-overview-shipping-and-payment order-overview-shipping-and-payment" "out-of-quantity-container out-of-quantity-container" "pay-container pay-container";
     grid-template-columns: 60% 40%;
 }
+
 .border-line {
     grid-area: border-line;
     border-top: 1px solid #D3D3D3;
@@ -1270,9 +1265,11 @@ input[type=number] {
     font-size: 1.3rem;
 
 }
+
 .empty-space {
     grid-area: empty-space;
 }
+
 .o-o-products-total-price {
     grid-area: o-o-products-total-price;
     border-top: 1px solid #d3d3d3;
@@ -1415,6 +1412,10 @@ input[type=number] {
     padding: 0 2rem;
 }
 
+.pay-btn:hover {
+    background-color: #d3d3d3;
+}
+
 .image-in-order-overview-cart {
     width: 150px;
     height: 150px;
@@ -1495,13 +1496,11 @@ input[type=number] {
 
 .shipping-and-payment-container {
     display: grid;
-    grid-template-areas:
-            "shipping-and-payment-status-bar shipping-and-payment-status-bar shipping-and-payment-status-bar"
-            "shipping-method-container vertical-border-line payment-method-container"
-            "total-price-container total-price-container total-price-container";
+    grid-template-areas: "shipping-and-payment-status-bar shipping-and-payment-status-bar shipping-and-payment-status-bar" "shipping-method-container vertical-border-line payment-method-container" "total-price-container total-price-container total-price-container";
     grid-row-gap: 3rem;
     grid-template-columns: 1fr 1px 1fr;
 }
+
 .vertical-border-line {
     grid-area: vertical-border-line;
     border-right: 1px solid #D3D3D3;

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
-import {getShoppingCartContent} from "../../../service/fetchService/fetchService";
+import {getShoppingCartContent, buyAsUser} from "../../../service/fetchService/fetchService";
 import {FormattedMessage} from "react-intl";
 import {connect} from "react-redux";
 import {withRouter} from 'react-router-dom'
@@ -148,6 +148,10 @@ class OrderComplete extends Component {
                 wrappedProduct?.frame?.colour === frameColour
         );
         return countTypes.length;
+    };
+
+    sendPayRequest = () => {
+        buyAsUser()
     };
 
 
@@ -464,7 +468,8 @@ class OrderComplete extends Component {
                     </div>
 
                     <div className="pay-btn-container">
-                        <div className="pay-btn">
+                        <div className="pay-btn"
+                             onClick={this.sendPayRequest}>
                             Pay!
                         </div>
                     </div>

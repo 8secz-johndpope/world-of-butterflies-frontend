@@ -157,7 +157,7 @@ export function saveNewShippingAddress(newShippingAddress) {
                 city: newShippingAddress.city,
                 state: newShippingAddress.state,
                 zipCode: newShippingAddress.zipCode,
-                country: newShippingAddress.country,
+                countryId: newShippingAddress.country.id,
                 phoneNumber: newShippingAddress.phoneNumber,
                 ico: newShippingAddress.ico,
                 dic: newShippingAddress.dic
@@ -674,5 +674,16 @@ export function setShippingAndPaymentMethodsCart(shippingMethodId, paymentMethod
         }),
     })
         .then(response => response.json())
+}
+
+export function buyAsUser() {
+    return fetch(process.env.REACT_APP_API_URL + '/buy', {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
 }
 
