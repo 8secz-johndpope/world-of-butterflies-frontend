@@ -15,10 +15,49 @@ class OrderComplete extends Component {
     state = {
         wrappedOrderEntities: [],
         outOfQtyList: [],
-        shippingAddress: {},
-        billingAddress: {},
+        shippingAddress: {
+            id: 3,
+            nickName: "",
+            firstName: "",
+            lastName: "",
+            company: "",
+            addressLineOne: "",
+            city: "",
+            state: "",
+            zipCode: "",
+            country: {
+                id: 0,
+                name: "",
+                location: ""
+            },
+            phoneNumber: "",
+            ico: "",
+            dic: "",
+        },
+        billingAddress: {
+            id: 3,
+            nickName: "",
+            firstName: "",
+            lastName: "",
+            company: "",
+            addressLineOne: "",
+            city: "",
+            state: "",
+            zipCode: "",
+            country: {
+                id: 0,
+                name: "",
+                location: ""
+            },
+            phoneNumber: "",
+            ico: "",
+            dic: "",
+        },
         isBillingAddressDifferent: false,
         subtotal: 0,
+        paymentMethod: {},
+        shippingMethod: {}
+
     };
 
     componentDidMount(): void {
@@ -36,8 +75,11 @@ class OrderComplete extends Component {
                             shippingAddress: resp.chosenShippingAddress,
                             billingAddress: resp.chosenBillingAddress,
                             subtotal: resp.subtotal,
+                            paymentMethod: resp.paymentMethod,
+                            shippingMethod: resp.shippingCost,
                             isBillingAddressDifferent: false,
-                        })
+                        });
+                        console.log(resp)
                     } else {
                         this.setState({
                             wrappedOrderEntities: resp.wrappedOrderEntities,
@@ -45,6 +87,8 @@ class OrderComplete extends Component {
                             shippingAddress: resp.chosenShippingAddress,
                             billingAddress: resp.chosenBillingAddress,
                             subtotal: resp.subtotal,
+                            paymentMethod: resp.paymentMethod,
+                            shippingMethod: resp.shippingCost,
                             isBillingAddressDifferent: true,
                         })
                     }
@@ -175,10 +219,14 @@ class OrderComplete extends Component {
                                 </span>
                             )}
                         </div>
+                        <div className="o-o-products-total-container">
+                            <div className="empty-space"></div>
+                            <div className="o-o-products-total-price">
+                                {this.state.subtotal}€
+                            </div>
+                        </div>
                     </div>
 
-
-                    <div className="unavailable-products"></div>
                 </div>
 
                 <div className="address-container">
@@ -215,7 +263,7 @@ class OrderComplete extends Component {
                                     {this.state.shippingAddress.zipCode}
                                 </p>
                                 <p>
-                                    {this.state.shippingAddress.country}
+                                    {this.state.shippingAddress.country.name}
                                 </p>
                         </span>
 
@@ -271,7 +319,7 @@ class OrderComplete extends Component {
                                             {this.state.billingAddress.zipCode}
                                         </p>
                                         <p>
-                                            {this.state.billingAddress.country}
+                                            {this.state.billingAddress.country.name}
                                         </p>
                                 </span>
 
@@ -295,95 +343,124 @@ class OrderComplete extends Component {
                             null
                     }
                 </div>
-
-                <div className="out-of-quantity-container">
-                    {this.props.outOfQtyList.length === 0 ?
-                        null
-                        :
-                        <span>
-                            <p>We are Sorry, but while You were browsing, these items run out of stock:</p>
-                            <table className="shopping-cart-table">
-                                <thead>
-                                <tr className="shopping-cart-table-header-row">
-                                    <th className="shopping-cart-table-header-row-image">
-                                        <FormattedMessage id="app.shopping.cart.product"/>
-                                    </th>
-                                    <th>
-                                        <FormattedMessage id="app.shopping.cart.name"/>
-                                    </th>
-                                    <th>
-                                        <FormattedMessage id="app.shopping.cart.price"/>
-                                    </th>
-                                    <th className="shopping-cart-table-header-row-qty">
-                                        <FormattedMessage id="app.shopping.cart.qty"/>
-                                    </th>
-                                    <th className="shopping-cart-table-header-row-total">
-                                        <FormattedMessage id="app.shopping.cart.total"/>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {this.props.outOfQtyList.filter((wrappedProduct, index) =>
-                                    index === this.props.outOfQtyList.findIndex(
-                                    elem => elem.product.id === wrappedProduct.product.id &&
-                                        elem?.frame?.colour === wrappedProduct?.frame?.colour
-                                    ))
-                                    .map((wrappedProduct) =>
-
-                                        <tr>
-                                            <td>
-                                                <Link to={"/products/" + wrappedProduct.product.id}>
-                                                    <div
-                                                        className={wrappedProduct.product.isInFrame ? 'wrapped-product-in-frame frame-around-butterfly' : 'wrapped-product-not-in-frame frame-around-butterfly'}
-                                                        style={{
-                                                            borderImageSource: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedProduct?.frame?.colour}.png)`}`,
-                                                        }}>
-                                                        {
-                                                            <img src={serverURL + wrappedProduct.product.url}
-                                                                 className="image-in-shopping-cart"
-                                                                 style={{
-                                                                     border: `${wrappedProduct.product.isInFrame ? '1px solid #D3D3D3' : 'none'}`,
-                                                                 }}
-
-                                                            />
-                                                        }
-                                                    </div>
-                                                </Link>
-                                            </td>
-                                            <td className="shopping-cart-product-name">
-                                                <Link to={"/products/" + wrappedProduct.product.id}
-                                                      style={{
-                                                          textDecoration: 'none',
-                                                          color: 'black',
-                                                      }}>
-                                                <span>
-                                                    {wrappedProduct.product.name}
-                                                </span>
-                                                </Link>
-                                            </td>
-                                            <td>{wrappedProduct.product.price}€</td>
-                                            <td className="shopping-cart-fa-icons-container">
-                                            <span id="element-between-fa-icons">
-                                                {this.countQtyByIdAndFrameColourForOutOfStock(wrappedProduct.product.id, wrappedProduct?.frame?.colour)}
-                                            </span>
-                                            </td>
-                                            <td>
-                                                {
-                                                    this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColourForOutOfStock(wrappedProduct.product.id, wrappedProduct?.frame?.colour))
-                                                }€
-                                            </td>
-                                        </tr>
-                                    )}
-                                </tbody>
-                            </table>
-                        </span>
-                    }
+                <div className="border-line"></div>
+                <div className="order-overview-shipping-and-payment">
+                    <div className="order-o-shipping">
+                        <div className="order-o-shipping-method-name">
+                            {this.state.shippingMethod["name" + this.props.preferredLanguage.toUpperCase()]}
+                        </div>
+                        <div className="order-o-shipping-method-image">
+                            <img src={serverURL + this.state.shippingMethod.imageUrl} alt="payment-method"/>
+                        </div>
+                        <div className="order-o-shipping-method-price">
+                            {this.state.shippingMethod.price} €
+                        </div>
+                    </div>
+                    <div className="order-o-payment">
+                        <div className="order-o-payment-method-name">
+                            {this.state.paymentMethod["name" + this.props.preferredLanguage.toUpperCase()]}
+                        </div>
+                        <div className="order-o-payment-method-image">
+                            <img src={serverURL + this.state.paymentMethod.imageUrl} alt="payment-method"/>
+                        </div>
+                        <div className="order-o-payment-method-price">
+                            {this.state.paymentMethod.price} €
+                        </div>
+                    </div>
                 </div>
+
+                {this.props.outOfQtyList.length === 0 ?
+                    null
+                    :
+                    <div className="out-of-quantity-container">
+                            <span>
+                                <p>We are Sorry, but while You were browsing, these items run out of stock:</p>
+                                <table className="shopping-cart-table">
+                                    <thead>
+                                    <tr className="shopping-cart-table-header-row">
+                                        <th className="shopping-cart-table-header-row-image">
+                                            <FormattedMessage id="app.shopping.cart.product"/>
+                                        </th>
+                                        <th>
+                                            <FormattedMessage id="app.shopping.cart.name"/>
+                                        </th>
+                                        <th>
+                                            <FormattedMessage id="app.shopping.cart.price"/>
+                                        </th>
+                                        <th className="shopping-cart-table-header-row-qty">
+                                            <FormattedMessage id="app.shopping.cart.qty"/>
+                                        </th>
+                                        <th className="shopping-cart-table-header-row-total">
+                                            <FormattedMessage id="app.shopping.cart.total"/>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {this.props.outOfQtyList.filter((wrappedProduct, index) =>
+                                        index === this.props.outOfQtyList.findIndex(
+                                        elem => elem.product.id === wrappedProduct.product.id &&
+                                            elem?.frame?.colour === wrappedProduct?.frame?.colour
+                                        ))
+                                        .map((wrappedProduct) =>
+
+                                            <tr>
+                                                <td>
+                                                    <Link to={"/products/" + wrappedProduct.product.id}>
+                                                        <div
+                                                            className={wrappedProduct.product.isInFrame ? 'wrapped-product-in-frame frame-around-butterfly' : 'wrapped-product-not-in-frame frame-around-butterfly'}
+                                                            style={{
+                                                                borderImageSource: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedProduct?.frame?.colour}.png)`}`,
+                                                            }}>
+                                                            {
+                                                                <img src={serverURL + wrappedProduct.product.url}
+                                                                     className="image-in-shopping-cart"
+                                                                     style={{
+                                                                         border: `${wrappedProduct.product.isInFrame ? '1px solid #D3D3D3' : 'none'}`,
+                                                                     }}
+
+                                                                />
+                                                            }
+                                                        </div>
+                                                    </Link>
+                                                </td>
+                                                <td className="shopping-cart-product-name">
+                                                    <Link to={"/products/" + wrappedProduct.product.id}
+                                                          style={{
+                                                              textDecoration: 'none',
+                                                              color: 'black',
+                                                          }}>
+                                                    <span>
+                                                        {wrappedProduct.product.name}
+                                                    </span>
+                                                    </Link>
+                                                </td>
+                                                <td>{wrappedProduct.product.price}€</td>
+                                                <td className="shopping-cart-fa-icons-container">
+                                                <span id="element-between-fa-icons">
+                                                    {this.countQtyByIdAndFrameColourForOutOfStock(wrappedProduct.product.id, wrappedProduct?.frame?.colour)}
+                                                </span>
+                                                </td>
+                                                <td>
+                                                    {
+                                                        this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColourForOutOfStock(wrappedProduct.product.id, wrappedProduct?.frame?.colour))
+                                                    }€
+                                                </td>
+                                            </tr>
+                                        )}
+                                    </tbody>
+                                </table>
+                            </span>
+                    </div>
+                }
 
                 <div className="pay-container">
 
                     <div className="subtotal">
-                        {this.state.subtotal.toFixed(2)}€
+                        {(
+                            this.state.subtotal +
+                            this.state.shippingMethod.price +
+                            this.state.paymentMethod.price
+                        ).toFixed(2)}€
                     </div>
 
                     <div className="pay-btn-container">
@@ -403,6 +480,7 @@ function mapStateToProps(state) {
     return {
         isLoggedIn: state.isLoggedIn,
         outOfQtyList: state.outOfQtyList,
+        preferredLanguage: state.preferredLanguage,
     }
 }
 

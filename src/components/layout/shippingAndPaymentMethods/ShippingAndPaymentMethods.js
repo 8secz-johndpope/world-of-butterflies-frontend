@@ -95,6 +95,7 @@ class ShippingAndPaymentMethods extends Component {
                         </div>
                     )}
                 </div>
+                <div className="vertical-border-line"></div>
                 <div className="shipping-method-container">
                     {this.state.shippingMethods.map((shippingMethod) =>
                         <div className="shipping-method">
