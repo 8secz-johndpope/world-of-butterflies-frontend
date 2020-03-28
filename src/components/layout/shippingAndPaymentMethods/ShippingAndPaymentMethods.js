@@ -32,7 +32,6 @@ class ShippingAndPaymentMethods extends Component {
                     this.setState({
                         paymentMethods: resp
                     });
-                    console.log(resp)
                 }
             );
         getAllShippingMethods()

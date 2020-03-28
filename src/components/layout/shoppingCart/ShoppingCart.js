@@ -93,7 +93,6 @@ class ShoppingCart extends Component {
                 )).map((wrappedProduct) => {
 
                     let productId = wrappedProduct.product.id;
-                    console.log(wrappedProduct.chosenFrame)
                     let frameId = wrappedProduct.chosenFrame !== null ? wrappedProduct.chosenFrame.id : null;
                     let qty = this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct?.chosenFrame?.colour);
                     entityIds.push({productId, frameId, qty})
@@ -106,7 +105,6 @@ class ShoppingCart extends Component {
                         this.setState({
                             outOfQtyList: resp.outOfQtyList,
                         });
-                        console.log(resp);
 
                         resp.wrappedOrderEntities.map(wrappedEntity => {
 

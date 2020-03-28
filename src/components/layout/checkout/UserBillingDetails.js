@@ -114,7 +114,7 @@ class UserBillingDetails extends Component {
             let object = {'entityIds': entityIds};
             console.log(object);
             updateShoppingCart(object)
-                .then(resp => console.log(resp))
+
         }
     };
 
@@ -196,7 +196,11 @@ class UserBillingDetails extends Component {
                 city: "",
                 state: "",
                 zipCode: "",
-                country: "",
+                country: {
+                    id: 1,
+                    name: "",
+                    location: "",
+                },
                 phoneNumber: ""
             },
         }, () => this.changeAccessibility())
@@ -215,7 +219,11 @@ class UserBillingDetails extends Component {
                 city: "",
                 state: "",
                 zipCode: "",
-                country: "",
+                country: {
+                    id: 0,
+                    name: "",
+                    location: "",
+                },
                 phoneNumber: ""
             },
         }, () => this.changeAccessibility())
@@ -223,6 +231,7 @@ class UserBillingDetails extends Component {
 
     saveModifiedChanges = () => {
         if (this.state.addressToFill.id !== "new") {
+            console.log("changing shipping address 2 NOT NEW");
             updateShippingAddressById(this.state.addressToFill, this.state.addressToFill.id)
                 .then(resp =>
                     this.setState({
@@ -230,21 +239,22 @@ class UserBillingDetails extends Component {
                     })
                 );
         } else {
+            console.log("changing shipping address 2 NEW");
             saveNewShippingAddress(this.state.addressToFill)
                 .then(resp =>
                     this.setState({
                         addressToFill: resp,
-                    }, () => this.getAllTheShippingAddresses())
+                    }, () => this.saveAddresses())
                 );
         }
         this.setState({
             isChange: false
         });
-        // this.props.setChosenShippingAddress(this.state.addressToFill);
     };
 
     saveModifiedBillingChanges = () => {
         if (this.state.billingAddress.id !== "new") {
+            console.log("changing billing address 2 not NEW");
             updateShippingAddressById(this.state.billingAddress, this.state.billingAddress.id)
                 .then(resp =>
                     this.setState({
@@ -252,11 +262,12 @@ class UserBillingDetails extends Component {
                     })
                 );
         } else {
+            console.log("changing billing address 2 NEW");
             saveNewShippingAddress(this.state.billingAddress)
                 .then(resp =>
                     this.setState({
                         billingAddress: resp,
-                    }, () => this.getAllTheShippingAddresses())
+                    }, () => this.saveAddresses())
                 );
         }
         this.setState({
@@ -276,7 +287,8 @@ class UserBillingDetails extends Component {
     };
 
     changeAccessibility = () => {
-        if (this.state.billingAddress.id === this.state.addressToFill.id) {
+        if (this.state.billingAddress.id === this.state.addressToFill.id &&
+            (this.state.billingAddress.id !== "new" || this.state.addressToFill.id !== "new")) {
             if (!this.state.isBillingAddressInputsDisabled)
                 this.setState({
                     isBillingAddressInputsDisabled: true,
@@ -291,17 +303,26 @@ class UserBillingDetails extends Component {
     };
 
     saveAddresses = () => {
-        if (this.state.addressToFill.id !== 'new') {
+        if (this.state.isChange) {
+            console.log("changing shipping address 1");
+            this.saveModifiedChanges();
+        }
+        if (this.state.isBillingAddressChanged) {
+            console.log("changing billing address 1");
+            this.saveModifiedBillingChanges();
+        }
+
+
+        if (this.state.addressToFill.id !== 'new' && !this.state.isChange && !this.state.isBillingAddressChanged) {
+            console.log("sending address");
             this.setState({
                 isCheckboxDisabled: true,
                 isShippingAddressInputsDisabled: true,
                 isBillingAddressInputsDisabled: true,
             });
             this.sendAddressesForTheServer(this.state.addressToFill.id, this.state.billingAddress.id)
-                .then(resp=>{
-                    console.log(resp);
+                .then(resp => {
                     this.redirectToShippingAndPayment()
-
                 });
 
         }
@@ -329,7 +350,6 @@ class UserBillingDetails extends Component {
     };
 
     handleShippingAddressDropdownChange = (e) => {
-        console.log(e);
         this.setState({
             addressToFill: {
                 ...this.state.addressToFill,
@@ -340,9 +360,8 @@ class UserBillingDetails extends Component {
     };
 
     handleBillingAddressDropdownChange = (e) => {
-        console.log(e);
         this.setState({
-            addressToFill: {
+            billingAddress: {
                 ...this.state.billingAddress,
                 country: this.state.countries[e.target.value],
             },
@@ -360,18 +379,18 @@ class UserBillingDetails extends Component {
             <div className="user-billing-detail-container">
                 <div className="billing-selector-and-input-field-container">
                     <div className="billing-address-container">
-                        {
-                            this.state.isChange ?
-                                <div>
-                                    <button
-                                        className="action-btn-sm"
-                                        onClick={this.saveModifiedChanges}>
-                                        <FormattedMessage id="app.checkout.save-changes"/>
-                                    </button>
-                                </div>
-                                :
-                                null
-                        }
+                        {/*{*/}
+                        {/*    this.state.isChange ?*/}
+                        {/*        <div>*/}
+                        {/*            <button*/}
+                        {/*                className="action-btn-sm"*/}
+                        {/*                onClick={this.saveModifiedChanges}>*/}
+                        {/*                <FormattedMessage id="app.checkout.save-changes"/>*/}
+                        {/*            </button>*/}
+                        {/*        </div>*/}
+                        {/*        :*/}
+                        {/*        null*/}
+                        {/*}*/}
                         <div className="billing-address">
                             <h3 onClick={() => this.chooseAddress("new")}
                                 className={this.state.isCheckboxDisabled ? 'disabled-paragraph ' : 'billing-address-title'}
@@ -574,18 +593,18 @@ class UserBillingDetails extends Component {
                 {this.state.isShippingAddressDifferent ?
                     <div className="billing-selector-and-input-field-container">
                         <div className="billing-address-container">
-                            {
-                                this.state.isBillingAddressChanged ?
-                                    <div>
-                                        <button
-                                            className="action-btn-sm"
-                                            onClick={this.saveModifiedBillingChanges}>
-                                            <FormattedMessage id="app.checkout.save-changes"/>
-                                        </button>
-                                    </div>
-                                    :
-                                    null
-                            }
+                            {/*{*/}
+                            {/*    this.state.isBillingAddressChanged ?*/}
+                            {/*        <div>*/}
+                            {/*            <button*/}
+                            {/*                className="action-btn-sm"*/}
+                            {/*                onClick={this.saveModifiedBillingChanges}>*/}
+                            {/*                <FormattedMessage id="app.checkout.save-changes"/>*/}
+                            {/*            </button>*/}
+                            {/*        </div>*/}
+                            {/*        :*/}
+                            {/*        null*/}
+                            {/*}*/}
                             <div className="billing-address">
                                 <h3 onClick={() => this.chooseBillingAddress("new")}
                                     className={this.state.isCheckboxDisabled ? 'disabled-paragraph ' : 'billing-address-title'}

@@ -79,7 +79,6 @@ class OrderComplete extends Component {
                             shippingMethod: resp.shippingCost,
                             isBillingAddressDifferent: false,
                         });
-                        console.log(resp)
                     } else {
                         this.setState({
                             wrappedOrderEntities: resp.wrappedOrderEntities,
@@ -121,10 +120,8 @@ class OrderComplete extends Component {
 
     getSessionStorage = () => {
         if (window.sessionStorage.getItem(process.env.REACT_APP_SESSION_STORAGE_KEY) !== null) {
-            console.log("not null");
             return JSON.parse(window.sessionStorage.getItem(process.env.REACT_APP_SESSION_STORAGE_KEY));
         } else {
-            console.log(" null");
             return this.props.history.push("/cart");
         }
     };
