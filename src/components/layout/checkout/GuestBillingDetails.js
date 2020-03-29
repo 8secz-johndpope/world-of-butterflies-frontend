@@ -2,12 +2,18 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
 import {getAllCountries, updateGuestShoppingCart} from "../../../service/fetchService/fetchService";
+import {withRouter} from "react-router-dom";
 
 
 class GuestBillingDetails extends Component {
+    constructor(props) {
+        super(props)
+    }
+
     state = {
         countries: [],
         shippingAddress: {
+            email: "",
             firstName: "",
             lastName: "",
             company: "",
@@ -15,12 +21,17 @@ class GuestBillingDetails extends Component {
             addressLineTwo: "",
             city: "",
             zipCode: "",
-            country: "",
+            country: {
+                id: 1,
+                name: "",
+                location: "",
+            },
             phoneNumber: "",
             ico: "",
             dic: "",
         },
         billingAddress: {
+            email: "",
             firstName: "",
             lastName: "",
             company: "",
@@ -29,7 +40,11 @@ class GuestBillingDetails extends Component {
             city: "",
             state: "",
             zipCode: "",
-            country: "",
+            country: {
+                id: 1,
+                name: "",
+                location: "",
+            },
             phoneNumber: "",
             ico: "",
             dic: "",
@@ -42,8 +57,20 @@ class GuestBillingDetails extends Component {
     };
 
     componentDidMount(): void {
-        this.getAllOfTheCountries()
+        this.getAllOfTheCountries();
+        this.loadAddressFromSessionStorageIfExists();
     }
+
+    loadAddressFromSessionStorageIfExists = () => {
+        if (window.sessionStorage.getItem(process.env.REACT_APP_SESSION_STORAGE_KEY) !== null) {
+            let sessionStorage = JSON.parse(window.sessionStorage.getItem(process.env.REACT_APP_SESSION_STORAGE_KEY));
+            this.setState({
+                shippingAddress:sessionStorage.chosenShippingAddress,
+                billingAddress:sessionStorage.chosenBillingAddress
+            });
+        }
+    };
+
 
     getAllOfTheCountries = () => {
         getAllCountries()
@@ -156,14 +183,46 @@ class GuestBillingDetails extends Component {
             'entityIds': entityIds
         };
 
-        shippingAddressList.push(this.state.shippingAddress);
+        let convertedShippingAddress = {
+            email: this.state.shippingAddress.email,
+            nickName: this.state.shippingAddress.nickName,
+            firstName: this.state.shippingAddress.firstName,
+            lastName: this.state.shippingAddress.lastName,
+            company: this.state.shippingAddress.company,
+            addressLineOne: this.state.shippingAddress.addressLineOne,
+            addressLineTwo: this.state.shippingAddress.addressLineTwo,
+            city: this.state.shippingAddress.city,
+            state: this.state.shippingAddress.state,
+            zipCode: this.state.shippingAddress.zipCode,
+            countryId: this.state.shippingAddress.country.id,
+            phoneNumber: this.state.shippingAddress.phoneNumber,
+            ico: this.state.shippingAddress.ico,
+            dic: this.state.shippingAddress.dic
+        };
+        shippingAddressList.push(convertedShippingAddress);
         if (this.state.isBillingAddressDifferent) {
-            shippingAddressList.push(this.state.billingAddress)
+            let convertedBillingAddress = {
+                email: this.state.shippingAddress.email,
+                nickName: this.state.billingAddress.nickName,
+                firstName: this.state.billingAddress.firstName,
+                lastName: this.state.billingAddress.lastName,
+                company: this.state.billingAddress.company,
+                addressLineOne: this.state.billingAddress.addressLineOne,
+                addressLineTwo: this.state.billingAddress.addressLineTwo,
+                city: this.state.billingAddress.city,
+                state: this.state.billingAddress.state,
+                zipCode: this.state.billingAddress.zipCode,
+                countryId: this.state.billingAddress.country.id,
+                phoneNumber: this.state.billingAddress.phoneNumber,
+                ico: this.state.billingAddress.ico,
+                dic: this.state.billingAddress.dic
+            };
+            shippingAddressList.push(convertedBillingAddress)
         }
 
         let outgoingCartAndAddress = {
             'incomingCurrentCart': outgoingCurrentCart,
-            'shippingAddressList': shippingAddressList,
+            'incomingAddressList': shippingAddressList,
         };
 
 
@@ -197,6 +256,7 @@ class GuestBillingDetails extends Component {
             }).then(() => {
             this.props.setShoppingCart(productsInShoppingCart);
             this.props.setFrames(takenFrames);
+            this.props.history.push('/shipping-and-payment-methods');
         });
     };
 
@@ -209,12 +269,50 @@ class GuestBillingDetails extends Component {
 
     };
 
+    handleShippingAddressDropdownChange = (e) => {
+        this.setState({
+            shippingAddress: {
+                ...this.state.shippingAddress,
+                country: this.state.countries[e.target.value],
+            },
+            isChange: true
+        });
+    };
+
+    handleBillingAddressDropdownChange = (e) => {
+        this.setState({
+            billingAddress: {
+                ...this.state.billingAddress,
+                country: this.state.countries[e.target.value],
+            },
+            isBillingAddressChanged: true
+        });
+    };
+
+    redirectToShippingAndPayment = () => {
+        this.props.history.push("/shipping-and-payment-methods")
+    };
+
     render() {
         return (
             <div>
 
                 <div className="billing-form-container">
                     <form className="billing-form">
+                        <span>
+                            <label>
+                                <p>
+                                    <FormattedMessage id="app.checkout.form.email"/>
+                                </p>
+                                <input type="text"
+                                       name="email"
+                                       value={this.state.shippingAddress.email}
+                                       onChange={this.handleShippingAddressChange}
+                                       disabled={this.state.isShippingAddressInputsDisabled}
+                                       className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}/>
+                            </label>
+
+                        </span>
                         <span className="billing-half-style">
                             <label>
                                 <p>
@@ -279,12 +377,18 @@ class GuestBillingDetails extends Component {
                                 <p>
                                     <FormattedMessage id="app.checkout.form.country"/>
                                 </p>
-                                <input type="text"
-                                       name="country"
-                                       value={this.state.shippingAddress.country}
-                                       onChange={this.handleShippingAddressChange}
-                                       disabled={this.state.isShippingAddressInputsDisabled}
-                                       className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}/>
+                                <select value={this.state.shippingAddress.country.name}
+                                        onChange={this.handleShippingAddressDropdownChange}
+                                        disabled={this.state.isShippingAddressInputsDisabled}
+                                        className={this.state.isShippingAddressInputsDisabled ? 'disabled dropdown-selection' : 'dropdown-selection'}>
+                                         <option
+                                             name='chosen-country'>{this.state.shippingAddress.country.name}</option>
+                                    {this.state.countries.map((country, index) =>
+                                        <option name={'country' + index} value={index}>
+                                            {country.name}
+                                        </option>
+                                    )}
+                                    </select>
                             </label>
                         </span>
                         <label>
@@ -413,12 +517,17 @@ class GuestBillingDetails extends Component {
                                 <p>
                                     <FormattedMessage id="app.checkout.form.country"/>
                                 </p>
-                                <input type="text"
-                                       name="country"
-                                       value={this.state.billingAddress.country}
-                                       onChange={this.handleBillingAddressChange}
-                                       disabled={this.state.isBillingAddressInputsDisabled}
-                                       className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}/>
+                                <select value={this.state.billingAddress.country.name}
+                                        onChange={this.handleBillingAddressDropdownChange}
+                                        disabled={this.state.isShippingAddressInputsDisabled}
+                                        className={this.state.isShippingAddressInputsDisabled ? 'disabled dropdown-selection' : 'dropdown-selection'}>
+                                         <option name='chosen-country'>{this.state.billingAddress.country.name}</option>
+                                    {this.state.countries.map((country, index) =>
+                                        <option name={'country' + index} value={index}>
+                                            {country.name}
+                                        </option>
+                                    )}
+                                    </select>
                             </label>
                         </span>
                             <label>
@@ -473,22 +582,12 @@ class GuestBillingDetails extends Component {
                     null
                 }
                 <div className="save-edit-button-container">
-                    {this.state.isCheckboxDisabled ?
-                        <div className="address-changes-holder">
-                            <button onClick={this.makeEditable}
-                                    className="address-changes-btn">Edit
-                            </button>
-                        </div>
-                        :
-                        <div className="address-changes-holder">
-                            <button onClick={this.saveAddresses}
-                                    className={
-                                        this.isAddressCorrectlyFilled()
-                                            ? 'address-changes-btn disabled-paragraph ' : 'address-changes-btn pointer'}
-                            >Save
-                            </button>
-                        </div>
-                    }
+                    <div className="address-changes-holder">
+                        <button onClick={this.saveAddresses}
+                                className='custom-next-btn'>
+                            <FormattedMessage id="app.next"/>
+                        </button>
+                    </div>
                 </div>
             </div>
         );
@@ -532,4 +631,4 @@ const mapDispatchToProps = (dispatch) => {
         },
     }
 };
-export default connect(mapStateToProps, mapDispatchToProps)(GuestBillingDetails);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(GuestBillingDetails));

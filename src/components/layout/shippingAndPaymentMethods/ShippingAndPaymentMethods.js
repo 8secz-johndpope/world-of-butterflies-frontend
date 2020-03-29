@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {
     getAllPaymentMethods,
     getAllShippingMethods,
-    setShippingAndPaymentMethodsCart
+    setShippingAndPaymentMethodsCart,
+    getAllShippingMethodsByCartIdForGuest, setShippingAndPaymentMethodsForGuestCart
 } from "../../../service/fetchService/fetchService";
 import StatusBar from "../../shared/statusBar/StatusBar";
 import {connect} from "react-redux";
@@ -24,7 +25,22 @@ class ShippingAndPaymentMethods extends Component {
 
     componentDidMount(): void {
         this.getPaymentAndShippingInfo();
+        this.clearShippingAndPaymentCost();
     }
+
+    getIdFromSessionStorage = () => {
+        if (window.sessionStorage.getItem(process.env.REACT_APP_SESSION_STORAGE_KEY) !== null) {
+            let sessionStorage = JSON.parse(window.sessionStorage.getItem(process.env.REACT_APP_SESSION_STORAGE_KEY));
+            return sessionStorage.id !== null ? sessionStorage.id : null;
+        }
+        return null;
+
+    };
+
+    clearShippingAndPaymentCost = () => {
+        this.props.setShippingCost(0);
+        this.props.setPaymentCost(0);
+    };
 
     getPaymentAndShippingInfo = () => {
         getAllPaymentMethods()
@@ -34,12 +50,21 @@ class ShippingAndPaymentMethods extends Component {
                     });
                 }
             );
-        getAllShippingMethods()
-            .then(resp => {
-                this.setState({
-                    shippingMethods: resp
+        if (this.props.isLoggedIn) {
+            getAllShippingMethods()
+                .then(resp => {
+                    this.setState({
+                        shippingMethods: resp
+                    })
                 })
-            })
+        } else {
+            getAllShippingMethodsByCartIdForGuest(this.getIdFromSessionStorage())
+                .then(resp => {
+                    this.setState({
+                        shippingMethods: resp
+                    })
+                })
+        }
     };
 
     onRadioChange = (type, method) => {
@@ -57,10 +82,20 @@ class ShippingAndPaymentMethods extends Component {
     };
 
     saveAndRedirectToOrderComplete = () => {
-        setShippingAndPaymentMethodsCart(this.state.chosenShippingMethod.id, this.state.chosenPaymentMethod.id)
-            .then(resp=>{
-                this.props.history.push('/order-complete')
-            })
+        if (this.props.isLoggedIn) {
+            setShippingAndPaymentMethodsCart(this.state.chosenShippingMethod.id, this.state.chosenPaymentMethod.id)
+                .then(resp => {
+                    this.props.history.push('/order-complete')
+                })
+        } else {
+            setShippingAndPaymentMethodsForGuestCart(this.getIdFromSessionStorage(), this.state.chosenShippingMethod.id, this.state.chosenPaymentMethod.id)
+                .then(resp => {
+                    window.sessionStorage.setItem(process.env.REACT_APP_SESSION_STORAGE_KEY, JSON.stringify(resp));
+                }).then(() => {
+                this.props.history.push('/order-complete');
+            });
+
+        }
     };
 
     render() {
@@ -145,6 +180,7 @@ function mapStateToProps(state) {
         subtotal: state.subtotal,
         shippingCost: state.shippingCost,
         paymentCost: state.paymentCost,
+        isLoggedIn: state.isLoggedIn,
     }
 }
 

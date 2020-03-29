@@ -79,7 +79,6 @@ class UserBillingDetails extends Component {
                 this.setState({
                     countries: resp
                 });
-                console.log(resp)
             })
     };
 

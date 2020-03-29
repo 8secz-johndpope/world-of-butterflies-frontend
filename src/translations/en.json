@@ -6,6 +6,7 @@
 	"app.checkout.form.city": "City:",
 	"app.checkout.form.company": "Company:",
 	"app.checkout.form.country": "Country:",
+	"app.checkout.form.email": "Email:",
 	"app.checkout.form.first-name": "First Name:",
 	"app.checkout.form.last-name": "Last Name:",
 	"app.checkout.form.nickname": "Address's nickname:",

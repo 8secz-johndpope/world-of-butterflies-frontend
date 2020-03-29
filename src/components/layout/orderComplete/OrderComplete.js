@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
-import {getShoppingCartContent, buyAsUser} from "../../../service/fetchService/fetchService";
+import {getShoppingCartContent, buyAsUser, buyAsGuest} from "../../../service/fetchService/fetchService";
 import {FormattedMessage} from "react-intl";
 import {connect} from "react-redux";
 import {withRouter} from 'react-router-dom'
@@ -102,6 +102,8 @@ class OrderComplete extends Component {
                         shippingAddress: sessionStorage.chosenShippingAddress,
                         billingAddress: sessionStorage.chosenBillingAddress,
                         subtotal: sessionStorage.subtotal,
+                        paymentMethod: sessionStorage.paymentMethod,
+                        shippingMethod: sessionStorage.shippingCost,
                         isBillingAddressDifferent: false,
                     })
                 } else {
@@ -111,6 +113,8 @@ class OrderComplete extends Component {
                         shippingAddress: sessionStorage.chosenShippingAddress,
                         billingAddress: sessionStorage.chosenBillingAddress,
                         subtotal: sessionStorage.subtotal,
+                        paymentMethod: sessionStorage.paymentMethod,
+                        shippingMethod: sessionStorage.shippingCost,
                         isBillingAddressDifferent: true,
                     })
                 }
@@ -124,6 +128,15 @@ class OrderComplete extends Component {
         } else {
             return this.props.history.push("/cart");
         }
+    };
+
+    getIdFromSessionStorage = () => {
+        if (window.sessionStorage.getItem(process.env.REACT_APP_SESSION_STORAGE_KEY) !== null) {
+            let sessionStorage = JSON.parse(window.sessionStorage.getItem(process.env.REACT_APP_SESSION_STORAGE_KEY));
+            return sessionStorage.id !== null ? sessionStorage.id : null;
+        }
+        return null;
+
     };
 
     countQtyByIdAndFrameColour = (id, frameColour) => {
@@ -148,7 +161,11 @@ class OrderComplete extends Component {
     };
 
     sendPayRequest = () => {
-        buyAsUser()
+        if (this.props.isLoggedIn) {
+            buyAsUser()
+        } else {
+            buyAsGuest(this.getIdFromSessionStorage())
+        }
     };
 
 

@@ -649,6 +649,18 @@ export function getAllShippingMethods() {
         .then(response => response.json())
 }
 
+export function getAllShippingMethodsByCartIdForGuest(cartId) {
+    console.log(cartId);
+    return fetch(process.env.REACT_APP_API_URL + '/shipping-methods/' + cartId, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(response => response.json())
+}
+
 export function getAllCountries() {
     return fetch(process.env.REACT_APP_API_URL + '/countries', {
         method: 'GET',
@@ -676,9 +688,34 @@ export function setShippingAndPaymentMethodsCart(shippingMethodId, paymentMethod
         .then(response => response.json())
 }
 
+export function setShippingAndPaymentMethodsForGuestCart(cartId, shippingMethodId, paymentMethodId) {
+    return fetch(process.env.REACT_APP_API_URL + '/payment-and-shipping/' + cartId, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            shippingMethodId: shippingMethodId.toString(),
+            paymentMethodId: paymentMethodId.toString()
+        }),
+    })
+        .then(response => response.json())
+}
+
 export function buyAsUser() {
     return fetch(process.env.REACT_APP_API_URL + '/buy', {
         credentials: 'include',
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
+}
+
+export function buyAsGuest(cartId) {
+    return fetch(process.env.REACT_APP_API_URL + '/buy/' + cartId, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
