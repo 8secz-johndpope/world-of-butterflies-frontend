@@ -70,6 +70,7 @@
 	"app.basic-shipping-locations.third-world": "Harmadik ország",
 	"app.basic-shipping-locations.choose-location": "Kérlek válassz...",
 	"app.shopping.cart.to-order-overview": "Áttekintés és fizetés",
-	"app.next": "Tovább"
+	"app.next": "Tovább",
+	"app.close": "Bezárni"
 
 }

@@ -1,0 +1,59 @@
+.succ-purch-pop-up-container{
+    display: grid;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 222;
+    background: rgba(0, 0, 0, 0.4);
+    grid-template-areas: "succ-purch-pop-up-body-container";
+}
+.succ-purch-pop-up-body-container {
+    grid-area: succ-purch-pop-up-body-container;
+    display: grid;
+    grid-template-areas: "success-checkmark" "pop-up-message" "pop-up-btn-container";
+    justify-self: center;
+    align-self: start;
+    margin-top: 60%;
+    background-color: #ffffff;
+    grid-template-columns: max-content;
+    grid-template-rows: max-content;
+    padding: 2rem 3rem;
+    border: 1px solid #d3d3d3d3;
+    border-radius: 5px;
+}
+
+.success-checkmark {
+    grid-area: success-checkmark;
+}
+
+.pop-up-message {
+    grid-area: pop-up-message;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.message-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding-bottom: 1rem;
+}
+
+.message-body {
+    padding-bottom: .3rem;
+
+}
+
+.message-email {
+    text-decoration: underline;
+    font-weight: bolder;
+    padding-bottom: 1rem;
+}
+
+.pop-up-btn-container {
+    grid-area: pop-up-btn-container;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

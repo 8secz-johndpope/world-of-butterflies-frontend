@@ -69,6 +69,7 @@
 	"app.basic-shipping-locations.europe": "Europe",
 	"app.basic-shipping-locations.third-world": "Third World Country",
 	"app.basic-shipping-locations.choose-location": "Please choose a location...",
-	"app.next": "Next"
+	"app.next": "Next",
+	"app.close": "Close"
 
 }

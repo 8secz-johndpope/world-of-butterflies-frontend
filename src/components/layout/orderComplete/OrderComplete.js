@@ -5,6 +5,8 @@ import {FormattedMessage} from "react-intl";
 import {connect} from "react-redux";
 import {withRouter} from 'react-router-dom'
 import StatusBar from "../../shared/statusBar/StatusBar";
+import SuccessfulPurchasePopUp from "../../shared/successfulPurchasePopUp/SuccessfulPurchasePopUp";
+import ProductAddedPopUp from "../../shared/productAddedPopUp/ProductAddedPopUp";
 
 //TODO unsuccesful products
 class OrderComplete extends Component {
@@ -13,6 +15,7 @@ class OrderComplete extends Component {
     }
 
     state = {
+        email: '',
         wrappedOrderEntities: [],
         outOfQtyList: [],
         shippingAddress: {
@@ -54,6 +57,7 @@ class OrderComplete extends Component {
             dic: "",
         },
         isBillingAddressDifferent: false,
+        isSuccessPopUpVisible: false,
         subtotal: 0,
         paymentMethod: {},
         shippingMethod: {}
@@ -104,6 +108,7 @@ class OrderComplete extends Component {
                         subtotal: sessionStorage.subtotal,
                         paymentMethod: sessionStorage.paymentMethod,
                         shippingMethod: sessionStorage.shippingCost,
+                        email: sessionStorage.chosenShippingAddress.email,
                         isBillingAddressDifferent: false,
                     })
                 } else {
@@ -115,6 +120,7 @@ class OrderComplete extends Component {
                         subtotal: sessionStorage.subtotal,
                         paymentMethod: sessionStorage.paymentMethod,
                         shippingMethod: sessionStorage.shippingCost,
+                        email: sessionStorage.chosenShippingAddress.email,
                         isBillingAddressDifferent: true,
                     })
                 }
@@ -166,12 +172,35 @@ class OrderComplete extends Component {
         } else {
             buyAsGuest(this.getIdFromSessionStorage())
         }
+        this.openPopUp();
+    };
+
+    closePopUp = () => {
+        // document.body.style.overflow = 'auto';
+        this.setState({
+            isSuccessPopUpVisible: false
+        })
+    };
+
+    openPopUp = () => {
+        // document.body.style.overflow = 'hidden';
+        this.setState({
+            isSuccessPopUpVisible: true,
+        })
     };
 
 
     render() {
         return (
             <div className="order-overview-container">
+                {this.state.isSuccessPopUpVisible ?
+                    <SuccessfulPurchasePopUp
+                        closePopUp={this.closePopUp}
+                        email={this.props.isLoggedIn ? this.props.email : this.state.email}
+                    />
+                    :
+                    null
+                }
 
                 <div className="status-bar-container">
                     <StatusBar
@@ -500,6 +529,7 @@ function mapStateToProps(state) {
         isLoggedIn: state.isLoggedIn,
         outOfQtyList: state.outOfQtyList,
         preferredLanguage: state.preferredLanguage,
+        email: state.email,
     }
 }
 
