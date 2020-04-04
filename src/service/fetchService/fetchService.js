@@ -43,7 +43,7 @@ export function getNRandomNonFramedProducts(amount) {
         .then(response => response.json())
 }
 
-export function doRegister(email, password) {
+export function doRegister(email, password, preferredLanguage) {
     return fetch(process.env.REACT_APP_API_URL + '/auth/register', {
         credentials: 'include',
         method: 'POST',
@@ -54,7 +54,8 @@ export function doRegister(email, password) {
         body: JSON.stringify(
             {
                 email: email,
-                password: password
+                password: password,
+                preferredLanguage: preferredLanguage.toUpperCase()
             }),
     })
         .then(response => response.json())
@@ -76,6 +77,22 @@ export function doLogin(email, password) {
 
     })
         .then(response => response.json())
+}
+
+export function setPreferredLanguage(language) {
+    return fetch(process.env.REACT_APP_API_URL + '/preferred-language', {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+            {
+                preferredLanguage: language.toUpperCase(),
+            }),
+
+    })
 }
 
 export function doLogout() {

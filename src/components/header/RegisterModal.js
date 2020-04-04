@@ -65,13 +65,13 @@ class RegisterModal extends Component {
 
         e.preventDefault();
         if (this.state.password === this.state.confPass) {
-            doRegister(this.state.email.split(' ').join(''), this.state.password)
+            doRegister(this.state.email.split(' ').join(''), this.state.password, this.props.preferredLanguage)
                 .then(res => {
                     if (res.success === true) {
                         this.props.alterRegisterModal(false);
                         doLogin(this.state.email, this.state.password)
                             .then(res => {
-                                if (res === true) {
+                                if (res.success === true) {
                                     this.props.setUserEmail(this.state.email);
                                     this.props.setLoggedIn(true);
                                 }
@@ -188,6 +188,7 @@ function mapStateToProps(state) {
     return {
         isLoginModalVisible: state.isLoginModalVisible,
         isRegisterModalVisible: state.isRegisterModalVisible,
+        preferredLanguage: state.preferredLanguage,
     }
 }
 

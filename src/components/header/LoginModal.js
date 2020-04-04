@@ -45,10 +45,11 @@ class LoginModal extends Component {
         e.preventDefault();
         doLogin(this.state.email.split(' ').join('').toLowerCase(), this.state.password)
             .then(res => {
-                if (res === true) {
+                if (res.success === true) {
                     this.props.alterLoginModal(false);
                     this.props.setUserEmail(this.state.email);
                     this.props.setLoggedIn(true);
+                    this.props.setPreferredLanguage(res.preferredLanguage.toLowerCase());
                 }
             })
             .then(this.fetchCart);
@@ -233,6 +234,10 @@ const mapDispatchToProps = (dispatch) => {
         },
         setFrames: function (takeFrames) {
             const action = {type: "setFrames", takeFrames};
+            dispatch(action);
+        },
+        setPreferredLanguage: function (preferredLanguage) {
+            const action = {type: "setPreferredLanguage", preferredLanguage};
             dispatch(action);
         },
     }

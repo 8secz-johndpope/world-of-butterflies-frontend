@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import Flag from 'react-country-flags';
 import {faCaretDown} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {setPreferredLanguage} from "../../service/fetchService/fetchService";
 
 class LanguageChanger extends Component {
     state = {
@@ -18,6 +19,9 @@ class LanguageChanger extends Component {
     handleFlagClick = (language) => {
         this.openOrCloseLanguageChangerDropdown();
         this.props.setPreferredLanguage(language);
+        if (this.props.isLoggedIn) {
+            setPreferredLanguage(language);
+        }
     };
 
     render() {
@@ -67,6 +71,7 @@ class LanguageChanger extends Component {
 function mapStateToProps(state) {
     return {
         preferredLanguage: state.preferredLanguage,
+        isLoggedIn: state.isLoggedIn,
     }
 }
 
