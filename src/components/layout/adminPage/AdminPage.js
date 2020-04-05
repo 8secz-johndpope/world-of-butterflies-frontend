@@ -324,7 +324,7 @@ class AdminPage extends Component {
             productFromState.colourString,
             productFromState.mainType,
             productFromState.subType,
-            productFromState.url);
+            productFromState.URL);
         updateProductById(productFromState.id, productToUpdate)
     };
 
@@ -351,7 +351,7 @@ class AdminPage extends Component {
             productFromState.colourString,
             productFromState.mainType,
             productFromState.subType,
-            productFromState.url);
+            productFromState.URL);
         addNewProduct(productToUpdate)
     };
 
@@ -359,6 +359,24 @@ class AdminPage extends Component {
         let newState = update(this.state, {
             newProduct: {
                 [paramName]: {$set: event.target.value}
+            }
+        });
+        this.setState(newState);
+    };
+
+    handleNewProductFieldMainTypeDropdown = (event) => {
+        let newState = update(this.state, {
+            newProduct: {
+                mainType: {$set: this.state.mainProductTypes[event.target.value]}
+            }
+        });
+        this.setState(newState);
+    };
+
+    handleNewProductFieldSubTypeDropdown = (event) => {
+        let newState = update(this.state, {
+            newProduct: {
+                subType: {$set: this.state.subProductTypes[event.target.value]}
             }
         });
         this.setState(newState);
@@ -996,6 +1014,9 @@ class AdminPage extends Component {
                                     <p>url</p>
                                 </th>
                                 <th>
+
+                                </th>
+                                <th>
                                     <p>Update</p>
                                 </th>
                                 <th>
@@ -1056,21 +1077,38 @@ class AdminPage extends Component {
                                     />
                                 </td>
                                 <td>
-                                    <input className="main-type" type="text"
-                                           value={this.state.newProduct.mainType}
-                                           onChange={this.handleNewProductFieldChanges('mainType')}
-                                    />
+                                    <select value={this.state.newProduct.mainType}
+                                            onChange={this.handleNewProductFieldMainTypeDropdown}>
+                                        <option
+                                            name='chosen-main-type'>{this.state.newProduct.mainType}
+                                        </option>
+                                        {this.state.mainProductTypes.map((mainType, index) =>
+                                            <option name={'mainType' + index} value={index}>
+                                                {mainType}
+                                            </option>
+                                        )}
+                                    </select>
                                 </td>
                                 <td>
-                                    <input className="sub-type" type="text"
-                                           value={this.state.newProduct.subType}
-                                           onChange={this.handleNewProductFieldChanges('subType')}
-                                    />
+                                    <select value={this.state.newProduct.subType}
+                                            onChange={this.handleNewProductFieldSubTypeDropdown}>
+                                        <option
+                                            name='chosen-sub-type'>{this.state.newProduct.subType}
+                                        </option>
+                                        {this.state.subProductTypes.map((mainType, index) =>
+                                            <option name={'subType' + index} value={index}>
+                                                {mainType}
+                                            </option>
+                                        )}
+                                    </select>
                                 </td>
                                 <td>
                                     <input type="text" value={this.state.newProduct.URL}
                                            onChange={this.handleNewProductFieldChanges('URL')}
                                     />
+                                </td>
+                                <td>
+                                    <img src={serverURL + this.state.newProduct.URL} alt="img"/>
                                 </td>
                                 <td>
                                     <button onClick={() => this.saveNewProduct()}>Save.Changes
