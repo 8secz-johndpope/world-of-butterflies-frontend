@@ -1903,13 +1903,13 @@ class AdminPage extends Component {
                                                 <p>{order.checkoutDate.year}.{order.checkoutDate.monthValue}.{order.checkoutDate.dayOfMonth}</p>
                                             </td>
                                             <td>
-                                                <p>{order.user.email}</p>
+                                                <p>{order?.user?.email}</p>
                                             </td>
                                             <td>
-                                                <p>{order.chosenShippingAddress.firstName}</p>
+                                                <p>{order?.chosenShippingAddress?.firstName}</p>
                                             </td>
                                             <td>
-                                                <p>{order.chosenShippingAddress.lastName}</p>
+                                                <p>{order?.chosenShippingAddress?.lastName}</p>
                                             </td>
                                             <td>
                                                 <input type="checkbox"
