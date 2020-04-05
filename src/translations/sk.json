@@ -70,6 +70,14 @@
 	"app.basic-shipping-locations.third-world": "Tretí ország",
 	"app.basic-shipping-locations.choose-location": "Prosíííím...",
 	"app.next": "Ďalej",
-	"app.close": "Zatvorit"
+	"app.close": "Zatvorit",
+	"app.profile.my-orders": "SKMy OrdersSK",
+	"app.profile.addresses": "SKMy AddressesSK",
+	"app.profile.payed": "Zaplaťená",
+	"app.profile.not-payed": "Ne Zaplaťená",
+	"app.profile.shipped": "Odoslaná",
+	"app.profile.not-shipped": "Ne Odoslaná",
+	"app.profile.shipping-address": "SK shipping SK",
+	"app.profile.billing-address": "SK billing SK"
 
 }

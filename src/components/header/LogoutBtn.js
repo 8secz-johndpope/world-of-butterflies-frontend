@@ -23,6 +23,7 @@ class LogoutBtn extends Component {
         return (
             <React.Fragment>
                 <button
+                    title="Log Out"
                     onClick={this.doLogoutAndClearLocalStorage}
                     className="header-modal-btn"
                 >

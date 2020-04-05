@@ -1,0 +1,280 @@
+.profile-container {
+    display: grid;
+    grid-template-areas: "p-header-container" "p-tab-container" "p-content-container";
+    grid-template-columns: 1fr;
+    grid-row-gap: 2rem;
+    padding: 3rem 0;
+}
+
+.p-header-container {
+    grid-area: p-header-container;
+    display: grid;
+    grid-template-areas: "p-email";
+    grid-template-columns: 1fr;
+}
+
+.p-email {
+    grid-area: p-email;
+    justify-self: left;
+    padding-left: 1rem;
+    font-size: 1.2rem;
+    font-weight: bolder;
+
+}
+
+.p-tab-container {
+    grid-area: p-tab-container;
+    display: grid;
+    grid-template-areas: "p-orders p-addresses p-empty";
+    grid-template-columns: repeat(2, 10rem) 1fr;
+}
+
+.p-orders {
+    grid-area: p-orders;
+    cursor: pointer;
+    transition: border-bottom-color 2s cubic-bezier(0.32, 1.25, 0.375, 1.15);
+    font-size: 1.5rem;
+}
+
+.p-addresses {
+    grid-area: p-addresses;
+    cursor: pointer;
+    transition: border-bottom-color 2s cubic-bezier(0.32, 1.25, 0.375, 1.15);
+    font-size: 1.5rem;
+}
+
+.p-empty {
+    grid-area: p-empty;
+    border-bottom: 1px solid #d3d3d3;
+}
+
+.p-content-container {
+    grid-area: p-content-container;
+    display: grid;
+    grid-template-areas: "p-order-mapper-container";
+    grid-template-columns: 1fr;
+}
+
+
+.p-order-mapper-container {
+    grid-area: p-order-mapper-container;
+    display: grid;
+    grid-row-gap: 3rem;
+}
+
+.p-mapped-order {
+    display: grid;
+    grid-template-areas:
+            "p-o-id p-o-date p-o-total-price p-o-is-payed p-o-is-shipped"
+            "p-o-details-container p-o-details-container p-o-details-container p-o-details-container p-o-details-container"
+            "p-o-product-total-price p-o-product-total-price p-o-product-total-price p-o-product-total-price p-o-product-total-price"
+            "p-o-address-container p-o-address-container p-o-address-container p-o-address-container p-o-address-container"
+            "sh-p-method-container sh-p-method-container sh-p-method-container sh-p-method-container sh-p-method-container";
+    grid-template-columns: repeat(5, 1fr);
+    border-bottom: 1px solid #d3d3d3;
+}
+.p-o-id,
+.p-o-date,
+.p-o-total-price,
+.p-o-is-payed,
+.p-o-is-shipped {
+    font-weight: bold;
+}
+
+.p-o-id {
+    grid-area: p-o-id;
+    text-decoration: underline;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-self: center;
+}
+.p-o-id * {
+    margin-right: 8px;
+}
+
+.p-o-date {
+    grid-area: p-o-date;
+}
+
+.p-o-total-price {
+    grid-area: p-o-total-price;
+}
+
+.p-o-is-payed {
+    grid-area: p-o-is-payed;
+}
+
+.p-o-is-shipped {
+    grid-area: p-o-is-shipped;
+}
+
+.p-o-details-container {
+    grid-area: p-o-details-container;
+    grid-row-gap: 2rem;
+
+}
+
+.p-o-mapped-details {
+    display: grid;
+    grid-template-areas: "p-o-img p-o-name p-o-price p-o-qty p-o-subtotal";
+    grid-template-columns: 180px repeat(4, 1fr);
+    align-items: center;
+    justify-items: center;
+}
+
+.p-o-img {
+    grid-area: p-o-img;
+}
+
+.p-o-name {
+    grid-area: p-o-name;
+}
+
+.p-o-price {
+    grid-area: p-o-price;
+}
+
+.p-o-qty {
+    grid-area: p-o-qty;
+}
+
+.p-o-subtotal {
+    grid-area: p-o-subtotal;
+}
+
+
+
+.p-o-product-total-price  {
+    display: grid;
+    grid-area: p-o-product-total-price ;
+    grid-template-areas: "p-o-empty p-o-empty p-o-empty p-o-empty p-o-products-total-no-shipping";
+    grid-template-columns: 180px repeat(4, 1fr);
+    align-items: center;
+    justify-items: center;
+}
+
+.p-o-empty{
+    grid-area: p-o-empty;
+}
+
+.p-o-products-total-no-shipping {
+    grid-area: p-o-products-total-no-shipping;
+    font-weight: bolder;
+    font-size: 1.3rem;
+    border-top: 1px solid #d3d3d3;
+}
+
+.p-o-address-container {
+    grid-area: p-o-address-container;
+    display: grid;
+    grid-template-areas: "1 2";
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+}
+
+.half-style-view {
+    display: grid;
+    grid-template-areas: "1 2";
+    grid-template-columns: repeat(2, max-content);
+    justify-content: space-between;
+    grid-column-gap: 1rem;
+}
+
+.p-address {
+    border: 1px solid #d3d3d3;
+    border-radius: 5px;
+    padding: 10px;
+    display: grid;
+    grid-row-gap: 8px;
+    margin: 0 1rem;
+}
+
+.p-shipping-address {
+    justify-self: end;
+}
+.p-billing-address {
+    justify-self: start;
+}
+
+.p-sh-title {
+    font-weight: bolder;
+    font-size: 1.2rem;
+    padding-bottom: 10px;
+}
+@media screen and (max-width: 620px) {
+    .p-o-address-container {
+        grid-template-areas: "1" "2";
+        grid-template-columns: 1fr;
+        margin: 20px 0;
+    }
+    .p-address{
+        margin: 0 0 10px;
+    }
+}
+
+.sh-p-method-container {
+    display: grid;
+    grid-area: sh-p-method-container;
+    grid-template-areas: "1 2";
+    grid-template-columns: repeat(2, 15rem);
+    justify-self: center;
+}
+
+.method {
+    display: grid;
+    border: 1px solid #d3d3d3;
+    border-radius: 5px;
+    margin:0 1rem 1rem;
+    grid-template-areas: "method-img method-name method-price";
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0.5rem;
+    justify-items: center;
+    align-items: center;
+}
+
+.method-name {
+    grid-area: method-name;
+}
+
+.method-img {
+    grid-area: method-img;
+}
+
+.m-img {
+    width: 75px;
+    height: 50px;
+}
+
+.method-price {
+    grid-area: method-price;
+}
+
+
+
+    /*.p-shipping-address{*/
+
+/*}*/
+
+    /*=======MISC=======*/
+.light-border-bottom {
+    border-bottom: 1px solid #d3d3d3;
+}
+
+.black-border-bottom {
+    border-bottom: 1px solid black;
+    font-weight: bolder;
+}
+
+.p-o-hide {
+    display: none;
+}
+
+.p-o-display {
+    padding-top: 2rem;
+    display: grid;
+}
+
+
+
+

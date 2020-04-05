@@ -9,6 +9,7 @@ class Email extends Component {
         return (
             <React.Fragment>
                 <button
+                    title={this.props.email}
                     className="header-modal-btn"
                 >
                     <FontAwesomeIcon icon={faUser}/>

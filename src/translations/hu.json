@@ -71,6 +71,14 @@
 	"app.basic-shipping-locations.choose-location": "Kérlek válassz...",
 	"app.shopping.cart.to-order-overview": "Áttekintés és fizetés",
 	"app.next": "Tovább",
-	"app.close": "Bezárni"
+	"app.close": "Bezárni",
+	"app.profile.my-orders": "Rendeléseim",
+	"app.profile.addresses": "Címeim",
+	"app.profile.payed": "Kifizetve",
+	"app.profile.not-payed": "Nincs kifizetve",
+	"app.profile.shipped": "Postázva",
+	"app.profile.not-shipped": "Nincs Postázva",
+	"app.profile.shipping-address": "Szállítási Cím",
+	"app.profile.billing-address": "Számlázási Cím"
 
 }

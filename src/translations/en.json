@@ -70,6 +70,16 @@
 	"app.basic-shipping-locations.third-world": "Third World Country",
 	"app.basic-shipping-locations.choose-location": "Please choose a location...",
 	"app.next": "Next",
-	"app.close": "Close"
+	"app.close": "Close",
+	"app.profile.my-orders": "My Orders",
+	"app.profile.addresses": "My Addresses",
+	"app.profile.payed": "Payed",
+	"app.profile.not-payed": "Not Payed",
+	"app.profile.shipped": "Shipped",
+	"app.profile.not-shipped": "Not Shipped",
+	"app.profile.shipping-address": "Shipping Address",
+	"app.profile.billing-address": "Billing Address"
+
+
 
 }

@@ -20,6 +20,7 @@ import OrderHistory from "./components/layout/orderHistory/OrderHistory";
 import AdminPage from "./components/layout/adminPage/AdminPage";
 import OrderComplete from "./components/layout/orderComplete/OrderComplete";
 import ShippingAndPaymentMethods from "./components/layout/shippingAndPaymentMethods/ShippingAndPaymentMethods";
+import Profile from "./components/layout/profile/Profile";
 
 const messages = {
     'hu': languageHU,
@@ -62,6 +63,7 @@ class App extends Component {
                                 <Route path="/sub-categories/:type" component={ProductMapperBySubType}/>
                                 <Route path="/search/:queryParam" component={FoundProducts}/>
                                 <Route path="/order-history" component={OrderHistory}/>
+                                <Route path="/profile" component={Profile}/>
                                 <Route path="/secret/admin" component={AdminPage}/>
                             </Switch>
                         </div>
