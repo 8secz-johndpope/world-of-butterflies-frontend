@@ -78,7 +78,9 @@
 	"app.profile.shipped": "Shipped",
 	"app.profile.not-shipped": "Not Shipped",
 	"app.profile.shipping-address": "Shipping Address",
-	"app.profile.billing-address": "Billing Address"
+	"app.profile.billing-address": "Billing Address",
+	"app.delete.acc": "Delete Account",
+	"app.delete.modal-title": "To deletet your account, please confirm your email and password!"
 
 
 

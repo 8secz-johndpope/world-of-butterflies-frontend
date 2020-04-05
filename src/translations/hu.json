@@ -79,6 +79,8 @@
 	"app.profile.shipped": "Postázva",
 	"app.profile.not-shipped": "Nincs Postázva",
 	"app.profile.shipping-address": "Szállítási Cím",
-	"app.profile.billing-address": "Számlázási Cím"
+	"app.profile.billing-address": "Számlázási Cím",
+	"app.delete.acc": "Fiók Törlése",
+	"app.delete.modal-title": "A fiók törléséhez kérlek erősítsd meg az e-mail címed és a jelszavad!"
 
 }

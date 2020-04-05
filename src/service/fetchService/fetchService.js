@@ -79,6 +79,24 @@ export function doLogin(email, password) {
         .then(response => response.json())
 }
 
+export function deleteUser(email, password) {
+    return fetch(process.env.REACT_APP_API_URL + '/user/delete', {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+            {
+                email: email,
+                password: password
+            }),
+
+    })
+        .then(response => response.json())
+}
+
 export function setPreferredLanguage(language) {
     return fetch(process.env.REACT_APP_API_URL + '/preferred-language', {
         credentials: 'include',

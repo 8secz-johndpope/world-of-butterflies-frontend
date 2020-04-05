@@ -16,6 +16,7 @@ const initialState = {
     preferredLanguage: 'hu',
     isLoginModalVisible: false,
     isRegisterModalVisible: false,
+    isDeleteModalVisible: false,
     takenFrames: [],
     outOfQtyList:[],
 };
@@ -72,6 +73,11 @@ function reducer(state = initialState, action) {
                 ...state,
                 isRegisterModalVisible: action.boolean
             };
+        case 'alterDeleteModal':
+            return {
+                ...state,
+                isDeleteModalVisible: action.boolean
+            };
         case 'setFrames':
             return {
                 ...state,
@@ -91,6 +97,11 @@ function reducer(state = initialState, action) {
             return {
                 ...state,
                 takenFrames: []
+            };
+        case 'clearOutOfQtyList':
+            return {
+                ...state,
+                outOfQtyList: []
             };
         case 'setShippingCost':
             return {

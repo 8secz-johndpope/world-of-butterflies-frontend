@@ -78,6 +78,8 @@
 	"app.profile.shipped": "Odoslaná",
 	"app.profile.not-shipped": "Ne Odoslaná",
 	"app.profile.shipping-address": "SK shipping SK",
-	"app.profile.billing-address": "SK billing SK"
+	"app.profile.billing-address": "SK billing SK",
+	"app.delete.acc": "SKFelhasználó TörléseSK",
+	"app.delete.modal-title": "SK SKSKSKSKSKSKTo deletet your account, please confirm your email and password!SKSKSKSKSKKSKS"
 
 }

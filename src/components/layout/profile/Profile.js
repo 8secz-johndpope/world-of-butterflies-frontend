@@ -7,8 +7,9 @@ import {
     getOrderHistory,
     getShippingAddresses, saveNewShippingAddress, updateShippingAddressById
 } from "../../../service/fetchService/fetchService";
-import {faCaretDown, faCaretUp, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {faCaretDown, faCaretUp} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import DeleteAccountModal from "../deleteAccount/DeleteAccountModal";
 
 class Profile extends Component {
 
@@ -443,18 +444,6 @@ class Profile extends Component {
                         :
                         <div className="billing-selector-and-input-field-container">
                             <div className="billing-address-container">
-                                {
-                                    this.state.isChange ?
-                                        <div>
-                                            <button
-                                                className="action-btn-sm"
-                                                onClick={this.saveModifiedChanges}>
-                                                <FormattedMessage id="app.checkout.save-changes"/>
-                                            </button>
-                                        </div>
-                                        :
-                                        null
-                                }
                                 <div className="billing-address">
                                     <h3 onClick={() => this.chooseAddress("new")}
                                         className={this.state.isCheckboxDisabled ? 'disabled-paragraph ' : 'billing-address-title'}
@@ -478,6 +467,25 @@ class Profile extends Component {
                                         :
                                         null
                                 }
+                                {
+                                    this.state.isChange ?
+                                        <div>
+                                            <button
+                                                className="action-btn-sm"
+                                                onClick={this.saveModifiedChanges}>
+                                                <FormattedMessage id="app.checkout.save-changes"/>
+                                            </button>
+                                        </div>
+                                        :
+                                        null
+                                }
+                                <div className="delete-account-btn-holder">
+                                    <div className="delete-account-btn"
+                                         onClick={() => this.props.alterDeleteModal(true)}>
+                                        <FormattedMessage id="app.delete.acc"/>
+                                    </div>
+                                    <DeleteAccountModal/>
+                                </div>
                             </div>
                             <div className="billing-form-container">
                                 <form className="billing-form">
@@ -612,7 +620,6 @@ class Profile extends Component {
                                         </label>
                                     </span>
                                 </form>
-                                <p>{this.state.address.id}</p>
                             </div>
                         </div>
                     }
@@ -629,5 +636,14 @@ function mapStateToProps(state) {
     }
 }
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        alterDeleteModal: function (boolean) {
+            const action = {type: "alterDeleteModal", boolean};
+            dispatch(action);
+        },
+    }
+};
+
 const serverURL = process.env.REACT_APP_API_URL;
-export default connect(mapStateToProps, null)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

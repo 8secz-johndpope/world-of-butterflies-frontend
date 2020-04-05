@@ -9,7 +9,6 @@ import {
     updateShoppingCart,
     getAllCountries
 } from "../../../service/fetchService/fetchService";
-import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {FormattedMessage} from "react-intl";
 import {withRouter} from "react-router-dom";

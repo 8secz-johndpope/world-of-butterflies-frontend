@@ -252,6 +252,68 @@
 
 
 
+.delete-account-btn-holder {
+    grid-area: delete-account-btn-holder;
+    margin-top: 7rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: "delete-account-btn";
+
+}
+
+.delete-account-btn {
+    grid-area: delete-account-btn;
+    color: red;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: 1px solid red;
+    border-radius: 5px;
+    padding: 6px 15px;
+    cursor: pointer;
+}
+
+.delete-account-btn:hover {
+    background-color: #65050d;
+}
+
+.delete-mod-title{
+    color: red;
+}
+
+.delete-header-label-txt {
+    position: absolute;
+    top: -1.6em;
+    padding: 10px;
+    font-family: sans-serif;
+    font-size: .8em;
+    letter-spacing: 1px;
+    color: black;
+    transition: ease .3s;
+}
+
+.del-line-box {
+    position: relative;
+    width: 100%;
+    height: 2px;
+    background: #a8504b;
+}
+
+.del-mod-line {
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: red;
+    transition: ease .6s;
+}
+
+.header-modal-input:focus + .del-line-box .del-mod-line {
+    width: 100%;
+}
+
+
     /*.p-shipping-address{*/
 
 /*}*/
