@@ -11,9 +11,17 @@ import {ReactComponent as Visa} from "../../components/images/payment_methods/vi
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFacebookSquare, faInstagram} from '@fortawesome/free-brands-svg-icons'
 import update from "react-addons-update";
+import {withRouter} from 'react-router-dom'
 
 
 class Footer extends Component {
+    constructor(props) {
+        super(props)
+    }
+
+    redirectToPath = (path) => {
+        this.props.history.push(path);
+    };
 
     state = {
         isAccountContainerShown: true,
@@ -81,9 +89,9 @@ class Footer extends Component {
                         {
                             this.state.isAccountContainerShown ?
                                 <span>
-                                    <li>My account</li>
-                                    <li>Order history</li>
-                                    <li>Cart</li>
+                                    <li onClick={()=>this.redirectToPath('/profile')}>My account</li>
+                                    <li onClick={()=>this.redirectToPath('/profile')}>Order history</li>
+                                    <li onClick={()=>this.redirectToPath('/cart')}>Cart</li>
                                 </span>
                                 :
                                 null
@@ -186,4 +194,4 @@ class Footer extends Component {
     }
 }
 
-export default Footer;
+export default withRouter(Footer);
