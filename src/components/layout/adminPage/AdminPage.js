@@ -245,6 +245,38 @@ class AdminPage extends Component {
         this.setState(newState);
     };
 
+    handleMainProductTypeFieldDropdownChanges = (index) => (event) => {
+        let newState = update(this.state, {
+            products: {
+                [index]: {
+                    mainType: {$set: this.state.mainProductTypes[event.target.value]}
+                }
+            }
+        });
+        this.setState(newState);
+    };
+
+    handleSubProductTypeFieldDropdownChanges = (index) => (event) => {
+        let newState = update(this.state, {
+            products: {
+                [index]: {
+                    subType: {$set: this.state.subProductTypes[event.target.value]}
+                }
+            }
+        });
+        this.setState(newState);
+    };
+
+    //handleShippingAddressDropdownChange = (e) => {
+    //         this.setState({
+    //             shippingAddress: {
+    //                 ...this.state.shippingAddress,
+    //                 country: this.state.countries[e.target.value],
+    //             },
+    //             isChange: true
+    //         });
+    //     };
+
 
     handleCheckboxChanges = (index, paramName, value) => {
         let newState = update(this.state, {
@@ -872,16 +904,30 @@ class AdminPage extends Component {
                                                 />
                                             </td>
                                             <td>
-                                                <input className="main-type" type="text"
-                                                       value={this.state.products[index].mainType}
-                                                       onChange={this.handleProductFieldChanges(index, 'mainType')}
-                                                />
+                                                <select value={this.state.products[index].mainType}
+                                                        onChange={this.handleMainProductTypeFieldDropdownChanges(index)}>
+                                                    <option
+                                                        name='chosen-main-type'>{this.state.products[index].mainType}
+                                                    </option>
+                                                    {this.state.mainProductTypes.map((mainType, index) =>
+                                                        <option name={'mainType' + index} value={index}>
+                                                            {mainType}
+                                                        </option>
+                                                    )}
+                                                </select>
                                             </td>
                                             <td>
-                                                <input className="sub-type" type="text"
-                                                       value={this.state.products[index].subType}
-                                                       onChange={this.handleProductFieldChanges(index, 'subType')}
-                                                />
+                                                <select value={this.state.products[index].subType}
+                                                        onChange={this.handleSubProductTypeFieldDropdownChanges(index)}>
+                                                    <option
+                                                        name='chosen-sub-type'>{this.state.products[index].subType}
+                                                    </option>
+                                                    {this.state.subProductTypes.map((mainType, index) =>
+                                                        <option name={'subType' + index} value={index}>
+                                                            {mainType}
+                                                        </option>
+                                                    )}
+                                                </select>
                                             </td>
                                             <td>
                                                 <input type="text" value={this.state.products[index].URL}

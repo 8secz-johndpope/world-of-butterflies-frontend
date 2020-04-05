@@ -65,8 +65,8 @@ class GuestBillingDetails extends Component {
         if (window.sessionStorage.getItem(process.env.REACT_APP_SESSION_STORAGE_KEY) !== null) {
             let sessionStorage = JSON.parse(window.sessionStorage.getItem(process.env.REACT_APP_SESSION_STORAGE_KEY));
             this.setState({
-                shippingAddress:sessionStorage.chosenShippingAddress,
-                billingAddress:sessionStorage.chosenBillingAddress
+                shippingAddress: sessionStorage.chosenShippingAddress,
+                billingAddress: sessionStorage.chosenBillingAddress
             });
         }
     };
