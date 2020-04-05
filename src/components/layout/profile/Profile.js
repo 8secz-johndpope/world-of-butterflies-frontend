@@ -456,9 +456,9 @@ class Profile extends Component {
                                         <React.Fragment>
                                             {
                                                 this.state.addressList.map(address =>
-                                                    <div className="billing-address">
-                                                        <h3 onClick={() => this.chooseAddress(address.id)}
-                                                            className={this.state.isCheckboxDisabled ? 'disabled-paragraph ' : 'billing-address-title'}
+                                                    <div className="billing-address pointer"
+                                                         onClick={() => this.chooseAddress(address.id)}>
+                                                        <h3 className={this.state.isCheckboxDisabled ? 'disabled-paragraph ' : 'billing-address-title'}
                                                         >
                                                             {address.nickName}</h3>
                                                     </div>
@@ -469,7 +469,7 @@ class Profile extends Component {
                                 }
                                 {
                                     this.state.isChange ?
-                                        <div>
+                                        <div className="save-changes-btn-holder">
                                             <button
                                                 className="action-btn-sm"
                                                 onClick={this.saveModifiedChanges}>
