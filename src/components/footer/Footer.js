@@ -12,6 +12,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFacebookSquare, faInstagram} from '@fortawesome/free-brands-svg-icons'
 import update from "react-addons-update";
 import {withRouter} from 'react-router-dom'
+import {connect} from "react-redux";
 
 
 class Footer extends Component {
@@ -88,11 +89,16 @@ class Footer extends Component {
                         </p>
                         {
                             this.state.isAccountContainerShown ?
-                                <span>
-                                    <li onClick={()=>this.redirectToPath('/profile')}>My account</li>
-                                    <li onClick={()=>this.redirectToPath('/profile')}>Order history</li>
-                                    <li onClick={()=>this.redirectToPath('/cart')}>Cart</li>
-                                </span>
+                                this.props.isLoggedIn ?
+                                    <span>
+                                        <li onClick={() => this.redirectToPath('/profile')}>My account</li>
+                                        <li onClick={() => this.redirectToPath('/profile')}>Order history</li>
+                                        <li onClick={() => this.redirectToPath('/cart')}>Cart</li>
+                                    </span>
+                                    :
+                                    <span>
+                                        <li onClick={() => this.redirectToPath('/cart')}>Cart</li>
+                                    </span>
                                 :
                                 null
                         }
@@ -194,4 +200,11 @@ class Footer extends Component {
     }
 }
 
-export default withRouter(Footer);
+
+function mapStateToProps(state) {
+    return {
+        isLoggedIn: state.isLoggedIn,
+    }
+}
+
+export default withRouter(connect(mapStateToProps, null)(Footer));
