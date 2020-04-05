@@ -274,17 +274,6 @@ class UserBillingDetails extends Component {
         });
     };
 
-    deleteAddressById = (id) => {
-        if (!this.state.isCheckboxDisabled) {
-            deleteShippingAddressById(id)
-                .then(resp =>
-                    this.setState({
-                        billingAddressList: resp,
-                    }, () => this.clearAddressToFil())
-                );
-        }
-    };
-
     changeAccessibility = () => {
         if (this.state.billingAddress.id === this.state.addressToFill.id &&
             (this.state.billingAddress.id !== "new" || this.state.addressToFill.id !== "new")) {
@@ -406,11 +395,6 @@ class UserBillingDetails extends Component {
                                                 <h3 onClick={() => this.chooseAddress(address.id)}
                                                     className={this.state.isCheckboxDisabled ? 'disabled-paragraph ' : 'billing-address-title'}
                                                 >
-                                                    <FontAwesomeIcon
-                                                        icon={faTrashAlt}
-                                                        className="delete-btn"
-                                                        onClick={() => this.deleteAddressById(address.id)}
-                                                    />
                                                     {address.nickName}</h3>
                                             </div>
                                         )}
@@ -620,11 +604,6 @@ class UserBillingDetails extends Component {
                                                     <h3 onClick={() => this.chooseBillingAddress(address.id)}
                                                         className={this.state.isCheckboxDisabled ? 'disabled-paragraph ' : 'billing-address-title'}
                                                     >
-                                                        <FontAwesomeIcon
-                                                            icon={faTrashAlt}
-                                                            className="delete-btn"
-                                                            onClick={() => this.deleteAddressById(address.id)}
-                                                        />
                                                         {address.nickName}</h3>
                                                 </div>
                                             )}

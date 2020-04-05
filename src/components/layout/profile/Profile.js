@@ -3,7 +3,6 @@ import './../../../css/Profile.css';
 import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
 import {
-    deleteShippingAddressById,
     getAllCountries,
     getOrderHistory,
     getShippingAddresses, saveNewShippingAddress, updateShippingAddressById
@@ -123,16 +122,6 @@ class Profile extends Component {
         }
     };
 
-    deleteAddressById = (id) => {
-        if (!this.state.isCheckboxDisabled) {
-            deleteShippingAddressById(id)
-                .then(resp =>
-                    this.setState({
-                        addressList: resp,
-                    }, () => this.clearAddressToFil())
-                );
-        }
-    };
 
     clearAddressToFil = () => {
         this.setState({
@@ -482,11 +471,6 @@ class Profile extends Component {
                                                         <h3 onClick={() => this.chooseAddress(address.id)}
                                                             className={this.state.isCheckboxDisabled ? 'disabled-paragraph ' : 'billing-address-title'}
                                                         >
-                                                            <FontAwesomeIcon
-                                                                icon={faTrashAlt}
-                                                                className="delete-btn"
-                                                                onClick={() => this.deleteAddressById(address.id)}
-                                                            />
                                                             {address.nickName}</h3>
                                                     </div>
                                                 )}
