@@ -193,3 +193,11 @@
     padding: 20px 0;
 }
 
+.a-orders-container {
+    display: grid;
+    grid-template-areas: "1" "2";
+}
+
+.orders-table {
+    width: 100%;
+}

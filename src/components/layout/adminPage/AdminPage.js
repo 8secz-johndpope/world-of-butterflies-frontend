@@ -28,7 +28,8 @@ import {
     updateAdditionalProductImageById,
     addNewAdditImg,
     deleteAdditionalProductImageById,
-    getProductBySlideshow
+    getProductBySlideshow,
+    getNotShippedOrPayedOrders, updateNotShippedOrPayedOrderById
 } from "../../../service/fetchService/fetchService";
 import update from "react-addons-update";
 import {ProductObject} from "../../objects/ProductObject";
@@ -97,6 +98,7 @@ class AdminPage extends Component {
         showSlideshow: false,
         showCategories: false,
         showAdditImages: false,
+        showOrders: false,
         additionalImages: [],
         newAdditionalImage: {
             productId: 0,
@@ -117,12 +119,16 @@ class AdminPage extends Component {
             mainType: '',
             subType: ''
         },
+        orderList: [],
     };
 
     modifyShowStatus = (param) => {
         this.setState({
             [param]: !this.state[param],
-        })
+        });
+        if (param === "showOrders" && this.state.orderList.length === 0) {
+            this.getNotPayNotShippedProducts();
+        }
     };
 
     componentDidMount(): void {
@@ -134,6 +140,15 @@ class AdminPage extends Component {
         this.getAllSlideshows();
         this.getAllTheCategories();
     }
+
+    getNotPayNotShippedProducts = () => {
+        getNotShippedOrPayedOrders()
+            .then(resp => {
+                this.setState({
+                    orderList: resp
+                })
+            })
+    };
 
     getAllTheCategories = () => {
         getAllCategories()
@@ -242,6 +257,17 @@ class AdminPage extends Component {
         this.setState(newState);
     };
 
+    handleOrderCheckboxChanges = (index, paramName, value) => {
+        let newState = update(this.state, {
+            orderList: {
+                [index]: {
+                    [paramName]: {$set: value}
+                }
+            }
+        });
+        this.setState(newState);
+    };
+
     handleNewProductCheckboxChanges = (paramName, value) => {
         let newState = update(this.state, {
             newProduct: {
@@ -268,6 +294,15 @@ class AdminPage extends Component {
             productFromState.subType,
             productFromState.url);
         updateProductById(productFromState.id, productToUpdate)
+    };
+
+    saveModifiedOrder = (index) => {
+        let orderFromState = this.state.orderList[index];
+        let booleanObjectToUpdateOrder = {
+            isShipped: orderFromState.isShipped,
+            isPayed: orderFromState.isPayed
+        };
+        updateNotShippedOrPayedOrderById(orderFromState.id, booleanObjectToUpdateOrder);
     };
 
     saveNewProduct = () => {
@@ -1203,7 +1238,8 @@ class AdminPage extends Component {
                 <div className='addit-image-container'>
                     <h2 className="getter-boards">
                         <button onClick={() => this.modifyShowStatus('showAdditImages')}> Show / Hide</button>
-                        Extra Images</h2>
+                        Extra Images
+                    </h2>
                     <span className={this.state.showAdditImages ? '' : 'hide-content'}>
                         <div className="mapped-addit-images">
                             <table>
@@ -1301,7 +1337,8 @@ class AdminPage extends Component {
                 <div className="frame-container">
                     <h2 className="getter-boards">
                         <button onClick={() => this.modifyShowStatus('showFrames')}> Show / Hide</button>
-                        Frames</h2>
+                        Frames
+                    </h2>
                     <span className={this.state.showFrames ? '' : 'hide-content'}>
                         <div className="mapped-frames">
                             <table>
@@ -1438,7 +1475,8 @@ class AdminPage extends Component {
                 <div className="slideshow-container">
                     <h2 className="getter-boards">
                         <button onClick={() => this.modifyShowStatus('showSlideshow')}> Show / Hide</button>
-                        Slideshow</h2>
+                        Slideshow
+                    </h2>
                     <span className={this.state.showSlideshow ? '' : 'hide-content'}>
                         <div className="mapped-slideshow">
                             <table>
@@ -1693,7 +1731,8 @@ class AdminPage extends Component {
                 <div className="categories-container">
                     <h2 className="getter-boards">
                         <button onClick={() => this.modifyShowStatus('showCategories')}> Show / Hide</button>
-                        Categories</h2>
+                        Categories
+                    </h2>
                     <span className={this.state.showCategories ? '' : 'hide-content'}>
                         <div className="mapped-categories">
                             <table>
@@ -1814,6 +1853,87 @@ class AdminPage extends Component {
                             </tr>
                         </table>
                     </div>
+                    </span>
+                </div>
+                <div className="a-orders-container">
+                    <h2 className="getter-boards">
+                        <button onClick={() => this.modifyShowStatus('showOrders')}> Show / Hide</button>
+                        Not Payed/Not Shipped orders
+                    </h2>
+                    <span className={this.state.showOrders ? '' : 'hide-content'}>
+                        <div className="mapped-orders">
+                            <table className="orders-table">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <p>Order ID</p>
+                                    </th>
+                                    <th>
+                                        <p>Date</p>
+                                    </th>
+                                    <th>
+                                        <p>Email</p>
+                                    </th>
+                                    <th>
+                                        <p>First Name</p>
+                                    </th>
+                                    <th>
+                                        <p>Last Name</p>
+                                    </th>
+                                    <th>
+                                        <p>Is Payed</p>
+                                    </th>
+                                    <th>
+                                        <p>Is Shipped</p>
+                                    </th>
+                                    <th>
+
+                                    </th>
+
+                                </tr>
+                                </thead>
+
+                                {
+                                    this.state.orderList.map((order, index) =>
+                                        <tr>
+                                            <td>
+                                                <p>{order.id}</p>
+                                            </td>
+                                            <td>
+                                                <p>{order.checkoutDate.year}.{order.checkoutDate.monthValue}.{order.checkoutDate.dayOfMonth}</p>
+                                            </td>
+                                            <td>
+                                                <p>{order.user.email}</p>
+                                            </td>
+                                            <td>
+                                                <p>{order.chosenShippingAddress.firstName}</p>
+                                            </td>
+                                            <td>
+                                                <p>{order.chosenShippingAddress.lastName}</p>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox"
+                                                       value={this.state.orderList[index].isPayed ? true : false}
+                                                       defaultChecked={this.state.orderList[index].isPayed}
+                                                       onChange={() => this.handleOrderCheckboxChanges(index, 'isPayed', !this.state.orderList[index].isPayed)}
+                                                />
+                                            </td>
+                                            <td>
+                                                <input type="checkbox"
+                                                       value={this.state.orderList[index].isShipped ? true : false}
+                                                       defaultChecked={this.state.orderList[index].isShipped}
+                                                       onChange={() => this.handleOrderCheckboxChanges(index, 'isShipped', !this.state.orderList[index].isShipped)}
+                                                />
+                                            </td>
+                                            <td>
+                                                <button onClick={() => this.saveModifiedOrder(index)}>Save.Changes
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    )
+                                }
+                            </table>
+                        </div>
                     </span>
                 </div>
             </div>

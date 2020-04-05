@@ -603,6 +603,32 @@ export function addNewSlideshow(slideshow) {
 }
 
 
+
+export function getNotShippedOrPayedOrders() {
+    return fetch(process.env.REACT_APP_API_URL + '/secret/admin/not-pay-not-shipped', {
+        credentials: 'include',
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(response => response.json())
+}
+
+export function updateNotShippedOrPayedOrderById(orderId, booleanObject) {
+    return fetch(process.env.REACT_APP_API_URL + '/secret/admin/not-pay-not-shipped/' + orderId, {
+        credentials: 'include',
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(booleanObject),
+    })
+}
+
+
 export function updateShoppingCart(shoppingCart) {
     return fetch(process.env.REACT_APP_API_URL + '/cart', {
         credentials: 'include',
