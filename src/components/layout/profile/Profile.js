@@ -2,8 +2,13 @@ import React, {Component} from 'react';
 import './../../../css/Profile.css';
 import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
-import {getAllCountries, getOrderHistory, getShippingAddresses} from "../../../service/fetchService/fetchService";
-import {faCaretDown, faCaretUp} from "@fortawesome/free-solid-svg-icons";
+import {
+    deleteShippingAddressById,
+    getAllCountries,
+    getOrderHistory,
+    getShippingAddresses, saveNewShippingAddress, updateShippingAddressById
+} from "../../../service/fetchService/fetchService";
+import {faCaretDown, faCaretUp, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 class Profile extends Component {
@@ -35,7 +40,6 @@ class Profile extends Component {
             dic: "",
         },
         isChange: false,
-        isShippingAddressDifferent: false,
     };
 
     componentDidMount(): void {
@@ -104,6 +108,101 @@ class Profile extends Component {
         return total.toFixed(2);
     };
 
+    chooseAddress = (id) => {
+        if (!this.state.isCheckboxDisabled) {
+            if (id !== "new") {
+                let address = this.state.addressList
+                    .filter(address => address.id === id);
+                this.setState({
+                    address: address[0],
+                });
+                // this.setChosenShippingAddress(address[0]);
+            } else {
+                this.clearAddressToFil();
+            }
+        }
+    };
+
+    deleteAddressById = (id) => {
+        if (!this.state.isCheckboxDisabled) {
+            deleteShippingAddressById(id)
+                .then(resp =>
+                    this.setState({
+                        addressList: resp,
+                    }, () => this.clearAddressToFil())
+                );
+        }
+    };
+
+    clearAddressToFil = () => {
+        this.setState({
+            address: {
+                id: "new",
+                nickName: "",
+                firstName: "",
+                lastName: "",
+                company: "",
+                addressLineOne: "",
+                addressLineTwo: "",
+                city: "",
+                state: "",
+                zipCode: "",
+                country: {
+                    id: 1,
+                    name: "",
+                    location: "",
+                },
+                phoneNumber: ""
+            },
+        })
+    };
+
+    handleChange = (e) => {
+        this.setState({
+            address: {
+                ...this.state.address,
+                [e.target.name]: e.target.value,
+            },
+            isChange: true
+        });
+    };
+
+    handleShippingAddressDropdownChange = (e) => {
+        this.setState({
+            address: {
+                ...this.state.address,
+                country: this.state.countries[e.target.value],
+            },
+            isChange: true
+        });
+    };
+
+    saveModifiedChanges = () => {
+        if (this.state.address.id !== "new") {
+            updateShippingAddressById(this.state.address, this.state.address.id)
+                .then(resp =>
+                    this.setState({
+                        addressList: resp,
+                    })
+                );
+        } else {
+            saveNewShippingAddress(this.state.address)
+                .then(resp =>
+                    this.setState({
+                        address: resp,
+                    }, () => this.saveAddresses())
+                );
+        }
+        this.setState({
+            isChange: false
+        });
+    };
+
+    saveAddresses = () => {
+        if (this.state.isChange) {
+            this.saveModifiedChanges();
+        }
+    };
 
     render() {
         return (
@@ -350,10 +449,188 @@ class Profile extends Component {
                         null
                     }
 
-                    {!this.state.isTabOneActive ?
+                    {this.state.isTabOneActive ?
                         null
                         :
-                        <div></div>
+                        <div className="billing-selector-and-input-field-container">
+                            <div className="billing-address-container">
+                                {
+                                    this.state.isChange ?
+                                        <div>
+                                            <button
+                                                className="action-btn-sm"
+                                                onClick={this.saveModifiedChanges}>
+                                                <FormattedMessage id="app.checkout.save-changes"/>
+                                            </button>
+                                        </div>
+                                        :
+                                        null
+                                }
+                                <div className="billing-address">
+                                    <h3 onClick={() => this.chooseAddress("new")}
+                                        className={this.state.isCheckboxDisabled ? 'disabled-paragraph ' : 'billing-address-title'}
+                                    >
+                                        <FormattedMessage id="app.checkout.add-new-address"/>
+                                    </h3>
+                                </div>
+                                {
+                                    this.state.addressList ?
+                                        <React.Fragment>
+                                            {
+                                                this.state.addressList.map(address =>
+                                                    <div className="billing-address">
+                                                        <h3 onClick={() => this.chooseAddress(address.id)}
+                                                            className={this.state.isCheckboxDisabled ? 'disabled-paragraph ' : 'billing-address-title'}
+                                                        >
+                                                            <FontAwesomeIcon
+                                                                icon={faTrashAlt}
+                                                                className="delete-btn"
+                                                                onClick={() => this.deleteAddressById(address.id)}
+                                                            />
+                                                            {address.nickName}</h3>
+                                                    </div>
+                                                )}
+                                        </React.Fragment>
+                                        :
+                                        null
+                                }
+                            </div>
+                            <div className="billing-form-container">
+                                <form className="billing-form">
+                                    <label>
+                                        <p>
+                                            <FormattedMessage id="app.checkout.form.nickname"/>
+                                        </p>
+                                        <input type="text"
+                                               name="nickName"
+                                               value={this.state.address.nickName}
+                                               onChange={this.handleChange}
+                                        />
+                                    </label>
+                                    <span className="billing-half-style">
+                                        <label>
+                                            <p>
+                                                <FormattedMessage id="app.checkout.form.first-name"/>
+                                            </p>
+                                            <input type="text"
+                                                   name="firstName"
+                                                   value={this.state.address.firstName}
+                                                   onChange={this.handleChange}
+                                            />
+                                        </label>
+                                        <label>
+                                            <p>
+                                                <FormattedMessage id="app.checkout.form.last-name"/>
+                                            </p>
+                                            <input type="text"
+                                                   name="lastName"
+                                                   value={this.state.address.lastName}
+                                                   onChange={this.handleChange}
+                                            />
+                                        </label>
+                                    </span>
+
+
+                                    <span className="billing-half-style">
+                                        <label>
+                                            <p>
+                                                <FormattedMessage id="app.checkout.form.addr-line-one"/>
+                                            </p>
+                                            <input type="text"
+                                                   name="addressLineOne"
+                                                   value={this.state.address.addressLineOne}
+                                                   onChange={this.handleChange}
+                                            />
+                                        </label>
+                                        <label>
+                                            <p>
+                                                <FormattedMessage id="app.checkout.form.city"/>
+                                            </p>
+                                            <input type="text"
+                                                   name="city"
+                                                   value={this.state.address.city}
+                                                   onChange={this.handleChange}
+                                            />
+                                        </label>
+                                    </span>
+
+
+                                    <span className="billing-half-style">
+                                        <label>
+                                            <p>
+                                                <FormattedMessage id="app.checkout.form.zip"/>
+                                            </p>
+                                            <input type="text"
+                                                   name="zipCode"
+                                                   value={this.state.address.zipCode}
+                                                   onChange={this.handleChange}
+                                            />
+                                        </label>
+                                        <label>
+                                            <p>
+                                                <FormattedMessage id="app.checkout.form.country"/>
+                                            </p>
+                                                <select value={this.state.address.country.name}
+                                                        onChange={this.handleShippingAddressDropdownChange}
+                                                        className='dropdown-selection'>
+                                                     <option
+                                                         name='chosen-country'>{this.state.address.country.name}</option>
+                                                    {this.state.countries.map((country, index) =>
+                                                        <option name={'country' + index} value={index}>
+                                                            {country.name}
+                                                        </option>
+                                                    )}
+                                                </select>
+                                        </label>
+                                    </span>
+
+                                    <label>
+                                        <p>
+                                            <FormattedMessage id="app.checkout.form.phone-number"/>
+                                        </p>
+                                        <input type="text"
+                                               name="phoneNumber"
+                                               value={this.state.address.phoneNumber ? this.state.address.phoneNumber : ''}
+                                               onChange={this.handleChange}
+                                        />
+                                    </label>
+                                    <label>
+                                        <p>
+                                            <FormattedMessage id="app.checkout.form.company"/>
+                                        </p>
+                                        <input type="text"
+                                               name="company"
+                                               value={this.state.address.company ? this.state.address.company : ''}
+                                               onChange={this.handleChange}
+                                        />
+                                    </label>
+
+                                    <span className="billing-half-style">
+                                        <label>
+                                            <p>
+                                                IČO:
+                                            </p>
+                                            <input type="text"
+                                                   name="ico"
+                                                   value={this.state.address.ico ? this.state.address.ico : ''}
+                                                   onChange={this.handleChange}
+                                            />
+                                        </label>
+                                        <label>
+                                            <p>
+                                                DIČ:
+                                            </p>
+                                            <input type="text"
+                                                   name="dic"
+                                                   value={this.state.address.dic ? this.state.address.dic : ''}
+                                                   onChange={this.handleChange}
+                                            />
+                                        </label>
+                                    </span>
+                                </form>
+                                <p>{this.state.address.id}</p>
+                            </div>
+                        </div>
                     }
                 </div>
             </div>
