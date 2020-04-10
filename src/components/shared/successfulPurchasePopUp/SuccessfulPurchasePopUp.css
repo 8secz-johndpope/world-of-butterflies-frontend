@@ -14,13 +14,15 @@
     grid-template-areas: "success-checkmark" "pop-up-message" "pop-up-btn-container";
     justify-self: center;
     align-self: start;
-    margin-top: 60%;
+    /*margin-top: 60%;*/
     background-color: #ffffff;
     grid-template-columns: max-content;
     grid-template-rows: max-content;
     padding: 2rem 3rem;
     border: 1px solid #d3d3d3d3;
     border-radius: 5px;
+    top: calc(100% - 70%);
+    position: absolute;
 }
 
 .success-checkmark {
