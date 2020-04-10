@@ -366,18 +366,6 @@ class UserBillingDetails extends Component {
             <div className="user-billing-detail-container">
                 <div className="billing-selector-and-input-field-container">
                     <div className="billing-address-container">
-                        {/*{*/}
-                        {/*    this.state.isChange ?*/}
-                        {/*        <div>*/}
-                        {/*            <button*/}
-                        {/*                className="action-btn-sm"*/}
-                        {/*                onClick={this.saveModifiedChanges}>*/}
-                        {/*                <FormattedMessage id="app.checkout.save-changes"/>*/}
-                        {/*            </button>*/}
-                        {/*        </div>*/}
-                        {/*        :*/}
-                        {/*        null*/}
-                        {/*}*/}
                         <div className="billing-address">
                             <h3 onClick={() => this.chooseAddress("new")}
                                 className={this.state.isCheckboxDisabled ? 'disabled-paragraph ' : 'billing-address-title'}
@@ -404,7 +392,6 @@ class UserBillingDetails extends Component {
                     </div>
                     <div className="billing-form-container">
                         <form className="billing-form">
-                            <p>{this.state.addressToFill.id}</p>
                             <label>
                                 <p>
                                     <FormattedMessage id="app.checkout.form.nickname"/>
@@ -575,18 +562,6 @@ class UserBillingDetails extends Component {
                 {this.state.isShippingAddressDifferent ?
                     <div className="billing-selector-and-input-field-container">
                         <div className="billing-address-container">
-                            {/*{*/}
-                            {/*    this.state.isBillingAddressChanged ?*/}
-                            {/*        <div>*/}
-                            {/*            <button*/}
-                            {/*                className="action-btn-sm"*/}
-                            {/*                onClick={this.saveModifiedBillingChanges}>*/}
-                            {/*                <FormattedMessage id="app.checkout.save-changes"/>*/}
-                            {/*            </button>*/}
-                            {/*        </div>*/}
-                            {/*        :*/}
-                            {/*        null*/}
-                            {/*}*/}
                             <div className="billing-address">
                                 <h3 onClick={() => this.chooseBillingAddress("new")}
                                     className={this.state.isCheckboxDisabled ? 'disabled-paragraph ' : 'billing-address-title'}
