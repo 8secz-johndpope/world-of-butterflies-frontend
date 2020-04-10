@@ -29,7 +29,9 @@ import {
     addNewAdditImg,
     deleteAdditionalProductImageById,
     getProductBySlideshow,
-    getNotShippedOrPayedOrders, updateNotShippedOrPayedOrderById
+    getNotShippedOrPayedOrders,
+    updateNotShippedOrPayedOrderById,
+    getOrdersInBetween
 } from "../../../service/fetchService/fetchService";
 import update from "react-addons-update";
 import {ProductObject} from "../../objects/ProductObject";
@@ -99,6 +101,7 @@ class AdminPage extends Component {
         showCategories: false,
         showAdditImages: false,
         showOrders: false,
+        showOrdersInBetween: false,
         additionalImages: [],
         newAdditionalImage: {
             productId: 0,
@@ -120,6 +123,9 @@ class AdminPage extends Component {
             subType: ''
         },
         orderList: [],
+        orderListInBetween: [],
+        fromDate: '',
+        toDate: '',
     };
 
     modifyShowStatus = (param) => {
@@ -140,6 +146,18 @@ class AdminPage extends Component {
         this.getAllSlideshows();
         this.getAllTheCategories();
     }
+
+
+    getAllOrdersInBetween = () => {
+        if (this.state.fromDate !== '' && this.state.toDate !== '') {
+            getOrdersInBetween(this.state.fromDate, this.state.toDate)
+                .then(resp => {
+                    this.setState({
+                        orderListInBetween: resp
+                    })
+                })
+        }
+    };
 
     getNotPayNotShippedProducts = () => {
         getNotShippedOrPayedOrders()
@@ -751,6 +769,22 @@ class AdminPage extends Component {
             productFromState.subType,
             productFromState.url);
         updateProductById(productFromState.id, productToUpdate)
+    };
+
+
+    changeDate = (paramName) => (event) => {
+        let newState = update(this.state, {
+            [paramName]: {$set: event.target.value}
+        });
+        this.setState(newState);
+    };
+
+    countQtyByIdAndFrameColour = (id, frameColour) => {
+        const countTypes = this.state.orderListInBetween.filter(
+            wrappedEntity => wrappedEntity.product.id === id &&
+                wrappedEntity.frame.colour === frameColour
+        );
+        return countTypes.length;
     };
 
 
@@ -2020,6 +2054,112 @@ class AdminPage extends Component {
                         </div>
                     </span>
                 </div>
+
+
+                <div className="a-orders-container">
+                    <h2 className="getter-boards">
+                        <button onClick={() => this.modifyShowStatus('showOrdersInBetween')}> Show / Hide</button>
+                        Orders Between DATE DATE
+                    </h2>
+                    <div className="date-container">
+                    </div>
+                    <div className={this.state.showOrdersInBetween ? '' : 'hide-content'}>
+                        <div className="date-from-to-container">
+                            <div>
+                                <p className="special-p">
+                                    From
+                                </p>
+                            </div>
+                            <div>
+                                <p className="special-p">
+                                    To
+                                </p>
+                            </div>
+                            <div></div>
+
+                            <div>
+                                <p className="special-p">
+                                    2020-01-20
+                                </p>
+                            </div>
+                            <div>
+                                <p className="special-p">
+                                    2020-12-20
+                                </p>
+                            </div>
+                            <div></div>
+
+                            <div className="date-from date">
+                                <input type="text" value={this.state.fromDate}
+                                       onChange={this.changeDate('fromDate')}
+                                />
+                            </div>
+                            <div className="date-to date">
+                                <input type="text" value={this.state.toDate}
+                                       onChange={this.changeDate('toDate')}
+                                />
+                            </div>
+                            <div className="btn-container">
+                                <button onClick={this.getAllOrdersInBetween}>Get Orders!</button>
+                            </div>
+                        </div>
+                        <div className="mapped-orders">
+                            <table className="orders-table">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <p></p>
+                                    </th>
+                                    <th>
+                                        <p>Name</p>
+                                    </th>
+                                    <th>
+                                        <p>Quantity</p>
+                                    </th>
+                                </tr>
+                                </thead>
+
+                                {
+                                    this.state.orderListInBetween.filter((wrappedEntity, index) =>
+                                        index === this.state.orderListInBetween.findIndex(
+                                        elem => elem.product.id === wrappedEntity.product.id &&
+                                            elem.frame.colour === wrappedEntity.frame.colour
+                                        )).map((wrappedE) =>
+                                        <tr>
+                                            <td>
+                                                <div
+                                                    className={wrappedE.product.isInFrame ? 'wrapped-product-in-frame' : 'wrapped-product-not-in-frame'}
+                                                    style={{
+                                                        borderImageSource: `${wrappedE.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedE.frame.colour}.png)`}`,
+                                                        float: 'left',
+                                                    }}>
+                                                    {
+                                                        <img src={serverURL + wrappedE.product.url}
+                                                             className="image-in-order-overview-cart"
+                                                             style={{
+                                                                 border: `${wrappedE.product.isInFrame ? '1px solid #D3D3D3' : 'none'}`,
+                                                             }}
+
+                                                        />
+                                                    }
+                                                </div>
+                                            </td>
+                                            <td>
+                                                {wrappedE.product.name}
+                                            </td>
+                                            <td>
+                                                {this.countQtyByIdAndFrameColour(wrappedE.product.id, wrappedE.frame.colour)}
+                                            </td>
+
+                                        </tr>
+                                    )
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         );
     }

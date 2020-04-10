@@ -603,7 +603,6 @@ export function addNewSlideshow(slideshow) {
 }
 
 
-
 export function getNotShippedOrPayedOrders() {
     return fetch(process.env.REACT_APP_API_URL + '/secret/admin/not-pay-not-shipped', {
         credentials: 'include',
@@ -783,5 +782,17 @@ export function buyAsGuest(cartId) {
             'Content-Type': 'application/json'
         },
     })
+}
+
+export function getOrdersInBetween(dateFrom, dateTo) {
+    return fetch(process.env.REACT_APP_API_URL + '/secret/admin/orders-between/' + dateFrom + '/' + dateTo, {
+        credentials: 'include',
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(response => response.json())
 }
 

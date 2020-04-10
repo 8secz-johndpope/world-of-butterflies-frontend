@@ -1662,3 +1662,23 @@ input[type=number] {
 .custom-next-btn:focus {
     outline: none;
 }
+
+.date-from-to-container {
+    display: grid;
+    grid-template-areas: "1 2 3" "4 5 6" "7 8 9";
+    grid-template-columns: repeat(3, max-content);
+    justify-content: center;
+    padding: 0.5rem;
+}
+
+.date {
+    padding: 0 0.5rem;
+}
+
+.date input {
+    font-size: 1rem;
+}
+
+.special-p {
+    margin: 2px;
+}
