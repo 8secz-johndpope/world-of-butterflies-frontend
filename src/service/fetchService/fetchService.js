@@ -642,6 +642,19 @@ export function updateShoppingCart(shoppingCart) {
 
 }
 
+export function updateNotLoggedInShoppingCart(shoppingCart) {
+    return fetch(process.env.REACT_APP_API_URL + '/cart/not-logged-in-cart', {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(shoppingCart),
+    })
+        .then(response => response.json())
+
+}
+
 export function updateGuestShoppingCart(cartAndAddress) {
     return fetch(process.env.REACT_APP_API_URL + '/cart/guest', {
         credentials: 'include',

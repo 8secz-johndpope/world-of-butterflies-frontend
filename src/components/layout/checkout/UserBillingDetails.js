@@ -99,12 +99,12 @@ class UserBillingDetails extends Component {
             this.props.productsInShoppingCart.filter((wrappedProduct, index) =>
                 index === this.props.productsInShoppingCart.findIndex(
                 elem => elem.product.id === wrappedProduct.product.id &&
-                    elem.chosenFrame.colour === wrappedProduct.chosenFrame.colour
+                    elem?.chosenFrame?.colour === wrappedProduct?.chosenFrame?.colour
                 )).map((wrappedProduct) => {
 
                     let productId = wrappedProduct.product.id;
                     let frameId = wrappedProduct.chosenFrame.id;
-                    let qty = this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct.chosenFrame.colour);
+                    let qty = this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct?.chosenFrame?.colour);
                     entityIds.push({productId, frameId, qty})
                 }
             );
@@ -119,7 +119,7 @@ class UserBillingDetails extends Component {
     countQtyByIdAndFrameColour = (id, frameColour) => {
         const countTypes = this.props.productsInShoppingCart.filter(
             wrappedProduct => wrappedProduct.product.id === id &&
-                wrappedProduct.chosenFrame.colour === frameColour
+                wrappedProduct?.chosenFrame?.colour === frameColour
         );
         return countTypes.length;
     };

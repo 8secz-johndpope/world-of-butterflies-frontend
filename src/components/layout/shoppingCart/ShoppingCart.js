@@ -4,7 +4,7 @@ import {faPlusCircle, faMinusCircle, faArrowRight, faArrowDown} from "@fortaweso
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Link, withRouter} from "react-router-dom";
 import {FormattedMessage} from "react-intl";
-import {updateShoppingCart} from "../../../service/fetchService/fetchService";
+import {updateNotLoggedInShoppingCart, updateShoppingCart} from "../../../service/fetchService/fetchService";
 import StatusBar from "../../shared/statusBar/StatusBar";
 
 class ShoppingCart extends Component {
@@ -80,7 +80,6 @@ class ShoppingCart extends Component {
 
 
     saveShoppingCartToServer = () => {
-        if (this.props.isLoggedIn) {
             let entityIds = [];
             let productsInShoppingCart = [];
             let takenFrames = [];
@@ -99,7 +98,38 @@ class ShoppingCart extends Component {
                 }
             );
             let outgoingCurrentCart = {'entityIds': entityIds};
+        if (this.props.isLoggedIn) {
             updateShoppingCart(outgoingCurrentCart)
+                .then(resp => {
+                    if (resp.id != null) {
+                        this.setState({
+                            outOfQtyList: resp.outOfQtyList,
+                        });
+
+                        resp.wrappedOrderEntities.map(wrappedEntity => {
+
+                            let uniqueId = Date.now() + Math.floor(Math.random() * Math.floor(9999999));
+                            let newWrappedProduct = {
+                                uniqueId: uniqueId,
+                                product: wrappedEntity.product,
+                                chosenFrame: wrappedEntity.frame,
+                            };
+
+                            let customFrameObject = {
+                                uniqueId: uniqueId,
+                                frame: wrappedEntity.frame,
+                            };
+
+                            productsInShoppingCart.push(newWrappedProduct);
+                            takenFrames.push(customFrameObject);
+                        })
+                    }
+                }).then(() => {
+                this.props.setShoppingCart(productsInShoppingCart);
+                this.props.setFrames(takenFrames);
+            });
+        } else {
+            updateNotLoggedInShoppingCart(outgoingCurrentCart)
                 .then(resp => {
                     if (resp.id != null) {
                         this.setState({
@@ -138,8 +168,11 @@ class ShoppingCart extends Component {
     // }
 
     addOneProductToShoppingCart = (product, frame) => {
+        console.log(product);
+        console.log(frame);
         if (frame === null) {
             if (this.countAddedProducts(product.id) < product.availableQuantity) {
+                console.log("countAddedProducts(product.id) < product.availableQuantity");
                 this.subtotal += product.price;
                 let uniqueId = Date.now();
                 let newWrappedProduct = {
@@ -149,166 +182,168 @@ class ShoppingCart extends Component {
                 };
                 this.props.addToShoppingCart(newWrappedProduct);
 
-            } else {
-                if (this.countAddedProducts(product.id) < product.availableQuantity &&
-                    frame.quantity > this.countTakenFrameAmount(frame.id)) {
-                    this.subtotal += product.price;
-                    let uniqueId = Date.now();
-                    let newWrappedProduct = {
-                        uniqueId: uniqueId,
-                        product: product,
-                        chosenFrame: frame,
-                    };
-                    let customFrameObject = {
-                        uniqueId: uniqueId,
-                        frame: this.props.takenFrames.filter((takenFrame) => takenFrame.frame.id === frame.id)[0].frame,
-                    };
-                    this.props.addToShoppingCart(newWrappedProduct);
-                    this.props.addFrame(customFrameObject);
-                }
             }
-        }
-    };
+        } else {
+            if (this.countAddedProducts(product.id) < product.availableQuantity &&
+                frame.quantity > this.countTakenFrameAmount(frame.id)) {
+                this.subtotal += product.price;
+                let uniqueId = Date.now();
+                let newWrappedProduct = {
+                    uniqueId: uniqueId,
+                    product: product,
+                    chosenFrame: frame,
+                };
+                let customFrameObject = {
+                    uniqueId: uniqueId,
+                    frame: this.props.takenFrames.filter((takenFrame) => takenFrame.frame.id === frame.id)[0].frame,
+                };
+                this.props.addToShoppingCart(newWrappedProduct);
+                this.props.addFrame(customFrameObject);
+            }
 
-    countTakenFrameAmount = (frameId) => {
-        return this.props.takenFrames.filter(takenFrame => takenFrame.frame.id === frameId).length;
-    };
+    }
+};
 
-    removeOneProductFromShoppingCart = (wrappedProduct) => {
-        this.subtotal -= wrappedProduct.product.price;
-        this.props.removeFromShoppingCart(wrappedProduct.uniqueId);
-        this.props.removeFrame(wrappedProduct.uniqueId);
+countTakenFrameAmount = (frameId) => {
+    return this.props.takenFrames.filter(takenFrame => takenFrame.frame.id === frameId).length;
+};
+
+removeOneProductFromShoppingCart = (wrappedProduct) => {
+    this.subtotal -= wrappedProduct.product.price;
+    this.props.removeFromShoppingCart(wrappedProduct.uniqueId);
+    this.props.removeFrame(wrappedProduct.uniqueId);
 
 
-    };
+};
 
-    calculatePricePerCategory = (price, qty) => {
-        let total = (price * qty);
-        return total.toFixed(2);
-    };
+calculatePricePerCategory = (price, qty) => {
+    let total = (price * qty);
+    return total.toFixed(2);
+};
 
-    calculateSubtotal = () => {
-        let total = 0;
-        this.props.productsInShoppingCart.map((wrappedProduct =>
-                total += wrappedProduct.product.price
-        ));
-        let shippingCost = this.props.shippingCost;
-        this.subtotal = total + shippingCost;
-        this.props.setSubtotal(this.subtotal);
-    };
+calculateSubtotal = () => {
+    let total = 0;
+    this.props.productsInShoppingCart.map((wrappedProduct =>
+            total += wrappedProduct.product.price
+    ));
+    let shippingCost = this.props.shippingCost;
+    this.subtotal = total + shippingCost;
+    this.props.setSubtotal(this.subtotal);
+};
 
-    displayLocationChoices = () => {
-        this.setState({
-            areLocationChoicesVisible: !this.props.areLocationChoicesVisible
-        })
-    };
+displayLocationChoices = () => {
+    this.setState({
+        areLocationChoicesVisible: !this.props.areLocationChoicesVisible
+    })
+};
 
-    redirectToCheckout = () => {
-        this.props.history.push("/checkout")
-    };
+redirectToCheckout = () => {
+    this.props.history.push("/checkout")
+};
 
-    render() {
-        return (
-            <React.Fragment>
-                {this.props.productsInShoppingCart.length ?
-                    <div className="vertical-container">
-                        <StatusBar
-                            position={1}>
-                        </StatusBar>
-                        <div className="shopping-cart-elements-container">
-                            <table className="shopping-cart-table">
-                                <thead>
-                                <tr className="shopping-cart-table-header-row">
-                                    <th className="shopping-cart-table-header-row-image">
-                                        <FormattedMessage id="app.shopping.cart.product"/>
-                                    </th>
-                                    <th>
-                                        <FormattedMessage id="app.shopping.cart.name"/>
-                                    </th>
-                                    <th>
-                                        <FormattedMessage id="app.shopping.cart.price"/>
-                                    </th>
-                                    <th className="shopping-cart-table-header-row-qty">
-                                        <FormattedMessage id="app.shopping.cart.qty"/>
-                                    </th>
-                                    <th className="shopping-cart-table-header-row-total">
-                                        <FormattedMessage id="app.shopping.cart.total"/>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {this.props.productsInShoppingCart.filter((wrappedProduct, index) =>
-                                    index === this.props.productsInShoppingCart.findIndex(
-                                    elem => elem.product.id === wrappedProduct.product.id &&
-                                        elem?.chosenFrame?.colour === wrappedProduct?.chosenFrame?.colour
-                                    ))
-                                    .map((wrappedProduct) =>
+render()
+{
+    return (
+        <React.Fragment>
+            {this.props.productsInShoppingCart.length ?
+                <div className="vertical-container">
+                    <StatusBar
+                        position={1}>
+                    </StatusBar>
+                    <div className="shopping-cart-elements-container">
+                        <table className="shopping-cart-table">
+                            <thead>
+                            <tr className="shopping-cart-table-header-row">
+                                <th className="shopping-cart-table-header-row-image">
+                                    <FormattedMessage id="app.shopping.cart.product"/>
+                                </th>
+                                <th>
+                                    <FormattedMessage id="app.shopping.cart.name"/>
+                                </th>
+                                <th>
+                                    <FormattedMessage id="app.shopping.cart.price"/>
+                                </th>
+                                <th className="shopping-cart-table-header-row-qty">
+                                    <FormattedMessage id="app.shopping.cart.qty"/>
+                                </th>
+                                <th className="shopping-cart-table-header-row-total">
+                                    <FormattedMessage id="app.shopping.cart.total"/>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {this.props.productsInShoppingCart.filter((wrappedProduct, index) =>
+                                index === this.props.productsInShoppingCart.findIndex(
+                                elem => elem.product.id === wrappedProduct.product.id &&
+                                    elem?.chosenFrame?.colour === wrappedProduct?.chosenFrame?.colour
+                                ))
+                                .map((wrappedProduct) =>
 
-                                        <tr>
-                                            <td>
-                                                <Link to={"/products/" + wrappedProduct.product.id}>
-                                                    <div
-                                                        className={wrappedProduct.product.isInFrame ? 'wrapped-product-in-frame frame-around-butterfly' : 'wrapped-product-not-in-frame frame-around-butterfly'}
-                                                        style={{
-                                                            // border: `${wrappedProduct.product.isInFrame ? 'none' : '0.3cm solid black'}`,
-                                                            // borderImage: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedProduct.chosenFrame.colour}.png) 50 / 0.3cm stretch`}`,
-                                                            borderImageSource: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedProduct?.chosenFrame?.colour}.png)`}`,
-                                                            // width: `${wrappedProduct.product.isInFrame ? '100%' : `auto`}`,
-                                                        }}>
-                                                        {
-                                                            <img src={serverURL + wrappedProduct.product.url}
-                                                                 className="image-in-shopping-cart"
-                                                                 style={{
-                                                                     border: `${wrappedProduct.product.isInFrame ? '1px solid #D3D3D3' : 'none'}`,
-                                                                 }}
+                                    <tr>
+                                        <td>
+                                            <Link to={"/products/" + wrappedProduct.product.id}>
+                                                <div
+                                                    className={wrappedProduct.product.isInFrame ? 'wrapped-product-in-frame frame-around-butterfly' : 'wrapped-product-not-in-frame frame-around-butterfly'}
+                                                    style={{
+                                                        // border: `${wrappedProduct.product.isInFrame ? 'none' : '0.3cm solid black'}`,
+                                                        // borderImage: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedProduct.chosenFrame.colour}.png) 50 / 0.3cm stretch`}`,
+                                                        borderImageSource: `${wrappedProduct.product.isInFrame ? 'none' : `url(${serverURL}/images/frames/${wrappedProduct?.chosenFrame?.colour}.png)`}`,
+                                                        // width: `${wrappedProduct.product.isInFrame ? '100%' : `auto`}`,
+                                                    }}>
+                                                    {
+                                                        <img src={serverURL + wrappedProduct.product.url}
+                                                             className="image-in-shopping-cart"
+                                                             style={{
+                                                                 border: `${wrappedProduct.product.isInFrame ? '1px solid #D3D3D3' : 'none'}`,
+                                                             }}
 
-                                                            />
-                                                        }
-                                                    </div>
-                                                </Link>
-                                            </td>
-                                            <td className="shopping-cart-product-name">
-                                                <Link to={"/products/" + wrappedProduct.product.id}
-                                                      style={{
-                                                          textDecoration: 'none',
-                                                          color: 'black',
-                                                      }}>
+                                                        />
+                                                    }
+                                                </div>
+                                            </Link>
+                                        </td>
+                                        <td className="shopping-cart-product-name">
+                                            <Link to={"/products/" + wrappedProduct.product.id}
+                                                  style={{
+                                                      textDecoration: 'none',
+                                                      color: 'black',
+                                                  }}>
                                                         <span>
                                                             {wrappedProduct.product.name}
                                                         </span>
-                                                </Link>
-                                            </td>
-                                            <td>{wrappedProduct.product.price}€</td>
-                                            <td className="shopping-cart-fa-icons-container">
-                                                <FontAwesomeIcon
-                                                    id="fa-icon-1"
-                                                    className="shopping-cart-fa-icons"
-                                                    icon={faMinusCircle}
-                                                    onClick={() => this.removeOneProductFromShoppingCart(wrappedProduct)}
-                                                />
-                                                <span id="element-between-fa-icons">
+                                            </Link>
+                                        </td>
+                                        <td>{wrappedProduct.product.price}€</td>
+                                        <td className="shopping-cart-fa-icons-container">
+                                            <FontAwesomeIcon
+                                                id="fa-icon-1"
+                                                className="shopping-cart-fa-icons"
+                                                icon={faMinusCircle}
+                                                onClick={() => this.removeOneProductFromShoppingCart(wrappedProduct)}
+                                            />
+                                            <span id="element-between-fa-icons">
                                                         {this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct?.chosenFrame?.colour)}
                                                     </span>
-                                                <FontAwesomeIcon
-                                                    id="fa-icon-2"
-                                                    className="shopping-cart-fa-icons"
-                                                    icon={faPlusCircle}
-                                                    onClick={() => this.addOneProductToShoppingCart(wrappedProduct.product, wrappedProduct.chosenFrame)}
-                                                />
-                                            </td>
-                                            <td>
-                                                {this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct?.chosenFrame?.colour))}€
-                                            </td>
-                                        </tr>
-                                    )}
-                                </tbody>
-                            </table>
+                                            <FontAwesomeIcon
+                                                id="fa-icon-2"
+                                                className="shopping-cart-fa-icons"
+                                                icon={faPlusCircle}
+                                                onClick={() => this.addOneProductToShoppingCart(wrappedProduct.product, wrappedProduct.chosenFrame)}
+                                            />
+                                        </td>
+                                        <td>
+                                            {this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct?.chosenFrame?.colour))}€
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
 
 
-                            {this.state.outOfQtyList.length === 0 ?
-                                null
-                                :
-                                <span>
+                        {this.state.outOfQtyList.length === 0 ?
+                            null
+                            :
+                            <span>
                                         <p>We are Sorry, but while You were browsing, these items run out of stock:</p>
                                         <table className="shopping-cart-table">
                                             <thead>
@@ -386,23 +421,23 @@ class ShoppingCart extends Component {
                                             </tbody>
                                         </table>
                                     </span>
-                            }
-                        </div>
-                        <div className="next-btn-container">
-                            <button onClick={this.redirectToCheckout}
-                                    className="custom-next-btn">
-                                <FormattedMessage id="app.next"/>
-                            </button>
-                        </div>
+                        }
                     </div>
-                    :
-                    <h1>
-                        <FormattedMessage id="app.shopping.cart.empty"/>
-                    </h1>
-                }
-            </React.Fragment>
-        );
-    }
+                    <div className="next-btn-container">
+                        <button onClick={this.redirectToCheckout}
+                                className="custom-next-btn">
+                            <FormattedMessage id="app.next"/>
+                        </button>
+                    </div>
+                </div>
+                :
+                <h1>
+                    <FormattedMessage id="app.shopping.cart.empty"/>
+                </h1>
+            }
+        </React.Fragment>
+    );
+}
 }
 
 

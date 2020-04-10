@@ -269,7 +269,7 @@ class OrderComplete extends Component {
                         <div className="o-o-products-total-container">
                             <div className="empty-space"></div>
                             <div className="o-o-products-total-price">
-                                {this.state.subtotal}€
+                                {this.state.subtotal.toFixed(2)}€
                             </div>
                         </div>
                     </div>
