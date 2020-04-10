@@ -1682,3 +1682,16 @@ input[type=number] {
 .special-p {
     margin: 2px;
 }
+
+
+.we-run-out-of-stock {
+    font-size: 1.2rem;
+    color: red;
+    font-weight: bolder;
+    margin-top: 5rem;
+
+}
+
+.less-margin-top{
+    margin-top: 0.5rem;
+}

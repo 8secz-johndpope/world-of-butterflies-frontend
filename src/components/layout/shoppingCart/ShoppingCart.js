@@ -344,8 +344,8 @@ render()
                             null
                             :
                             <span>
-                                        <p>We are Sorry, but while You were browsing, these items run out of stock:</p>
-                                        <table className="shopping-cart-table">
+                                        <p className="we-run-out-of-stock">We are Sorry, but while You were browsing, these items run out of stock:</p>
+                                        <table className="shopping-cart-table less-margin-top">
                                             <thead>
                                             <tr className="shopping-cart-table-header-row">
                                                 <th className="shopping-cart-table-header-row-image">
