@@ -31,7 +31,8 @@ import {
     getProductBySlideshow,
     getNotShippedOrPayedOrders,
     updateNotShippedOrPayedOrderById,
-    getOrdersInBetween
+    getOrdersInBetween,
+    getNotShippedOrPayedOrderById
 } from "../../../service/fetchService/fetchService";
 import update from "react-addons-update";
 import {ProductObject} from "../../objects/ProductObject";
@@ -135,6 +136,22 @@ class AdminPage extends Component {
         if (param === "showOrders" && this.state.orderList.length === 0) {
             this.getNotPayNotShippedProducts();
         }
+    };
+
+    modifyShowStatusAndFetch = (param, orderId) => {
+        if (this.state[param] === false || this.state[param] === undefined){
+            getNotShippedOrPayedOrderById(orderId)
+                .then(resp => {
+                    console.log(resp)
+                    this.setState({
+                        ['order'+orderId]:resp
+                    })
+                })
+        }
+        this.setState({
+            [param]: !this.state[param],
+        });
+
     };
 
     componentDidMount(): void {
@@ -785,6 +802,10 @@ class AdminPage extends Component {
                 wrappedEntity.frame.colour === frameColour
         );
         return countTypes.length;
+    };
+
+    getNotShippedOrPayedOrderById = (orderId) => {
+        getNotShippedOrPayedOrderById(orderId)
     };
 
 
@@ -2013,8 +2034,9 @@ class AdminPage extends Component {
 
                                 {
                                     this.state.orderList.map((order, index) =>
+                                        <tbody>
                                         <tr>
-                                            <td>
+                                            <td onClick={()=>this.modifyShowStatusAndFetch(order.id + "/" + index, order.id)} style={{cursor:"pointer"}}>
                                                 <p>{order.id}</p>
                                             </td>
                                             <td>
@@ -2048,6 +2070,17 @@ class AdminPage extends Component {
                                                 </button>
                                             </td>
                                         </tr>
+                                        {
+                                            this.state[order.id + "/" + index] ?
+                                                <tr>
+                                                    {console.log(this.state)}
+                                                    <td> {this.state['order-'+order.id]?.id}</td>
+                                                </tr>
+                                                :
+                                                null
+                                        }
+
+                                        </tbody>
                                     )
                                 }
                             </table>

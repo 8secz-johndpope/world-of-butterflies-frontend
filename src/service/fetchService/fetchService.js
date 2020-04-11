@@ -615,6 +615,18 @@ export function getNotShippedOrPayedOrders() {
         .then(response => response.json())
 }
 
+export function getNotShippedOrPayedOrderById(orderId) {
+    return fetch(process.env.REACT_APP_API_URL + '/secret/admin/not-pay-not-shipped/' + orderId, {
+        credentials: 'include',
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(response => response.json())
+}
+
 export function updateNotShippedOrPayedOrderById(orderId, booleanObject) {
     return fetch(process.env.REACT_APP_API_URL + '/secret/admin/not-pay-not-shipped/' + orderId, {
         credentials: 'include',
