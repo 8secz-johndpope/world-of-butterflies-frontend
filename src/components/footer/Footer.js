@@ -25,6 +25,7 @@ class Footer extends Component {
     };
 
     state = {
+        isContactAddressShown: true,
         isAccountContainerShown: true,
         isInformationContainerShown: true,
         isItMobileDevice: false,
@@ -78,6 +79,29 @@ class Footer extends Component {
     render() {
         return (
             <div className="footer-container">
+
+                <div className="contact-address-container">
+                    <div>
+                        <p
+                            className="contact-address-title"
+                            onClick={() => this.changeState("isContactAddressShown")}
+                        >
+                            Contact Address
+                        </p>
+                        {
+                            this.state.isContactAddressShown ?
+                                <span>
+                                <li>Gabanna sro</li>
+                                <li>Slovakia</li>
+                                <li>
+                                    <a href="mailto:info@gabannabutterfly.eu" className="contact-email">info@gabannabutterfly.eu</a>
+                                </li>
+                            </span>
+                                :
+                                null
+                        }
+                    </div>
+                </div>
 
                 <div className='my-account-container'>
                     <div className='my-account'>
@@ -190,7 +214,7 @@ class Footer extends Component {
                                 // width: '100%',
                                 // height: '100%',
                                 opacity: '0.1',
-                                margin: '1em 0'
+                                margin: '1em 3rem'
                             }}
                         />
                     </div>

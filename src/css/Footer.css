@@ -3,8 +3,29 @@
     background-color: #111111;
     color: white;
     display: grid;
-    grid-template-areas: "my-account-container information-container find-us-on-container footer-logo-container";
+    grid-template-areas: "contact-address-container my-account-container information-container find-us-on-container footer-logo-container";
+    grid-template-columns: repeat(4, 1fr) max-content;
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    text-align: left;
+}
+
+.footer-container span li {
+    font-size: 0.8rem;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+.my-account-container,
+.information-container,
+.find-us-on-container,
+.footer-logo-container,
+.contact-address-container {
+    display: grid;
+    justify-content: center;
+}
+
+.contact-address-container {
+    grid-area: contact-address-container;
 }
 
 .my-account-container {
@@ -21,6 +42,10 @@
 
 .footer-logo-container {
     grid-area: footer-logo-container;
+}
+
+.contact-email {
+    color: white;
 }
 
 .payment-method-icons * {
@@ -42,6 +67,11 @@
 
 .we-accept {
     margin-bottom: 0;
+}
+
+.we-accept span {
+    font-size: 0.9rem;
+    /*font-weight: normal;*/
 }
 
 .find-us-on-line {
