@@ -16,7 +16,6 @@ import Footer from "./components/footer/Footer";
 import ProductMapperByMainType from "./components/layout/productsByMainType/ProductMapperByMainType";
 import ProductMapperBySubType from "./components/layout/productsBySubType/ProductMapperBySubType";
 import FoundProducts from "./components/layout/search/FoundProducts";
-import OrderHistory from "./components/layout/orderHistory/OrderHistory";
 import AdminPage from "./components/layout/adminPage/AdminPage";
 import OrderComplete from "./components/layout/orderComplete/OrderComplete";
 import ShippingAndPaymentMethods from "./components/layout/shippingAndPaymentMethods/ShippingAndPaymentMethods";
@@ -62,9 +61,9 @@ class App extends Component {
                                 <Route path="/main-categories/:type" component={ProductMapperByMainType}/>
                                 <Route path="/sub-categories/:type" component={ProductMapperBySubType}/>
                                 <Route path="/search/:queryParam" component={FoundProducts}/>
-                                <Route path="/order-history" component={OrderHistory}/>
                                 <Route path="/profile" component={Profile}/>
                                 <Route path="/secret/admin" component={AdminPage}/>
+                                <Route path="*" component={MainPage}/>
                             </Switch>
                         </div>
                         <Footer/>
