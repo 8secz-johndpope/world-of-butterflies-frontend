@@ -1695,3 +1695,7 @@ input[type=number] {
 .less-margin-top{
     margin-top: 0.5rem;
 }
+
+.red-text {
+    color: red !important;
+}

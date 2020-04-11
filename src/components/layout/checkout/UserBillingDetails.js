@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {
     updateShippingAddressById,
     saveNewShippingAddress,
-    deleteShippingAddressById,
     getShippingAddresses,
     setAddressesForShoppingCart,
     updateShoppingCart,
@@ -23,6 +22,7 @@ class UserBillingDetails extends Component {
         billingAddressList: [],
         countries: [],
         addressToFill: {
+            nickName: '',
             id: "new",
             firstName: "",
             lastName: "",
@@ -32,7 +32,7 @@ class UserBillingDetails extends Component {
             city: "",
             zipCode: "",
             country: {
-                id: 1,
+                id: "",
                 name: "",
                 location: "",
             },
@@ -41,6 +41,7 @@ class UserBillingDetails extends Component {
             dic: "",
         },
         billingAddress: {
+            nickName: '',
             id: "new",
             firstName: "",
             lastName: "",
@@ -50,7 +51,7 @@ class UserBillingDetails extends Component {
             city: "",
             zipCode: "",
             country: {
-                id: 1,
+                id: "",
                 name: "",
                 location: "",
             },
@@ -64,6 +65,7 @@ class UserBillingDetails extends Component {
         isShippingAddressInputsDisabled: false,
         isBillingAddressInputsDisabled: false,
         isCheckboxDisabled: false,
+        wasSaveAddressClicked: false,
     };
 
     componentDidMount(): void {
@@ -110,7 +112,6 @@ class UserBillingDetails extends Component {
             );
 
             let object = {'entityIds': entityIds};
-            console.log(object);
             updateShoppingCart(object)
 
         }
@@ -195,7 +196,7 @@ class UserBillingDetails extends Component {
                 state: "",
                 zipCode: "",
                 country: {
-                    id: 1,
+                    id: "",
                     name: "",
                     location: "",
                 },
@@ -218,7 +219,7 @@ class UserBillingDetails extends Component {
                 state: "",
                 zipCode: "",
                 country: {
-                    id: 0,
+                    id: "",
                     name: "",
                     location: "",
                 },
@@ -229,7 +230,6 @@ class UserBillingDetails extends Component {
 
     saveModifiedChanges = () => {
         if (this.state.addressToFill.id !== "new") {
-            console.log("changing shipping address 2 NOT NEW");
             updateShippingAddressById(this.state.addressToFill, this.state.addressToFill.id)
                 .then(resp =>
                     this.setState({
@@ -237,7 +237,6 @@ class UserBillingDetails extends Component {
                     })
                 );
         } else {
-            console.log("changing shipping address 2 NEW");
             saveNewShippingAddress(this.state.addressToFill)
                 .then(resp =>
                     this.setState({
@@ -252,7 +251,6 @@ class UserBillingDetails extends Component {
 
     saveModifiedBillingChanges = () => {
         if (this.state.billingAddress.id !== "new") {
-            console.log("changing billing address 2 not NEW");
             updateShippingAddressById(this.state.billingAddress, this.state.billingAddress.id)
                 .then(resp =>
                     this.setState({
@@ -260,7 +258,6 @@ class UserBillingDetails extends Component {
                     })
                 );
         } else {
-            console.log("changing billing address 2 NEW");
             saveNewShippingAddress(this.state.billingAddress)
                 .then(resp =>
                     this.setState({
@@ -289,29 +286,62 @@ class UserBillingDetails extends Component {
         }
     };
 
+    checkProperties = () => {
+        if (
+            this.state.addressToFill.id === null || this.state.addressToFill.id === "" ||
+            this.state.addressToFill.firstName === null || this.state.addressToFill.firstName === "" ||
+            this.state.addressToFill.lastName === null || this.state.addressToFill.lastName === "" ||
+            this.state.addressToFill.addressLineOne === null || this.state.addressToFill.addressLineOne === "" ||
+            this.state.addressToFill.city === null || this.state.addressToFill.city === "" ||
+            this.state.addressToFill.zipCode === null || this.state.addressToFill.zipCode === "" ||
+            this.state.addressToFill.country.id === null || this.state.addressToFill.country.id === "" ||
+            this.state.addressToFill.phoneNumber === null || this.state.addressToFill.phoneNumber === ""
+        ) {
+            return false;
+        }
+
+        if (this.state.isShippingAddressDifferent) {
+            if (
+                this.state.billingAddress.id === null || this.state.billingAddress.id === "" ||
+                this.state.billingAddress.firstName === null || this.state.billingAddress.firstName === "" ||
+                this.state.billingAddress.lastName === null || this.state.billingAddress.lastName === "" ||
+                this.state.billingAddress.addressLineOne === null || this.state.billingAddress.addressLineOne === "" ||
+                this.state.billingAddress.city === null || this.state.billingAddress.city === "" ||
+                this.state.billingAddress.zipCode === null || this.state.billingAddress.zipCode === "" ||
+                this.state.billingAddress.country.id === null || this.state.billingAddress.country.id === "" ||
+                this.state.billingAddress.phoneNumber === null || this.state.billingAddress.phoneNumber === ""
+            ) {
+                return false;
+            }
+        }
+
+        return true;
+    };
+
     saveAddresses = () => {
-        if (this.state.isChange) {
-            console.log("changing shipping address 1");
-            this.saveModifiedChanges();
-        }
-        if (this.state.isBillingAddressChanged) {
-            console.log("changing billing address 1");
-            this.saveModifiedBillingChanges();
-        }
+        this.setState({
+            wasSaveAddressClicked: true,
+        })
+        if (this.checkProperties()) {
+            if (this.state.isChange) {
+                this.saveModifiedChanges();
+            }
+            if (this.state.isBillingAddressChanged) {
+                this.saveModifiedBillingChanges();
+            }
 
-
-        if (this.state.addressToFill.id !== 'new' && !this.state.isChange && !this.state.isBillingAddressChanged) {
-            console.log("sending address");
-            this.setState({
-                isCheckboxDisabled: true,
-                isShippingAddressInputsDisabled: true,
-                isBillingAddressInputsDisabled: true,
-            });
-            this.sendAddressesForTheServer(this.state.addressToFill.id, this.state.billingAddress.id)
-                .then(resp => {
-                    this.redirectToShippingAndPayment()
+            if (this.state.addressToFill.id !== 'new' && !this.state.isChange && !this.state.isBillingAddressChanged) {
+                this.setState({
+                    isCheckboxDisabled: true,
+                    isShippingAddressInputsDisabled: true,
+                    isBillingAddressInputsDisabled: true,
                 });
+                this.sendAddressesForTheServer(this.state.addressToFill.id, this.state.billingAddress.id)
+                    .then(resp => {
+                        this.redirectToShippingAndPayment()
+                    });
 
+            }
         }
     };
 
@@ -393,7 +423,7 @@ class UserBillingDetails extends Component {
                     <div className="billing-form-container">
                         <form className="billing-form">
                             <label>
-                                <p>
+                                <p className={this.state.addressToFill.nickName === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
                                     <FormattedMessage id="app.checkout.form.nickname"/>
                                 </p>
                                 <input type="text"
@@ -406,7 +436,7 @@ class UserBillingDetails extends Component {
                             </label>
                             <span className="billing-half-style">
                             <label>
-                                <p>
+                                <p className={this.state.addressToFill.firstName === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
                                     <FormattedMessage id="app.checkout.form.first-name"/>
                                 </p>
                                 <input type="text"
@@ -418,7 +448,7 @@ class UserBillingDetails extends Component {
                                 />
                             </label>
                             <label>
-                                <p>
+                                <p className={this.state.addressToFill.lastName === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
                                     <FormattedMessage id="app.checkout.form.last-name"/>
                                 </p>
                                 <input type="text"
@@ -434,7 +464,7 @@ class UserBillingDetails extends Component {
 
                             <span className="billing-half-style">
                             <label>
-                                <p>
+                                <p className={this.state.addressToFill.addressLineOne === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
                                     <FormattedMessage id="app.checkout.form.addr-line-one"/>
                                 </p>
                                 <input type="text"
@@ -446,7 +476,7 @@ class UserBillingDetails extends Component {
                                 />
                             </label>
                             <label>
-                                <p>
+                                <p className={this.state.addressToFill.city === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
                                     <FormattedMessage id="app.checkout.form.city"/>
                                 </p>
                                 <input type="text"
@@ -462,7 +492,7 @@ class UserBillingDetails extends Component {
 
                             <span className="billing-half-style">
                             <label>
-                                <p>
+                                <p className={this.state.addressToFill.zipCode === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
                                     <FormattedMessage id="app.checkout.form.zip"/>
                                 </p>
                                 <input type="text"
@@ -474,7 +504,7 @@ class UserBillingDetails extends Component {
                                 />
                             </label>
                             <label>
-                                <p>
+                                <p className={this.state.addressToFill.country.id === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
                                     <FormattedMessage id="app.checkout.form.country"/>
                                 </p>
                                     <select value={this.state.addressToFill.country.name}
@@ -492,7 +522,7 @@ class UserBillingDetails extends Component {
                         </span>
 
                             <label>
-                                <p>
+                                <p className={this.state.addressToFill.phoneNumber === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
                                     <FormattedMessage id="app.checkout.form.phone-number"/>
                                 </p>
                                 <input type="text"
@@ -591,9 +621,8 @@ class UserBillingDetails extends Component {
                             <div className="additional-shipping-address-in-billing-form">
 
                                 <form className="billing-form">
-                                    <p>{this.state.billingAddress.id}</p>
                                     <label>
-                                        <p>
+                                        <p className={this.state.billingAddress.nickName === '' && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent ? 'red-text' : null}>
                                             <FormattedMessage id="app.checkout.form.nickname"/>
                                         </p>
                                         <input type="text"
@@ -606,7 +635,7 @@ class UserBillingDetails extends Component {
                                     </label>
                                     <span className="billing-half-style">
                                         <label>
-                                            <p>
+                                            <p className={this.state.billingAddress.firstName === ''  && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent? 'red-text' : null}>
                                                 <FormattedMessage id="app.checkout.form.first-name"/>
                                             </p>
                                             <input type="text"
@@ -618,7 +647,7 @@ class UserBillingDetails extends Component {
                                             />
                                         </label>
                                         <label>
-                                            <p>
+                                            <p className={this.state.billingAddress.lastName === ''  && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent? 'red-text' : null}>
                                                 <FormattedMessage id="app.checkout.form.last-name"/>
                                             </p>
                                             <input type="text"
@@ -632,7 +661,7 @@ class UserBillingDetails extends Component {
                                     </span>
                                     <span className="billing-half-style">
                                         <label>
-                                            <p>
+                                            <p className={this.state.billingAddress.addressLineOne === ''  && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent? 'red-text' : null}>
                                                 <FormattedMessage id="app.checkout.form.addr-line-one"/>
                                             </p>
                                             <input type="text"
@@ -644,7 +673,7 @@ class UserBillingDetails extends Component {
                                             />
                                         </label>
                                         <label>
-                                            <p>
+                                            <p className={this.state.billingAddress.city === ''  && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent? 'red-text' : null}>
                                                 <FormattedMessage id="app.checkout.form.city"/>
                                             </p>
                                             <input type="text"
@@ -658,7 +687,7 @@ class UserBillingDetails extends Component {
                                     </span>
                                     <span className="billing-half-style">
                                         <label>
-                                            <p>
+                                            <p className={this.state.billingAddress.zipCode === ''  && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent? 'red-text' : null}>
                                                 <FormattedMessage id="app.checkout.form.zip"/>
                                             </p>
                                             <input type="text"
@@ -670,7 +699,7 @@ class UserBillingDetails extends Component {
                                             />
                                         </label>
                                         <label>
-                                            <p>
+                                            <p className={this.state.billingAddress.country.id === ''  && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent? 'red-text' : null}>
                                                 <FormattedMessage id="app.checkout.form.country"/>
                                             </p>
                                             <select value={this.state.billingAddress.country.name}
@@ -688,7 +717,7 @@ class UserBillingDetails extends Component {
                                         </label>
                                     </span>
                                     <label>
-                                        <p>
+                                        <p className={this.state.billingAddress.phoneNumber === ''  && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent? 'red-text' : null}>
                                             <FormattedMessage id="app.checkout.form.phone-number"/>
                                         </p>
                                         <input type="text"
