@@ -20,6 +20,7 @@ class ShippingAndPaymentMethods extends Component {
         shippingMethods: [],
         chosenPaymentMethod: {},
         chosenShippingMethod: {},
+        wasGoNextClicked:false,
 
     };
 
@@ -105,20 +106,35 @@ class ShippingAndPaymentMethods extends Component {
         }
     };
 
-    saveAndRedirectToOrderComplete = () => {
-        if (this.props.isLoggedIn) {
-            setShippingAndPaymentMethodsCart(this.state.chosenShippingMethod.id, this.state.chosenPaymentMethod.id)
-                .then(resp => {
-                    this.props.history.push('/order-complete')
-                })
-        } else {
-            setShippingAndPaymentMethodsForGuestCart(this.getIdFromSessionStorage(), this.state.chosenShippingMethod.id, this.state.chosenPaymentMethod.id)
-                .then(resp => {
-                    window.sessionStorage.setItem(process.env.REACT_APP_SESSION_STORAGE_KEY, JSON.stringify(resp));
-                }).then(() => {
-                this.props.history.push('/order-complete');
-            });
+    checkProperties = () => {
+        if (
+            this.state.chosenPaymentMethod === null || Object.keys(this.state.chosenPaymentMethod).length === 0 || this.state.chosenPaymentMethod === '' ||
+            this.state.chosenShippingMethod === null || Object.keys(this.state.chosenShippingMethod).length === 0 || this.state.chosenShippingMethod === ''
+        ) {
+            return false;
+        }
+        return true;
+    };
 
+    saveAndRedirectToOrderComplete = () => {
+        this.setState({
+            wasGoNextClicked: true,
+        });
+        if (this.checkProperties()) {
+            if (this.props.isLoggedIn) {
+                setShippingAndPaymentMethodsCart(this.state.chosenShippingMethod.id, this.state.chosenPaymentMethod.id)
+                    .then(resp => {
+                        this.props.history.push('/order-complete')
+                    })
+            } else {
+                setShippingAndPaymentMethodsForGuestCart(this.getIdFromSessionStorage(), this.state.chosenShippingMethod.id, this.state.chosenPaymentMethod.id)
+                    .then(resp => {
+                        window.sessionStorage.setItem(process.env.REACT_APP_SESSION_STORAGE_KEY, JSON.stringify(resp));
+                    }).then(() => {
+                    this.props.history.push('/order-complete');
+                });
+
+            }
         }
     };
 
@@ -132,7 +148,7 @@ class ShippingAndPaymentMethods extends Component {
                 </span>
                 <div className="payment-method-container">
                     {this.state.paymentMethods.map((paymentMethod) =>
-                        <div className="payment-method">
+                        <div className={Object.keys(this.state.chosenPaymentMethod).length === 0 && this.state.wasGoNextClicked ? 'payment-method red-border' : 'payment-method'}>
                             <div className="payment-method-radio">
                                 <input type="radio"
                                        name={paymentMethod.nameEN}
@@ -156,7 +172,7 @@ class ShippingAndPaymentMethods extends Component {
                 <div className="vertical-border-line"></div>
                 <div className="shipping-method-container">
                     {this.state.shippingMethods.map((shippingMethod) =>
-                        <div className="shipping-method">
+                        <div  className={Object.keys(this.state.chosenShippingMethod).length === 0 && this.state.wasGoNextClicked ? 'shipping-method red-border' : 'shipping-method'} >
                             <div className="shipping-method-radio">
                                 <input type="radio"
                                        name={shippingMethod.nameEN}
@@ -181,13 +197,6 @@ class ShippingAndPaymentMethods extends Component {
                     <div
                         className="price">{(this.props.subtotal + this.props.shippingCost + this.props.paymentCost).toFixed(2)}€
                     </div>
-                    {/*<div className="shipping-info">*/}
-                    {/*    <span>*/}
-                    {/*        <FormattedMessage id="app.shopping.cart.shipping"/>*/}
-                    {/*    </span>*/}
-                    {/*    <span>*/}
-                    {/*    </span>*/}
-                    {/*</div>*/}
                     <div className="custom-next-btn"
                          onClick={this.saveAndRedirectToOrderComplete}>
                         Continue

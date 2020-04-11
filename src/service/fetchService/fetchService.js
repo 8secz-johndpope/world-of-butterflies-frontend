@@ -733,7 +733,6 @@ export function getAllShippingMethods() {
 }
 
 export function getAllShippingMethodsByCartIdForGuest(cartId) {
-    console.log(cartId);
     return fetch(process.env.REACT_APP_API_URL + '/shipping-methods/' + cartId, {
         method: 'GET',
         headers: {
