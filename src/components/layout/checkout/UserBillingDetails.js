@@ -321,7 +321,7 @@ class UserBillingDetails extends Component {
     saveAddresses = () => {
         this.setState({
             wasSaveAddressClicked: true,
-        })
+        });
         if (this.checkProperties()) {
             if (this.state.isChange) {
                 this.saveModifiedChanges();
