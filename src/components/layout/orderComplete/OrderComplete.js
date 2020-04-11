@@ -179,7 +179,10 @@ class OrderComplete extends Component {
         // document.body.style.overflow = 'auto';
         this.setState({
             isSuccessPopUpVisible: false
-        })
+        });
+        this.clearLocalstorage();
+        this.clearSessionStorage();
+        this.props.history.push('/')
     };
 
     openPopUp = () => {
@@ -187,6 +190,23 @@ class OrderComplete extends Component {
         this.setState({
             isSuccessPopUpVisible: true,
         })
+    };
+
+    clearLocalstorage = () => {
+        this.props.clearShoppingCart();
+        this.props.clearTakenFramesList();
+        this.props.setSubtotal(0);
+        this.props.setShippingCost(0);
+        this.props.setPaymentCost(0);
+        this.props.setChosenShippingAddress("");
+        this.props.setChosenBillingAddress("");
+    };
+
+
+    clearSessionStorage = () => {
+        if (window.sessionStorage.getItem(process.env.REACT_APP_SESSION_STORAGE_KEY) !== null) {
+            window.sessionStorage.removeItem(process.env.REACT_APP_SESSION_STORAGE_KEY)
+        }
     };
 
 
@@ -533,6 +553,39 @@ function mapStateToProps(state) {
     }
 }
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        clearShoppingCart: function () {
+            const action = {type: "clearShoppingCart"};
+            dispatch(action);
+        },
+        clearTakenFramesList: function () {
+            const action = {type: "clearTakenFramesList"};
+            dispatch(action);
+        },
+        setSubtotal: function (subtotal) {
+            const action = {type: "setSubtotal", subtotal};
+            dispatch(action);
+        },
+        setChosenShippingAddress: function (chosenShippingAddress) {
+            const action = {type: "setChosenShippingAddress", chosenShippingAddress};
+            dispatch(action);
+        },
+        setChosenBillingAddress: function (chosenBillingAddress) {
+            const action = {type: "setChosenBillingAddress", chosenBillingAddress};
+            dispatch(action);
+        },
+        setShippingCost: function (newShippingCost) {
+            const action = {type: "setShippingCost", newShippingCost};
+            dispatch(action);
+        },
+        setPaymentCost: function (newShippingCost) {
+            const action = {type: "setPaymentCost", newShippingCost};
+            dispatch(action);
+        },
+    }
+};
+
 const invisibleFrame = process.env.REACT_APP_INVISIBLE_FRAME;
 const serverURL = process.env.REACT_APP_API_URL;
-export default withRouter(connect(mapStateToProps, null)(OrderComplete));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(OrderComplete));
