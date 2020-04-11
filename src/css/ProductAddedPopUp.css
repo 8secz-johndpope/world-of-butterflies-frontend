@@ -59,6 +59,7 @@
 
 .pop-up-multiplier-sign {
     grid-area: pop-up-multiplier-sign;
+    padding: 0 6px;
 }
 
 .pop-up-product-amount {

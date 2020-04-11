@@ -253,7 +253,7 @@ class Profile extends Component {
                                         {order.checkoutDate.year}.{order.checkoutDate.monthValue}.{order.checkoutDate.dayOfMonth}
                                     </div>
                                     <div className="p-o-total-price">
-                                        {order.priceTotal.toFixed(2)}€
+                                        <span className="euro-sign">€</span><span>{order.priceTotal.toFixed(2)}</span>
                                     </div>
                                     <div className="p-o-is-payed">
                                         {
@@ -301,13 +301,13 @@ class Profile extends Component {
                                                     {woe.product.name}
                                                 </div>
                                                 <div className="p-o-price">
-                                                    {woe.product.price.toFixed(2)}€
+                                                    <span className="euro-sign">€</span><span>{woe.product.price.toFixed(2)}</span>
                                                 </div>
                                                 <div className="p-o-qty">
                                                     {this.countQtyByIdAndFrameColour(woe.product.id, woe.frame.colour, index)}
                                                 </div>
                                                 <div className="p-o-subtotal">
-                                                    {this.calculatePricePerCategory(woe.product.price, this.countQtyByIdAndFrameColour(woe.product.id, woe.frame.colour, index))}€
+                                                    <span className="euro-sign">€</span><span>{this.calculatePricePerCategory(woe.product.price, this.countQtyByIdAndFrameColour(woe.product.id, woe.frame.colour, index))}</span>
                                                 </div>
                                             </div>
                                         )}
@@ -318,7 +318,7 @@ class Profile extends Component {
                                         'p-o-product-total-price p-o-hide'}>
                                         <div className="p-o-empty"></div>
                                         <div className="p-o-products-total-no-shipping">
-                                            {order.subTotal.toFixed(2)}€
+                                            <span className="euro-sign">€</span><span>{order.subTotal.toFixed(2)}</span>
                                         </div>
                                     </div>
                                     <div className={this.state['orderHistory' + index] ?
@@ -431,7 +431,7 @@ class Profile extends Component {
                                                 {order.shippingCost['name' + this.props.preferredLanguage.toUpperCase()]}
                                             </div>
                                             <div className="method-price">
-                                                {order.shippingCost.price.toFixed(2)} €
+                                                <span className="euro-sign">€</span><span>{order.shippingCost.price.toFixed(2)}</span>
                                             </div>
                                         </div>
                                         <div className="method">
@@ -444,7 +444,7 @@ class Profile extends Component {
                                                 {order.paymentMethod['name' + this.props.preferredLanguage.toUpperCase()]}
                                             </div>
                                             <div className="method-price">
-                                                {order.paymentMethod.price.toFixed(2)} €
+                                                <span className="euro-sign">€</span><span>{order.paymentMethod.price.toFixed(2)}</span>
                                             </div>
                                         </div>
                                     </div>

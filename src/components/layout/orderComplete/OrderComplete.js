@@ -287,13 +287,15 @@ class OrderComplete extends Component {
                                         {wrappedE.product.name}
                                     </div>
                                     <div className="product-price">
-                                        {wrappedE.product.price}
+                                        <span
+                                            className="euro-sign">€</span><span>{wrappedE.product.price.toFixed(2)}</span>
                                     </div>
                                     <div className="product-qty">
                                         {this.countQtyByIdAndFrameColour(wrappedE.product.id, wrappedE.frame.colour)}
                                     </div>
                                     <div className="product-sum">
-                                        {this.calculatePricePerCategory(wrappedE.product.price, this.countQtyByIdAndFrameColour(wrappedE.product.id, wrappedE.frame.colour))}€
+                                        <span
+                                            className="euro-sign">€</span><span>{this.calculatePricePerCategory(wrappedE.product.price, this.countQtyByIdAndFrameColour(wrappedE.product.id, wrappedE.frame.colour))}</span>
                                     </div>
                                 </span>
                             )}
@@ -301,7 +303,7 @@ class OrderComplete extends Component {
                         <div className="o-o-products-total-container">
                             <div className="empty-space"></div>
                             <div className="o-o-products-total-price">
-                                {this.state.subtotal.toFixed(2)}€
+                                <span className="euro-sign">€</span><span>{this.state.subtotal.toFixed(2)}</span>
                             </div>
                         </div>
                     </div>
@@ -432,7 +434,8 @@ class OrderComplete extends Component {
                             <img src={serverURL + this.state.shippingMethod.imageUrl} alt="payment-method"/>
                         </div>
                         <div className="order-o-shipping-method-price">
-                            {this.state.shippingMethod.price} €
+                            <span
+                                className="euro-sign">€</span><span>{this.state?.shippingMethod?.price?.toFixed(2)}</span>
                         </div>
                     </div>
                     <div className="order-o-payment">
@@ -443,7 +446,8 @@ class OrderComplete extends Component {
                             <img src={serverURL + this.state.paymentMethod.imageUrl} alt="payment-method"/>
                         </div>
                         <div className="order-o-payment-method-price">
-                            {this.state.paymentMethod.price} €
+                            <span
+                                className="euro-sign">€</span><span> {this.state?.paymentMethod?.price?.toFixed(2)}</span>
                         </div>
                     </div>
                 </div>
@@ -513,16 +517,16 @@ class OrderComplete extends Component {
                                                     </span>
                                                     </Link>
                                                 </td>
-                                                <td>{wrappedProduct.product.price}€</td>
+                                                <td>
+                                                    <span className="euro-sign">€</span><span>{wrappedProduct?.product?.price.toFixed(2)}</span>
+                                                </td>
                                                 <td className="shopping-cart-fa-icons-container">
                                                 <span id="element-between-fa-icons">
                                                     {this.countQtyByIdAndFrameColourForOutOfStock(wrappedProduct.product.id, wrappedProduct?.frame?.colour)}
                                                 </span>
                                                 </td>
                                                 <td>
-                                                    {
-                                                        this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColourForOutOfStock(wrappedProduct.product.id, wrappedProduct?.frame?.colour))
-                                                    }€
+                                                    <span className="euro-sign">€</span><span>{this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColourForOutOfStock(wrappedProduct.product.id, wrappedProduct?.frame?.colour))}</span>
                                                 </td>
                                             </tr>
                                         )}
@@ -535,11 +539,7 @@ class OrderComplete extends Component {
                 <div className="pay-container">
 
                     <div className="subtotal">
-                        {(
-                            this.state.subtotal +
-                            this.state.shippingMethod.price +
-                            this.state.paymentMethod.price
-                        ).toFixed(2)}€
+                        <span className="euro-sign">€</span><span>{(this.state.subtotal + this.state.shippingMethod.price + this.state.paymentMethod.price).toFixed(2)}</span>
                     </div>
 
                     <div className="pay-btn-container">

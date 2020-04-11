@@ -164,7 +164,7 @@ class ShippingAndPaymentMethods extends Component {
                                 <img src={serverURL + paymentMethod.imageUrl} alt="payment-method"/>
                             </div>
                             <div className="payment-method-price">
-                                {paymentMethod.price} €
+                                <span className="euro-sign">€</span><span>{paymentMethod.price.toFixed(2)}</span>
                             </div>
                         </div>
                     )}
@@ -188,14 +188,14 @@ class ShippingAndPaymentMethods extends Component {
                                 <img src={serverURL + shippingMethod.imageUrl} alt="payment-method"/>
                             </div>
                             <div className="shipping-method-price">
-                                {shippingMethod.price} €
+                                <span className="euro-sign">€</span><span>{shippingMethod.price.toFixed(2)}</span>
                             </div>
                         </div>
                     )}
                 </div>
                 <div className="total-price-container">
-                    <div
-                        className="price">{(this.props.subtotal + this.props.shippingCost + this.props.paymentCost).toFixed(2)}€
+                    <div className="price">
+                        <span className="euro-sign">€</span><span>{(this.props.subtotal + this.props.shippingCost + this.props.paymentCost).toFixed(2)}</span>
                     </div>
                     <div className="custom-next-btn"
                          onClick={this.saveAndRedirectToOrderComplete}>

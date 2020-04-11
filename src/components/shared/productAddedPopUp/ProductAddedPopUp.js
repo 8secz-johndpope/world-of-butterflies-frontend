@@ -49,7 +49,8 @@ class ProductAddedPopUp extends Component {
                             {this.props.product.name}
                         </div>
                         <div className="pop-up-product-price">
-                            {this.props.product.price}€
+                            <span>€</span><span> {this.props.product.price.toFixed(2)}</span>
+
                         </div>
                         <div className="pop-up-multiplier-sign">
                             x
@@ -58,7 +59,7 @@ class ProductAddedPopUp extends Component {
                             {this.props.amount}
                         </div>
                         <div className="pop-up-total">
-                            {(this.props.product.price * this.props.amount).toFixed(2)}€
+                            <span className="euro-sign">€</span><span>{(this.props.product.price * this.props.amount).toFixed(2)}</span>
                         </div>
                     </div>
                     <div className="pop-up-btn-container">

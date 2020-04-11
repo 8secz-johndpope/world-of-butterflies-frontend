@@ -424,7 +424,7 @@ class SingleProduct extends Component {
                                     </button>
                                     <div className='price-container'>
                                         <p className="price">
-                                            {this.state.product.price}€
+                                            <span className="euro-sign">€</span><span>{this.state?.product?.price?.toFixed(2)}</span>
                                         </p>
                                         <span id="dph">
                                             <FormattedMessage id="app.single.page.dph"/>

@@ -12,7 +12,9 @@ class SearchBarFoundProduct extends Component {
                     <img src={serverURL + this.props.url}/>
                     <span className="main-page-informational-text">
                         <p>{this.props.name}</p>
-                        <p>{this.props.price}</p>
+                        <p>
+                            <span className="euro-sign">€</span><span> {this.props.price.toFixed(2)}</span>
+                        </p>
                     </span>
                 </div>
             </Link>

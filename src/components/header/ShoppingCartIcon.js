@@ -116,7 +116,7 @@ class ShoppingCartIcon extends Component {
                                                             x
                                                         </div>
                                                         <div className="cart-content-price">
-                                                            {this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct?.chosenFrame?.colour))}€
+                                                            <span className="euro-sign">€</span><span>{this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct?.chosenFrame?.colour))}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -129,7 +129,7 @@ class ShoppingCartIcon extends Component {
                                     <FormattedMessage id="app.shopping.cart.sub-total"/>
                                 </div>
                                 <div className="total-count-price">
-                                    {this.state.totalCost.toFixed(2)}€
+                                    <span className="euro-sign">€</span><span> {this.state.totalCost.toFixed(2)}</span>
                                 </div>
                             </div>
                         </div>

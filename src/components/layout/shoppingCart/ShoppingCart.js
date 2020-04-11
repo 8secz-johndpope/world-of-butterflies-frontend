@@ -313,7 +313,11 @@ render()
                                                         </span>
                                             </Link>
                                         </td>
-                                        <td>{wrappedProduct.product.price}€</td>
+
+                                        <td>
+                                            <span className="euro-sign">€</span><span>{wrappedProduct.product.price.toFixed(2)}</span>
+
+                                        </td>
                                         <td className="shopping-cart-fa-icons-container">
                                             <FontAwesomeIcon
                                                 id="fa-icon-1"
@@ -332,7 +336,7 @@ render()
                                             />
                                         </td>
                                         <td>
-                                            {this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct?.chosenFrame?.colour))}€
+                                            <span className="euro-sign">€</span><span>{this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColour(wrappedProduct.product.id, wrappedProduct?.chosenFrame?.colour))}</span>
                                         </td>
                                     </tr>
                                 )}
@@ -405,16 +409,16 @@ render()
                                                             </span>
                                                             </Link>
                                                         </td>
-                                                        <td>{wrappedProduct.product.price}€</td>
+                                                        <td>
+                                                            <span className="euro-sign">€</span><span> {wrappedProduct.product.price.toFixed(2)}</span>
+                                                        </td>
                                                         <td className="shopping-cart-fa-icons-container">
                                                         <span id="element-between-fa-icons">
                                                             {this.countQtyByIdAndFrameColourForOutOfStock(wrappedProduct.product.id, wrappedProduct?.frame?.colour)}
                                                         </span>
                                                         </td>
                                                         <td>
-                                                            {
-                                                                this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColourForOutOfStock(wrappedProduct.product.id, wrappedProduct?.frame?.colour))
-                                                            }€
+                                                            <span className="euro-sign">€</span><span>{this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColourForOutOfStock(wrappedProduct.product.id, wrappedProduct?.frame?.colour))}</span>
                                                         </td>
                                                     </tr>
                                                 )}

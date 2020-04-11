@@ -109,12 +109,12 @@ class FeaturedProduct extends Component {
 
                                     <span className="main-page-informational-text">
                                     <p className="featured-product-name-framed">{this.props.name}</p>
-                                    <p className="featured-product-price-framed">{this.props.price}€</p>
+                                    <p className="featured-product-price-framed"><span className="euro-sign">€</span><span>{this.props.price.toFixed(2)}</span></p>
                                 </span>
                                     :
                                     <span className="main-page-informational-text-non-framed">
                                     <p className="featured-product-name-non-framed">{this.props.name}</p>
-                                    <p className="featured-product-price-non-framed">{this.props.price}€</p>
+                                    <p className="featured-product-price-non-framed"><span className="euro-sign">€</span><span>{this.props.price.toFixed(2)}</span></p>
                                 </span>
                             }
                         </span>
