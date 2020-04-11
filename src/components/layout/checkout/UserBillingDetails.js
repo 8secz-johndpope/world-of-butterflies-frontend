@@ -72,7 +72,24 @@ class UserBillingDetails extends Component {
         this.getAllTheShippingAddresses();
         this.saveShoppingCartToServer();
         this.getAllOfTheCountries()
+        this.addEventListenerForPhoneNumber();
+
     }
+
+    componentWillUnmount(): void {
+        window.removeEventListener('keypress', this.numberInputEventHandler);
+    }
+
+    addEventListenerForPhoneNumber = () => {
+        document.querySelector(".phone-number-input").addEventListener("keypress", this.numberInputEventHandler);
+    };
+
+    numberInputEventHandler =(evt)=>{
+        if (evt.which !== 8 && evt.which !== 0 && evt.which < 48 || evt.which > 57)
+        {
+            evt.preventDefault();
+        }
+    };
 
     getAllOfTheCountries = () => {
         getAllCountries()
@@ -525,12 +542,12 @@ class UserBillingDetails extends Component {
                                 <p className={this.state.addressToFill.phoneNumber === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
                                     <FormattedMessage id="app.checkout.form.phone-number"/>
                                 </p>
-                                <input type="text"
+                                <input type="number"
                                        name="phoneNumber"
                                        value={this.state.addressToFill.phoneNumber ? this.state.addressToFill.phoneNumber : ''}
                                        onChange={this.handleChange}
                                        disabled={this.state.isShippingAddressInputsDisabled}
-                                       className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
+                                       className={this.state.isShippingAddressInputsDisabled ? 'disabled' : 'phone-number-input'}
                                 />
                             </label>
                             <label>
@@ -725,7 +742,7 @@ class UserBillingDetails extends Component {
                                                value={this.state.billingAddress.phoneNumber ? this.state.billingAddress.phoneNumber : ''}
                                                onChange={this.handleBillingAddressChange}
                                                disabled={this.state.isBillingAddressInputsDisabled}
-                                               className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
+                                               className={this.state.isBillingAddressInputsDisabled ? 'disabled' : 'phone-number-input'}
                                         />
                                     </label>
                                     <label>

@@ -80,7 +80,24 @@ class Profile extends Component {
     changeActiveTab = (booleanChoice) => {
         this.setState({
             isTabOneActive: booleanChoice
+        }, () => {
+            if (!this.state.isTabOneActive) {
+                this.addEventListenerForPhoneNumber()
+            } else {
+                window.removeEventListener('keypress', this.numberInputEventHandler);
+            }
         })
+    };
+
+
+    addEventListenerForPhoneNumber = () => {
+        document.querySelector(".phone-number-input").addEventListener("keypress", this.numberInputEventHandler);
+    };
+
+    numberInputEventHandler = (evt) => {
+        if (evt.which !== 8 && evt.which !== 0 && evt.which < 48 || evt.which > 57) {
+            evt.preventDefault();
+        }
     };
 
     openOrCloseDetailView = (id) => {
@@ -580,10 +597,11 @@ class Profile extends Component {
                                         <p>
                                             <FormattedMessage id="app.checkout.form.phone-number"/>
                                         </p>
-                                        <input type="text"
+                                        <input type="number"
                                                name="phoneNumber"
                                                value={this.state.address.phoneNumber ? this.state.address.phoneNumber : ''}
                                                onChange={this.handleChange}
+                                               className='phone-number-input'
                                         />
                                     </label>
                                     <label>
