@@ -719,7 +719,6 @@ export function getAllPaymentMethods() {
             'Content-Type': 'application/json'
         },
     })
-        .then(response => response.json())
 }
 
 export function getAllShippingMethods() {
@@ -731,7 +730,6 @@ export function getAllShippingMethods() {
             'Content-Type': 'application/json'
         },
     })
-        .then(response => response.json())
 }
 
 export function getAllShippingMethodsByCartIdForGuest(cartId) {
@@ -743,7 +741,6 @@ export function getAllShippingMethodsByCartIdForGuest(cartId) {
             'Content-Type': 'application/json'
         },
     })
-        .then(response => response.json())
 }
 
 export function getAllCountries() {

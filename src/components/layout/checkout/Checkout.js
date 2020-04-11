@@ -9,15 +9,27 @@ import {FormattedMessage} from "react-intl";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowDown, faArrowRight} from "@fortawesome/free-solid-svg-icons";
 import StatusBar from "../../shared/statusBar/StatusBar";
+import {withRouter} from 'react-router-dom'
 
 class Checkout extends Component {
+    constructor(props) {
+        super(props)
+    }
+
     state = {
         isUser: true,
     };
 
     componentDidMount(): void {
         this.clearShippingAndPaymentCost();
+        this.redirectBackIfCartIsEmpty()
     }
+
+    redirectBackIfCartIsEmpty = () => {
+        if (this.props.productsInShoppingCart.length === 0) {
+            this.props.history.push('/cart')
+        }
+    };
 
     clearShippingAndPaymentCost = () => {
         this.props.setShippingCost(0);
@@ -99,6 +111,7 @@ function mapStateToProps(state) {
         subtotal: state.subtotal,
         isLoggedIn: state.isLoggedIn,
         email: state.email,
+        productsInShoppingCart: state.productsInShoppingCart,
     }
 }
 
@@ -119,4 +132,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Checkout));

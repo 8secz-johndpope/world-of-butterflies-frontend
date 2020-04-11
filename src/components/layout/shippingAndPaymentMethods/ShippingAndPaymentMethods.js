@@ -37,33 +37,57 @@ class ShippingAndPaymentMethods extends Component {
 
     };
 
+    redirectBackIfShippingOrPaymentMethodFailsToLoad = () => {
+        this.props.history.push('/checkout')
+    };
+
     clearShippingAndPaymentCost = () => {
         this.props.setShippingCost(0);
         this.props.setPaymentCost(0);
     };
 
-    getPaymentAndShippingInfo = () => {
-        getAllPaymentMethods()
-            .then(resp => {
-                    this.setState({
-                        paymentMethods: resp
-                    });
-                }
-            );
-        if (this.props.isLoggedIn) {
-            getAllShippingMethods()
-                .then(resp => {
-                    this.setState({
-                        shippingMethods: resp
-                    })
-                })
+    getPaymentAndShippingInfo = async () => {
+        let paymentMethodsResp = await getAllPaymentMethods();
+        if (paymentMethodsResp.status === 200) {
+            let paymentMethods = await paymentMethodsResp.json();
+            this.setState({
+                paymentMethods: paymentMethods
+            });
         } else {
-            getAllShippingMethodsByCartIdForGuest(this.getIdFromSessionStorage())
-                .then(resp => {
-                    this.setState({
-                        shippingMethods: resp
-                    })
+            this.redirectBackIfShippingOrPaymentMethodFailsToLoad();
+        }
+
+
+        if (this.props.isLoggedIn) {
+            let shippingMethodsResp = await getAllShippingMethods();
+            if (shippingMethodsResp.status === 200) {
+                let shippingMethods = await shippingMethodsResp.json();
+                if (shippingMethods.length === 0) {
+                    this.redirectBackIfShippingOrPaymentMethodFailsToLoad();
+                    return;
+                }
+                this.setState({
+                    shippingMethods: shippingMethods
                 })
+
+            } else {
+                this.redirectBackIfShippingOrPaymentMethodFailsToLoad();
+            }
+
+        } else {
+            let shippingMethodsResp = await getAllShippingMethodsByCartIdForGuest(this.getIdFromSessionStorage());
+            if (shippingMethodsResp.status === 200) {
+                let shippingMethods = await shippingMethodsResp.json();
+                if (shippingMethods.length === 0) {
+                    this.redirectBackIfShippingOrPaymentMethodFailsToLoad();
+                    return;
+                }
+                this.setState({
+                    shippingMethods: shippingMethods
+                })
+            } else {
+                this.redirectBackIfShippingOrPaymentMethodFailsToLoad();
+            }
         }
     };
 

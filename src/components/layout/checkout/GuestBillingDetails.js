@@ -68,7 +68,13 @@ class GuestBillingDetails extends Component {
                 shippingAddress: sessionStorage.chosenShippingAddress,
                 billingAddress: sessionStorage.chosenBillingAddress
             });
+            this.clearSessionStorage();
+
         }
+    };
+
+    clearSessionStorage = () => {
+        window.sessionStorage.removeItem(process.env.REACT_APP_SESSION_STORAGE_KEY)
     };
 
 

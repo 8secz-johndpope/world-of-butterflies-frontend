@@ -72,6 +72,14 @@ class OrderComplete extends Component {
         if (this.props.isLoggedIn) {
             getShoppingCartContent()
                 .then(resp => {
+                    console.log(resp);
+                    if (resp.chosenShippingAddress === null || resp.chosenBillingAddress === null) {
+                        this.redirectBackIfSomethingIsMissing("/checkout");
+                    }
+                    if (resp.paymentMethod === null || resp.shippingMethod === null) {
+                        this.redirectBackIfSomethingIsMissing("/shipping-and-payment-methods");
+                        return;
+                    }
                     if (resp.chosenShippingAddress.id === resp.chosenBillingAddress.id) {
                         this.setState({
                             wrappedOrderEntities: resp.wrappedOrderEntities,
@@ -134,6 +142,10 @@ class OrderComplete extends Component {
         } else {
             return this.props.history.push("/cart");
         }
+    };
+
+    redirectBackIfSomethingIsMissing = (path) => {
+        this.props.history.push(path)
     };
 
     getIdFromSessionStorage = () => {
