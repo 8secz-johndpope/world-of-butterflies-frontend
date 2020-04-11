@@ -248,7 +248,6 @@ body {
 }
 
 .frame-around-butterfly {
-    float: left;
     overflow: hidden;
     position: relative;
 }
@@ -1256,6 +1255,8 @@ input[type=number] {
 
 .product-img {
     grid-area: product-img;
+    display: grid;
+    justify-content: center;
 }
 
 .product-img div img {
@@ -1734,4 +1735,9 @@ input[type=number] {
 
 .euro-sign {
     padding-right: 3px;
+}
+
+.td-around-image {
+    display: grid;
+    justify-content: center;
 }

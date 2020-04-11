@@ -131,6 +131,10 @@ class Header extends Component {
                                     <FormattedMessage id="app.header.main.butterfly"/>
                                 </Link>
                                 <ul className="dropdown">
+                                    <li className="dotted-spaced-bottom"><Link to="/sub-categories/butterfly"
+                                                                               className="dropdown-link ">
+                                        <FormattedMessage id="app.header.main.butterfly"/>
+                                    </Link></li>
                                     <li className="dotted-spaced-bottom"><Link to="/sub-categories/moth"
                                                                                className="dropdown-link ">
                                         <FormattedMessage id="app.header.sub.moths"/>

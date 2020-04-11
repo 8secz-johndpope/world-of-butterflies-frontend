@@ -280,7 +280,7 @@ render()
                                 .map((wrappedProduct) =>
 
                                     <tr>
-                                        <td>
+                                        <td className="td-around-image">
                                             <Link to={"/products/" + wrappedProduct.product.id}>
                                                 <div
                                                     className={wrappedProduct.product.isInFrame ? 'wrapped-product-in-frame frame-around-butterfly' : 'wrapped-product-not-in-frame frame-around-butterfly'}
@@ -378,7 +378,7 @@ render()
                                                 .map((wrappedProduct) =>
 
                                                     <tr>
-                                                        <td>
+                                                        <td className="td-around-image">
                                                             <Link to={"/products/" + wrappedProduct.product.id}>
                                                                 <div
                                                                     className={wrappedProduct.product.isInFrame ? 'wrapped-product-in-frame frame-around-butterfly' : 'wrapped-product-not-in-frame frame-around-butterfly'}
