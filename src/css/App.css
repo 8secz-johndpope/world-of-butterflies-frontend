@@ -1527,6 +1527,13 @@ input[type=number] {
 
 /*ShippingAndPaymentMethods*/
 
+.method-title-container {
+    /*text-transform: uppercase;*/
+    font-size: 1.1rem;
+    font-weight: bolder;
+    text-decoration: underline;
+}
+
 .shipping-and-payment-container {
     display: grid;
     grid-template-areas: "shipping-and-payment-status-bar shipping-and-payment-status-bar shipping-and-payment-status-bar" "shipping-method-container vertical-border-line payment-method-container" "total-price-container total-price-container total-price-container";

@@ -20,7 +20,7 @@ class ShippingAndPaymentMethods extends Component {
         shippingMethods: [],
         chosenPaymentMethod: {},
         chosenShippingMethod: {},
-        wasGoNextClicked:false,
+        wasGoNextClicked: false,
 
     };
 
@@ -147,8 +147,12 @@ class ShippingAndPaymentMethods extends Component {
                     </StatusBar>
                 </span>
                 <div className="payment-method-container">
+                    <div className="method-title-container">
+                        <p><FormattedMessage id="app.payment-method"/></p>
+                    </div>
                     {this.state.paymentMethods.map((paymentMethod) =>
-                        <div className={Object.keys(this.state.chosenPaymentMethod).length === 0 && this.state.wasGoNextClicked ? 'payment-method red-border' : 'payment-method'}>
+                        <div
+                            className={Object.keys(this.state.chosenPaymentMethod).length === 0 && this.state.wasGoNextClicked ? 'payment-method red-border' : 'payment-method'}>
                             <div className="payment-method-radio">
                                 <input type="radio"
                                        name={paymentMethod.nameEN}
@@ -171,8 +175,12 @@ class ShippingAndPaymentMethods extends Component {
                 </div>
                 <div className="vertical-border-line"></div>
                 <div className="shipping-method-container">
+                    <div className="method-title-container">
+                        <p><FormattedMessage id="app.shipping-method"/></p>
+                    </div>
                     {this.state.shippingMethods.map((shippingMethod) =>
-                        <div  className={Object.keys(this.state.chosenShippingMethod).length === 0 && this.state.wasGoNextClicked ? 'shipping-method red-border' : 'shipping-method'} >
+                        <div
+                            className={Object.keys(this.state.chosenShippingMethod).length === 0 && this.state.wasGoNextClicked ? 'shipping-method red-border' : 'shipping-method'}>
                             <div className="shipping-method-radio">
                                 <input type="radio"
                                        name={shippingMethod.nameEN}
@@ -195,7 +203,8 @@ class ShippingAndPaymentMethods extends Component {
                 </div>
                 <div className="total-price-container">
                     <div className="price">
-                        <span className="euro-sign">€</span><span>{(this.props.subtotal + this.props.shippingCost + this.props.paymentCost).toFixed(2)}</span>
+                        <span
+                            className="euro-sign">€</span><span>{(this.props.subtotal + this.props.shippingCost + this.props.paymentCost).toFixed(2)}</span>
                     </div>
                     <div className="custom-next-btn"
                          onClick={this.saveAndRedirectToOrderComplete}>

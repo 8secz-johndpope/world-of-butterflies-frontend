@@ -81,6 +81,8 @@
 	"app.profile.shipping-address": "Szállítási Cím",
 	"app.profile.billing-address": "Számlázási Cím",
 	"app.delete.acc": "Fiók Törlése",
-	"app.delete.modal-title": "A fiók törléséhez kérlek erősítsd meg az e-mail címed és a jelszavad!"
+	"app.delete.modal-title": "A fiók törléséhez kérlek erősítsd meg az e-mail címed és a jelszavad!",
+	"app.payment-method": "Fizetési lehetőségek",
+	"app.shipping-method": "Szállítási lehetőségek"
 
 }

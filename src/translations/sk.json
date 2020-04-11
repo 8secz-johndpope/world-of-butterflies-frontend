@@ -80,6 +80,8 @@
 	"app.profile.shipping-address": "SK shipping SK",
 	"app.profile.billing-address": "SK billing SK",
 	"app.delete.acc": "SKFelhasználó TörléseSK",
-	"app.delete.modal-title": "SK SKSKSKSKSKSKTo deletet your account, please confirm your email and password!SKSKSKSKSKKSKS"
+	"app.delete.modal-title": "SK SKSKSKSKSKSKTo deletet your account, please confirm your email and password!SKSKSKSKSKKSKS",
+	"app.payment-method": "SK Payment Method SK",
+	"app.shipping-method": "SK Shipping Method SK"
 
 }
