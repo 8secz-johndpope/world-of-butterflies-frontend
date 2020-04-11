@@ -1675,13 +1675,14 @@ input[type=number] {
 }
 
 .custom-next-btn {
-    font-size: 1.3rem;
+    font-size: 1rem;
     border-radius: 3px;
-    padding: 0 1rem;
+    padding: 0.3rem 1rem;
     color: #242424;
     border: 1px solid black;
     cursor: pointer;
     margin: 2rem 0 3rem;
+    text-transform: uppercase;
 }
 
 .custom-next-btn:hover {
