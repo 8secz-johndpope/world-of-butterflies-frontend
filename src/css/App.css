@@ -605,6 +605,10 @@ body {
     background-color: #ffffff;
 }
 
+.extra-bottom-padding {
+    padding-bottom: 5rem;
+}
+
 .shopping-cart-table {
     margin: 2rem 0;
     width: 100%;

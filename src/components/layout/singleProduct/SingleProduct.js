@@ -246,7 +246,7 @@ class SingleProduct extends Component {
 
     render() {
         return (
-            <div className="vertical-container">
+            <div className="vertical-container extra-bottom-padding">
                 {this.state.isPopUpVisible ?
                     <ProductAddedPopUp
                         product={this.state.product}
