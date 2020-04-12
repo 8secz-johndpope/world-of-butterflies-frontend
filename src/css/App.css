@@ -1184,7 +1184,14 @@ input[type=number] {
 
 .order-overview-container {
     display: grid;
-    grid-template-areas: "status-bar-container status-bar-container" "order-container address-container" "border-line border-line" "order-overview-shipping-and-payment order-overview-shipping-and-payment" "out-of-quantity-container out-of-quantity-container" "pay-container pay-container";
+    grid-template-areas:
+            "status-bar-container status-bar-container"
+            "order-container address-container"
+            "order-container summary-container"
+            "border-line border-line"
+            /*"order-overview-shipping-and-payment order-overview-shipping-and-payment"*/
+            "out-of-quantity-container out-of-quantity-container"
+            "pay-container pay-container";
     grid-template-columns: 60% 40%;
 }
 
@@ -1202,6 +1209,55 @@ input[type=number] {
     grid-area: order-container;
     grid-template-areas: "actual-products" "unavailable-products";
     align-content: start;
+}
+
+.summary-container {
+    grid-area: summary-container;
+    display: grid;
+    grid-template-areas:
+            "sum-subtotal-title sum-subtotal"
+            "sum-fees-title sum-fees"
+            "sum-total-title sum-total";
+    width: 100%;
+    padding: 2rem 10% 2rem 1rem;
+    justify-content: space-between;
+    justify-self: center;
+    border-left: 1px solid #D3D3D3;
+    border-top: 1px solid #D3D3D3;
+    grid-row-gap: 5px;
+
+}
+
+.sum-subtotal-title {
+    grid-area: sum-subtotal-title;
+    justify-self: start;
+}
+
+.sum-fees-title {
+    grid-area: sum-fees-title;
+    justify-self: start;
+}
+
+.sum-total-title {
+    grid-area: sum-total-title;
+    justify-self: start;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.sum-subtotal {
+    grid-area: sum-subtotal;
+}
+
+.sum-fees {
+    grid-area: sum-fees;
+}
+
+.sum-total {
+    grid-area: sum-total;
+    border-top: 1px solid black;
+    font-weight: bold;
+    font-size: 1.2rem;
 }
 
 .actual-products {
@@ -1329,9 +1385,14 @@ input[type=number] {
     width: 100%;
 }
 
+
 .address-overview p {
     align-self: start;
-    margin: .5rem 0;
+    margin: 2.5px 0;
+}
+
+.o-c-nick-name {
+    text-decoration: underline;
 }
 
 .billing-address-overview {
@@ -1436,13 +1497,14 @@ input[type=number] {
 }
 
 .pay-btn {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     font-weight: bolder;
     cursor: pointer;
     border: 1px solid #D3D3D3;
     border-radius: 5px;
     justify-items: center;
-    padding: 0 2rem;
+    padding: 0.5rem 1.2rem;
+    text-transform: uppercase;
 }
 
 .pay-btn:hover {

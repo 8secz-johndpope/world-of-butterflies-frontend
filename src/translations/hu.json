@@ -83,6 +83,10 @@
 	"app.delete.acc": "Fiók Törlése",
 	"app.delete.modal-title": "A fiók törléséhez kérlek erősítsd meg az e-mail címed és a jelszavad!",
 	"app.payment-method": "Fizetési lehetőségek",
-	"app.shipping-method": "Szállítási lehetőségek"
+	"app.shipping-method": "Szállítási lehetőségek",
+	"app.subtotal": "Részösszeg:",
+	"app.fees": "Szállítási&Kezélési költségek:",
+	"app.total": "Teljes Rendelés:",
+	"app.place-order": "Megrendelem"
 
 }

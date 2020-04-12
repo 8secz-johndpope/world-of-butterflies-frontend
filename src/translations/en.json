@@ -82,7 +82,12 @@
 	"app.delete.acc": "Delete Account",
 	"app.delete.modal-title": "To deletet your account, please confirm your email and password!",
 	"app.payment-method": "Payment Methods",
-	"app.shipping-method": "Shipping Methods"
+	"app.shipping-method": "Shipping Methods",
+	"app.subtotal": "Subtotal:",
+	"app.fees": "Shipping&Handling Fees:",
+	"app.total": "Order Total:",
+	"app.place-order": "Place Order"
+
 
 
 

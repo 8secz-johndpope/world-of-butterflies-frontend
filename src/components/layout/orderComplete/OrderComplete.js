@@ -313,40 +313,25 @@ class OrderComplete extends Component {
                 <div className="address-container">
                     <div className="address-overview">
                         <h4>
-                            Shipping Address
+                            <FormattedMessage id="app.profile.shipping-address"/>
                         </h4>
-                        <p>
+                        <p className="o-c-nick-name">
                             {this.state.shippingAddress.nickName}
                         </p>
 
-                        <span className="half-style-overview">
-                                <p>
-                                    {this.state.shippingAddress.firstName}
-                                </p>
-                                <p>
-                                    {this.state.shippingAddress.lastName}
-                                </p>
-                        </span>
+                        <p>
+                            {this.state.shippingAddress.firstName + ' ' + this.state.shippingAddress.lastName}
+                        </p>
 
 
-                        <span className="half-style-overview">
-                                <p>
-                                    {this.state.shippingAddress.addressLineOne}
-                                </p>
-                                <p>
-                                    {this.state.shippingAddress.city}
-                                </p>
-                        </span>
+                        <p>
+                            {this.state.shippingAddress.addressLineOne + ', ' + this.state.shippingAddress.city}
+                        </p>
 
 
-                        <span className="half-style-overview">
-                                <p>
-                                    {this.state.shippingAddress.zipCode}
-                                </p>
-                                <p>
-                                    {this.state.shippingAddress.country.name}
-                                </p>
-                        </span>
+                        <p>
+                            {this.state.shippingAddress.zipCode + ', ' + this.state.shippingAddress.country.name}
+                        </p>
 
                         <p>
                             {this.state.shippingAddress.phoneNumber}
@@ -369,40 +354,25 @@ class OrderComplete extends Component {
                         this.state.isBillingAddressDifferent ?
                             <div className="address-overview billing-address-overview">
                                 <h4>
-                                    Billing Address
+                                    <FormattedMessage id="app.profile.billing-address"/>
                                 </h4>
-                                <p>
+                                <p className="o-c-nick-name">
                                     {this.state.billingAddress.nickName}
                                 </p>
 
-                                <span className="half-style-overview">
-                                        <p>
-                                            {this.state.billingAddress.firstName}
-                                        </p>
-                                        <p>
-                                            {this.state.billingAddress.lastName}
-                                        </p>
-                                </span>
+                                <p>
+                                    {this.state.billingAddress.firstName + ' ' + this.state.billingAddress.lastName}
+                                </p>
 
 
-                                <span className="half-style-overview">
-                                        <p>
-                                            {this.state.billingAddress.addressLineOne}
-                                        </p>
-                                        <p>
-                                            {this.state.billingAddress.city}
-                                        </p>
-                                </span>
+                                <p>
+                                    {this.state.billingAddress.addressLineOne + ', ' + this.state.billingAddress.city}
+                                </p>
 
 
-                                <span className="half-style-overview">
-                                        <p>
-                                            {this.state.billingAddress.zipCode}
-                                        </p>
-                                        <p>
-                                            {this.state.billingAddress.country.name}
-                                        </p>
-                                </span>
+                                <p>
+                                    {this.state.billingAddress.zipCode + ', ' + this.state.billingAddress.country.name}
+                                </p>
 
                                 <p>
                                     {this.state.billingAddress.phoneNumber}
@@ -424,33 +394,55 @@ class OrderComplete extends Component {
                             null
                     }
                 </div>
-                <div className="border-line"></div>
-                <div className="order-overview-shipping-and-payment">
-                    <div className="order-o-shipping">
-                        <div className="order-o-shipping-method-name">
-                            {this.state.shippingMethod["name" + this.props.preferredLanguage.toUpperCase()]}
-                        </div>
-                        <div className="order-o-shipping-method-image">
-                            <img src={serverURL + this.state.shippingMethod.imageUrl} alt="payment-method"/>
-                        </div>
-                        <div className="order-o-shipping-method-price">
-                            <span
-                                className="euro-sign">€</span><span>{this.state?.shippingMethod?.price?.toFixed(2)}</span>
-                        </div>
+                <div className="summary-container">
+                    <div className="sum-subtotal-title">
+                        <FormattedMessage id="app.subtotal"/>
                     </div>
-                    <div className="order-o-payment">
-                        <div className="order-o-payment-method-name">
-                            {this.state.paymentMethod["name" + this.props.preferredLanguage.toUpperCase()]}
-                        </div>
-                        <div className="order-o-payment-method-image">
-                            <img src={serverURL + this.state.paymentMethod.imageUrl} alt="payment-method"/>
-                        </div>
-                        <div className="order-o-payment-method-price">
-                            <span
-                                className="euro-sign">€</span><span> {this.state?.paymentMethod?.price?.toFixed(2)}</span>
-                        </div>
+                    <div className="sum-fees-title">
+                        <FormattedMessage id="app.fees"/>
                     </div>
+                    <div className="sum-total-title">
+                        <FormattedMessage id="app.total"/>
+                    </div>
+                    <div className="sum-subtotal">
+                        <span className="euro-sign">€</span><span>{this.state.subtotal.toFixed(2)}</span>
+                    </div>
+                    <div className="sum-fees">
+                        <span
+                            className="euro-sign">€</span><span>{(this.state?.shippingMethod?.price + this.state?.paymentMethod?.price).toFixed(2)}</span>
+                    </div>
+                    <div className="sum-total">
+                        <span className="euro-sign">€</span><span>{(this.state.subtotal + this.state.shippingMethod.price + this.state.paymentMethod.price).toFixed(2)}</span>
+                    </div>
+
                 </div>
+                <div className="border-line"></div>
+                {/*<div className="order-overview-shipping-and-payment">*/}
+                {/*    <div className="order-o-shipping">*/}
+                {/*        <div className="order-o-shipping-method-name">*/}
+                {/*            {this.state.shippingMethod["name" + this.props.preferredLanguage.toUpperCase()]}*/}
+                {/*        </div>*/}
+                {/*        <div className="order-o-shipping-method-image">*/}
+                {/*            <img src={serverURL + this.state.shippingMethod.imageUrl} alt="payment-method"/>*/}
+                {/*        </div>*/}
+                {/*        <div className="order-o-shipping-method-price">*/}
+                {/*            <span*/}
+                {/*                className="euro-sign">€</span><span>{this.state?.shippingMethod?.price?.toFixed(2)}</span>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*    <div className="order-o-payment">*/}
+                {/*        <div className="order-o-payment-method-name">*/}
+                {/*            {this.state.paymentMethod["name" + this.props.preferredLanguage.toUpperCase()]}*/}
+                {/*        </div>*/}
+                {/*        <div className="order-o-payment-method-image">*/}
+                {/*            <img src={serverURL + this.state.paymentMethod.imageUrl} alt="payment-method"/>*/}
+                {/*        </div>*/}
+                {/*        <div className="order-o-payment-method-price">*/}
+                {/*            <span*/}
+                {/*                className="euro-sign">€</span><span> {this.state?.paymentMethod?.price?.toFixed(2)}</span>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
 
                 {this.props.outOfQtyList.length === 0 ?
                     null
@@ -518,7 +510,8 @@ class OrderComplete extends Component {
                                                     </Link>
                                                 </td>
                                                 <td>
-                                                    <span className="euro-sign">€</span><span>{wrappedProduct?.product?.price.toFixed(2)}</span>
+                                                    <span
+                                                        className="euro-sign">€</span><span>{wrappedProduct?.product?.price.toFixed(2)}</span>
                                                 </td>
                                                 <td className="shopping-cart-fa-icons-container">
                                                 <span id="element-between-fa-icons">
@@ -526,7 +519,8 @@ class OrderComplete extends Component {
                                                 </span>
                                                 </td>
                                                 <td>
-                                                    <span className="euro-sign">€</span><span>{this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColourForOutOfStock(wrappedProduct.product.id, wrappedProduct?.frame?.colour))}</span>
+                                                    <span
+                                                        className="euro-sign">€</span><span>{this.calculatePricePerCategory(wrappedProduct.product.price, this.countQtyByIdAndFrameColourForOutOfStock(wrappedProduct.product.id, wrappedProduct?.frame?.colour))}</span>
                                                 </td>
                                             </tr>
                                         )}
@@ -545,7 +539,7 @@ class OrderComplete extends Component {
                     <div className="pay-btn-container">
                         <div className="pay-btn"
                              onClick={this.sendPayRequest}>
-                            Pay!
+                            <FormattedMessage id="app.place-order"/>
                         </div>
                     </div>
 

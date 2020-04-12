@@ -82,6 +82,10 @@
 	"app.delete.acc": "SKFelhasználó TörléseSK",
 	"app.delete.modal-title": "SK SKSKSKSKSKSKTo deletet your account, please confirm your email and password!SKSKSKSKSKKSKS",
 	"app.payment-method": "SK Payment Method SK",
-	"app.shipping-method": "SK Shipping Method SK"
+	"app.shipping-method": "SK Shipping Method SK",
+	"app.subtotal": "SKSubtotalSK:",
+	"app.fees": "SKShipping&Handling FeesSK:",
+	"app.total": "SKOrder TotalSK:",
+	"app.place-order": "SKPlace OrderSK"
 
 }
