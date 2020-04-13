@@ -5,7 +5,7 @@ import {FormattedMessage} from "react-intl";
 import {
     getAllCountries,
     getOrderHistory,
-    getShippingAddresses, saveNewShippingAddress, updateShippingAddressById
+    getShippingAddresses, saveNewShippingAddress, saveNewShippingAddressInProfile, updateShippingAddressById
 } from "../../../service/fetchService/fetchService";
 import {faCaretDown, faCaretUp} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -201,10 +201,10 @@ class Profile extends Component {
                 wasSaveAddressClicked: true,
             });
             if (this.checkProperties()) {
-                saveNewShippingAddress(this.state.address)
+                saveNewShippingAddressInProfile(this.state.address)
                     .then(resp =>
                         this.setState({
-                            address: resp,
+                            addressList: resp,
                         }, () => this.saveAddresses())
                     );
                 this.setState({

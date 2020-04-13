@@ -201,6 +201,35 @@ export function saveNewShippingAddress(newShippingAddress) {
         .then(response => response.json())
 }
 
+
+export function saveNewShippingAddressInProfile(newShippingAddress) {
+    return fetch(process.env.REACT_APP_API_URL + '/shipping-address/', {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+            {
+                nickName: newShippingAddress.nickName,
+                firstName: newShippingAddress.firstName,
+                lastName: newShippingAddress.lastName,
+                company: newShippingAddress.company,
+                addressLineOne: newShippingAddress.addressLineOne,
+                addressLineTwo: newShippingAddress.addressLineTwo,
+                city: newShippingAddress.city,
+                state: newShippingAddress.state,
+                zipCode: newShippingAddress.zipCode,
+                countryId: newShippingAddress.country.id,
+                phoneNumber: newShippingAddress.phoneNumber,
+                ico: newShippingAddress.ico,
+                dic: newShippingAddress.dic
+            }),
+    })
+        .then(response => response.json())
+}
+
 export function deleteShippingAddressById(id) {
     return fetch(process.env.REACT_APP_API_URL + '/ship-address/' + id + '/', {
         credentials: 'include',
