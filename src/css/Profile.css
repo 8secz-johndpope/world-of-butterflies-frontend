@@ -27,20 +27,20 @@
     display: grid;
     grid-template-areas: "p-orders p-addresses p-empty";
     grid-template-columns: repeat(2, 10rem) 1fr;
+    font-size: 1rem;
+    text-transform: uppercase;
 }
 
 .p-orders {
     grid-area: p-orders;
     cursor: pointer;
     transition: border-bottom-color 2s cubic-bezier(0.32, 1.25, 0.375, 1.15);
-    font-size: 1.5rem;
 }
 
 .p-addresses {
     grid-area: p-addresses;
     cursor: pointer;
     transition: border-bottom-color 2s cubic-bezier(0.32, 1.25, 0.375, 1.15);
-    font-size: 1.5rem;
 }
 
 .p-empty {
