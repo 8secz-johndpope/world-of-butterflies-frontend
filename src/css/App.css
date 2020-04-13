@@ -1718,6 +1718,7 @@ input[type=number] {
 
 .dropdown-selection {
     font-size: 1rem;
+    height: 24px;
 }
 
 .price {

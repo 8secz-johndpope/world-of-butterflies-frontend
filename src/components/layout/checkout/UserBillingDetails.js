@@ -306,6 +306,7 @@ class UserBillingDetails extends Component {
     checkProperties = () => {
         if (
             this.state.addressToFill.id === null || this.state.addressToFill.id === "" ||
+            this.state.addressToFill.nickName === null || this.state.addressToFill.nickName === "" ||
             this.state.addressToFill.firstName === null || this.state.addressToFill.firstName === "" ||
             this.state.addressToFill.lastName === null || this.state.addressToFill.lastName === "" ||
             this.state.addressToFill.addressLineOne === null || this.state.addressToFill.addressLineOne === "" ||
@@ -320,6 +321,7 @@ class UserBillingDetails extends Component {
         if (this.state.isShippingAddressDifferent) {
             if (
                 this.state.billingAddress.id === null || this.state.billingAddress.id === "" ||
+                this.state.billingAddress.nickName === null || this.state.billingAddress.nickName === "" ||
                 this.state.billingAddress.firstName === null || this.state.billingAddress.firstName === "" ||
                 this.state.billingAddress.lastName === null || this.state.billingAddress.lastName === "" ||
                 this.state.billingAddress.addressLineOne === null || this.state.billingAddress.addressLineOne === "" ||
@@ -737,7 +739,7 @@ class UserBillingDetails extends Component {
                                         <p className={this.state.billingAddress.phoneNumber === ''  && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent? 'red-text' : null}>
                                             <FormattedMessage id="app.checkout.form.phone-number"/>
                                         </p>
-                                        <input type="text"
+                                        <input type="number"
                                                name="phoneNumber"
                                                value={this.state.billingAddress.phoneNumber ? this.state.billingAddress.phoneNumber : ''}
                                                onChange={this.handleBillingAddressChange}
