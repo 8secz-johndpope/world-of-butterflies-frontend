@@ -244,7 +244,7 @@
     border-radius: 5px;
     /*margin:0 1rem 1rem;*/
     grid-template-areas: "method-img method-name method-price";
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: max-content repeat(2, 1fr);
     padding: 0.5rem;
     justify-items: center;
     align-items: center;
@@ -256,6 +256,7 @@
 
 .method-img {
     grid-area: method-img;
+    padding-right: 4px;
 }
 
 .m-img {
