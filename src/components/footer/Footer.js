@@ -91,8 +91,11 @@ class Footer extends Component {
                         {
                             this.state.isContactAddressShown ?
                                 <span>
-                                <li>Gabanna sro</li>
+                                <li>GABANNA s.r.o.</li>
+                                <li>Farské pole 16</li>
+                                <li>Nesvady 946 51</li>
                                 <li>Slovakia</li>
+                                <li></li>
                                 <li>
                                     <a href="mailto:info@gabannabutterfly.eu" className="contact-email">info@gabannabutterfly.eu</a>
                                 </li>
@@ -116,7 +119,6 @@ class Footer extends Component {
                                 this.props.isLoggedIn ?
                                     <span>
                                         <li onClick={() => this.redirectToPath('/profile')}>My account</li>
-                                        <li onClick={() => this.redirectToPath('/profile')}>Order history</li>
                                         <li onClick={() => this.redirectToPath('/cart')}>Cart</li>
                                     </span>
                                     :
