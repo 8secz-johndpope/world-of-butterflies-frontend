@@ -203,14 +203,9 @@
     display: grid;
     grid-row-gap: 8px;
     margin: 0 1rem;
+    justify-items: start;
 }
 
-.p-shipping-address {
-    justify-self: end;
-}
-.p-billing-address {
-    justify-self: start;
-}
 
 .p-sh-title {
     font-weight: bolder;

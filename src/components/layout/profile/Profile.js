@@ -383,37 +383,20 @@ class Profile extends Component {
                                             <div className="p-sh-title">
                                                 <FormattedMessage id="app.profile.shipping-address"/>
                                             </div>
-                                            <div className="half-style-view">
-                                                <div className="a-first-name">
-                                                    {order?.chosenShippingAddress?.firstName}
-                                                </div>
-                                                <div className="a-last-name">
-                                                    {order?.chosenShippingAddress?.lastName}
-                                                </div>
+                                            <div className="a-first-name">
+                                                {order?.chosenShippingAddress?.firstName + ' ' + order?.chosenShippingAddress?.lastName}
                                             </div>
-                                            <div className="half-style-view">
-                                                <div className="a-addr-line-one">
-                                                    {order?.chosenShippingAddress?.addressLineOne}
-                                                </div>
-                                                <div className="a-city">
-                                                    {order?.chosenShippingAddress?.city}
-                                                </div>
+                                            <div className="a-addr-line-one">
+                                                {order?.chosenShippingAddress?.addressLineOne + ', ' + order?.chosenShippingAddress?.city}
                                             </div>
-                                            <div className="half-style-view">
-                                                <div className="a-zip">
-                                                    {order?.chosenShippingAddress?.zipCode}
-                                                </div>
-                                                <div className="a-country">
-                                                    {order?.chosenShippingAddress?.country?.name}
-                                                </div>
+                                            <div className="a-zip">
+                                                {order?.chosenShippingAddress?.zipCode + ', ' + order?.chosenShippingAddress?.country?.name}
                                             </div>
-                                            <div className="half-style-view">
-                                                <div className="a-phone">
-                                                    {order?.chosenShippingAddress?.phoneNumber}
-                                                </div>
-                                                <div className="a-company">
-                                                    {order?.chosenShippingAddress?.company}
-                                                </div>
+                                            <div className="a-phone">
+                                                {order?.chosenShippingAddress?.phoneNumber}
+                                            </div>
+                                            <div className="a-company">
+                                                {order?.chosenShippingAddress?.company}
                                             </div>
                                             <div className="half-style-view">
                                                 <div className="a-ico">
@@ -429,37 +412,20 @@ class Profile extends Component {
                                             <div className="p-sh-title">
                                                 <FormattedMessage id="app.profile.billing-address"/>
                                             </div>
-                                            <div className="half-style-view">
-                                                <div className="a-first-name">
-                                                    {order?.chosenBillingAddress?.firstName}
-                                                </div>
-                                                <div className="a-last-name">
-                                                    {order?.chosenBillingAddress?.lastName}
-                                                </div>
+                                            <div className="a-first-name">
+                                                {order?.chosenBillingAddress?.firstName + ' ' + order?.chosenBillingAddress?.lastName}
                                             </div>
-                                            <div className="half-style-view">
-                                                <div className="a-addr-line-one">
-                                                    {order?.chosenBillingAddress?.addressLineOne}
-                                                </div>
-                                                <div className="a-city">
-                                                    {order?.chosenBillingAddress?.city}
-                                                </div>
+                                            <div className="a-addr-line-one">
+                                                {order?.chosenBillingAddress?.addressLineOne + ', ' + order?.chosenBillingAddress?.city}
                                             </div>
-                                            <div className="half-style-view">
-                                                <div className="a-zip">
-                                                    {order?.chosenBillingAddress?.zipCode}
-                                                </div>
-                                                <div className="a-country">
-                                                    {order?.chosenBillingAddress?.country?.name}
-                                                </div>
+                                            <div className="a-zip">
+                                                {order?.chosenBillingAddress?.zipCode + ', ' + order?.chosenBillingAddress?.country?.name}
                                             </div>
-                                            <div className="half-style-view">
-                                                <div className="a-phone">
-                                                    {order?.chosenBillingAddress?.phoneNumber}
-                                                </div>
-                                                <div className="a-company">
-                                                    {order?.chosenBillingAddress?.company}
-                                                </div>
+                                            <div className="a-phone">
+                                                {order?.chosenBillingAddress?.phoneNumber}
+                                            </div>
+                                            <div className="a-company">
+                                                {order?.chosenBillingAddress?.company}
                                             </div>
                                             <div className="half-style-view">
                                                 <div className="a-ico">
