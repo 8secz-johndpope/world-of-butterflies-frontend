@@ -142,9 +142,6 @@ class Header extends Component {
                                     <li className="dotted-spaced-bottom"><Link to="/" className="dropdown-link ">
                                         <FormattedMessage id="app.header.sub.botanical.prints"/>
                                     </Link></li>
-                                    <li><Link to="/" className="dropdown-link">
-                                        <FormattedMessage id="app.header.sub.create.your.frame"/>
-                                    </Link></li>
                                 </ul>
                             </li>
                             <li>
@@ -160,9 +157,7 @@ class Header extends Component {
                                     <li className="dotted-spaced-bottom"><Link to="/" className="dropdown-link">
                                         <FormattedMessage id="app.header.sub.botanical.prints"/>
                                     </Link></li>
-                                    <li><Link to="/" className="dropdown-link">
-                                        <FormattedMessage id="app.header.sub.create.your.frame"/>
-                                    </Link></li>
+
                                 </ul>
                             </li>
 
@@ -236,11 +231,6 @@ class Header extends Component {
                                                 <FormattedMessage id="app.header.sub.botanical.prints"/>
                                             </Link>
                                         </li>
-                                        <li>
-                                            <Link to="/" onClick={this.closeNav}>
-                                                <FormattedMessage id="app.header.sub.create.your.frame"/>
-                                            </Link>
-                                        </li>
                                     </ul>
                                 </li>
 
@@ -258,11 +248,6 @@ class Header extends Component {
                                         <li>
                                             <Link to="/" onClick={this.closeNav}>
                                                 <FormattedMessage id="app.header.sub.botanical.prints"/>
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/" onClick={this.closeNav}>
-                                                <FormattedMessage id="app.header.sub.create.your.frame"/>
                                             </Link>
                                         </li>
                                     </ul>
