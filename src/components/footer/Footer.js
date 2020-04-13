@@ -43,12 +43,14 @@ class Footer extends Component {
     handleResizeEvent = () => {
         if (window.innerWidth < 1000) {
             this.setState({
+                isContactAddressShown: false,
                 isAccountContainerShown: false,
                 isInformationContainerShown: false,
                 isItMobileDevice: true,
             })
         } else {
             this.setState({
+                isContactAddressShown: true,
                 isAccountContainerShown: true,
                 isInformationContainerShown: true,
                 isItMobileDevice: false,

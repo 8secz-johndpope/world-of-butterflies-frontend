@@ -81,6 +81,10 @@
     margin-right: 1rem;
 }
 
+.find-us-on {
+    text-align: center;
+}
+
 .footer-icon-facebook {
     margin-right: 1rem;
     font-size: 1rem;
@@ -97,8 +101,10 @@
 
 @media screen and (max-width: 1000px) {
     .footer-container {
-        grid-template-areas: "my-account-container" "information-container" "find-us-on-container" "footer-logo-container";
+        grid-template-areas:"contact-address-container" "my-account-container" "information-container" "find-us-on-container" "footer-logo-container";
+        grid-template-columns: 1fr;
     }
+
 
     .footer-logo-container {
         margin-bottom: 0.5rem;
