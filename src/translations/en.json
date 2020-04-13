@@ -84,7 +84,8 @@
 	"app.payment-method": "Payment Methods",
 	"app.shipping-method": "Shipping Methods",
 	"app.subtotal": "Subtotal:",
-	"app.fees": "Shipping&Handling Fees:",
+	"app.shipping-fee": "Shipping Fee",
+	"app.payment-fee": "Handling Fee",
 	"app.total": "Order Total:",
 	"app.place-order": "Place Order"
 

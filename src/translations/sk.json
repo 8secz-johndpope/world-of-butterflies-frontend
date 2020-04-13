@@ -84,7 +84,8 @@
 	"app.payment-method": "SK Payment Method SK",
 	"app.shipping-method": "SK Shipping Method SK",
 	"app.subtotal": "SKSubtotalSK:",
-	"app.fees": "SKShipping&Handling FeesSK:",
+	"app.shipping-fee": "SKShipping FeeSK",
+	"app.payment-fee": "SKHandling FeeSK",
 	"app.total": "SKOrder TotalSK:",
 	"app.place-order": "SKPlace OrderSK"
 

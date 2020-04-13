@@ -234,7 +234,7 @@ class OrderComplete extends Component {
                     null
                 }
 
-                <div className="status-bar-container">
+                <div className="status-bar-container extra-bottom-padding-light">
                     <StatusBar
                         position={4}>
                     </StatusBar>
@@ -398,8 +398,13 @@ class OrderComplete extends Component {
                     <div className="sum-subtotal-title">
                         <FormattedMessage id="app.subtotal"/>
                     </div>
-                    <div className="sum-fees-title">
-                        <FormattedMessage id="app.fees"/>
+                    <div className="sum-shipping-title">
+                        <FormattedMessage id="app.shipping-fee"/>
+                        <span className="left-space">({this.state.shippingMethod["name" + this.props.preferredLanguage.toUpperCase()]}):</span>
+                    </div>
+                    <div className="sum-payment-title">
+                        <FormattedMessage id="app.payment-fee"/>
+                        <span className="left-space">({this.state.paymentMethod["name" + this.props.preferredLanguage.toUpperCase()]}):</span>
                     </div>
                     <div className="sum-total-title">
                         <FormattedMessage id="app.total"/>
@@ -407,9 +412,15 @@ class OrderComplete extends Component {
                     <div className="sum-subtotal">
                         <span className="euro-sign">€</span><span>{this.state.subtotal.toFixed(2)}</span>
                     </div>
-                    <div className="sum-fees">
+                    <div className="sum-shipping">
                         <span
-                            className="euro-sign">€</span><span>{(this.state?.shippingMethod?.price + this.state?.paymentMethod?.price).toFixed(2)}</span>
+                            className="euro-sign">€</span><span>{(this.state?.shippingMethod?.price)?.toFixed(2)}
+                        </span>
+                    </div>
+                    <div className="sum-payment">
+                        <span
+                            className="euro-sign">€</span><span>{(this.state?.paymentMethod?.price)?.toFixed(2)}
+                        </span>
                     </div>
                     <div className="sum-total">
                         <span className="euro-sign">€</span><span>{(this.state.subtotal + this.state.shippingMethod.price + this.state.paymentMethod.price).toFixed(2)}</span>
@@ -530,11 +541,9 @@ class OrderComplete extends Component {
                     </div>
                 }
 
-                <div className="pay-container">
+                <div className="empty-div-nex-to-pay-container"></div>
 
-                    <div className="subtotal">
-                        <span className="euro-sign">€</span><span>{(this.state.subtotal + this.state.shippingMethod.price + this.state.paymentMethod.price).toFixed(2)}</span>
-                    </div>
+                <div className="pay-container">
 
                     <div className="pay-btn-container">
                         <div className="pay-btn"

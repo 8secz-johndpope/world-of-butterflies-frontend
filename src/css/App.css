@@ -609,6 +609,10 @@ body {
     padding-bottom: 5rem;
 }
 
+.extra-bottom-padding-light {
+    padding-bottom: 3rem;
+}
+
 .shopping-cart-table {
     margin: 2rem 0;
     width: 100%;
@@ -1195,7 +1199,7 @@ input[type=number] {
             "border-line border-line"
             /*"order-overview-shipping-and-payment order-overview-shipping-and-payment"*/
             "out-of-quantity-container out-of-quantity-container"
-            "pay-container pay-container";
+            "empty-div-nex-to-pay-container pay-container";
     grid-template-columns: 60% 40%;
 }
 
@@ -1220,7 +1224,8 @@ input[type=number] {
     display: grid;
     grid-template-areas:
             "sum-subtotal-title sum-subtotal"
-            "sum-fees-title sum-fees"
+            "sum-shipping-title sum-shipping"
+            "sum-payment-title sum-payment"
             "sum-total-title sum-total";
     width: 100%;
     padding: 2rem 10% 2rem 1rem;
@@ -1232,13 +1237,22 @@ input[type=number] {
 
 }
 
+.left-space {
+    padding-left: 3px
+}
+
 .sum-subtotal-title {
     grid-area: sum-subtotal-title;
     justify-self: start;
 }
 
-.sum-fees-title {
-    grid-area: sum-fees-title;
+.sum-shipping-title {
+    grid-area: sum-shipping-title;
+    justify-self: start;
+}
+
+.sum-payment-title {
+    grid-area: sum-payment-title;
     justify-self: start;
 }
 
@@ -1253,9 +1267,14 @@ input[type=number] {
     grid-area: sum-subtotal;
 }
 
-.sum-fees {
-    grid-area: sum-fees;
+.sum-shipping {
+    grid-area: sum-shipping;
 }
+
+.sum-payment {
+    grid-area: sum-payment;
+}
+
 
 .sum-total {
     grid-area: sum-total;
@@ -1409,14 +1428,16 @@ input[type=number] {
     grid-template-columns: 50% 50%;
     justify-items: start;
 }
+.empty-div-nex-to-pay-container {
+    grid-area: empty-div-nex-to-pay-container;
+}
 
 .pay-container {
     grid-area: pay-container;
     padding: 2rem 0;
     display: grid;
-    grid-template-areas: "1" "2";
+    grid-template-areas: "1";
     justify-content: center;
-    border-top: 1px solid #D3D3D3;
 }
 
 
