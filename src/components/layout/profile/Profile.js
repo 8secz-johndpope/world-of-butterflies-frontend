@@ -23,6 +23,7 @@ class Profile extends Component {
         //tab2
         address: {
             id: "new",
+            nickName: "",
             firstName: "",
             lastName: "",
             company: "",
@@ -31,7 +32,7 @@ class Profile extends Component {
             city: "",
             zipCode: "",
             country: {
-                id: 1,
+                id: "",
                 name: "",
                 location: "",
             },
@@ -40,6 +41,7 @@ class Profile extends Component {
             dic: "",
         },
         isChange: false,
+        wasSaveAddressClicked: false,
     };
 
     componentDidMount(): void {
@@ -155,12 +157,13 @@ class Profile extends Component {
                 state: "",
                 zipCode: "",
                 country: {
-                    id: 1,
+                    id: "",
                     name: "",
                     location: "",
                 },
                 phoneNumber: ""
             },
+            isChange: false
         })
     };
 
@@ -193,22 +196,47 @@ class Profile extends Component {
                     })
                 );
         } else {
-            saveNewShippingAddress(this.state.address)
-                .then(resp =>
-                    this.setState({
-                        address: resp,
-                    }, () => this.saveAddresses())
-                );
+            this.setState({
+                wasSaveAddressClicked: true,
+            });
+            if (this.checkProperties()) {
+                saveNewShippingAddress(this.state.address)
+                    .then(resp =>
+                        this.setState({
+                            address: resp,
+                        }, () => this.saveAddresses())
+                    );
+                this.setState({
+                    isChange: false
+                });
+            }
         }
-        this.setState({
-            isChange: false
-        });
     };
 
     saveAddresses = () => {
-        if (this.state.isChange) {
-            this.saveModifiedChanges();
+        if (this.checkProperties()) {
+            console.log("true");
+            if (this.state.isChange) {
+                this.saveModifiedChanges();
+            }
         }
+    };
+
+    checkProperties = () => {
+        if (
+            this.state.address.id === null || this.state.address.id === "" ||
+            this.state.address.nickName === null || this.state.address.nickName === "" ||
+            this.state.address.firstName === null || this.state.address.firstName === "" ||
+            this.state.address.lastName === null || this.state.address.lastName === "" ||
+            this.state.address.addressLineOne === null || this.state.address.addressLineOne === "" ||
+            this.state.address.city === null || this.state.address.city === "" ||
+            this.state.address.zipCode === null || this.state.address.zipCode === "" ||
+            this.state.address.country.id === null || this.state.address.country.id === "" ||
+            this.state.address.phoneNumber === null || this.state.address.phoneNumber === ""
+        ) {
+            return false;
+        }
+        return true;
     };
 
     render() {
@@ -250,9 +278,9 @@ class Profile extends Component {
                                         {order.id}
                                     </div>
                                     <div className={this.state['orderHistory' + index] ?
-                                            'p-o-date dotted-spaced-bottom'
-                                            :
-                                            'p-o-date '}>
+                                        'p-o-date dotted-spaced-bottom'
+                                        :
+                                        'p-o-date '}>
                                         {order.checkoutDate.year}.{order.checkoutDate.monthValue}.{order.checkoutDate.dayOfMonth}
                                     </div>
                                     <div className={this.state['orderHistory' + index] ?
@@ -313,13 +341,15 @@ class Profile extends Component {
                                                     {woe.product.name}
                                                 </div>
                                                 <div className="p-o-price">
-                                                    <span className="euro-sign">€</span><span>{woe.product.price.toFixed(2)}</span>
+                                                    <span
+                                                        className="euro-sign">€</span><span>{woe.product.price.toFixed(2)}</span>
                                                 </div>
                                                 <div className="p-o-qty">
                                                     {this.countQtyByIdAndFrameColour(woe.product.id, woe.frame.colour, index)}
                                                 </div>
                                                 <div className="p-o-subtotal">
-                                                    <span className="euro-sign">€</span><span>{this.calculatePricePerCategory(woe.product.price, this.countQtyByIdAndFrameColour(woe.product.id, woe.frame.colour, index))}</span>
+                                                    <span
+                                                        className="euro-sign">€</span><span>{this.calculatePricePerCategory(woe.product.price, this.countQtyByIdAndFrameColour(woe.product.id, woe.frame.colour, index))}</span>
                                                 </div>
                                             </div>
                                         )}
@@ -443,7 +473,8 @@ class Profile extends Component {
                                                 {order.shippingCost['name' + this.props.preferredLanguage.toUpperCase()]}
                                             </div>
                                             <div className="method-price">
-                                                <span className="euro-sign">€</span><span>{order.shippingCost.price.toFixed(2)}</span>
+                                                <span
+                                                    className="euro-sign">€</span><span>{order.shippingCost.price.toFixed(2)}</span>
                                             </div>
                                         </div>
                                         <div className="method">
@@ -456,7 +487,8 @@ class Profile extends Component {
                                                 {order.paymentMethod['name' + this.props.preferredLanguage.toUpperCase()]}
                                             </div>
                                             <div className="method-price">
-                                                <span className="euro-sign">€</span><span>{order.paymentMethod.price.toFixed(2)}</span>
+                                                <span
+                                                    className="euro-sign">€</span><span>{order.paymentMethod.price.toFixed(2)}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -508,18 +540,7 @@ class Profile extends Component {
                                         :
                                         null
                                 }
-                                {
-                                    this.state.isChange ?
-                                        <div className="save-changes-btn-holder">
-                                            <button
-                                                className="action-btn-sm"
-                                                onClick={this.saveModifiedChanges}>
-                                                <FormattedMessage id="app.checkout.save-changes"/>
-                                            </button>
-                                        </div>
-                                        :
-                                        null
-                                }
+
                                 <div className="delete-account-btn-holder">
                                     <div className="delete-account-btn"
                                          onClick={() => this.props.alterDeleteModal(true)}>
@@ -531,7 +552,7 @@ class Profile extends Component {
                             <div className="billing-form-container">
                                 <form className="billing-form">
                                     <label>
-                                        <p>
+                                        <p className={this.state.address.nickName === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
                                             <FormattedMessage id="app.checkout.form.nickname"/>
                                         </p>
                                         <input type="text"
@@ -542,7 +563,7 @@ class Profile extends Component {
                                     </label>
                                     <span className="billing-half-style">
                                         <label>
-                                            <p>
+                                            <p className={this.state.address.firstName === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
                                                 <FormattedMessage id="app.checkout.form.first-name"/>
                                             </p>
                                             <input type="text"
@@ -552,7 +573,7 @@ class Profile extends Component {
                                             />
                                         </label>
                                         <label>
-                                            <p>
+                                            <p className={this.state.address.lastName === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
                                                 <FormattedMessage id="app.checkout.form.last-name"/>
                                             </p>
                                             <input type="text"
@@ -566,7 +587,7 @@ class Profile extends Component {
 
                                     <span className="billing-half-style">
                                         <label>
-                                            <p>
+                                            <p className={this.state.address.addressLineOne === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
                                                 <FormattedMessage id="app.checkout.form.addr-line-one"/>
                                             </p>
                                             <input type="text"
@@ -576,7 +597,7 @@ class Profile extends Component {
                                             />
                                         </label>
                                         <label>
-                                            <p>
+                                            <p className={this.state.address.city === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
                                                 <FormattedMessage id="app.checkout.form.city"/>
                                             </p>
                                             <input type="text"
@@ -590,7 +611,7 @@ class Profile extends Component {
 
                                     <span className="billing-half-style">
                                         <label>
-                                            <p>
+                                            <p className={this.state.address.zipCode === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
                                                 <FormattedMessage id="app.checkout.form.zip"/>
                                             </p>
                                             <input type="text"
@@ -600,7 +621,7 @@ class Profile extends Component {
                                             />
                                         </label>
                                         <label>
-                                            <p>
+                                            <p className={this.state.address.country.id === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
                                                 <FormattedMessage id="app.checkout.form.country"/>
                                             </p>
                                                 <select value={this.state.address.country.name}
@@ -618,7 +639,7 @@ class Profile extends Component {
                                     </span>
 
                                     <label>
-                                        <p>
+                                        <p className={this.state.address.phoneNumber === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
                                             <FormattedMessage id="app.checkout.form.phone-number"/>
                                         </p>
                                         <input type="number"
@@ -662,6 +683,20 @@ class Profile extends Component {
                                         </label>
                                     </span>
                                 </form>
+                                <div className="save-changes-btn-container">
+                                    {
+                                        this.state.isChange ?
+                                            <div>
+                                                <button
+                                                    className="custom-next-btn"
+                                                    onClick={this.saveModifiedChanges}>
+                                                    <FormattedMessage id="app.checkout.save-changes"/>
+                                                </button>
+                                            </div>
+                                            :
+                                            null
+                                    }
+                                </div>
                             </div>
                         </div>
                     }

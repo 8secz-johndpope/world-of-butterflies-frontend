@@ -384,6 +384,15 @@
     }
 }
 
+.billing-form-container {
+    display: grid;
+    grid-template-areas: "1" "2";
+}
+
+.save-changes-btn-container {
+    justify-self: end;
+}
+
 
 @media screen and (max-width: 720px) {
     .p-o-id,
