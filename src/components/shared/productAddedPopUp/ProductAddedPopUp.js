@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import '../../../css/ProductAddedPopUp.css';
 import {withRouter} from 'react-router-dom'
+import {FormattedMessage} from "react-intl";
 
 class ProductAddedPopUp extends Component {
     constructor(props) {
@@ -63,8 +64,12 @@ class ProductAddedPopUp extends Component {
                         </div>
                     </div>
                     <div className="pop-up-btn-container">
-                        <button className="btn1" onClick={this.props.closePopUp}>Continue Shopping</button>
-                        <button className="btn2" onClick={this.redirectToCart}>Go To Cart</button>
+                        <button className="btn1" onClick={this.props.closePopUp}>
+                            <FormattedMessage id="app.footer.continue-shopping"/>
+                        </button>
+                        <button className="btn2" onClick={this.redirectToCart}>
+                            <FormattedMessage id="app.footer.go-to-cart"/>
+                        </button>
                     </div>
                 </div>
             </div>

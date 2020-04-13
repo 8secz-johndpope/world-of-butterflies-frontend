@@ -13,6 +13,7 @@ import {faFacebookSquare, faInstagram} from '@fortawesome/free-brands-svg-icons'
 import update from "react-addons-update";
 import {withRouter} from 'react-router-dom'
 import {connect} from "react-redux";
+import {FormattedMessage} from "react-intl";
 
 
 class Footer extends Component {
@@ -88,7 +89,7 @@ class Footer extends Component {
                             className="contact-address-title"
                             onClick={() => this.changeState("isContactAddressShown")}
                         >
-                            Contact
+                            <FormattedMessage id="app.header.contact"/>
                         </p>
                         {
                             this.state.isContactAddressShown ?
@@ -114,18 +115,18 @@ class Footer extends Component {
                             className="my-account-title"
                             onClick={() => this.changeState("isAccountContainerShown")}
                         >
-                            My account
+                            <FormattedMessage id="app.footer.my-account"/>
                         </p>
                         {
                             this.state.isAccountContainerShown ?
                                 this.props.isLoggedIn ?
                                     <span>
-                                        <li onClick={() => this.redirectToPath('/profile')}>My account</li>
-                                        <li onClick={() => this.redirectToPath('/cart')}>Cart</li>
+                                        <li onClick={() => this.redirectToPath('/profile')}><FormattedMessage id="app.footer.my-account"/></li>
+                                        <li onClick={() => this.redirectToPath('/cart')}><FormattedMessage id="app.footer.cart"/></li>
                                     </span>
                                     :
                                     <span>
-                                        <li onClick={() => this.redirectToPath('/cart')}>Cart</li>
+                                        <li onClick={() => this.redirectToPath('/cart')}><FormattedMessage id="app.footer.information"/></li>
                                     </span>
                                 :
                                 null
@@ -140,16 +141,16 @@ class Footer extends Component {
                             className="information-title"
                             onClick={() => this.changeState("isInformationContainerShown")}
                         >
-                            Information
+                            <FormattedMessage id="app.footer.information"/>
                         </p>
                         {
                             this.state.isInformationContainerShown ?
                                 <span>
-                                    <li>Delivery Information</li>
-                                    <li>About Us</li>
-                                    <li>Privacy</li>
-                                    <li>Returns Policy</li>
-                                    <li>Contact Us</li>
+                                    <li><FormattedMessage id="app.footer.delivery-information"/></li>
+                                    <li><FormattedMessage id="app.footer.about-us"/></li>
+                                    <li><FormattedMessage id="app.footer.privacy"/></li>
+                                    <li><FormattedMessage id="app.footer.returns-policy"/></li>
+                                    <li><FormattedMessage id="app.footer.contact-us"/></li>
                                 </span>
                                 :
                                 null
@@ -167,7 +168,7 @@ class Footer extends Component {
 
                                     :
                                     <span className="find-us-on-line">
-                                        Find Us On
+                                        <FormattedMessage id="app.footer.find-us-on"/>
                                     </span>
 
                             }
@@ -180,17 +181,17 @@ class Footer extends Component {
 
                         </p>
 
-                        <p className="we-accept">
-                            {
-                                this.state.isItMobileDevice ?
-                                    null
+                        {/*<p className="we-accept">*/}
+                        {/*    {*/}
+                        {/*        this.state.isItMobileDevice ?*/}
+                        {/*            null*/}
 
-                                    :
-                                    <span>
-                                        We accept
-                                    </span>
-                            }
-                        </p>
+                        {/*            :*/}
+                        {/*            <span>*/}
+                        {/*                <FormattedMessage id="app.footer.we-accept"/>*/}
+                        {/*            </span>*/}
+                        {/*    }*/}
+                        {/*</p>*/}
                         <div className="payment-method-icons">
                             {/*<ApplePBlk*/}
                             {/*    style={{*/}

@@ -244,7 +244,7 @@ class OrderComplete extends Component {
                     <div className="actual-products">
                         <div className="titles">
                             <div className="title-img">
-
+                                <FormattedMessage id="app.shopping.cart.product"/>
                             </div>
                             <div className="title-name">
                                 <FormattedMessage id="app.shopping.cart.name"/>

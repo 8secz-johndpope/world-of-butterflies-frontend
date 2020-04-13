@@ -435,8 +435,8 @@ class SingleProduct extends Component {
                                 <p className="truck-and-shipping">
                                     <FontAwesomeIcon icon={faTruckMoving}/>
                                     <span>
-                                    Postovne
-                                </span>
+                                        <FormattedMessage id="app.single-product-shipping"/>
+                                    </span>
                                 </p>
                             </div>
                         </div>

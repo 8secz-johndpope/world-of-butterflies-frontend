@@ -207,7 +207,7 @@ class ShippingAndPaymentMethods extends Component {
                     </div>
                     <div className="custom-next-btn"
                          onClick={this.saveAndRedirectToOrderComplete}>
-                        Continue
+                        <FormattedMessage id="app.next"/>
                     </div>
                 </div>
             </div>

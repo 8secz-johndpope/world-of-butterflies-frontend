@@ -182,7 +182,7 @@ class LoginModal extends Component {
                                     <div>
                                         <p onClick={this.switchModals}
                                            className="not-registered-yet-btn">
-                                            Regisztrálj!
+                                            <FormattedMessage id="app.header.login.register-new-account"/>
                                         </p>
                                     </div>
                                 </p>

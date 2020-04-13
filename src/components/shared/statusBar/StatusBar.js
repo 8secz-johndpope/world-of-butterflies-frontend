@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './StatusBar.css';
 import {withRouter} from 'react-router-dom'
+import {FormattedMessage} from "react-intl";
 
 class StatusBar extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ class StatusBar extends Component {
                     }}
                           onClick={() => this.redirect(1, '/cart')}
                     >
-                    SHOPPING CART
+                        <FormattedMessage id="app.status-bar.cart"/>
                     </span>
 
                     <span className="slash-between">
@@ -36,7 +37,7 @@ class StatusBar extends Component {
                     }}
                           onClick={() => this.redirect(2, '/checkout')}
                     >
-                        CHECKOUT DETAILS
+                        <FormattedMessage id="app.status-bar.checkout-details"/>
                         </span>
 
                     <span className="slash-between">
@@ -49,7 +50,7 @@ class StatusBar extends Component {
                     }}
                           onClick={() => this.redirect(3, '/shipping-and-payment-methods')}
                     >
-                        SHIPPING AND PAYMENT
+                        <FormattedMessage id="app.status-bar.shipping-and-payment"/>
                         </span>
 
                     <span className="slash-between">
@@ -62,7 +63,7 @@ class StatusBar extends Component {
                     }}
                           onClick={() => this.redirect(4, '/order-complete')}
                     >
-                    ORDER COMPLETE
+                        <FormattedMessage id="app.status-bar.order-complete"/>
                     </span>
                 </p>
             </div>

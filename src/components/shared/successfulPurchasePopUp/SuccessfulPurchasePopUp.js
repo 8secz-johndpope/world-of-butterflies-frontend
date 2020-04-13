@@ -17,8 +17,12 @@ class SuccessfulPurchasePopUp extends Component {
                         </div>
                     </div>
                     <div className="pop-up-message">
-                        <span className="message-title">Thank You For Your Purchase</span>
-                        <span className="message-body">An email has been sent out to:</span>
+                        <span className="message-title">
+                            <FormattedMessage id="app.pop-up-thanks"/>
+                        </span>
+                        <span className="message-body">
+                            <FormattedMessage id="app.pop-up-email-sent"/>
+                        </span>
                         <span className="message-email">{this.props.email}</span>
                     </div>
                     <div className="pop-up-btn-container">

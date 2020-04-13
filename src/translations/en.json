@@ -87,7 +87,8 @@
 	"app.shipping-fee": "Shipping Fee",
 	"app.payment-fee": "Handling Fee",
 	"app.total": "Order Total:",
-	"app.place-order": "Place Order"
+	"app.place-order": "Place Order",
+	"app.footer.my-account": ""
 
 
 
