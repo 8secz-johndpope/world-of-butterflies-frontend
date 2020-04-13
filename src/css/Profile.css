@@ -68,11 +68,22 @@
             "p-o-id p-o-date p-o-total-price p-o-is-payed p-o-is-shipped"
             "p-o-details-container p-o-details-container p-o-details-container p-o-details-container p-o-details-container"
             "p-o-product-total-price p-o-product-total-price p-o-product-total-price p-o-product-total-price p-o-product-total-price"
-            "p-o-address-container p-o-address-container p-o-address-container p-o-address-container p-o-address-container"
-            "sh-p-method-container sh-p-method-container sh-p-method-container sh-p-method-container sh-p-method-container";
+            "p-o-address-container p-o-address-container p-o-address-container sh-p-method-container p-o-order-total"
+            "p-o-bottom-padding p-o-bottom-padding p-o-bottom-padding p-o-bottom-padding p-o-bottom-padding";
     grid-template-columns: repeat(5, 1fr);
     border-bottom: 1px solid #d3d3d3;
 }
+
+.p-o-address-container,
+.sh-p-method-container,
+.p-o-order-total {
+    justify-self: center;
+}
+
+.p-o-bottom-padding {
+    grid-area: p-o-bottom-padding;
+}
+
 .p-o-id,
 .p-o-date,
 .p-o-total-price,
@@ -80,6 +91,7 @@
 .p-o-is-shipped {
     font-weight: bold;
     align-self: center;
+    padding-bottom: 4px;
 }
 
 .p-o-id {
@@ -205,31 +217,32 @@
     font-size: 1.2rem;
     padding-bottom: 10px;
 }
-@media screen and (max-width: 620px) {
-    .p-o-address-container {
-        grid-template-areas: "1" "2";
-        grid-template-columns: 1fr;
-        margin: 20px 0;
-        justify-self: center;
-    }
-    .p-address{
-        margin: 0 0 10px;
-    }
-}
 
 .sh-p-method-container {
     display: grid;
     grid-area: sh-p-method-container;
-    grid-template-areas: "1 2";
-    grid-template-columns: repeat(2, 15rem);
+    grid-template-areas: "1" "2";
+    grid-row-gap: 1rem;
+    grid-template-columns: max-content;
+    grid-template-rows: repeat(2, max-content);
     justify-self: center;
+}
+
+.p-o-order-total {
+    grid-area: p-o-order-total;
+    grid-template-areas: "1 2";
+    grid-template-columns: repeat(2, max-content);
+    justify-self: center;
+    align-self: end;
+    font-weight: bold;
+    font-size: 1.4rem;
 }
 
 .method {
     display: grid;
     border: 1px solid #d3d3d3;
     border-radius: 5px;
-    margin:0 1rem 1rem;
+    /*margin:0 1rem 1rem;*/
     grid-template-areas: "method-img method-name method-price";
     grid-template-columns: repeat(2, 1fr);
     padding: 0.5rem;
@@ -246,20 +259,15 @@
 }
 
 .m-img {
-    width: 75px;
-    height: 50px;
+    height: 30px;
+    width: auto;
 }
 
 .method-price {
     grid-area: method-price;
 }
 
-@media screen and (max-width: 550px) {
-    .sh-p-method-container {
-        grid-template-areas: "1" "2";
-        grid-template-columns: 1fr;
-    }
-}
+
 
 
 
@@ -345,7 +353,7 @@
 }
 
 .p-o-display {
-    padding-top: 2rem;
+    padding-top: 1rem;
     display: grid;
 }
 
@@ -353,6 +361,62 @@
     padding-top: 35px;
 }
 
+@media screen and (max-width: 990px) {
+
+    .p-mapped-order {
+        grid-template-areas:
+                "p-o-id p-o-date p-o-total-price p-o-is-payed p-o-is-shipped"
+                "p-o-details-container p-o-details-container p-o-details-container p-o-details-container p-o-details-container"
+                "p-o-product-total-price p-o-product-total-price p-o-product-total-price p-o-product-total-price p-o-product-total-price"
+                "p-o-address-container p-o-address-container sh-p-method-container sh-p-method-container p-o-order-total"
+                "p-o-bottom-padding p-o-bottom-padding p-o-bottom-padding p-o-bottom-padding p-o-bottom-padding";
+    }
+
+    .p-o-address-container {
+        grid-template-areas: "1" "2";
+        grid-template-columns: 1fr;
+        justify-self: center;
+    }
+
+    .p-address{
+        margin: 0 0 10px;
+    }
+}
+
+
+@media screen and (max-width: 720px) {
+    .p-o-id,
+    .p-o-date,
+    .p-o-total-price,
+    .p-o-is-payed,
+    .p-o-is-shipped {
+        font-size: 0.8rem;
+    }
+}
+
+
+@media screen and (max-width: 650px) {
+    .p-mapped-order {
+        grid-template-areas:
+                "p-o-id p-o-date p-o-total-price p-o-is-payed p-o-is-shipped"
+                "p-o-details-container p-o-details-container p-o-details-container p-o-details-container p-o-details-container"
+                "p-o-product-total-price p-o-product-total-price p-o-product-total-price p-o-product-total-price p-o-product-total-price"
+                "p-o-address-container p-o-address-container p-o-address-container p-o-address-container p-o-address-container"
+                "sh-p-method-container sh-p-method-container sh-p-method-container sh-p-method-container sh-p-method-container"
+                "p-o-order-total p-o-order-total p-o-order-total p-o-order-total p-o-order-total"
+                "p-o-bottom-padding p-o-bottom-padding p-o-bottom-padding p-o-bottom-padding p-o-bottom-padding";
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .p-o-id,
+    .p-o-date,
+    .p-o-total-price,
+    .p-o-is-payed,
+    .p-o-is-shipped {
+        font-size: 0.7rem;
+    }
+}
 
 
 

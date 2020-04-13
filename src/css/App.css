@@ -1462,8 +1462,8 @@ input[type=number] {
 
 .order-o-shipping-method-image img,
 .order-o-payment-method-image img {
-    height: 50px;
-    width: 75px;
+    height: 30px;
+    width: auto;
 }
 
 .order-o-shipping-method-price,

@@ -249,13 +249,22 @@ class Profile extends Component {
                                         }
                                         {order.id}
                                     </div>
-                                    <div className="p-o-date">
+                                    <div className={this.state['orderHistory' + index] ?
+                                            'p-o-date dotted-spaced-bottom'
+                                            :
+                                            'p-o-date '}>
                                         {order.checkoutDate.year}.{order.checkoutDate.monthValue}.{order.checkoutDate.dayOfMonth}
                                     </div>
-                                    <div className="p-o-total-price">
+                                    <div className={this.state['orderHistory' + index] ?
+                                        'p-o-total-price dotted-spaced-bottom'
+                                        :
+                                        'p-o-total-price'}>
                                         <span className="euro-sign">€</span><span>{order.priceTotal.toFixed(2)}</span>
                                     </div>
-                                    <div className="p-o-is-payed">
+                                    <div className={this.state['orderHistory' + index] ?
+                                        'p-o-is-payed dotted-spaced-bottom'
+                                        :
+                                        'p-o-is-payed '}>
                                         {
                                             order.isPayed ?
                                                 <FormattedMessage id="app.profile.payed"/>
@@ -263,7 +272,10 @@ class Profile extends Component {
                                                 <FormattedMessage id="app.profile.not-payed"/>
                                         }
                                     </div>
-                                    <div className="p-o-is-shipped">
+                                    <div className={this.state['orderHistory' + index] ?
+                                        'p-o-is-shipped dotted-spaced-bottom'
+                                        :
+                                        'p-o-is-shipped'}>
                                         {order.isShipped ?
                                             <FormattedMessage id="app.profile.shipped"/>
                                             :
@@ -447,6 +459,18 @@ class Profile extends Component {
                                                 <span className="euro-sign">€</span><span>{order.paymentMethod.price.toFixed(2)}</span>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div className={this.state['orderHistory' + index] ?
+                                        'p-o-order-total p-o-display'
+                                        :
+                                        'p-o-order-total p-o-hide'}>
+                                        <span className="euro-sign">€</span><span>{order.priceTotal.toFixed(2)}</span>
+                                    </div>
+                                    <div className={this.state['orderHistory' + index] ?
+                                        'p-o-bottom-padding p-o-display'
+                                        :
+                                        'p-o-bottom-padding p-o-hide'}>
+
                                     </div>
                                 </div>
                             )}
