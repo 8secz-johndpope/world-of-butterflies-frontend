@@ -386,7 +386,7 @@ class SingleProduct extends Component {
                                         <div className="small-frame-icons">
                                             {this.state.frames.map((frame) =>
                                                 frame.quantity > this.props.takenFrames.filter(takenFrame => takenFrame.frame.id === frame.id).length ?
-                                                    <span onMouseEnter={() => this.mouseEnterCapture(frame)}
+                                                    <span onClick={() => this.mouseEnterCapture(frame)}
                                                           style={{
                                                               backgroundImage: `url(${serverURL}/images/frames/color-options/${frame.colour}.png)`
                                                           }}
@@ -424,7 +424,8 @@ class SingleProduct extends Component {
                                     </button>
                                     <div className='price-container'>
                                         <p className="price">
-                                            <span className="euro-sign">€</span><span>{this.state?.product?.price?.toFixed(2)}</span>
+                                            <span className="euro-sign">€</span>
+                                            <span className="incl-tax">{this.state?.product?.price?.toFixed(2)}</span>
                                         </p>
                                         <span id="dph">
                                             <FormattedMessage id="app.single.page.dph"/>

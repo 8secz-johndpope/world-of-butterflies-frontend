@@ -1811,6 +1811,10 @@ input[type=number] {
     padding-right: 3px;
 }
 
+.incl-tax {
+    padding-right: 6px;
+}
+
 .td-around-image {
     display: grid;
     justify-content: center;
