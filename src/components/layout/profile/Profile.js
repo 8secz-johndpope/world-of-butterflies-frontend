@@ -190,23 +190,34 @@ class Profile extends Component {
     saveModifiedChanges = (e) => {
         e.preventDefault();
         if (this.state.address.id !== "new") {
-            updateShippingAddressById(this.state.address, this.state.address.id)
-                .then(resp =>
-                    this.setState({
-                        addressList: resp,
-                    })
-                );
+            this.setState({
+                wasSaveAddressClicked: true,
+            });
+            if (this.checkProperties()) {
+                updateShippingAddressById(this.state.address, this.state.address.id)
+                    .then(resp =>
+                        this.setState({
+                            addressList: resp,
+                        })
+                    );
+                this.setState({
+                    isChange: false
+                });
+            }
         } else {
             this.setState({
                 wasSaveAddressClicked: true,
             });
             if (this.checkProperties()) {
                 saveNewShippingAddressInProfile(this.state.address)
-                    .then(resp =>
-                        this.setState({
-                            addressList: resp,
-                        }, () => this.saveAddresses())
-                    );
+                    .then(resp => {
+                        if (resp.length > 0) {
+                            this.setState({
+                                addressList: resp,
+                                address: resp[resp.length - 1]
+                            })
+                        }
+                    });
                 this.setState({
                     isChange: false
                 });
@@ -214,14 +225,14 @@ class Profile extends Component {
         }
     };
 
-    saveAddresses = () => {
-        if (this.checkProperties()) {
-            console.log("true");
-            if (this.state.isChange) {
-                this.saveModifiedChanges();
-            }
-        }
-    };
+    // saveAddresses = () => {
+    //     if (this.checkProperties()) {
+    //         console.log("true");
+    //         if (this.state.isChange) {
+    //             this.saveModifiedChanges();
+    //         }
+    //     }
+    // };
 
     checkProperties = () => {
         if (
