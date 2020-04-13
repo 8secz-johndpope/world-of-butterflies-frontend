@@ -1224,9 +1224,13 @@ input[type=number] {
     grid-area: summary-container;
     display: grid;
     grid-template-areas:
+            "sum-bez-dph-title sum-bez-dph"
+            "sum-dph-title sum-dph"
             "sum-subtotal-title sum-subtotal"
+            "dotted-bottom-border dotted-bottom-border"
             "sum-shipping-title sum-shipping"
             "sum-payment-title sum-payment"
+            "dotted-bottom-border-2 dotted-bottom-border-2"
             "sum-total-title sum-total";
     width: 100%;
     padding: 2rem 10% 2rem 1rem;
@@ -1240,6 +1244,29 @@ input[type=number] {
 
 .left-space {
     padding-left: 3px
+}
+
+.dotted-bottom-border,
+.dotted-bottom-border-2 {
+    height: 1px;
+    padding: 1rem;
+}
+
+.dotted-bottom-border {
+    grid-area: dotted-bottom-border;
+}
+.dotted-bottom-border-2 {
+    grid-area: dotted-bottom-border-2;
+}
+
+.sum-bez-dph-title {
+    grid-area: sum-bez-dph-title;
+    justify-self: start;
+}
+
+.sum-dph-title {
+    grid-area: sum-dph-title;
+    justify-self: start;
 }
 
 .sum-subtotal-title {
@@ -1264,6 +1291,14 @@ input[type=number] {
     font-size: 1.1rem;
 }
 
+.sum-bez-dph {
+    grid-area: sum-bez-dph;
+}
+
+.sum-dph {
+    grid-area: sum-dph;
+}
+
 .sum-subtotal {
     grid-area: sum-subtotal;
 }
@@ -1276,6 +1311,8 @@ input[type=number] {
     grid-area: sum-payment;
 }
 
+.sum-bez-dph,
+.sum-dph,
 .sum-subtotal,
 .sum-shipping,
 .sum-payment {

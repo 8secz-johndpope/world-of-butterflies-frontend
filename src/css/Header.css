@@ -159,6 +159,13 @@ ul li .dropdown-link {
     background-repeat: repeat-x;
 }
 
+.dotted-spaced-top {
+    background-image: linear-gradient(to right, #333 10%, rgba(255, 255, 255, 0) 0%);
+    background-position: top;
+    background-size: 6px 2px;
+    background-repeat: repeat-x;
+}
+
 
 .nav-header ul li:hover > ul {
     visibility: visible;

@@ -395,9 +395,16 @@ class OrderComplete extends Component {
                     }
                 </div>
                 <div className="summary-container">
+                    <div className="sum-bez-dph-title">
+                        <FormattedMessage id="app.bez-dph"/>
+                    </div>
+                    <div className="sum-dph-title">
+                        <FormattedMessage id="app.dph"/>
+                    </div>
                     <div className="sum-subtotal-title">
                         <FormattedMessage id="app.subtotal"/>
                     </div>
+                    <div className="dotted-bottom-border dotted-spaced-top"></div>
                     <div className="sum-shipping-title">
                         <FormattedMessage id="app.shipping-fee"/>
                         <span className="left-space">({this.state.shippingMethod["name" + this.props.preferredLanguage.toUpperCase()]}):</span>
@@ -406,8 +413,17 @@ class OrderComplete extends Component {
                         <FormattedMessage id="app.payment-fee"/>
                         <span className="left-space">({this.state.paymentMethod["name" + this.props.preferredLanguage.toUpperCase()]}):</span>
                     </div>
+                    <div className="dotted-bottom-border-2 dotted-spaced-top"></div>
                     <div className="sum-total-title">
                         <FormattedMessage id="app.total"/>
+                    </div>
+
+
+                    <div className="sum-bez-dph">
+                        <span className="euro-sign">€</span><span>{(this.state.subtotal * 0.8).toFixed(2)}</span>
+                    </div>
+                    <div className="sum-dph">
+                        <span className="euro-sign">€</span><span>{(this.state.subtotal * 0.2).toFixed(2)}</span>
                     </div>
                     <div className="sum-subtotal">
                         <span className="euro-sign">€</span><span>{this.state.subtotal.toFixed(2)}</span>

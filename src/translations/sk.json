@@ -84,6 +84,8 @@
 	"app.delete.modal-title": "Naozaj chcete vymazať svoj účet?",
 	"app.payment-method": "Platba",
 	"app.shipping-method": "Doprava",
+	"app.bez-dph": "Spolu bez DPH:",
+	"app.dph": "DPH(20%):",
 	"app.subtotal": "Medzisúčet:",
 	"app.shipping-fee": "Poštovné",
 	"app.payment-fee": "Platba",
