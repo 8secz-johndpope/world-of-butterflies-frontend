@@ -81,9 +81,6 @@
     margin-right: 1rem;
 }
 
-.find-us-on {
-    text-align: center;
-}
 
 .footer-icon-facebook {
     margin-right: 1rem;
@@ -112,6 +109,10 @@
 
     .footer-logo * {
         height: 6rem;
+    }
+
+    .find-us-on {
+        text-align: center;
     }
 
 }

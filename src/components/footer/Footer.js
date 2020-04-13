@@ -88,7 +88,7 @@ class Footer extends Component {
                             className="contact-address-title"
                             onClick={() => this.changeState("isContactAddressShown")}
                         >
-                            Contact Address
+                            Contact
                         </p>
                         {
                             this.state.isContactAddressShown ?
