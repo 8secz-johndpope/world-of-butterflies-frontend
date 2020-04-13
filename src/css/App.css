@@ -1730,6 +1730,7 @@ input[type=number] {
     align-items: center;
     justify-items: center;
     margin: 0.5rem 0;
+    cursor: pointer;
 }
 
 .payment-method-image {
@@ -1767,6 +1768,7 @@ input[type=number] {
     align-items: center;
     justify-items: center;
     margin: 0.5rem 0;
+    cursor: pointer;
 
 }
 
