@@ -93,16 +93,16 @@ class Footer extends Component {
                         </p>
                         {
                             this.state.isContactAddressShown ?
-                                <span>
-                                <li>GABANNA s.r.o.</li>
-                                <li>Farské pole 16</li>
-                                <li>Nesvady 946 51</li>
-                                <li>Slovakia</li>
-                                <li></li>
-                                <li>
-                                    <a href="mailto:info@gabannabutterfly.eu" className="contact-email">info@gabannabutterfly.eu</a>
-                                </li>
-                            </span>
+                                <span className="footer-address-container">
+                                    <li>GABANNA s.r.o.</li>
+                                    <li>Farské pole 16</li>
+                                    <li>Nesvady 946 51</li>
+                                    <li>Slovakia</li>
+                                    <li></li>
+                                    <li>
+                                        <a href="mailto:info@gabannabutterfly.eu" className="contact-email">info@gabannabutterfly.eu</a>
+                                    </li>
+                                </span>
                                 :
                                 null
                         }

@@ -116,3 +116,7 @@
     }
 
 }
+
+.footer-address-container li {
+    cursor: default !important;
+}
