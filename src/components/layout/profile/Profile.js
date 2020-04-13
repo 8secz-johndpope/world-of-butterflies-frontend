@@ -187,7 +187,8 @@ class Profile extends Component {
         });
     };
 
-    saveModifiedChanges = () => {
+    saveModifiedChanges = (e) => {
+        e.preventDefault();
         if (this.state.address.id !== "new") {
             updateShippingAddressById(this.state.address, this.state.address.id)
                 .then(resp =>
@@ -682,21 +683,24 @@ class Profile extends Component {
                                             />
                                         </label>
                                     </span>
-                                </form>
-                                <div className="save-changes-btn-container">
                                     {
                                         this.state.isChange ?
-                                            <div>
-                                                <button
-                                                    className="custom-next-btn"
-                                                    onClick={this.saveModifiedChanges}>
-                                                    <FormattedMessage id="app.checkout.save-changes"/>
-                                                </button>
-                                            </div>
+                                            <label>
+                                                <div className="profile-save-address-btn-container">
+                                                    <div></div>
+                                                    <div className="p-save-btn-holder">
+                                                        <button
+                                                            className="custom-next-btn"
+                                                            onClick={this.saveModifiedChanges}>
+                                                            <FormattedMessage id="app.checkout.save-changes"/>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </label>
                                             :
                                             null
                                     }
-                                </div>
+                                </form>
                             </div>
                         </div>
                     }

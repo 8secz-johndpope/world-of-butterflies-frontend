@@ -362,6 +362,16 @@
     padding-top: 35px;
 }
 
+.profile-save-address-btn-container{
+    display: grid;
+    grid-template-areas: "1" "2";
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.p-save-btn-holder {
+    justify-self: start;
+}
+
 @media screen and (max-width: 990px) {
 
     .p-mapped-order {

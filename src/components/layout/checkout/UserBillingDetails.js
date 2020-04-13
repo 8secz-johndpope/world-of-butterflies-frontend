@@ -84,9 +84,8 @@ class UserBillingDetails extends Component {
         document.querySelector(".phone-number-input").addEventListener("keypress", this.numberInputEventHandler);
     };
 
-    numberInputEventHandler =(evt)=>{
-        if (evt.which !== 8 && evt.which !== 0 && evt.which < 48 || evt.which > 57)
-        {
+    numberInputEventHandler = (evt) => {
+        if (evt.which !== 8 && evt.which !== 0 && evt.which < 48 || evt.which > 57) {
             evt.preventDefault();
         }
     };
@@ -454,91 +453,91 @@ class UserBillingDetails extends Component {
                                 />
                             </label>
                             <span className="billing-half-style">
-                            <label>
-                                <p className={this.state.addressToFill.firstName === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
-                                    <FormattedMessage id="app.checkout.form.first-name"/>
-                                </p>
-                                <input type="text"
-                                       name="firstName"
-                                       value={this.state.addressToFill.firstName}
-                                       onChange={this.handleChange}
-                                       disabled={this.state.isShippingAddressInputsDisabled}
-                                       className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
-                                />
-                            </label>
-                            <label>
-                                <p className={this.state.addressToFill.lastName === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
-                                    <FormattedMessage id="app.checkout.form.last-name"/>
-                                </p>
-                                <input type="text"
-                                       name="lastName"
-                                       value={this.state.addressToFill.lastName}
-                                       onChange={this.handleChange}
-                                       disabled={this.state.isShippingAddressInputsDisabled}
-                                       className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
-                                />
-                            </label>
-                        </span>
+                                <label>
+                                    <p className={this.state.addressToFill.firstName === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
+                                        <FormattedMessage id="app.checkout.form.first-name"/>
+                                    </p>
+                                    <input type="text"
+                                           name="firstName"
+                                           value={this.state.addressToFill.firstName}
+                                           onChange={this.handleChange}
+                                           disabled={this.state.isShippingAddressInputsDisabled}
+                                           className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
+                                    />
+                                </label>
+                                <label>
+                                    <p className={this.state.addressToFill.lastName === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
+                                        <FormattedMessage id="app.checkout.form.last-name"/>
+                                    </p>
+                                    <input type="text"
+                                           name="lastName"
+                                           value={this.state.addressToFill.lastName}
+                                           onChange={this.handleChange}
+                                           disabled={this.state.isShippingAddressInputsDisabled}
+                                           className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
+                                    />
+                                </label>
+                            </span>
 
 
                             <span className="billing-half-style">
-                            <label>
-                                <p className={this.state.addressToFill.addressLineOne === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
-                                    <FormattedMessage id="app.checkout.form.addr-line-one"/>
-                                </p>
-                                <input type="text"
-                                       name="addressLineOne"
-                                       value={this.state.addressToFill.addressLineOne}
-                                       onChange={this.handleChange}
-                                       disabled={this.state.isShippingAddressInputsDisabled}
-                                       className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
-                                />
-                            </label>
-                            <label>
-                                <p className={this.state.addressToFill.city === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
-                                    <FormattedMessage id="app.checkout.form.city"/>
-                                </p>
-                                <input type="text"
-                                       name="city"
-                                       value={this.state.addressToFill.city}
-                                       onChange={this.handleChange}
-                                       disabled={this.state.isShippingAddressInputsDisabled}
-                                       className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
-                                />
-                            </label>
-                        </span>
+                                <label>
+                                    <p className={this.state.addressToFill.addressLineOne === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
+                                        <FormattedMessage id="app.checkout.form.addr-line-one"/>
+                                    </p>
+                                    <input type="text"
+                                           name="addressLineOne"
+                                           value={this.state.addressToFill.addressLineOne}
+                                           onChange={this.handleChange}
+                                           disabled={this.state.isShippingAddressInputsDisabled}
+                                           className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
+                                    />
+                                </label>
+                                <label>
+                                    <p className={this.state.addressToFill.city === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
+                                        <FormattedMessage id="app.checkout.form.city"/>
+                                    </p>
+                                    <input type="text"
+                                           name="city"
+                                           value={this.state.addressToFill.city}
+                                           onChange={this.handleChange}
+                                           disabled={this.state.isShippingAddressInputsDisabled}
+                                           className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
+                                    />
+                                </label>
+                            </span>
 
 
                             <span className="billing-half-style">
-                            <label>
-                                <p className={this.state.addressToFill.zipCode === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
-                                    <FormattedMessage id="app.checkout.form.zip"/>
-                                </p>
-                                <input type="text"
-                                       name="zipCode"
-                                       value={this.state.addressToFill.zipCode}
-                                       onChange={this.handleChange}
-                                       disabled={this.state.isShippingAddressInputsDisabled}
-                                       className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
-                                />
-                            </label>
-                            <label>
-                                <p className={this.state.addressToFill.country.id === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
-                                    <FormattedMessage id="app.checkout.form.country"/>
-                                </p>
-                                    <select value={this.state.addressToFill.country.name}
-                                            onChange={this.handleShippingAddressDropdownChange}
-                                            disabled={this.state.isShippingAddressInputsDisabled}
-                                            className={this.state.isShippingAddressInputsDisabled ? 'disabled dropdown-selection' : 'dropdown-selection'}>
-                                         <option name='chosen-country'>{this.state.addressToFill.country.name}</option>
-                                        {this.state.countries.map((country, index) =>
-                                            <option name={'country' + index} value={index}>
-                                                {country.name}
-                                            </option>
-                                        )}
-                                    </select>
-                            </label>
-                        </span>
+                                <label>
+                                    <p className={this.state.addressToFill.zipCode === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
+                                        <FormattedMessage id="app.checkout.form.zip"/>
+                                    </p>
+                                    <input type="text"
+                                           name="zipCode"
+                                           value={this.state.addressToFill.zipCode}
+                                           onChange={this.handleChange}
+                                           disabled={this.state.isShippingAddressInputsDisabled}
+                                           className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
+                                    />
+                                </label>
+                                <label>
+                                    <p className={this.state.addressToFill.country.id === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
+                                        <FormattedMessage id="app.checkout.form.country"/>
+                                    </p>
+                                        <select value={this.state.addressToFill.country.name}
+                                                onChange={this.handleShippingAddressDropdownChange}
+                                                disabled={this.state.isShippingAddressInputsDisabled}
+                                                className={this.state.isShippingAddressInputsDisabled ? 'disabled dropdown-selection' : 'dropdown-selection'}>
+                                             <option name='chosen-country'>{this.state.addressToFill.country.name}</option>
+                                            {this.state.countries.map((country, index) =>
+                                                <option name={'country' + index} value={index}>
+                                                    {country.name}
+                                                </option>
+                                            )}
+                                        </select>
+                                </label>
+                            </span>
 
                             <label>
                                 <p className={this.state.addressToFill.phoneNumber === '' && this.state.wasSaveAddressClicked ? 'red-text' : null}>
@@ -566,31 +565,31 @@ class UserBillingDetails extends Component {
                             </label>
 
                             <span className="billing-half-style">
-                            <label>
-                                <p>
-                                    IČO:
-                                </p>
-                                <input type="text"
-                                       name="ico"
-                                       value={this.state.addressToFill.ico ? this.state.addressToFill.ico : ''}
-                                       onChange={this.handleChange}
-                                       disabled={this.state.isShippingAddressInputsDisabled}
-                                       className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
-                                />
-                            </label>
-                            <label>
-                                <p>
-                                    DIČ:
-                                </p>
-                                <input type="text"
-                                       name="dic"
-                                       value={this.state.addressToFill.dic ? this.state.addressToFill.dic : ''}
-                                       onChange={this.handleChange}
-                                       disabled={this.state.isShippingAddressInputsDisabled}
-                                       className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
-                                />
-                            </label>
-                        </span>
+                                <label>
+                                    <p>
+                                        IČO:
+                                    </p>
+                                    <input type="text"
+                                           name="ico"
+                                           value={this.state.addressToFill.ico ? this.state.addressToFill.ico : ''}
+                                           onChange={this.handleChange}
+                                           disabled={this.state.isShippingAddressInputsDisabled}
+                                           className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
+                                    />
+                                </label>
+                                <label>
+                                    <p>
+                                        DIČ:
+                                    </p>
+                                    <input type="text"
+                                           name="dic"
+                                           value={this.state.addressToFill.dic ? this.state.addressToFill.dic : ''}
+                                           onChange={this.handleChange}
+                                           disabled={this.state.isShippingAddressInputsDisabled}
+                                           className={this.state.isShippingAddressInputsDisabled ? 'disabled' : null}
+                                    />
+                                </label>
+                            </span>
                         </form>
 
 
@@ -636,162 +635,160 @@ class UserBillingDetails extends Component {
                             }
                         </div>
                         <div>
-
-                            <div className="additional-shipping-address-in-billing-form">
-
-                                <form className="billing-form">
+                        <div className="additional-shipping-address-in-billing-form">
+                            <form className="billing-form">
+                                <label>
+                                    <p className={this.state.billingAddress.nickName === '' && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent ? 'red-text' : null}>
+                                        <FormattedMessage id="app.checkout.form.nickname"/>
+                                    </p>
+                                    <input type="text"
+                                           name="nickName"
+                                           value={this.state.billingAddress.nickName}
+                                           onChange={this.handleBillingAddressChange}
+                                           disabled={this.state.isBillingAddressInputsDisabled}
+                                           className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
+                                    />
+                                </label>
+                                <span className="billing-half-style">
                                     <label>
-                                        <p className={this.state.billingAddress.nickName === '' && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent ? 'red-text' : null}>
-                                            <FormattedMessage id="app.checkout.form.nickname"/>
+                                        <p className={this.state.billingAddress.firstName === '' && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent ? 'red-text' : null}>
+                                            <FormattedMessage id="app.checkout.form.first-name"/>
                                         </p>
                                         <input type="text"
-                                               name="nickName"
-                                               value={this.state.billingAddress.nickName}
+                                               name="firstName"
+                                               value={this.state.billingAddress.firstName}
                                                onChange={this.handleBillingAddressChange}
                                                disabled={this.state.isBillingAddressInputsDisabled}
                                                className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
                                         />
                                     </label>
-                                    <span className="billing-half-style">
-                                        <label>
-                                            <p className={this.state.billingAddress.firstName === ''  && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent? 'red-text' : null}>
-                                                <FormattedMessage id="app.checkout.form.first-name"/>
-                                            </p>
-                                            <input type="text"
-                                                   name="firstName"
-                                                   value={this.state.billingAddress.firstName}
-                                                   onChange={this.handleBillingAddressChange}
-                                                   disabled={this.state.isBillingAddressInputsDisabled}
-                                                   className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
-                                            />
-                                        </label>
-                                        <label>
-                                            <p className={this.state.billingAddress.lastName === ''  && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent? 'red-text' : null}>
-                                                <FormattedMessage id="app.checkout.form.last-name"/>
-                                            </p>
-                                            <input type="text"
-                                                   name="lastName"
-                                                   value={this.state.billingAddress.lastName}
-                                                   onChange={this.handleBillingAddressChange}
-                                                   disabled={this.state.isBillingAddressInputsDisabled}
-                                                   className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
-                                            />
-                                        </label>
-                                    </span>
-                                    <span className="billing-half-style">
-                                        <label>
-                                            <p className={this.state.billingAddress.addressLineOne === ''  && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent? 'red-text' : null}>
-                                                <FormattedMessage id="app.checkout.form.addr-line-one"/>
-                                            </p>
-                                            <input type="text"
-                                                   name="addressLineOne"
-                                                   value={this.state.billingAddress.addressLineOne}
-                                                   onChange={this.handleBillingAddressChange}
-                                                   disabled={this.state.isBillingAddressInputsDisabled}
-                                                   className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
-                                            />
-                                        </label>
-                                        <label>
-                                            <p className={this.state.billingAddress.city === ''  && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent? 'red-text' : null}>
-                                                <FormattedMessage id="app.checkout.form.city"/>
-                                            </p>
-                                            <input type="text"
-                                                   name="city"
-                                                   value={this.state.billingAddress.city}
-                                                   onChange={this.handleBillingAddressChange}
-                                                   disabled={this.state.isBillingAddressInputsDisabled}
-                                                   className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
-                                            />
-                                        </label>
-                                    </span>
-                                    <span className="billing-half-style">
-                                        <label>
-                                            <p className={this.state.billingAddress.zipCode === ''  && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent? 'red-text' : null}>
-                                                <FormattedMessage id="app.checkout.form.zip"/>
-                                            </p>
-                                            <input type="text"
-                                                   name="zipCode"
-                                                   value={this.state.billingAddress.zipCode}
-                                                   onChange={this.handleBillingAddressChange}
-                                                   disabled={this.state.isBillingAddressInputsDisabled}
-                                                   className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
-                                            />
-                                        </label>
-                                        <label>
-                                            <p className={this.state.billingAddress.country.id === ''  && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent? 'red-text' : null}>
-                                                <FormattedMessage id="app.checkout.form.country"/>
-                                            </p>
-                                            <select value={this.state.billingAddress.country.name}
-                                                    onChange={this.handleBillingAddressDropdownChange}
-                                                    disabled={this.state.isBillingAddressInputsDisabled}
-                                                    className={this.state.isBillingAddressInputsDisabled ? 'disabled dropdown-selection' : 'dropdown-selection'}>
-                                                <option
-                                                    name='chosen-country'>{this.state.billingAddress.country.name}</option>
-                                                {this.state.countries.map((country, index) =>
-                                                    <option name={'country' + index} value={index}>
-                                                        {country.name}
-                                                    </option>
-                                                )}
-                                            </select>
-                                        </label>
-                                    </span>
                                     <label>
-                                        <p className={this.state.billingAddress.phoneNumber === ''  && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent? 'red-text' : null}>
-                                            <FormattedMessage id="app.checkout.form.phone-number"/>
+                                        <p className={this.state.billingAddress.lastName === '' && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent ? 'red-text' : null}>
+                                            <FormattedMessage id="app.checkout.form.last-name"/>
                                         </p>
-                                        <input type="number"
-                                               name="phoneNumber"
-                                               value={this.state.billingAddress.phoneNumber ? this.state.billingAddress.phoneNumber : ''}
+                                        <input type="text"
+                                               name="lastName"
+                                               value={this.state.billingAddress.lastName}
                                                onChange={this.handleBillingAddressChange}
                                                disabled={this.state.isBillingAddressInputsDisabled}
-                                               className={this.state.isBillingAddressInputsDisabled ? 'disabled' : 'phone-number-input'}
+                                               className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
+                                        />
+                                    </label>
+                                </span>
+                                <span className="billing-half-style">
+                                    <label>
+                                        <p className={this.state.billingAddress.addressLineOne === '' && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent ? 'red-text' : null}>
+                                            <FormattedMessage id="app.checkout.form.addr-line-one"/>
+                                        </p>
+                                        <input type="text"
+                                               name="addressLineOne"
+                                               value={this.state.billingAddress.addressLineOne}
+                                               onChange={this.handleBillingAddressChange}
+                                               disabled={this.state.isBillingAddressInputsDisabled}
+                                               className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
+                                        />
+                                    </label>
+                                    <label>
+                                        <p className={this.state.billingAddress.city === '' && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent ? 'red-text' : null}>
+                                            <FormattedMessage id="app.checkout.form.city"/>
+                                        </p>
+                                        <input type="text"
+                                               name="city"
+                                               value={this.state.billingAddress.city}
+                                               onChange={this.handleBillingAddressChange}
+                                               disabled={this.state.isBillingAddressInputsDisabled}
+                                               className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
+                                        />
+                                    </label>
+                                </span>
+                                <span className="billing-half-style">
+                                    <label>
+                                        <p className={this.state.billingAddress.zipCode === '' && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent ? 'red-text' : null}>
+                                            <FormattedMessage id="app.checkout.form.zip"/>
+                                        </p>
+                                        <input type="text"
+                                               name="zipCode"
+                                               value={this.state.billingAddress.zipCode}
+                                               onChange={this.handleBillingAddressChange}
+                                               disabled={this.state.isBillingAddressInputsDisabled}
+                                               className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
+                                        />
+                                    </label>
+                                    <label>
+                                        <p className={this.state.billingAddress.country.id === '' && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent ? 'red-text' : null}>
+                                            <FormattedMessage id="app.checkout.form.country"/>
+                                        </p>
+                                        <select value={this.state.billingAddress.country.name}
+                                                onChange={this.handleBillingAddressDropdownChange}
+                                                disabled={this.state.isBillingAddressInputsDisabled}
+                                                className={this.state.isBillingAddressInputsDisabled ? 'disabled dropdown-selection' : 'dropdown-selection'}>
+                                            <option
+                                                name='chosen-country'>{this.state.billingAddress.country.name}</option>
+                                            {this.state.countries.map((country, index) =>
+                                                <option name={'country' + index} value={index}>
+                                                    {country.name}
+                                                </option>
+                                            )}
+                                        </select>
+                                    </label>
+                                </span>
+                                <label>
+                                    <p className={this.state.billingAddress.phoneNumber === '' && this.state.wasSaveAddressClicked && this.state.isShippingAddressDifferent ? 'red-text' : null}>
+                                        <FormattedMessage id="app.checkout.form.phone-number"/>
+                                    </p>
+                                    <input type="number"
+                                           name="phoneNumber"
+                                           value={this.state.billingAddress.phoneNumber ? this.state.billingAddress.phoneNumber : ''}
+                                           onChange={this.handleBillingAddressChange}
+                                           disabled={this.state.isBillingAddressInputsDisabled}
+                                           className={this.state.isBillingAddressInputsDisabled ? 'disabled' : 'phone-number-input'}
+                                    />
+                                </label>
+                                <label>
+                                    <p>
+                                        <FormattedMessage id="app.checkout.form.company"/>
+                                    </p>
+                                    <input type="text"
+                                           name="company"
+                                           value={this.state.billingAddress.company ? this.state.billingAddress.company : ''}
+                                           onChange={this.handleBillingAddressChange}
+                                           disabled={this.state.isBillingAddressInputsDisabled}
+                                           className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
+                                    />
+                                </label>
+                                <span className="billing-half-style">
+                                    <label>
+                                        <p>
+                                            IČO:
+                                        </p>
+                                        <input type="text"
+                                               name="ico"
+                                               value={this.state.billingAddress.ico ? this.state.billingAddress.ico : ''}
+                                               onChange={this.handleBillingAddressChange}
+                                               disabled={this.state.isBillingAddressInputsDisabled}
+                                               className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
                                         />
                                     </label>
                                     <label>
                                         <p>
-                                            <FormattedMessage id="app.checkout.form.company"/>
+                                            DIČ:
                                         </p>
                                         <input type="text"
-                                               name="company"
-                                               value={this.state.billingAddress.company ? this.state.billingAddress.company : ''}
+                                               name="dic"
+                                               value={this.state.billingAddress.dic ? this.state.billingAddress.dic : ''}
                                                onChange={this.handleBillingAddressChange}
                                                disabled={this.state.isBillingAddressInputsDisabled}
                                                className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
                                         />
                                     </label>
-                                    <span className="billing-half-style">
-                                        <label>
-                                            <p>
-                                                IČO:
-                                            </p>
-                                            <input type="text"
-                                                   name="ico"
-                                                   value={this.state.billingAddress.ico ? this.state.billingAddress.ico : ''}
-                                                   onChange={this.handleBillingAddressChange}
-                                                   disabled={this.state.isBillingAddressInputsDisabled}
-                                                   className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
-                                            />
-                                        </label>
-                                        <label>
-                                            <p>
-                                                DIČ:
-                                            </p>
-                                            <input type="text"
-                                                   name="dic"
-                                                   value={this.state.billingAddress.dic ? this.state.billingAddress.dic : ''}
-                                                   onChange={this.handleBillingAddressChange}
-                                                   disabled={this.state.isBillingAddressInputsDisabled}
-                                                   className={this.state.isBillingAddressInputsDisabled ? 'disabled' : null}
-                                            />
-                                        </label>
-                                    </span>
-                                </form>
-                            </div>
-
+                                </span>
+                            </form>
                         </div>
+
                     </div>
-                    :
-                    null
+                </div>
+                :
+                null
                 }
                 <div className="save-edit-button-container">
                     <div className="address-changes-holder">

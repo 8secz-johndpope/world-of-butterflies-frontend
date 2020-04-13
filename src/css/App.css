@@ -871,7 +871,7 @@ input[type=number] {
 
 .user-billing-detail-container {
     display: grid;
-    grid-template-areas: "1" "2";
+    grid-template-areas: "1" "2" "3";
     grid-template-columns: 1fr;
 }
 
@@ -965,12 +965,12 @@ input[type=number] {
 
 .different-address-checkbox {
     font-weight: bold;
-    /*font-size: 20px;*/
+    font-size: 20px;
 }
 
 .different-address-checkbox p {
     display: inline-block;
-    font-size: 8px;
+    font-size: 11px;
 }
 
 .different-address-checkbox-p {
@@ -982,17 +982,18 @@ input[type=number] {
 }
 
 .different-address-checkbox {
-    zoom: 2;
-    transform: scale(2);
-    -ms-transform: scale(2);
-    -webkit-transform: scale(2);
-    -o-transform: scale(2);
-    -moz-transform: scale(2);
+    zoom: 1.2;
+    transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    -moz-transform: scale(1.2);
     transform-origin: 0 0;
     -ms-transform-origin: 0 0;
     -webkit-transform-origin: 0 0;
     -o-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
+    justify-self: center;
 }
 
 .address-changes-holder {
