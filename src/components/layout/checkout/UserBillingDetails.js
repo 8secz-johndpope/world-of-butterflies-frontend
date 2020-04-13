@@ -425,7 +425,9 @@ class UserBillingDetails extends Component {
                             this.state.billingAddressList ?
                                 <React.Fragment>
                                     {
-                                        this.state.billingAddressList.map(address =>
+                                        this.state.billingAddressList
+                                            .filter(addressToFill => addressToFill.id !== this.state.billingAddress.id)
+                                            .map(address =>
                                             <div className="billing-address">
                                                 <h3 onClick={() => this.chooseAddress(address.id)}
                                                     className={this.state.isCheckboxDisabled ? 'disabled-paragraph ' : 'billing-address-title'}
@@ -621,7 +623,9 @@ class UserBillingDetails extends Component {
                                 this.state.billingAddressList ?
                                     <React.Fragment>
                                         {
-                                            this.state.billingAddressList.map(address =>
+                                            this.state.billingAddressList
+                                                .filter(billingAddress => billingAddress.id !== this.state.addressToFill.id)
+                                                .map(address =>
                                                 <div className="billing-address">
                                                     <h3 onClick={() => this.chooseBillingAddress(address.id)}
                                                         className={this.state.isCheckboxDisabled ? 'disabled-paragraph ' : 'billing-address-title'}
