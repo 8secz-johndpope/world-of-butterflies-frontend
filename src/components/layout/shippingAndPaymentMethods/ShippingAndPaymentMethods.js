@@ -151,8 +151,7 @@ class ShippingAndPaymentMethods extends Component {
                         <p><FormattedMessage id="app.payment-method"/></p>
                     </div>
                     {this.state.paymentMethods.map((paymentMethod) =>
-                        <div
-                            className={Object.keys(this.state.chosenPaymentMethod).length === 0 && this.state.wasGoNextClicked ? 'payment-method red-border' : 'payment-method'}>
+                        <div className={Object.keys(this.state.chosenPaymentMethod).length === 0 && this.state.wasGoNextClicked ? 'payment-method red-border' : 'payment-method'}>
                             <div className="payment-method-radio">
                                 <input type="radio"
                                        name={paymentMethod.nameEN}
