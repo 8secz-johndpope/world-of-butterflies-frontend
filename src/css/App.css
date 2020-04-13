@@ -1756,10 +1756,12 @@ input[type=number] {
     cursor: pointer;
     margin: 2rem 0 3rem;
     text-transform: uppercase;
+    background-color: #d3d3d3;
 }
 
 .custom-next-btn:hover {
-    background-color: #d3d3d3;
+    background-color: black;
+    color: white;
 }
 
 .custom-next-btn:focus {
