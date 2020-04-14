@@ -29,6 +29,7 @@ img {
 
 html, body, #root, .App, .custom-butterfly-builder {
     height: 100%;
+    scroll-behavior: smooth;
 }
 
 body {

@@ -199,6 +199,7 @@ class OrderComplete extends Component {
 
     openPopUp = () => {
         // document.body.style.overflow = 'hidden';
+        window.scrollTo(0, 100);
         this.setState({
             isSuccessPopUpVisible: true,
         })

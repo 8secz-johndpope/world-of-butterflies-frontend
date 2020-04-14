@@ -19,7 +19,7 @@
     grid-template-areas: "success-checkmark" "pop-up-product-container" "pop-up-btn-container";
     justify-self: center;
     align-self: start;
-    margin-top: 25%;
+    margin-top: 300px;
     background-color: #ffffff;
     grid-template-columns: max-content;
     grid-template-rows: max-content;

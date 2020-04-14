@@ -231,6 +231,7 @@ class SingleProduct extends Component {
 
     openPopUp = (amount) => {
         // document.body.style.overflow = 'hidden';
+        window.scrollTo(0, 100);
         this.setState({
             isPopUpVisible: true,
             amountToShowInThePopUp: amount,
